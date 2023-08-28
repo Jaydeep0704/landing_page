@@ -59,13 +59,14 @@ class _MixBannerSectionState extends State<MixBannerSection> {
             ),
             padding: editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_file_show"] == "hide"
                 ?const EdgeInsets.symmetric(vertical: 0): const EdgeInsets.symmetric(vertical: 100),
-            child: Get.width > 980
+            // child: Get.width > 980
+            child: Get.width > 1020
                 ? Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_file_show"] == "hide"
-                    ?SizedBox():
+                    ?const SizedBox():
                 Padding(
                   padding: const EdgeInsets.only(left: 50),
                   child: Column(
@@ -90,11 +91,7 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // const Text(
-                      //   "Small Text",
-                      //   style:
-                      //   TextStyle(fontWeight: FontWeight.w300, fontSize: 17),
-                      // ),
+
                       Text(
                         editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_subtitle"]
                             .toString(),
@@ -108,12 +105,7 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                                 :Color(int.parse(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_subtitle_color"].toString()))),
                       ),
                       const SizedBox(height: 10),
-                      // const Spacer(),
-                      // const Text(
-                      //   "Heading",
-                      //   style:
-                      //   TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                      // ),
+
                       Text(
                         editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title"]
                             .toString(),
@@ -127,13 +119,6 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                                 :Color(int.parse(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_color"].toString()))),
                       ),
                       const SizedBox(height: 10),
-                      // SizedBox(
-                      //     width: Get.width * 0.3,
-                      //     child: const Text(
-                      //       "Sub Text Sub Text Sub Text Sub Text",
-                      //       style: TextStyle(
-                      //           fontWeight: FontWeight.w700, fontSize: 17),
-                      //     )),
                       SizedBox(
                         width: Get.width * 0.3,
                         child: Center(
@@ -156,9 +141,6 @@ class _MixBannerSectionState extends State<MixBannerSection> {
 
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        // crossAxisAlignment: WrapCrossAlignment.center,
-                        // alignment: WrapAlignment.center,
-                        // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -302,7 +284,8 @@ class _MixBannerSectionState extends State<MixBannerSection> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_file_show"] == "hide"
-                    ?SizedBox():    Column(
+                    ? const SizedBox()
+                    : Column(
                   // crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -320,11 +303,6 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // const Text(
-                    //   "Small Text",
-                    //   style:
-                    //   TextStyle(fontWeight: FontWeight.w300, fontSize: 17),
-                    // ),
                     Text(
                       editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_subtitle"]
                           .toString(),
@@ -338,12 +316,6 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                               :Color(int.parse(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_subtitle_color"].toString()))),
                     ),
                     const SizedBox(height: 10),
-                    // const Spacer(),
-                    // const Text(
-                    //   "Heading",
-                    //   style:
-                    //   TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                    // ),
                     Text(
                       editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title"]
                           .toString(),
@@ -357,11 +329,6 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                               :Color(int.parse(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_color"].toString()))),
                     ),
                     const SizedBox(height: 10),
-                    // const Text(
-                    //   "Sub Text Sub Text Sub Text Sub Text",
-                    //   style:
-                    //   TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
-                    // ),
                     Center(
                       child: Text(
                         editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_description"]

@@ -19,29 +19,29 @@ import 'package:video_player/video_player.dart';
 
 import '../view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import '../view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/addTestimonalScreen.dart';
-import 'add_blog.dart';
+import 'add_new_blog.dart';
 import 'add_blog_details.dart';
 import 'blog_controller.dart';
 import 'edit_blog.dart';
 import 'edit_blog_details.dart';
 
 
-class BlogDetailslist extends StatefulWidget {
+class BlogDetailsList extends StatefulWidget {
   final String id;
-  const BlogDetailslist({Key? key,required this.id}) : super(key: key);
+  const BlogDetailsList({Key? key,required this.id}) : super(key: key);
   @override
-  State<BlogDetailslist> createState() => _BlogDetailslistState();
+  State<BlogDetailsList> createState() => _BlogDetailsListState();
 }
 
-class _BlogDetailslistState extends State<BlogDetailslist> {
-  final blog_controller = Get.find<EditBlogController>();
+class _BlogDetailsListState extends State<BlogDetailsList> {
+  final blogController = Get.find<EditBlogController>();
   final editController = Get.find<EditController>();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
-      blog_controller.GetBlogDetailsData(id: widget.id);
+      blogController.getBlogDetailsData(id: widget.id);
     });
   }
 
@@ -79,7 +79,10 @@ class _BlogDetailslistState extends State<BlogDetailslist> {
                     child: InkWell(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => add_blog_details(id: widget.id,)));
+                            MaterialPageRoute(builder: (context) => AddBlogDetail(id: widget.id,))).whenComplete(() =>
+                            WidgetsBinding.instance.addPostFrameCallback((_){
+                          blogController.getBlogDetailsData(id: widget.id);
+                        }));
                       },
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
@@ -104,16 +107,16 @@ class _BlogDetailslistState extends State<BlogDetailslist> {
                   const SizedBox(height: 25),
                   Expanded(
                     child: Obx(() {
-                      if (blog_controller.blogdetails.isNotEmpty) {
-                        return Container(
+                      if (blogController.blogDetails.isNotEmpty) {
+                        return SizedBox(
                             height: Get.height,
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,
                               itemCount:
-                              blog_controller.blogdetails.length,
+                              blogController.blogDetails.length,
                               itemBuilder: (context, index) {
                                 var data =
-                                blog_controller.blogdetails[index];
+                                blogController.blogDetails[index];
                                 return Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child:
@@ -128,22 +131,23 @@ class _BlogDetailslistState extends State<BlogDetailslist> {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) => edit_blog_details(
+                                                  builder: (context) => EditBlogDetails(
                                                     blog_id: widget.id,
-                                                    blog_deatils_id: data["_id"].toString(),
-                                                    title: data["title"].toString(),
-                                                    descripton: data["description"].toString(),
+                                                    data: data,
                                                   ),
                                                 ),
-                                              );
+                                              ).whenComplete(() =>
+                                                  WidgetsBinding.instance.addPostFrameCallback((_){
+                                                    blogController.getBlogDetailsData(id: widget.id);
+                                                  }));
                                             },
                                             icon: const Icon(Icons.edit),
                                           ),
                                           IconButton(
                                             onPressed: () {
-                                              blog_controller.delete_blog_details(
+                                              blogController.deleteBlogDetails(
                                                 id: data["blog_auto_id"].toString(),
-                                                deatils_id: data["_id"].toString(),
+                                                detailsId: data["_id"].toString(),
                                               );
                                             },
                                             icon: const Icon(Icons.delete_forever),

@@ -17,8 +17,8 @@ import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../../../../../BlogSection/BlogListScreen.dart';
-import '../../../../../BlogSection/Blog_details_screen.dart';
+import '../../../../../BlogSection/all_blogs_list.dart';
+import '../../../../../BlogSection/blog_details_screen.dart';
 import '../../../../../BlogSection/blog_controller.dart';
 import '../../../../../config/app_string.dart';
 import '../../../../../widget/common_button.dart';
@@ -47,8 +47,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
   final introSecController = Get.find<IntroSectionController>();
   final editController = Get.find<EditController>();
   final editIntroController = Get.find<EditIntroController>();
-  final testimonalcontroller = Get.find<EditTestimonalController>();
-  final blog_controller = Get.find<EditBlogController>();
+  final testimonialController = Get.find<EditTestimonalController>();
+  final blogController = Get.find<EditBlogController>();
   List<dynamic> rawData=[] ; // fetched data
 
   oneTimeAnimation() {
@@ -156,7 +156,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                               });
                             },
                           ),
-                          SizedBox(width: 10,),
+                          const SizedBox(width: 10,),
                           InkWell(
                               onTap: () {
                                 showDialog(
@@ -219,22 +219,49 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                               child: const Icon(Icons.colorize)),
                         ],
                       )),
+                  Align(
+                    alignment: AlignmentDirectional.centerEnd,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            color: AppColors.greyBorderColor.withOpacity(0.5)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text("Customer Logos Visibility",style: AppTextStyle.regular500.copyWith(fontSize: 14),),
+                            const SizedBox(width: 5,),
+                            Switch(
+                              value: testimonialController.testimonial_title_1_Switch.value,
+                              onChanged: (value) {
+                                setState(() {
+                                  testimonialController.testimonial_title_1_Switch.value = value;
+                                  print("value ---- $value");
+                                  editController.showHideMedia(
+                                      value: value == false
+                                          ? "hide"
+                                          : "show",
+                                      keyName: "testimonials_title1_visible");
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+
                   Row(
                     children: [
                       Get.width > 500 ? const SizedBox( )
                           :const SizedBox(width:  10),
                       Expanded(
                         child:
-                        // child: Text(
-                        //   "Delivering Apps to Happy Customers",
-                        //   textAlign: TextAlign.center,
-                        //   style: TextStyle(
-                        //     // fontSize: 40,
-                        //     //     fontSize: Get.width >1000 ?50:30,
-                        //       fontSize: 24,
-                        //       fontWeight: FontWeight.bold,
-                        //       color: Colors.black),
-                        // ),
+
                         InkWell(
                           onTap: () => Get.dialog(
                               TextEditModule(
@@ -274,7 +301,6 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           onTap: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) => const EditTestimonalScreen()));
-
                           },
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
@@ -309,7 +335,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                         child: Align(
                           alignment: Alignment.center,
                           child: Obx(() {
-                            return testimonalcontroller.appLogoListt.isEmpty
+                            return testimonialController.appLogoListt.isEmpty
                                 ? const Center(child: Text("No Data"))
                                 : GridView.builder(
                               padding: const EdgeInsets.all(25),
@@ -319,9 +345,9 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                   mainAxisExtent: 100,
                                   mainAxisSpacing: 10),
                               shrinkWrap: true,
-                              itemCount: testimonalcontroller.appLogoListt.length,
+                              itemCount: testimonialController.appLogoListt.length,
                               itemBuilder: (context, index) {
-                                var data = testimonalcontroller.appLogoListt[index];
+                                var data = testimonialController.appLogoListt[index];
                                 return ClipRRect(
                                   borderRadius: BorderRadius.circular(5), // Adjust the radius to your preference
                                   child: Container(
@@ -357,6 +383,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                       // SizedBox(width: Get.width * 0.08)
                     ],
                   ),
+
                   const SizedBox(height: 40),
                   ///edit testimonial button
                   Align(
@@ -390,32 +417,35 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                   ///our testimonial
                   Align(
                     alignment: AlignmentDirectional.centerEnd,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(10)),
-                        color: AppColors.greyBorderColor.withOpacity(0.5)
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text("Testimonial 1 Visibility",style: AppTextStyle.regular500.copyWith(fontSize: 14),),
-                          const SizedBox(width: 5,),
-                          Switch(
-                            value: testimonalcontroller.testimonial1Switch.value,
-                            onChanged: (value) {
-                              setState(() {
-                                testimonalcontroller.testimonial1Switch.value = value;
-                                print("value ---- $value");
-                                editController.showHideMedia(
-                                    value: value == false
-                                        ? "hide"
-                                        : "show",
-                                    keyName: "testimonial1_visible");
-                              });
-                            },
-                          ),
-                           ],
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          color: AppColors.greyBorderColor.withOpacity(0.5)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text("Testimonial 1 Visibility",style: AppTextStyle.regular500.copyWith(fontSize: 14),),
+                            const SizedBox(width: 5,),
+                            Switch(
+                              value: testimonialController.testimonial1Switch.value,
+                              onChanged: (value) {
+                                setState(() {
+                                  testimonialController.testimonial1Switch.value = value;
+                                  print("value ---- $value");
+                                  editController.showHideMedia(
+                                      value: value == false
+                                          ? "hide"
+                                          : "show",
+                                      keyName: "testimonial1_visible");
+                                });
+                              },
+                            ),
+                             ],
+                        ),
                       ),
                     ),
                   ),
@@ -531,7 +561,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                 : 0.90,
                             autoPlay: true,
                           ),
-                          items: testimonalcontroller.getTestimonal.map((featuredImage) {
+                          items: testimonialController.getTestimonal.map((featuredImage) {
                             return Container(
                               // height: 300,
                               width: Get.width > 700 ? 600 : 450,
@@ -671,32 +701,35 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                   ///inspired testimonial
                   Align(
                     alignment: AlignmentDirectional.centerEnd,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
-                          color: AppColors.greyBorderColor.withOpacity(0.5)
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text("Testimonial 2 Visibility",style: AppTextStyle.regular500.copyWith(fontSize: 14),),
-                          const SizedBox(width: 5),
-                          Switch(
-                            value: testimonalcontroller.testimonial2Switch.value,
-                            onChanged: (value) {
-                              setState(() {
-                                testimonalcontroller.testimonial2Switch.value = value;
-                                print("value ---- $value");
-                                editController.showHideMedia(
-                                    value: value == false
-                                        ? "hide"
-                                        : "show",
-                                    keyName: "testimonial2_visible");
-                              });
-                            },
-                          ),
-                        ],
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            color: AppColors.greyBorderColor.withOpacity(0.5)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text("Testimonial 2 Visibility",style: AppTextStyle.regular500.copyWith(fontSize: 14),),
+                            const SizedBox(width: 5),
+                            Switch(
+                              value: testimonialController.testimonial2Switch.value,
+                              onChanged: (value) {
+                                setState(() {
+                                  testimonialController.testimonial2Switch.value = value;
+                                  print("value ---- $value");
+                                  editController.showHideMedia(
+                                      value: value == false
+                                          ? "hide"
+                                          : "show",
+                                      keyName: "testimonial2_visible");
+                                });
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -772,7 +805,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                       children: [
                         Obx(() {
                           return webLandingPageController.aboveCardIndex.value
-                              .toString().isEmpty || testimonalcontroller.getTestimonal.isEmpty
+                              .toString().isEmpty || testimonialController.getTestimonal.isEmpty
                               ? const SizedBox()
                               : Expanded(
                             child: Padding(
@@ -784,7 +817,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                 children: [
                                   /*  Get.width > 350
                                               ? */Text(
-                                    "${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['Description']}",
+                                    "${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['Description']}",
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 17),
@@ -803,7 +836,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                     MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Company : ${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['company_name']}",
+                                        "Company : ${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['company_name']}",
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 17),
@@ -817,14 +850,14 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                     children: [
                                       Text(
                                         // "Mr Gary",
-                                        "Name : ${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['user_name']}",
+                                        "Name : ${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['user_name']}",
                                         style: const TextStyle(
                                             fontWeight:
                                             FontWeight.bold,
                                             fontSize: 17),
                                       ),
                                       Text(
-                                        " -${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['Position']}",
+                                        " -${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['Position']}",
                                         style: const TextStyle(
                                             fontWeight:
                                             FontWeight.w400,
@@ -882,7 +915,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                             webLandingPageController
                                                 .aboveCardIndex
                                                 .value =
-                                                testimonalcontroller.getTestimonal
+                                                testimonialController.getTestimonal
                                                     .length -
                                                     1;
                                           }
@@ -917,7 +950,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                           if (webLandingPageController
                                               .aboveCardIndex
                                               .value <
-                                              testimonalcontroller.getTestimonal
+                                              testimonialController.getTestimonal
                                                   .length -
                                                   1) {
                                             webLandingPageController
@@ -933,7 +966,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                             webLandingPageController
                                                 .belowCardIndex
                                                 .value =
-                                                testimonalcontroller.getTestimonal
+                                                testimonialController.getTestimonal
                                                     .length -
                                                     1;
                                             webLandingPageController
@@ -1082,8 +1115,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                                           borderRadius:
                                                           BorderRadius.all(Radius.circular(5))),
                                                       child:buildMediaWidget(
-                                                          testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
-                                                          testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString())
+                                                          testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
+                                                          testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString())
                                                     // ClipRRect(
                                                     //       borderRadius:
                                                     //       const BorderRadius.all(Radius.circular(20)),
@@ -1184,8 +1217,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
 
                                                           child:
                                                           buildMediaWidget(
-                                                              testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
-                                                              testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString())
+                                                              testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
+                                                              testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString())
                                                         // testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "image" ||
                                                         //     testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "gif"
                                                         //     ? CachedNetworkImage(
@@ -1426,8 +1459,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                                         const BorderRadius.all(Radius.circular(20)),
 
                                                         child:  buildMediaWidget(
-                                                            testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
-                                                            testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString())
+                                                            testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
+                                                            testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString())
 
                                                       // testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'] == "image" ||
                                                       //     testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'] == "gif"
@@ -1526,8 +1559,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                                         const BorderRadius.all(Radius.circular(20)),
 
                                                         child: buildMediaWidget(
-                                                            testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
-                                                            testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString())
+                                                            testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
+                                                            testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString())
                                                       // testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "image" ||
                                                       //     testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "gif"
                                                       //     ? CachedNetworkImage(
@@ -1594,7 +1627,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           const SizedBox(height: 10),
                           Text(
                             // StaticString.loremIpsum,
-                            "${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['Description']}",
+                            "${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['Description']}",
                             maxLines: 13,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -1603,7 +1636,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           const SizedBox(height: 10),
                           Text(
                             // "ABC & Co.",
-                            "${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]["company_name"]}",
+                            "${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]["company_name"]}",
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 17),
@@ -1613,13 +1646,13 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                             children:  [
                               Text(
                                 // "Mr Gary",
-                                "${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['user_name']}",
+                                "${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['user_name']}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 17),
                               ),
                               Text(
-                                " - ${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['Position']}",
+                                " - ${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['Position']}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 17),
@@ -1644,7 +1677,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                       .belowCardIndex.value = 0;
                                   webLandingPageController
                                       .aboveCardIndex.value =
-                                      testimonalcontroller.getTestimonal.length - 1;
+                                      testimonialController.getTestimonal.length - 1;
                                 }
                                 setState(() {});
                                 _animationController.reset();
@@ -1672,7 +1705,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                     "1111111111111${webLandingPageController.aboveCardIndex.value}");
                                 if (webLandingPageController
                                     .aboveCardIndex.value <
-                                    testimonalcontroller.getTestimonal.length - 1) {
+                                    testimonialController.getTestimonal.length - 1) {
                                   webLandingPageController
                                       .belowCardIndex.value =
                                       webLandingPageController
@@ -1685,7 +1718,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                 } else {
                                   webLandingPageController
                                       .belowCardIndex.value =
-                                      testimonalcontroller.getTestimonal.length - 1;
+                                      testimonialController.getTestimonal.length - 1;
                                   webLandingPageController
                                       .aboveCardIndex.value = 0;
                                 }
@@ -1888,8 +1921,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                             : 15),
                     child: Row(
                       children:  [
-                        Get.width > 500 ? SizedBox( )
-                            :SizedBox(width:  10),
+                        Get.width > 500 ? const SizedBox( )
+                            :const SizedBox(width:  10),
                         Expanded(
                           child:
                           // child: Text(
@@ -1931,8 +1964,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                             ),
                           ),
                         ),
-                        Get.width > 500 ? SizedBox( )
-                            :SizedBox(width:  10),
+                        Get.width > 500 ? const SizedBox( )
+                            :const SizedBox(width:  10),
                       ],
                     ),
                   ),
@@ -1998,7 +2031,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                 : 0.8,
                             autoPlay: true,
                           ),
-                          items: blog_controller.blogdata.map((featuredImage) {
+                          items: blogController.blogdata.map((featuredImage) {
 
                             return InkWell(
                               onTap: (){
@@ -2009,12 +2042,11 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                       content:featuredImage["content"]  ,
                                       name: featuredImage["userName"]  ,
                                       media: featuredImage["media"]  ,
-                                      blogtype: featuredImage["blogTypeKey"]  ,
-                                      mediatype:  featuredImage["media_type"]  ,
-                                      profilimg:  featuredImage["userImage"],
+                                      blogType: featuredImage["blogTypeKey"]  ,
+                                      mediaType:  featuredImage["media_type"]  ,
+                                      profileImg:  featuredImage["userImage"],
                                       bgColor:  featuredImage["blogs_section_color"]  ,
-                                      blogDetails: List<Map<String, String>>.from(featuredImage["blog_details"]
-                                          .map((detail) => Map<String, String>.from(detail))),
+                                      blogDetails: List<Map<String, String>>.from(featuredImage["blog_details"].map((detail) => Map<String, String>.from(detail))),
 
                                     )));
                               },

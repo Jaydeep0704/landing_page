@@ -252,38 +252,38 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                                 _currentIndex == itemIndex
                                     ? FittedBox(
                                   fit: BoxFit.scaleDown,
-                                  child: Container(
-                                    width: 250,
-                                    // height: 550,
-                                    height: 450,
-                                    // decoration: BoxDecoration(color: AppColors.whiteColor),
-                                    margin: const EdgeInsets.only(left: 5,right: 5,top: 70),
-                                    child: Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                          const BorderRadius.all(Radius.circular(20)),
-                                          child: a.appMediaFileType == "image" ||
-                                              a.appMediaFileType == "gif"
-                                              ? CachedNetworkImage(
-                                            // height: 550,
-                                            // width: Get.width * 0.4,
-                                            width: 250,
-                                            // width: Get.width * 0.9,
-                                            imageUrl: APIString.latestmediaBaseUrl + a.appMediaFile,
-                                            placeholder: (context, url) => Container(
-                                              decoration: BoxDecoration(color: Color(int.parse(editController.appDemoBgColor.value.toString())),
+                                    child: Container(
+                                      width: 250,
+                                      // height: 550,
+                                      height: 450,
+                                      // decoration: BoxDecoration(color: AppColors.whiteColor),
+                                      margin: const EdgeInsets.only(left: 5,right: 5,top: 70),
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                            const BorderRadius.all(Radius.circular(20)),
+                                            child: a.appMediaFileType == "image" ||
+                                                a.appMediaFileType == "gif"
+                                                ? CachedNetworkImage(
+                                              // height: 550,
+                                              // width: Get.width * 0.4,
+                                              width: 250,
+                                              // width: Get.width * 0.9,
+                                              imageUrl: APIString.latestmediaBaseUrl + a.appMediaFile,
+                                              placeholder: (context, url) => Container(
+                                                decoration: BoxDecoration(color: Color(int.parse(editController.appDemoBgColor.value.toString())),
+                                                ),
                                               ),
-                                            ),
-                                            errorWidget: (context, url, error) => const Icon(Icons.error),
-                                            fit: BoxFit.fill,
-                                          )
-                                              : displayUploadedVideo(a.appMediaFile,isCurrent: _currentIndex == itemIndex),
+                                              errorWidget: (context, url, error) => const Icon(Icons.error),
+                                              fit: BoxFit.fill,
+                                            )
+                                                : displayUploadedVideo(a.appMediaFile,isCurrent: _currentIndex == itemIndex),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
                                 )
                                     : FittedBox(
                                   fit: BoxFit.scaleDown,

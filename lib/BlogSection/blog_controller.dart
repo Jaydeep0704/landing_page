@@ -23,9 +23,9 @@ class EditBlogController extends GetxController {
   RxList blogtype = [].obs;
   RxString msg = "".obs;
 
-  RxList blogdetails = [].obs;
+  RxList blogDetails = [].obs;
 
-  GetBlogData() async {
+  getBlogData() async {
     log("step --------  +++ 1 ");
     showLoadingDialog();
     // hideLoadingDialog();
@@ -83,7 +83,7 @@ class EditBlogController extends GetxController {
           backgroundColor: Colors.grey,
         );
         // Get.back();
-        GetBlogData();
+        getBlogData();
         print("Deleted");
       } else {
         String msg = resp['msg'];
@@ -102,45 +102,62 @@ class EditBlogController extends GetxController {
     }
   }
 
-  GetBlogDetailsData({String? id}) async {
-    log("step --------  +++ 1 ");
-    showLoadingDialog();
-    // hideLoadingDialog();
+  // getBlogDetailsData({String? id}) async {
+  //   showLoadingDialog();
+  //   try {
+  //     blogDetails.clear();
+  //     var response = await HttpHandler.postHttpMethod(
+  //         url: APIString.get_blog_details,
+  //         data: {
+  //           "blog_auto_id":id,
+  //         });
+  //     hideLoadingDialog();
+  //     if (response['error'] == null) {
+  //
+  //       if (response['body']['status'].toString() == "1") {
+  //         blogDetails.value = response['body']["data"];
+  //         msg.value = response['body']["msg"];
+  //       }
+  //     } else {
+  //     }
+  //   } catch (e, s) {
+  //     debugPrint("get logo Error -- $e  $s");
+  //   }
+  // }
+  Future getBlogDetailsData({String? id}) async {
+    log("inside getBlogDetailsData ---------1");
     try {
-      log("step --------  +++  2 ");
-      blogdetails.clear();
+      log("inside getBlogDetailsData ---------2");
+      showLoadingDialog();
+      blogDetails.clear();
 
-      Get.focusScope!.unfocus();
       var response = await HttpHandler.postHttpMethod(
           url: APIString.get_blog_details,
           data: {
-            "blog_auto_id":id,
+            "blog_auto_id": id,
           });
-      log("step --------  +++ 3 ");
-      hideLoadingDialog();
       if (response['error'] == null) {
-        log("step --------  +++  4");
-
+        hideLoadingDialog();
         if (response['body']['status'].toString() == "1") {
-          blogdetails.value = response['body']["data"];
-          msg.value = response['body']["msg"];
+          blogDetails.value = response['body']['data'];
         }
-      } else {
-        log("step --------  +++  77 Error");
-        //error
+      }
+      else if (response['error'] != null) {
+        // showSnackbar(title: "Warning",message: "Error");
+        hideLoadingDialog();
       }
     } catch (e, s) {
-      debugPrint("get logo Error -- $e  $s");
+      debugPrint("getBlogDetailsData Error -- $e  $s");
+      Future.delayed(Duration.zero,() => hideLoadingDialog(),);
     }
   }
 
-  add_blog_details_api({String? id,String? title, String? description}) async {
-    log("step --------  +++ 1 ");
+
+  addBlogDetailsApi({String? id,String? title, String? description}) async {
     showLoadingDialog();
     //blog_auto_id,title,description
     try {
       log("step --------  +++  2 ");
-      Get.focusScope!.unfocus();
       var response = await HttpHandler.postHttpMethod(
           url: APIString.add_blog_details,
           data: {
@@ -157,7 +174,7 @@ class EditBlogController extends GetxController {
 
         if (response['body']['status'].toString() == "1") {
           showSnackbar(title: "Success", message: "${response['body']['msg']}");
-          Get.off(BlogDetailslist(id: id!,));
+          Get.off(BlogDetailsList(id: id!,));
 
         }
       } else {
@@ -169,7 +186,9 @@ class EditBlogController extends GetxController {
     }
   }
 
-  edit_blog_details_api({String? blog_deatils_id,String? blog_id,String? title, String? description}) async {
+
+
+  editBlogDetailsApi({String? blogDetailsId,String? blogId,String? title, String? description}) async {
     log("step --------  +++ 1 ");
     showLoadingDialog();
     //blog_details_auto_id,
@@ -182,8 +201,8 @@ class EditBlogController extends GetxController {
       var response = await HttpHandler.postHttpMethod(
           url: APIString.edit_blog_details,
           data: {
-            "blog_details_auto_id":blog_deatils_id,
-            "blog_auto_id":blog_id,
+            "blog_details_auto_id":blogDetailsId,
+            "blog_auto_id":blogId,
             "title":title,
             "description":description,
           });
@@ -194,7 +213,7 @@ class EditBlogController extends GetxController {
 
         if (response['body']['status'].toString() == "1") {
           showSnackbar(title: "Success", message: "${response['body']['msg']}");
-          Get.to(BlogDetailslist(id: blog_id!,));
+          Get.to(BlogDetailsList(id: blogId!,));
 
         }
       } else {
@@ -206,12 +225,11 @@ class EditBlogController extends GetxController {
     }
   }
 
-  Future<void> delete_blog_details({String? id,String? deatils_id})  async {
+  Future<void> deleteBlogDetails({String? id,String? detailsId})  async {
     var url = APIString.grobizBaseUrl + APIString.delete_blog_details;
-//blog_auto_id,blog_details_auto_id
     final body = {
       'blog_auto_id':id,
-      'blog_details_auto_id':deatils_id,
+      'blog_details_auto_id':detailsId,
     };
     Uri uri = Uri.parse(url);
     final response = await http.post(uri, body: body);
@@ -227,7 +245,7 @@ class EditBlogController extends GetxController {
           backgroundColor: Colors.grey,
         );
         // Get.back();
-        GetBlogDetailsData(id: id);
+        getBlogDetailsData(id: id);
         print("Deleted");
       } else {
         String msg = resp['msg'];

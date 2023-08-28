@@ -124,14 +124,12 @@ class EditController extends GetxController {
                   : false;
 
           ///testimonials show hide
-          Get.find<EditTestimonalController>().testimonial1Switch.value =
-              allDataResponse[0]["showcase_apps_details"][0]
-                          ["testimonial1_visible"] ==
-                      "show"
-                  ? true
-                  : false;
+          Get.find<EditTestimonalController>().testimonial_title_1_Switch.value = allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] == "show" ? true : false;
+
+
+          Get.find<EditTestimonalController>().testimonial1Switch.value = allDataResponse[0]["testimonials_details"][0]["testimonial1_visible"] == "show" ? true : false;
           Get.find<EditTestimonalController>().testimonial2Switch.value =
-              allDataResponse[0]["showcase_apps_details"][0]
+              allDataResponse[0]["testimonials_details"][0]
                           ["testimonial2_visible"] ==
                       "show"
                   ? true

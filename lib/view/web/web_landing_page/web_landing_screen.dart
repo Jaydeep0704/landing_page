@@ -211,7 +211,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
         Get.find<EditTestimonalController>().GetTestimonal().then((value) {
           webLandingPageController.belowCardIndex.value = Get.find<EditTestimonalController>().getTestimonal.length - 1;
         });
-        Get.find<EditBlogController>().GetBlogData();
+        Get.find<EditBlogController>().getBlogData();
       });
     },);
 

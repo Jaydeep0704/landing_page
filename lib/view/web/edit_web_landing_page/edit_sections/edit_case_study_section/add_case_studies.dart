@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/add_update_short_case_study.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/edit_Detail_case_study.dart';
 import 'package:http_parser/src/media_type.dart';
 
@@ -28,7 +29,7 @@ class AllNewCaseStudies extends StatefulWidget {
 }
 
 class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
-  final editPartnerController = Get.put(EditCaseStudyController());
+  final editPartnerController = Get.find<EditCaseStudyController>();
 
   List<PlatformFile>? _paths;
   var pathsFile;
@@ -135,7 +136,7 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
       },
     );
   }
-//_paths != null ?ClipRRect(child: Image.memory(_paths!.first.bytes!,height: 60,width: 60,))
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -146,7 +147,7 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
             leading: const BackButton(
               color: AppColors.blackColor,
             ),
-            title: Text("Edit Partner Logo",
+            title: Text("Edit Case Study",
                 style: AppTextStyle.regularBold
                     .copyWith(color: AppColors.blackColor, fontSize: 18)),
             centerTitle: true,
@@ -162,7 +163,6 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                       blurRadius: 4,
                       spreadRadius: 3)
                 ]),
-                // width: Get.width > 800 ? 700 : 400,
                 width: Get.width > 800 ? 700 : Get.width,
                 child: Column(
                   children: [
@@ -171,7 +171,8 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                       alignment: Alignment.topRight,
                       child: GestureDetector(
                         onTap: () {
-                          showPopup(isEdit: false);
+                          // showPopup(isEdit: false);
+                          Get.to(()=>AddUpdateShortCaseStudy(isEdit: false,))!.whenComplete(() => editPartnerController.getCaseStudy());
                           // pickFiles(addImage: true);
                         },
                         child: FittedBox(
@@ -235,23 +236,25 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                                               const Icon(Icons.error),
                                             ),
                                             const SizedBox(width: 20),
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text("Title",style: AppTextStyle.regularBold.copyWith(fontSize: 16,color: AppColors.blackColor),),
-                                                Text("${data["case_study_title"]}",style: AppTextStyle.regular300.copyWith(fontSize: 14,color: AppColors.blackColor),),
-                                                const SizedBox(height: 10),
-                                                Text("Case Study Type",style: AppTextStyle.regularBold.copyWith(fontSize: 16,color: AppColors.blackColor),),
-                                                Text("${data["case_study_type"]}",style: AppTextStyle.regular300.copyWith(fontSize: 14,color: AppColors.blackColor),),
-                                                const SizedBox(height: 10),
-                                                Text("Case Study Category",style: AppTextStyle.regularBold.copyWith(fontSize: 16,color: AppColors.blackColor),),
-                                                Text("${data["case_study_category"]}",style: AppTextStyle.regular300.copyWith(fontSize: 14,color: AppColors.blackColor),),
-                                                const SizedBox(height: 10),
-                                                Text("Case Study Short Desciption",style: AppTextStyle.regularBold.copyWith(fontSize: 16,color: AppColors.blackColor),),
-                                                Text("${data["case_study_short_desciption"]}",style: AppTextStyle.regular300.copyWith(fontSize: 14,color: AppColors.blackColor),),
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text("Title",style: AppTextStyle.regularBold.copyWith(fontSize: 16,color: AppColors.blackColor),),
+                                                  Text("${data["case_study_title"]}",style: AppTextStyle.regular300.copyWith(fontSize: 14,color: AppColors.blackColor),),
+                                                  const SizedBox(height: 10),
+                                                  Text("Case Study Type",style: AppTextStyle.regularBold.copyWith(fontSize: 16,color: AppColors.blackColor),),
+                                                  Text("${data["case_study_type"]}",style: AppTextStyle.regular300.copyWith(fontSize: 14,color: AppColors.blackColor),),
+                                                  const SizedBox(height: 10),
+                                                  Text("Case Study Category",style: AppTextStyle.regularBold.copyWith(fontSize: 16,color: AppColors.blackColor),),
+                                                  Text("${data["case_study_category"]}",style: AppTextStyle.regular300.copyWith(fontSize: 14,color: AppColors.blackColor),),
+                                                  const SizedBox(height: 10),
+                                                  Text("Case Study Short Desciption",style: AppTextStyle.regularBold.copyWith(fontSize: 16,color: AppColors.blackColor),),
+                                                  Text("${data["case_study_short_desciption"]}",style: AppTextStyle.regular300.copyWith(fontSize: 14,color: AppColors.blackColor),),
 
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -261,14 +264,19 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                                           children: [
                                             GestureDetector(
                                               onTap: () async {
-                                                showPopup(
-                                                    isEdit: true,
-                                                    id: data["case_study_auto_id"],
-                                                    title: data["case_study_title"],
-                                                    shortDescription: data["case_study_short_desciption"],
-                                                    category: data["case_study_category"],
-                                                    type: data["case_study_type"]
-                                                );
+                                                Get.to(()=>AddUpdateShortCaseStudy(
+                                                  isEdit: true,
+                                                media: data["media"],
+                                                  shortDescription: data["case_study_short_desciption"],
+                                                  detailDescription: data["case_study_detail_desciption"],
+                                                  caseType: data["case_study_type"],
+                                                  caseStudyImage: data["case_study_image"],
+                                                  caseStudyAutoId: data["case_study_auto_id"],
+                                                  caseCategory: data["case_study_category"],mediaTypeKey: data["mediaTypeKey"],
+                                                  title: data["case_study_title"],
+                                                
+                                                ))!.whenComplete(() => editPartnerController.getCaseStudy());
+
                                               },
                                               child: FittedBox(
                                                 fit: BoxFit.scaleDown,
@@ -433,8 +441,6 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
     log("file1 ------> $pathsFile ${pathsFile.runtimeType} ");
     log("file2 ------> $pathsFileName ${pathsFileName.runtimeType} ");
     try {
-      log("step --------  5");
-
       if (pathsFile != null) {
         if (kIsWeb) {
           request.files.add(
@@ -450,17 +456,11 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
           showSnackbar(title: "", message: "Not Allowed");
         }
       }
-
-      log("step --------  6");
     } catch (exception) {
-      log("step --------  7");
       request.fields["case_study_image"] = '';
-      log('pic not selected');
     }
-    log("step --------  8");
 
     debugPrint(request.fields.toString());
-    log("step --------  9");
     request.fields["case_study_type"] = caseStudyType.toString();
     request.fields["case_study_category"] =caseStudyCategory.toString();
     request.fields["case_study_title"] =caseStudyTitle.toString();

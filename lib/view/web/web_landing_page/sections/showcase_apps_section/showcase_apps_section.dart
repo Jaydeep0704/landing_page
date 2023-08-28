@@ -272,7 +272,9 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                     ],
                   ),
                   Get.width > 505?const SizedBox():
-                  Padding(
+                  editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_show_hide"] == "hide"
+                      ? const SizedBox()
+                      : Padding(
                     padding: const EdgeInsets.only(top: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -296,124 +298,7 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                     ),
                   ),
                   const SizedBox(height: 40),
-                  //      Padding(
-                  //   padding: EdgeInsets.symmetric(
-                  //       horizontal: Get.width > 1500 ? 60
-                  //           : Get.width > 1000 ? 22
-                  //           : Get.width > 600 ? 15 : 15),
-                  //   child: Row(
-                  //     children: [
-                  //       Get.width > 500 ? const Expanded(child: SizedBox( ))
-                  //           :SizedBox(width:  Get.width * 0.10),
-                  //       Expanded(
-                  //         child: Text(
-                  //           "Apps Created by \"Genesi\" ",
-                  //           textAlign: TextAlign.center,
-                  //           style: TextStyle(
-                  //             // fontSize: 50,
-                  //               fontSize: Get.width > 1000 ? 24 : 24,
-                  //               fontWeight: FontWeight.bold,
-                  //               color: Colors.black),
-                  //         ),
-                  //       ),
-                  //       Get.width > 500 ? const Expanded(child: SizedBox( ))
-                  //           :SizedBox(width:  Get.width * 0.10),
-                  //
-                  //       // const SizedBox(width: 30),
-                  //     ],
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 40),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     Get.width > 505?
-                  //     IconButton(
-                  //       onPressed: () {
-                  //         webLandingPageController.carouselController.previousPage();
-                  //       },
-                  //       icon: const Icon(Icons.arrow_back),
-                  //     )
-                  //         :const SizedBox(),
-                  //     Container(
-                  //       width: Get.width > 1500 ?  Get.width - Get.width * 0.16 : Get.width > 1000 ? Get.width - Get.width * 0.15 : Get.width > 500 ?Get.width - Get.width * 0.2:Get.width -50,
-                  //       alignment: Alignment.center,
-                  //       child: CarouselSlider(
-                  //         carouselController:
-                  //         webLandingPageController.carouselController, // Give the controller
-                  //         options: CarouselOptions(
-                  //           // viewportFraction: Get.width > 1500 ?0.3 : Get.width > 1000 ? 0.33 : Get.width > 500 ? 0.36 :0.89,
-                  //           viewportFraction: Get.width > 1500 ?0.35 : Get.width > 1000 ? 0.45 : Get.width > 500 ? 0.55 :0.89,
-                  //           height:  Get.width > 1500 ? 325 : Get.width > 1000 ? 280 :Get.width > 500 ? 250 : 230,
-                  //           // height:  Get.width > 1500 ? 300 : Get.width > 1000 ? 250 : 230,
-                  //           autoPlayAnimationDuration:
-                  //           const Duration(seconds: 1),
-                  //           autoPlay: true,
-                  //         ),
-                  //         items: createdApp.map((featuredImage) {
-                  //           return Container(
-                  //             // color: AppColors.greenColor,
-                  //             padding: const EdgeInsets.symmetric(
-                  //                 horizontal: 8.0),
-                  //             child: Column(
-                  //               crossAxisAlignment:
-                  //               CrossAxisAlignment.center,
-                  //               children: [
-                  //                 Container(
-                  //                   // height: Get.width > 1500 ? 225 : Get.width > 1000 ? 200 : 175,
-                  //                   height: Get.width > 1500 ? 275 : Get.width > 1000 ? 240 :Get.width > 500 ? 212 : 175,
-                  //                     width: Get.width > 1500 ? 650 : Get.width > 1000 ?400 :  Get.width > 600 ?500:Get.width-Get.width*0.2,
-                  //                     // width: Get.width > 1500 ? 600 : Get.width > 1000 ?500 :  Get.width > 500 ?450:Get.width-Get.width*0.2,
-                  //                   decoration: const BoxDecoration(
-                  //                       color: Colors.blue,
-                  //                       borderRadius:
-                  //                       BorderRadius.all(Radius.circular(5))),
-                  //                   child: Image.asset("${featuredImage["image"]}")),
-                  //                 Padding(padding: const EdgeInsets.only(top: 20),
-                  //                   child: Text("${featuredImage["name"]}"),
-                  //                 )
-                  //               ],
-                  //             ),
-                  //           );
-                  //         }).toList(),
-                  //       ),
-                  //     ),
-                  //     Get.width > 505?
-                  //     IconButton(
-                  //       onPressed: () {
-                  //         // Use the controller to change the current page
-                  //         webLandingPageController.carouselController.nextPage();
-                  //       },
-                  //       icon: const Icon(Icons.arrow_forward),
-                  //     ):
-                  //     const SizedBox(),
-                  //   ],
-                  // ),
-                  // Get.width > 505?const SizedBox():
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 16),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //       IconButton(
-                  //         onPressed: () {
-                  //           webLandingPageController.carouselController.previousPage();
-                  //         },
-                  //         icon: const Icon(Icons.arrow_back),
-                  //       ),
-                  //       const SizedBox(
-                  //         width: 24,
-                  //       ),
-                  //       IconButton(
-                  //         onPressed: () {
-                  //           webLandingPageController.carouselController.nextPage();
-                  //         },
-                  //         icon: const Icon(Icons.arrow_forward),
-                  //       )
-                  //     ],
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 40),
+
                   ///Ends
                   Padding(
 

@@ -12,7 +12,6 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/controller/edit_partner_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/add_case_studies.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/detail_case_study_screen.dart';
-import 'package:grobiz_web_landing/view/web/web_widget/static_data/static_list.dart';
 import 'package:grobiz_web_landing/widget/common_bg_color_pick.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
@@ -377,7 +376,7 @@ class _EditCaseStudySectionState extends State<EditCaseStudySection> {
                                   child: CachedNetworkImage(
                                     height: 200,
                                     width: 150,
-                                    fit: BoxFit.cover,
+                                    // fit: BoxFit.cover,
                                     imageUrl: APIString.bannerMediaUrl +
                                         data["case_study_image"].toString(),
                                     placeholder: (context, url) =>
@@ -392,70 +391,75 @@ class _EditCaseStudySectionState extends State<EditCaseStudySection> {
                                     const Icon(Icons.error),
                                   ),
                                 ),
-                                Container(
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(border: Border.all(
-                                      color: AppColors.blackColor, width: 1.5)),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment
-                                        .start,
-                                    children: [
-                                      Container(
-                                          padding: const EdgeInsets.all(5),
-                                          decoration: BoxDecoration(
-                                              color: AppColors.lightBlueColor,
-                                              border: Border.all(
-                                                  color: AppColors.blueColor,
-                                                  width: 0.8),
-                                              borderRadius: const BorderRadius
-                                                  .all(Radius.circular(20))
-                                          ),
-                                          child: Text(
-                                            "${data["case_study_type"]}",
-                                            style: AppTextStyle.regularBold
-                                                .copyWith(fontSize: 12,
-                                                color: AppColors.blueColor),)),
-                                      const SizedBox(height: 10),
-                                      Text("${data["case_study_title"]}",
-                                        style: AppTextStyle.regularBold
-                                            .copyWith(
-                                            fontSize: 16),),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        "${data["case_study_short_desciption"]}",
-                                        style: AppTextStyle.regular300.copyWith(
-                                            fontSize: 14),),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .center,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              Get.to(() =>
-                                                  DetailCaseStudyScreen(
-                                                    shortDescription: data,));
-                                            },
-                                            child: Container(
-                                              width: 175,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                  color: AppColors.greenColor
-                                                      .withOpacity(0.5)),
-                                              padding: const EdgeInsets
-                                                  .symmetric(
-                                                  vertical: 10, horizontal: 20),
-                                              child: Center(child: Text(
-                                                "Read the case study",
-                                                style: AppTextStyle
-                                                    .regular900,)),
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(border: Border.all(
+                                        color: AppColors.blackColor, width: 1.5)),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .start,
+                                      children: [
+                                        Container(
+                                            padding: const EdgeInsets.all(5),
+                                            decoration: BoxDecoration(
+                                                color: AppColors.lightBlueColor,
+                                                border: Border.all(
+                                                    color: AppColors.blueColor,
+                                                    width: 0.8),
+                                                borderRadius: const BorderRadius
+                                                    .all(Radius.circular(20))
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
+                                            child: Text(
+                                              "${data["case_study_type"]}",
+                                              style: AppTextStyle.regularBold
+                                                  .copyWith(fontSize: 12,
+                                                  color: AppColors.blueColor),)),
+                                        const SizedBox(height: 10),
+                                        Text("${data["case_study_title"]}",
+                                          style: AppTextStyle.regularBold
+                                              .copyWith(
+                                              fontSize: 16),),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          "${data["case_study_short_desciption"]}",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: AppTextStyle.regular300.copyWith(
 
-                                    ],
+                                              fontSize: 14),),
+                                        const SizedBox(height: 10),
+                                        const Spacer(),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .center,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                Get.to(() =>
+                                                    DetailCaseStudyScreen(
+                                                      mainData: data,));
+                                              },
+                                              child: Container(
+                                                width: 175,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                    color: AppColors.greenColor
+                                                        .withOpacity(0.5)),
+                                                padding: const EdgeInsets
+                                                    .symmetric(
+                                                    vertical: 10, horizontal: 20),
+                                                child: Center(child: Text(
+                                                  "Read the case study",
+                                                  style: AppTextStyle
+                                                      .regular900,)),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+
+                                      ],
+                                    ),
                                   ),
                                 )
                               ],

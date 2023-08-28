@@ -19,7 +19,7 @@ import 'package:video_player/video_player.dart';
 
 import '../view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import '../view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/addTestimonalScreen.dart';
-import 'add_blog.dart';
+import 'add_new_blog.dart';
 import 'blog_controller.dart';
 import 'blog_details_list.dart';
 import 'edit_blog.dart';
@@ -40,7 +40,7 @@ class _BlogListScreenState extends State<BlogListScreen> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
-      blogController.GetBlogData();
+      blogController.getBlogData();
     });
   }
 
@@ -78,7 +78,9 @@ class _BlogListScreenState extends State<BlogListScreen> {
                     child: InkWell(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => add_Blog()));
+                            MaterialPageRoute(builder: (context) => AddBlog())).whenComplete(() =>  WidgetsBinding.instance.addPostFrameCallback((_){
+                          blogController.getBlogData();
+                        }));
                       },
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
@@ -104,7 +106,7 @@ class _BlogListScreenState extends State<BlogListScreen> {
                   Expanded(
                     child: Obx(() {
                       if (blogController.blogdata.isNotEmpty) {
-                        return Container(
+                        return SizedBox(
                             height: Get.height,
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,
@@ -129,7 +131,7 @@ class _BlogListScreenState extends State<BlogListScreen> {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) => edit_blog(
+                                                    builder: (context) => EditBlog(
                                                       id: data["blog_auto_id"].toString(),
                                                       name: data["userName"].toString(),
                                                       media: data["media"].toString(),
@@ -141,7 +143,9 @@ class _BlogListScreenState extends State<BlogListScreen> {
                                                       profilimg: data["userImage"].toString(),
                                                     ),
                                                   ),
-                                                );
+                                                ).whenComplete(() => WidgetsBinding.instance.addPostFrameCallback((_){
+                                                  blogController.getBlogData();
+                                                }));
                                               },
                                               icon: const Icon(Icons.edit),
                                             ),
@@ -176,7 +180,7 @@ class _BlogListScreenState extends State<BlogListScreen> {
                                       const SizedBox(height: 10),
                                       Row(
                                         children: [
-                                          Container(
+                                          SizedBox(
                                             height: 50,
                                             width: 50,
                                             child: Center(
@@ -216,9 +220,11 @@ class _BlogListScreenState extends State<BlogListScreen> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (context) => BlogDetailslist(id: data["blog_auto_id"].toString()),
+                                                builder: (context) => BlogDetailsList(id: data["blog_auto_id"].toString()),
                                               ),
-                                            );
+                                            ).whenComplete(() => WidgetsBinding.instance.addPostFrameCallback((_){
+                                              blogController.getBlogData();
+                                            }));
                                           },
                                           child: const Text(
                                             "Edit Blog Details...",

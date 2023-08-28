@@ -1,49 +1,53 @@
-
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, must_be_immutable, prefer_typing_uninitialized_variables, avoid_print, implementation_imports, avoid_web_libraries_in_flutter, unnecessary_import, depend_on_referenced_packages
 
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:flutter/foundation.dart';
-import 'package:grobiz_web_landing/BlogSection/blog_details_list.dart';
-import 'package:http_parser/src/media_type.dart';
-import 'package:chewie/chewie.dart';
-import 'package:flutter/services.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
+import 'package:grobiz_web_landing/config/app_colors.dart';
+import 'package:grobiz_web_landing/config/text_style.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/controller/detailed_case_study_controller.dart';
+import 'package:grobiz_web_landing/widget/common_snackbar.dart';
+import 'package:http_parser/src/media_type.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'dart:html' as html;
+import 'dart:developer';
+import 'dart:typed_data';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:getwidget/getwidget.dart';
-
+import 'package:flutter/services.dart';
+import 'package:grobiz_web_landing/config/api_string.dart';
+import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:video_player/video_player.dart';
-import '../../../config/api_string.dart';
-import 'dart:html' as html;
-import '../../../widget/common_snackbar.dart';
-import '../../../widget/loading_dialog.dart';
 
-import 'package:http/http.dart' as http;
+class AddUpdateCaseStudyDetails extends StatefulWidget {
+  bool? isEdit = true;
+  String? title;
+  String? description;
+  String? caseStudyAutoId;
+  String? caseStudyDetailsAutoId;
+  String? media;
+  String? mediaTypeKey;
+  AddUpdateCaseStudyDetails({super.key,this.mediaTypeKey,this.caseStudyAutoId,this.caseStudyDetailsAutoId,this.description,this.isEdit,this.media,this.title});
 
-import 'blog_controller.dart';
-
-class AddBlogDetail extends StatefulWidget {
-  final String id;
-  const AddBlogDetail({Key? key,required this.id}) : super(key: key);
   @override
-  State<AddBlogDetail> createState() => _AddBlogDetailState();
+  State<AddUpdateCaseStudyDetails> createState() =>
+      _AddUpdateCaseStudyDetailsState();
 }
 
-class _AddBlogDetailState extends State<AddBlogDetail> {
-  final blog_controller = Get.find<EditBlogController>();
+class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
 
-  TextEditingController  tileController= TextEditingController();
-  TextEditingController descController = TextEditingController();
+  final detailCaseStudyController = Get.find<DetailCaseStudyController>();
+  // final editPartnerController = Get.find<EditPartnerController>();
+  ///
   String mediaTypeKey = "";
-//,,,
-  String VideoImg="";
-  bool isvideo=false;
-  bool isImage=false;
-  bool isGif=false;
+
+  String videoImg = "";
+  bool isvideo = false;
+  bool isImage = false;
+  bool isGif = false;
   VideoPlayerController? _controller;
 
   ///for gif file
@@ -66,118 +70,146 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    mediaTypeKey = "";
+    if(widget.isEdit == true){
+      mediaTypeKey = widget.mediaTypeKey!;
+      videoImg = widget.mediaTypeKey!;
+      detailCaseStudyController.titleController.text = widget.title!;
+      detailCaseStudyController.descController.text =widget.description!;
+      // VideoImg = mediaTypeKey.toString();
+      if(mediaTypeKey == "image"){
+        isImage = true;
+        isvideo = false;
+        isGif = false;
+
+      }
+      else if(mediaTypeKey == "video"){
+        isImage = false;
+        isvideo = true;
+        isGif = false;
+        preVideo(link: widget.media!);
+      }
+      else if(mediaTypeKey == "gif"){
+        isImage = false;
+        isvideo = false;
+        isGif = true;
+      }
+    }
+    else{
+      detailCaseStudyController.titleController.clear();
+      detailCaseStudyController.descController.clear();
+      mediaTypeKey = "";
+      videoImg = "";
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-      final controller = _controller;
+    final controller = _controller;
     return LayoutBuilder(
       builder: (p0, p1) {
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: const Text("Add Blog Details",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold)),
-            leading: IconButton(
-              onPressed: () => {Navigator.of(context).pop()},
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
-            ),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SingleChildScrollView(
-              child: Row(
-                  children:[
-                    const Expanded(
-                        child:
-                        SizedBox()
-                    ),
-                    SizedBox(
-                      width: Get.width > 800 ? 500 :300,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+          appBar: AppBar(title: Text(widget.isEdit == false ?"Add Data":"Edit Data"),
+          // backgroundColor: AppColors.whiteColor,
+          centerTitle: true,),
+          body: SingleChildScrollView(
+            child: Row(
+              children: [
+                const Expanded(child: SizedBox()),
+                Container(
+                  decoration: BoxDecoration(
+                      color: AppColors.whiteColor, boxShadow: [
+                    BoxShadow(
+                        color: AppColors.blackColor.withOpacity(0.3),
+                        blurRadius: 4,
+                        spreadRadius: 3)
+                  ]),
+                  padding: const EdgeInsets.symmetric(horizontal: 22),
+                  width: Get.width > 800 ? 700 : Get.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 15),
+                      Text("Title",style: AppTextStyle.regular400.copyWith(fontSize: 16),),
+                      const SizedBox(height: 10),
+                      Container(
+                        // width: Get.width/2,
+                        decoration: BoxDecoration(
+                          color: AppColors.whiteColor,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(0,0),
+                              blurRadius: 1,
+                              spreadRadius: 1,
+                              color: Colors.black.withOpacity(0.08),
+                            ),
+                          ],
+                        ),
+                        child: TextFormField(
+                          controller: detailCaseStudyController.titleController,
+                          maxLines: 3,
+                          decoration: InputDecoration(
+                              hintText: "Title",
+                              border: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: AppColors.borderColor),
+                                  borderRadius: BorderRadius.circular(10))),
+                          textAlign: TextAlign.start,
+                          style: AppTextStyle.regular500.copyWith(fontSize: 15),
+
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                       Text("Description",style: AppTextStyle.regular400.copyWith(fontSize: 16),),
+                      const SizedBox(height: 10),
+                      Container(
+                        // width: Get.width/2,
+                        decoration: BoxDecoration(
+                          color: AppColors.whiteColor,
+                          borderRadius: BorderRadius.circular( 10),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(0, 0),
+                              blurRadius: 1,
+                              spreadRadius: 1,
+                              color: Colors.black.withOpacity(0.08),
+                            ),
+                          ],
+                        ),
+                        child: TextFormField(
+                          controller: detailCaseStudyController.descController,
+                          maxLines: 30,
+                          decoration: InputDecoration(
+                              hintText: "Description",
+                              border: OutlineInputBorder(
+                                  borderSide: const BorderSide(color: AppColors.borderColor),
+                                  borderRadius: BorderRadius.circular(10))),
+                          textAlign: TextAlign.start,
+                          style: AppTextStyle.regular500.copyWith(fontSize: 15),
+
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                       Text("Media",style: AppTextStyle.regular400.copyWith(fontSize: 16),),
+                      const SizedBox(height: 10),
+                      Container(
+                        // width: Get.width/2,
+                        decoration: BoxDecoration(
+                          color: AppColors.whiteColor,
+                          borderRadius: BorderRadius.circular( 10),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(0, 0),
+                              blurRadius: 1,
+                              spreadRadius: 1,
+                              color: Colors.black.withOpacity(0.08),
+                            ),
+                          ],
+                        ),
+                        child: Column(
                           children: [
-
-
-                            const SizedBox(height: 20,),
-                            const Text("Title",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-
                             const SizedBox(height: 10,),
-
-                            TextFormField(
-                              controller: tileController,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                  const EdgeInsets.all(
-                                      10),
-                                  hintText: "Enter Title",
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.red, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.black, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  )
-                              ),
-                            ),
-
-                            const SizedBox(height: 20,),
-
-                            const Text("Description",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-
-                            const SizedBox(height: 10,),
-
-                            TextFormField(
-                                controller: descController,
-                                decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    contentPadding:
-                                    const EdgeInsets.fromLTRB(
-                                        10, 15, 0, 0),
-                                    hintText:
-                                    'Enter Description',
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Colors.grey, width: 1),
-                                      borderRadius:
-                                      BorderRadius.circular(10),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Colors.red, width: 1),
-                                      borderRadius:
-                                      BorderRadius.circular(10),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Colors.black, width: 1),
-                                      borderRadius:
-                                      BorderRadius.circular(10),
-                                    )
-                                ),
-                                maxLines: 5,
-                                keyboardType: TextInputType.text
-
-                            ),
                             const Center(child: Text("Select Media type",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
                             const SizedBox(height: 20,),
                             Row(
@@ -192,17 +224,20 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
                                     leading: Radio(
                                       activeColor: Colors.blue,
                                       value: 'image',
-                                      groupValue: VideoImg,
+                                      groupValue: videoImg,
                                       onChanged: (value) {
                                         setState(() {
-                                          VideoImg = value as String;
+                                          videoImg = value as String;
                                           print(value);
-                                          print(VideoImg);
-                                          if (VideoImg == 'image') {
+                                          print("VideoImg ---- $videoImg");
+                                          if (videoImg == 'image') {
                                             isImage = true;
                                             isvideo = false;
                                             isGif = false;
                                             mediaTypeKey = "image";
+                                            log("isImage ----- $isImage");
+                                            log("isvideo ----- $isvideo");
+                                            log("isGif ----- $isGif");
                                           } else {
                                             isImage = false;
                                           }
@@ -221,18 +256,21 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
                                     leading: Radio(
                                       activeColor: Colors.blue,
                                       value: 'video',
-                                      groupValue: VideoImg,
+                                      groupValue: videoImg,
                                       onChanged: (value) {
                                         setState(() {
-                                          VideoImg = value as String;
+                                          videoImg = value as String;
                                           print("Img_video==");
                                           print(value);
-                                          print(VideoImg);
-                                          if (VideoImg == 'video') {
+                                          print("VideoImg ---- $videoImg");
+                                          if (videoImg == 'video') {
                                             isvideo = true;
                                             isImage = false;
                                             isGif = false;
                                             mediaTypeKey = "video";
+                                            log("isImage ----- $isImage");
+                                            log("isvideo ----- $isvideo");
+                                            log("isGif ----- $isGif");
                                           } else {
                                             isvideo = false;
                                           }
@@ -251,18 +289,21 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
                                     leading: Radio(
                                       activeColor: Colors.blue,
                                       value: 'gif',
-                                      groupValue: VideoImg,
+                                      groupValue: videoImg,
                                       onChanged: (value) {
                                         setState(() {
-                                          VideoImg = value as String;
+                                          videoImg = value as String;
                                           print("Img_gif==");
                                           print(value);
-                                          print(VideoImg);
-                                          if (VideoImg == 'gif') {
+                                          print("VideoImg ---- $videoImg");
+                                          if (videoImg == 'gif') {
                                             isGif = true;
                                             isImage = false;
                                             isvideo = false;
                                             mediaTypeKey = "gif";
+                                            log("isImage ----- $isImage");
+                                            log("isvideo ----- $isvideo");
+                                            log("isGif ----- $isGif");
                                           } else {
                                             isGif = false;
                                           }
@@ -294,7 +335,9 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
                                         imageData!,
                                         fit: BoxFit.fill,
                                       )
-                                          : const Center(child:  Icon(
+                                          :  widget.mediaTypeKey == "image" ?
+                                      CachedNetworkImage(imageUrl: APIString.latestmediaBaseUrl + widget.media!)
+                                          :const Center(child:  Icon(
                                         Icons.photo_library,
                                         size: 50,
                                         color: Colors.grey,
@@ -345,7 +388,13 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
                                           // aspectRatio: controller.value.aspectRatio,
                                           aspectRatio: 1 / 0.3,
                                           child: VideoPlayer(controller),
-                                        ):const Center(child:  Icon(
+                                        ): widget.mediaTypeKey == "video" ?
+                                        AspectRatio(
+                                          // aspectRatio: controller.value.aspectRatio,
+                                          aspectRatio: 1 / 0.3,
+                                          child: VideoPlayer(controller!),
+                                        )
+                                            :const Center(child:  Icon(
                                           Icons.photo_library,
                                           size: 50,
                                           color: Colors.grey,
@@ -391,7 +440,9 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
                                         gifData!,
                                         fit: BoxFit.fill,
                                       )
-                                          : const Center(child:  Icon(
+                                          :  widget.mediaTypeKey == "gif" ?
+                                      CachedNetworkImage(imageUrl: APIString.latestmediaBaseUrl + widget.media!)
+                                          :const Center(child:  Icon(
                                         Icons.photo_library,
                                         size: 50,
                                         color: Colors.grey,
@@ -422,94 +473,61 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
                                 )
                             ),
                             const SizedBox(height: 20,),
-
-                            const SizedBox(height: 10,),
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              color: Colors.white,
-                              child:  InkWell(
-                                onTap: () async {
-                                  if(validation()==true){
-                                    // blog_controller.addBlogDetailsApi(id:widget.id,
-                                    //     title: tileController.text,
-                                    //     description: descController.text
-                                    // );
-                                    addBlogDetailsApis();
-                                  }
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.blueAccent,
-                                  ),
-                                  height: 40,
-                                  padding: const EdgeInsets.all(4),
-                                  alignment: Alignment.center,
-                                  child: const Text(
-                                    "Add",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ]
+                          ],
+                        ),
                       ),
-                    ),
-                    const Expanded(
-                        child:
-                        SizedBox()
-                    ),
-                  ]
+                      const SizedBox(height: 15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
 
-              ),
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: GestureDetector(
+                            onTap: () async {
+                              widget.isEdit == false
+                                  ?addCaseStudyDetailsApis()
+                                  :editCaseStudyDetailsApis();
+                              // Navigator.pop(context);
+                            },
+                                child: Container(
+
+                                padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 10),
+                                margin: const EdgeInsets.only(right: 10),
+                                decoration: BoxDecoration(
+                                    color: AppColors.greyColor.withOpacity(0.5),
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(5))),
+                                child: Text(widget.isEdit == false ?"Save":"Update"),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 30,),
+
+                    ],
+                  ),
+                ),
+                const Expanded(child: SizedBox()),
+              ],
             ),
           ),
         );
       },
     );
-
   }
-
-  bool validation(){
-    if(tileController.text.isEmpty ||tileController.text=="" ){
-      Fluttertoast.showToast(
-        msg:  'Please Enter Title' ,
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }else if(descController.text.isEmpty ||descController.text=="" ){
-      Fluttertoast.showToast(
-        msg:  'Please Enter Description' ,
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }
-    else if(mediaTypeKey.toString().isEmpty ){
-      Fluttertoast.showToast(
-        msg:  'Media Type Unavailable' ,
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }
-    return true;
-  }
-
-
 
   void pickImageFiles() async {
-
     try {
-      paths = (
-          await FilePicker.platform.pickFiles(
+      paths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
             print("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
-      ))?.files;
+      ))
+          ?.files;
 
       pathsFile = paths!.first.bytes!;
       pathsFileName = paths!.first.name;
@@ -517,7 +535,6 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
       setState(() {
         imageData = pathsFile;
       });
-
     } on PlatformException catch (e) {
       log('Unsupported operation   $e');
     } catch (e) {
@@ -533,7 +550,6 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
   }
 
   void pickGifFiles() async {
-
     try {
       gifpaths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
@@ -541,7 +557,8 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
         onFileLoading: (FilePickerStatus status) =>
             print("status .... $status"),
         allowedExtensions: ['gif'],
-      ))?.files;
+      ))
+          ?.files;
 
       gifpathsFile = gifpaths!.first.bytes!;
       gifpathsFileName = gifpaths!.first.name;
@@ -549,7 +566,6 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
       setState(() {
         gifData = gifpathsFile;
       });
-
     } on PlatformException catch (e) {
       log('Unsupported operation   $e');
     } catch (e) {
@@ -567,13 +583,20 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
   Future<void> _createVideo(Uint8List bytes) async {
     final blob = html.Blob([bytes]);
     final url = html.Url.createObjectUrlFromBlob(blob);
-    _controller = VideoPlayerController.network(url);
+    // _controller = VideoPlayerController.network(url);
+    _controller = VideoPlayerController.networkUrl(Uri.parse(url));
+    await _controller?.initialize();
+    setState(() {});
+  }
+
+  Future<void> preVideo({String? link}) async {
+    // _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+link!);
+    _controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+link!));
     await _controller?.initialize();
     setState(() {});
   }
 
   void pickVideoFiles() async {
-
     try {
       videopaths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
@@ -581,14 +604,14 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
         onFileLoading: (FilePickerStatus status) =>
             print("status .... $status"),
         allowedExtensions: ['mp4', 'mov', 'avi'],
-      ))?.files;
+      ))
+          ?.files;
       videopathsFile = videopaths!.first.bytes!;
       videopathsFileName = videopaths!.first.name;
       setState(() {
-        videoData=videopathsFile;
+        videoData = videopathsFile;
         _createVideo(videoData!);
       });
-
     } on PlatformException catch (e) {
       log('Unsupported operation   $e');
     } catch (e) {
@@ -603,20 +626,18 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
     }
   }
 
-  Future addBlogDetailsApis() async {
+  Future addCaseStudyDetailsApis() async {
     showLoadingDialog();
-    var url=APIString.grobizBaseUrl+ APIString.add_blog_details;
+    var url = APIString.grobizBaseUrl + APIString.addCaseStudyDetails;
 
     var uri = Uri.parse(url);
 
     var request = http.MultipartRequest("POST", uri);
     // title,content,blogTypeKey,media,media_type,userImage,userName,blogs_section_color
     try {
-
       ///for video file
-      if(VideoImg=='video'){
+      if (videoImg == 'video') {
         try {
-
           if (videopathsFile != null) {
             if (kIsWeb) {
               request.files.add(
@@ -637,12 +658,11 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
           request.fields['media'] = '';
           print('pic not selected');
         }
-
       }
-      ///for Images file
-      if(VideoImg=='image'){
-        try {
 
+      ///for Images file
+      if (videoImg == 'image') {
+        try {
           if (pathsFile != null) {
             if (kIsWeb) {
               request.files.add(
@@ -663,12 +683,11 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
           request.fields['media'] = '';
           print('pic not selected');
         }
-
       }
-      ///for Gif file
-      if(VideoImg=='gif'){
-        try {
 
+      ///for Gif file
+      if (videoImg == 'gif') {
+        try {
           if (gifpathsFile != null) {
             if (kIsWeb) {
               request.files.add(
@@ -691,36 +710,148 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
         }
       }
 
-//blog_auto_id,title,description,media,mediaTypeKey
-      request.fields["blog_auto_id"] =widget.id;
-      request.fields["title"] =tileController.text;
-      request.fields["description"] =descController.text;
-      request.fields["mediaTypeKey"] =mediaTypeKey.toString();
+      request.fields["case_study_auto_id"] = widget.caseStudyAutoId!;
+      request.fields["title"] = detailCaseStudyController.titleController.text;
+      request.fields["description"] = detailCaseStudyController.descController.text;
+      request.fields["mediaTypeKey"] = mediaTypeKey.toString();
+
+      http.Response response =
+          await http.Response.fromStream(await request.send());
+      hideLoadingDialog();
+
+      if (response.statusCode == 200) {
+        final resp = jsonDecode(response.body);
+        print(resp.toString());
+        //String message=resp['msg'];
+        int status = resp['status'];
+        if (status == 1) {
+          showSnackbar(title: "", message: "Successfully Added");
+          Get.back();
+        } else {
+          showSnackbar(title: "", message: "Something went wrong. Please try later");
+        }
+      } else if (response.statusCode == 500) {
+        showSnackbar(title: "", message: "Server Error");
+      }
+    } catch (exception) {
+      log("error ---- $exception");
+    }
+  }
+
+  Future editCaseStudyDetailsApis() async {
+    showLoadingDialog();
+    var url = APIString.grobizBaseUrl + APIString.addCaseStudyDetails;
+
+    var uri = Uri.parse(url);
+
+    var request = http.MultipartRequest("POST", uri);
+    try {
+      ///for video file
+      if (videoImg == 'video') {
+        try {
+          if (videopathsFile != null) {
+            if (kIsWeb) {
+              request.files.add(
+                http.MultipartFile.fromBytes(
+                  'media',
+                  videopathsFile,
+                  contentType: MediaType('application', 'x-tar'),
+                  filename: videopathsFileName.toString(),
+                ),
+              );
+            } else {
+              hideLoadingDialog();
+              showSnackbar(title: "", message: "Not Allowed");
+            }
+          }
+          request.fields['media'] = '';
+        } catch (exception) {
+          request.fields['media'] = '';
+          print('pic not selected');
+        }
+      }
+
+      ///for Images file
+      if (videoImg == 'image') {
+        try {
+          if (pathsFile != null) {
+            if (kIsWeb) {
+              request.files.add(
+                http.MultipartFile.fromBytes(
+                  'media',
+                  pathsFile,
+                  contentType: MediaType('application', 'x-tar'),
+                  filename: pathsFileName.toString(),
+                ),
+              );
+            } else {
+              hideLoadingDialog();
+              showSnackbar(title: "", message: "Not Allowed");
+            }
+          }
+          request.fields['media'] = '';
+        } catch (exception) {
+          request.fields['media'] = '';
+          print('pic not selected');
+        }
+      }
+
+      ///for Gif file
+      if (videoImg == 'gif') {
+        try {
+          if (gifpathsFile != null) {
+            if (kIsWeb) {
+              request.files.add(
+                http.MultipartFile.fromBytes(
+                  'media',
+                  gifpathsFile,
+                  contentType: MediaType('application', 'x-tar'),
+                  filename: gifpathsFileName.toString(),
+                ),
+              );
+            } else {
+              hideLoadingDialog();
+              showSnackbar(title: "", message: "Not Allowed");
+            }
+          }
+          request.fields['media'] = '';
+        } catch (exception) {
+          request.fields['media'] = '';
+          print('pic not selected');
+        }
+      }
+
+
+      request.fields["case_study_auto_id"] = widget.caseStudyAutoId!;
+      request.fields["case_study_details_auto_id"] = widget.caseStudyDetailsAutoId!;
+      request.fields["title"] = detailCaseStudyController.titleController.text;
+      request.fields["description"] = detailCaseStudyController.descController.text;
+      request.fields["mediaTypeKey"] = mediaTypeKey.toString();
 
       http.Response response = await http.Response.fromStream(await request.send());
       hideLoadingDialog();
 
       if (response.statusCode == 200) {
-
-        final resp=jsonDecode(response.body);
+        final resp = jsonDecode(response.body);
         print(resp.toString());
         //String message=resp['msg'];
-        int status=resp['status'];
-        if(status==1){
-          Fluttertoast.showToast(msg: "successfully Added", backgroundColor: Colors.grey,);
-          Get.off(()=>BlogDetailsList(id: widget.id.toString()));
-          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ));
-        }
-        else{
-          Fluttertoast.showToast(msg: "Something went wrong. Please try later", backgroundColor: Colors.grey,);
+        int status = resp['status'];
+        if (status == 1) {
+          showSnackbar(title: "", message: "Successfully Updated");
+          Get.back();
+        } else {
+          showSnackbar(title: "", message: "Something went wrong. Please try later");
         }
       }
-      else if(response.statusCode==500){
-
-        Fluttertoast.showToast(msg: "Server Error", backgroundColor: Colors.grey,);
+      else if (response.statusCode == 500) {
+        showSnackbar(title: "", message: "Server Error");
       }
-    }catch (exception){
+    } catch (exception) {
       log("error ---- $exception");
     }
   }
+
+
+
+
 }

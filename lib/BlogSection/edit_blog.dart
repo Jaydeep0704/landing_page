@@ -1,4 +1,6 @@
 
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -23,10 +25,10 @@ import '../../../../../config/api_string.dart';
 import '../../../../../widget/common_snackbar.dart';
 import '../../../../../widget/loading_dialog.dart';
 import '../view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
-import 'BlogListScreen.dart';
+import 'all_blogs_list.dart';
 
 //blog_auto_id,title,content,blogTypeKey,media,media_type,userImage,userName,blogs_section_color
-class edit_blog extends StatefulWidget {
+class EditBlog extends StatefulWidget {
   final String id;
   final String name;
   final String title;
@@ -36,15 +38,15 @@ class edit_blog extends StatefulWidget {
   final String media;
   final String profilimg;
   final String mediatype;
-  edit_blog({Key? key,required this.id,required this.name,required this.bgColor,required this.content,
+  const EditBlog({Key? key,required this.id,required this.name,required this.bgColor,required this.content,
     required this.title,required this.blogtype,required this.profilimg
     ,required this.mediatype,required this.media}) : super(key: key);
   // EditCheckOutInfo({Key? key,required this.data}) : super(key: key);
   @override
-  State<edit_blog> createState() => _edit_blogState();
+  State<EditBlog> createState() => _EditBlogState();
 }
 
-class _edit_blogState extends State<edit_blog> {
+class _EditBlogState extends State<EditBlog> {
   ///for Profile image file
   List<PlatformFile>? Profilepaths;
   var ProfilepathsFile;
@@ -90,7 +92,7 @@ class _edit_blogState extends State<edit_blog> {
     color_controller.text=widget.bgColor;
     videoUrl=widget.media;
 
-    checkisVideo();
+    checkIsVideo();
   }
 
 
@@ -101,7 +103,7 @@ class _edit_blogState extends State<edit_blog> {
 
   }
 
-  checkisVideo(){
+  checkIsVideo(){
     if(widget.mediatype=="image"){
       isImage=true;
       isvideo=false;
@@ -128,14 +130,14 @@ class _edit_blogState extends State<edit_blog> {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            title: Text("Update Blog",
+            title: const Text("Update Blog",
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold)),
             leading: IconButton(
               onPressed: () => {Navigator.of(context).pop()},
-              icon: Icon(Icons.arrow_back, color: Colors.black),
+              icon: const Icon(Icons.arrow_back, color: Colors.black),
             ),
           ),
           body: Padding(
@@ -143,7 +145,7 @@ class _edit_blogState extends State<edit_blog> {
             child: SingleChildScrollView(
               child: Row(
                   children:[
-                    Expanded(
+                    const Expanded(
                         child:
                         SizedBox()
                     ),
@@ -153,8 +155,8 @@ class _edit_blogState extends State<edit_blog> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Center(child: Text("Select Profile Image",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
-                            SizedBox(height: 20,),
+                            const Center(child: Text("Select Profile Image",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
+                            const SizedBox(height: 20,),
                             Center(
                               child: InkWell(
                                 onTap: (){
@@ -205,8 +207,7 @@ class _edit_blogState extends State<edit_blog> {
                               height: MediaQuery.of(context).size.height * 0.02,
                             ),
                             const Text("Enter User Name",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            SizedBox(height: 10,),
-
+                            const SizedBox(height: 10,),
                             TextFormField(
                               controller: username_controller,
                               decoration: InputDecoration(
@@ -236,14 +237,13 @@ class _edit_blogState extends State<edit_blog> {
                                   )
                               ),
                             ),
-                            SizedBox(height: 10,),
-                            Divider(
+                            const SizedBox(height: 10,),
+                            const Divider(
                               color: Colors.grey,
                               thickness: 0.3,
                             ),
                             const Text("Enter Title",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            SizedBox(height: 10,),
-
+                            const SizedBox(height: 10,),
                             TextFormField(
                               controller: title_controller,
                               decoration: InputDecoration(
@@ -273,16 +273,16 @@ class _edit_blogState extends State<edit_blog> {
                                   )
                               ),
                             ),
-                            SizedBox(height: 10,),
-                            Divider(
+                            const SizedBox(height: 10,),
+                            const Divider(
                               color: Colors.grey,
                               thickness: 0.3,
                             ),
                             const Text("Enter Content",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            SizedBox(height: 10,),
-
+                            const SizedBox(height: 10,),
                             TextFormField(
                               controller: content_controller,
+                              maxLines: 10,
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
@@ -310,14 +310,13 @@ class _edit_blogState extends State<edit_blog> {
                                   )
                               ),
                             ),
-                            SizedBox(height: 10,),
-                            Divider(
+                            const SizedBox(height: 10,),
+                            const Divider(
                               color: Colors.grey,
                               thickness: 0.3,
                             ),
                             const Text("Enter Blog Type",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            SizedBox(height: 10,),
-
+                            const SizedBox(height: 10,),
                             TextFormField(
                               controller: BlogType_controller,
                               decoration: InputDecoration(
@@ -347,14 +346,13 @@ class _edit_blogState extends State<edit_blog> {
                                   )
                               ),
                             ),
-                            SizedBox(height: 10,),
-                            Divider(
+                            const SizedBox(height: 10,),
+                            const Divider(
                               color: Colors.grey,
                               thickness: 0.3,
                             ),
                             const Text("Enter Blog Section Color",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            SizedBox(height: 10,),
-
+                            const SizedBox(height: 10,),
                             TextFormField(
                               controller: color_controller,
                               decoration: InputDecoration(
@@ -384,14 +382,13 @@ class _edit_blogState extends State<edit_blog> {
                                   )
                               ),
                             ),
-                            SizedBox(height: 10,),
-
-                            Divider(
+                            const SizedBox(height: 10,),
+                            const Divider(
                               color: Colors.grey,
                               thickness: 0.3,
                             ),
-                            Center(child: Text("Select  Media type",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
-                            Divider(
+                            const Center(child: Text("Select  Media type",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
+                            const Divider(
                               color: Colors.grey,
                             ),
                             Row(
@@ -399,7 +396,7 @@ class _edit_blogState extends State<edit_blog> {
                                 Expanded(
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text(
+                                    title: const Text(
                                       'Image',
                                       style: TextStyle(fontSize: 16),
                                     ),
@@ -427,7 +424,7 @@ class _edit_blogState extends State<edit_blog> {
                                 Expanded(
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text(
+                                    title: const Text(
                                       'Video',
                                       style: TextStyle(fontSize: 16),
                                     ),
@@ -456,7 +453,7 @@ class _edit_blogState extends State<edit_blog> {
                                 Expanded(
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text(
+                                    title: const Text(
                                       'GIF',
                                       style: TextStyle(fontSize: 16),
                                     ),
@@ -484,7 +481,7 @@ class _edit_blogState extends State<edit_blog> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             Visibility(
                                 visible:isImage == true ? true : false,
                                 child:
@@ -545,7 +542,6 @@ class _edit_blogState extends State<edit_blog> {
                                   ],
                                 )
                             ),
-
                             Visibility(
                                 visible:isvideo == true ? true : false,
                                 child:
@@ -643,17 +639,9 @@ class _edit_blogState extends State<edit_blog> {
                                   ],
                                 )
                             ),
-
-
-                            SizedBox(height: 20,),
-
-
-
-
-
-
+                            const SizedBox(height: 20,),
                             Container(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               color: Colors.white,
                               child: isApiProcessing == true
                                   ? Container(
@@ -665,7 +653,7 @@ class _edit_blogState extends State<edit_blog> {
                                   : InkWell(
                                 onTap: () async {
                                   if(validation()==true){
-                                    edit_blog();
+                                    editBlog();
                                   }
                                 },
                                 child: Container(
@@ -674,7 +662,7 @@ class _edit_blogState extends State<edit_blog> {
                                     color: Colors.blueAccent,
                                   ),
                                   height: 40,
-                                  padding: EdgeInsets.all(4),
+                                  padding: const EdgeInsets.all(4),
                                   alignment: Alignment.center,
                                   child: const Text(
                                     "Update",
@@ -689,7 +677,7 @@ class _edit_blogState extends State<edit_blog> {
                           ]
                       ),
                     ),
-                    Expanded(
+                    const Expanded(
                         child:
                         SizedBox()
                     ),
@@ -705,17 +693,6 @@ class _edit_blogState extends State<edit_blog> {
 
   }
 
-  // Widget displayUploadedVideo() {
-  //   if (videoController != null && videoController!.value.isInitialized) {
-  //     return AspectRatio(
-  //       aspectRatio: videoController!.value.aspectRatio,
-  //       child: VideoPlayer(videoController!),
-  //     );
-  //   } else {
-  //     return Center(child: CircularProgressIndicator());
-  //   }
-  // }
-
   Future<void> _createVideo(Uint8List bytes) async {
     final blob = html.Blob([bytes]);
     final url = html.Url.createObjectUrlFromBlob(blob);
@@ -723,9 +700,6 @@ class _edit_blogState extends State<edit_blog> {
     await _controller?.initialize();
     setState(() {});
   }
-
-
-
 
   void pickVideoFiles() async {
 
@@ -803,7 +777,150 @@ class _edit_blogState extends State<edit_blog> {
     );
   }
 
-  Future edit_blog() async {
+
+
+  void pickImageFiles() async {
+
+    try {
+      paths = (await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowMultiple: false,
+        onFileLoading: (FilePickerStatus status) =>
+            print("status .... $status"),
+        allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
+      ))?.files;
+
+      pathsFile = paths!.first.bytes!;
+      pathsFileName = paths!.first.name;
+
+      setState(() {
+        imageData = pathsFile;
+      });
+
+    } on PlatformException catch (e) {
+      log('Unsupported operation   $e');
+    } catch (e) {
+      log(e.toString());
+      setState(() {
+        if (paths != null) {
+          if (paths != null) {
+            log("selected image path is -----------> $paths");
+          }
+        }
+      });
+    }
+  }
+
+  void pickGifFiles() async {
+
+    try {
+      gifpaths = (await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowMultiple: false,
+        onFileLoading: (FilePickerStatus status) =>
+            print("status .... $status"),
+        allowedExtensions: ['gif'],
+      ))?.files;
+
+      gifpathsFile = gifpaths!.first.bytes!;
+      gifpathsFileName = gifpaths!.first.name;
+
+      setState(() {
+        gifData = gifpathsFile;
+      });
+
+    } on PlatformException catch (e) {
+      log('Unsupported operation   $e');
+    } catch (e) {
+      log(e.toString());
+      setState(() {
+        if (gifpaths != null) {
+          if (gifpaths != null) {
+            log("selected image path is -----------> $gifpaths");
+          }
+        }
+      });
+    }
+  }
+  void pickProfile() async {
+
+    try {
+      Profilepaths = (await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowMultiple: false,
+        onFileLoading: (FilePickerStatus status) =>
+            print("status .... $status"),
+        allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
+      ))?.files;
+
+      ProfilepathsFile = Profilepaths!.first.bytes!;
+      profilepathsFileName = Profilepaths!.first.name;
+
+
+      setState(() {
+        pimageData = ProfilepathsFile;
+      });
+
+    } on PlatformException catch (e) {
+      log('Unsupported operation   $e');
+    } catch (e) {
+      log(e.toString());
+      setState(() {
+        if (Profilepaths != null) {
+          if (Profilepaths != null) {
+            log("selected image path is -----------> $paths");
+          }
+        }
+      });
+    }
+  }
+
+  bool validation(){
+    if(username_controller.text.isEmpty ||username_controller.text=="" ){
+      Fluttertoast.showToast(
+        msg:  'Please Enter Name' ,
+        backgroundColor: Colors.grey,
+      );
+      return false;
+    }
+    else if(title_controller.text.isEmpty ||title_controller.text=="" ){
+      Fluttertoast.showToast(
+        msg:  'Please Enter Title' ,
+        backgroundColor: Colors.grey,
+      );
+      return false;
+    }else if(content_controller.text.isEmpty ||content_controller.text=="" ){
+      Fluttertoast.showToast(
+        msg:  'Please Enter Content' ,
+        backgroundColor: Colors.grey,
+      );
+      return false;
+    }else if(BlogType_controller.text.isEmpty ||BlogType_controller.text=="" ){
+      Fluttertoast.showToast(
+        msg:  'Please Enter Blog Type' ,
+        backgroundColor: Colors.grey,
+      );
+      return false;
+    }else if(color_controller.text.isEmpty ||color_controller.text=="" ){
+      Fluttertoast.showToast(
+        msg:  'Please Enter Color' ,
+        backgroundColor: Colors.grey,
+      );
+      return false;
+    }
+
+    else if(VideoImg.isEmpty ||VideoImg=="" ){
+      Fluttertoast.showToast(
+        msg:  'Please Select type' ,
+        backgroundColor: Colors.grey,
+      );
+      return false;
+    }
+    return true;
+  }
+
+
+  Future editBlog() async {
 
     var url=APIString.grobizBaseUrl+ APIString.edit_blog;
 
@@ -937,8 +1054,8 @@ class _edit_blogState extends State<edit_blog> {
       int status=resp['status'];
       if(status==1){
         Fluttertoast.showToast(msg: " successfully updated", backgroundColor: Colors.grey,);
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => BlogListScreen()));
+        Get.back();
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const BlogListScreen()));
 
       }
       else{
@@ -948,181 +1065,6 @@ class _edit_blogState extends State<edit_blog> {
     else if(response.statusCode==500){
 
       Fluttertoast.showToast(msg: "Server Error", backgroundColor: Colors.grey,);
-    }
-  }
-
-  void pickImageFiles() async {
-
-    try {
-      paths = (await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
-        allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
-      ))?.files;
-
-      pathsFile = paths!.first.bytes!;
-      pathsFileName = paths!.first.name;
-
-      setState(() {
-        imageData = pathsFile;
-      });
-
-    } on PlatformException catch (e) {
-      log('Unsupported operation   $e');
-    } catch (e) {
-      log(e.toString());
-      setState(() {
-        if (paths != null) {
-          if (paths != null) {
-            log("selected image path is -----------> $paths");
-          }
-        }
-      });
-    }
-  }
-
-  void pickGifFiles() async {
-
-    try {
-      gifpaths = (await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
-        allowedExtensions: ['gif'],
-      ))?.files;
-
-      gifpathsFile = gifpaths!.first.bytes!;
-      gifpathsFileName = gifpaths!.first.name;
-
-      setState(() {
-        gifData = gifpathsFile;
-      });
-
-    } on PlatformException catch (e) {
-      log('Unsupported operation   $e');
-    } catch (e) {
-      log(e.toString());
-      setState(() {
-        if (gifpaths != null) {
-          if (gifpaths != null) {
-            log("selected image path is -----------> $gifpaths");
-          }
-        }
-      });
-    }
-  }
-
-// void pickVideoFiles() async {
-//
-//   try {
-//     videopaths = (await FilePicker.platform.pickFiles(
-//       type: FileType.custom,
-//       allowMultiple: false,
-//       onFileLoading: (FilePickerStatus status) =>
-//           print("status .... $status"),
-//       allowedExtensions: ['mp4', 'mov', 'avi'],
-//     ))?.files;
-//
-//     videopathsFile = videopaths!.first.bytes!;
-//     videopathsFileName = videopaths!.first.name;
-//
-//     setState(() {
-//       videoController = VideoPlayerController.file(File(videopathsFileName))
-//         ..initialize().then((_) {
-//           setState(() {});
-//         });
-//     });
-//
-//   } on PlatformException catch (e) {
-//     log('Unsupported operation   $e');
-//   } catch (e) {
-//     log(e.toString());
-//     setState(() {
-//       if (videopaths != null) {
-//         if (videopaths != null) {
-//           log("selected image path is -----------> $videopaths");
-//         }
-//       }
-//     });
-//   }
-// }
-
-  bool validation(){
-    if(username_controller.text.isEmpty ||username_controller.text=="" ){
-      Fluttertoast.showToast(
-        msg:  'Please Enter Name' ,
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }
-    else if(title_controller.text.isEmpty ||title_controller.text=="" ){
-      Fluttertoast.showToast(
-        msg:  'Please Enter Title' ,
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }else if(content_controller.text.isEmpty ||content_controller.text=="" ){
-      Fluttertoast.showToast(
-        msg:  'Please Enter Content' ,
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }else if(BlogType_controller.text.isEmpty ||BlogType_controller.text=="" ){
-      Fluttertoast.showToast(
-        msg:  'Please Enter Blog Type' ,
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }else if(color_controller.text.isEmpty ||color_controller.text=="" ){
-      Fluttertoast.showToast(
-        msg:  'Please Enter Color' ,
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }
-
-    else if(VideoImg.isEmpty ||VideoImg=="" ){
-      Fluttertoast.showToast(
-        msg:  'Please Select type' ,
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }
-    return true;
-  }
-  void pickProfile() async {
-
-    try {
-      Profilepaths = (await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
-        allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
-      ))?.files;
-
-      ProfilepathsFile = Profilepaths!.first.bytes!;
-      profilepathsFileName = Profilepaths!.first.name;
-
-
-      setState(() {
-        pimageData = ProfilepathsFile;
-      });
-
-    } on PlatformException catch (e) {
-      log('Unsupported operation   $e');
-    } catch (e) {
-      log(e.toString());
-      setState(() {
-        if (Profilepaths != null) {
-          if (Profilepaths != null) {
-            log("selected image path is -----------> $paths");
-          }
-        }
-      });
     }
   }
 }

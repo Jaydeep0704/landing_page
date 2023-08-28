@@ -16,7 +16,7 @@ import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../../../../../BlogSection/Blog_details_screen.dart';
+import '../../../../../BlogSection/blog_details_screen.dart';
 import '../../../../../BlogSection/blog_controller.dart';
 import '../../../../../config/app_string.dart';
 import '../../../../../widget/common_button.dart';
@@ -125,10 +125,12 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
             child: Column(
               children: [
                 const SizedBox(height: 50),
-                Row(
+                editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] == "hide"
+                    ? const SizedBox()
+                    : Row(
                   children: [
-                    Get.width > 500 ? SizedBox( )
-                        :SizedBox(width:  10),
+                    Get.width > 500 ? const SizedBox( )
+                        :const SizedBox(width:  10),
                     Expanded(
                       child: Center(
                         child: Text(
@@ -149,15 +151,19 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                         ),
                       ),
                     ),
-                    Get.width > 500 ? SizedBox( )
-                        :SizedBox(width:  10),
+                    Get.width > 500 ? const SizedBox( )
+                        :const SizedBox(width:  10),
 
                     // Get.width > 500 ? const Expanded(child: SizedBox( ))
                     //     :SizedBox(width:  Get.width * 0.05),
                   ],
                 ),
-                const SizedBox(height: 40),
-                Row(
+                editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] == "hide"
+                    ? const SizedBox()
+                    : const SizedBox(height: 40),
+                editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] == "hide"
+                    ? const SizedBox()
+                    :  Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Expanded(flex: 1,child: SizedBox()),
@@ -215,7 +221,9 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                     // SizedBox(width: Get.width * 0.08)
                   ],
                 ),
-                const SizedBox(height: 40),
+                editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] == "hide"
+                    ? const SizedBox()
+                    : const SizedBox(height: 40),
 
                 ///our testimonial
 
@@ -232,8 +240,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                           : 15),
                   child: Row(
                     children: [
-                      Get.width > 500 ? SizedBox( )
-                          :SizedBox(width:  10),
+                      Get.width > 500 ? const SizedBox( )
+                          :const SizedBox(width:  10),
                       Expanded(
                         child:
 
@@ -255,8 +263,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                           ),
                         ),
                       ),
-                      Get.width > 500 ? SizedBox( )
-                          :SizedBox(width:  10),
+                      Get.width > 500 ? const SizedBox( )
+                          :const SizedBox(width:  10),
                     ],
                   ),
                 ),
@@ -467,8 +475,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                           : 15),
                   child: Row(
                     children: [
-                      Get.width > 500 ? SizedBox( )
-                          :SizedBox(width:  10),
+                      Get.width > 500 ? const SizedBox( )
+                          :const SizedBox(width:  10),
                       Expanded(
                         child: Center(
                           child: Text(
@@ -488,8 +496,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                           ),
                         ),
                       ),
-                      Get.width > 500 ? SizedBox( )
-                          :SizedBox(width:  10),
+                      Get.width > 500 ? const SizedBox( )
+                          :const SizedBox(width:  10),
                     ],
                   ),
                 ),
@@ -1447,259 +1455,259 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                 ),
 
                 ///Blog Starts
-                // const SizedBox(height: 40),
-                // Padding(
-                //   padding: EdgeInsets.symmetric(
-                //       horizontal: Get.width > 1500
-                //           ? 60
-                //           : Get.width > 1000
-                //           ? 22
-                //           : Get.width > 600
-                //           ? 15
-                //           : 15),
-                //   child: Row(
-                //     children:  [
-                //       Get.width > 500 ? SizedBox( )
-                //           :SizedBox(width:  10),
-                //       Expanded(
-                //         child:
-                //         // child: Text(
-                //         //   "Blogs",
-                //         //   textAlign: TextAlign.center,
-                //         //   style: TextStyle(
-                //         //     // fontSize: 40,
-                //         //     //   fontSize: Get.width >1000 ?50:30,
-                //         //       fontSize: 24,
-                //         //       fontWeight: FontWeight.bold,
-                //         //       color: Colors.black),
-                //         // ),
-                //         Center(
-                //           child: Text(
-                //             editController.allDataResponse[0]["testimonials_details"][0]["Blog_title"]
-                //                 .toString(),
-                //             style: GoogleFonts.getFont(editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_font"].toString()).copyWith(
-                //                 fontSize: editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_size"].toString() !=""
-                //                     ? double.parse(editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_size"].toString())
-                //                     : Get.width > 1000
-                //                     ? 50
-                //                     : 30,
-                //                 fontWeight: FontWeight.bold,
-                //                 color: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_color"].toString()))),
-                //             textAlign: TextAlign.center,
-                //
-                //             // style: GoogleFonts.getFont(selectedFont).copyWith(
-                //             //     color: Color(int.parse(introSecController.introMainTitleColor.value))),
-                //           ),
-                //         ),
-                //       ),
-                //       Get.width > 500 ? SizedBox( )
-                //           :SizedBox(width:  10),
-                //     ],
-                //   ),
-                // ),
-                // const SizedBox(height: 40),
-                // ///carousel
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Get.width < 504
-                //         ? const SizedBox()
-                //         : IconButton(
-                //       onPressed: () {
-                //         // Use the controller to change the current page
-                //         landingPageController.blogCarouselController
-                //             .previousPage();
-                //       },
-                //       icon: const Icon(Icons.arrow_back),
-                //     ),
-                //
-                //     Container(
-                //       height: Get.width > 1500
-                //           ? 300
-                //           : Get.width > 1000
-                //           ? 275
-                //           : Get.width > 600
-                //           ? 250
-                //           : 200,
-                //       width: Get.width > 1500
-                //           ? Get.width - Get.width * 0.16
-                //           : Get.width > 1000
-                //           ? Get.width - Get.width * 0.15
-                //           : Get.width > 500
-                //           ? Get.width - Get.width * 0.2
-                //           : Get.width - 50,
-                //
-                //       alignment: Alignment.center,
-                //
-                //       // padding: EdgeInsets.symmetric(vertical: 50),
-                //       child: CarouselSlider(
-                //         carouselController:
-                //         landingPageController.blogCarouselController,
-                //         // Give the controller
-                //         options: CarouselOptions(
-                //           height: Get.width > 1500
-                //               ? 250
-                //               : Get.width > 1000
-                //               ? 250
-                //               : Get.width < 500
-                //               ? 250
-                //               : 230,
-                //           autoPlayAnimationDuration: const Duration(seconds: 1),
-                //           // viewportFraction: 0.4,
-                //           viewportFraction: Get.width > 1300
-                //               ? 0.3
-                //               : Get.width > 1000
-                //               ? 0.305
-                //               : Get.width > 700
-                //               ? 0.35
-                //               : Get.width < 500
-                //               ? 0.89
-                //               : 0.8,
-                //           autoPlay: true,
-                //         ),
-                //         items: blog_controller.blogdata.map((featuredImage) {
-                //
-                //           return InkWell(
-                //             onTap: (){
-                //               Navigator.push(context,
-                //                   MaterialPageRoute(builder: (context) => BlogDetailsScreen(
-                //                     id: featuredImage["blog_auto_id"],
-                //                     title:featuredImage["title"] ,
-                //                     content:featuredImage["content"]  ,
-                //                     name: featuredImage["userName"]  ,
-                //                     media: featuredImage["media"]  ,
-                //                     blogtype: featuredImage["blogTypeKey"]  ,
-                //                     mediatype:  featuredImage["media_type"]  ,
-                //                     profilimg:  featuredImage["userImage"],
-                //                     bgColor:  featuredImage["blogs_section_color"]  ,
-                //                     blogDetails: List<Map<String, String>>.from(featuredImage["blog_details"]
-                //                         .map((detail) => Map<String, String>.from(detail))),
-                //
-                //                   )));
-                //             },
-                //             child: Container(
-                //               // width: 400,
-                //               width: Get.width > 1500
-                //                   ? 400
-                //                   : Get.width > 1000
-                //                   ? 375
-                //                   : Get.width > 700
-                //                   ? 375
-                //                   : Get.width < 500
-                //                   ? Get.width - 30
-                //                   : 400,
-                //               decoration: const BoxDecoration(
-                //                   color: Colors.green,
-                //                   borderRadius:
-                //                   BorderRadius.all(Radius.circular(20))),
-                //               margin: const EdgeInsets.only(right: 5, left: 5),
-                //               padding: const EdgeInsets.all(8),
-                //               child: Column(
-                //                 children: [
-                //                   Text(
-                //                     "${featuredImage["title"]}",
-                //                     style: const TextStyle(
-                //                         fontWeight: FontWeight.w600,
-                //                         fontSize: 25,
-                //                         color: Colors.black),
-                //                   ),
-                //                   const SizedBox(height: 8),
-                //                   Expanded(
-                //                       child: Text(
-                //                         "${featuredImage["content"]}",
-                //                         // overflow: TextOverflow.ellipsis,
-                //                         style: const TextStyle(
-                //                             fontSize: 15, fontWeight: FontWeight.w200),
-                //                       )),
-                //                   const SizedBox(
-                //                     height: 10,
-                //                   ),
-                //                   Padding(
-                //                     padding:
-                //                     const EdgeInsets.only(left: 8.0, bottom: 8),
-                //                     child: Row(
-                //                       mainAxisAlignment: MainAxisAlignment.start,
-                //                       children: [
-                //                         Container(
-                //                           height: 30,
-                //                           width: 30,
-                //                           child: Center(
-                //                             child: ClipRRect(
-                //                               borderRadius: const BorderRadius.all(Radius.circular(50)),
-                //                               child: CachedNetworkImage(
-                //                                 imageUrl: APIString.latestmediaBaseUrl +featuredImage["userImage"].toString(),
-                //                                 fit: BoxFit.cover,
-                //                                 width: 30,
-                //                                 height: 30,
-                //                                 placeholder: (context, url) => Container(
-                //                                   decoration: BoxDecoration(
-                //                                     color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                //                                   ),
-                //                                 ),
-                //                                 errorWidget: (context, url, error) => const Icon(Icons.error),
-                //                               ),
-                //                             ),
-                //                           ),
-                //                         ),
-                //
-                //                         const SizedBox(width: 8),
-                //
-                //                         Padding(
-                //                           padding: const EdgeInsets.only(top: 20),
-                //                           child: Text("${featuredImage["userName"]}"),
-                //                         ),
-                //                       ],
-                //                     ),
-                //                   ),
-                //                 ],
-                //               ),
-                //             ),
-                //           );
-                //         }).toList(),
-                //       ),
-                //     ),
-                //     Get.width < 504
-                //         ? const SizedBox()
-                //         : IconButton(
-                //       onPressed: () {
-                //         // Use the controller to change the current page
-                //         landingPageController.blogCarouselController
-                //             .nextPage();
-                //       },
-                //       icon: const Icon(Icons.arrow_forward),
-                //     ),
-                //   ],
-                // ),
-                // Get.width > 504
-                //     ? const SizedBox()
-                //     : Padding(
-                //   padding: const EdgeInsets.only(top: 16),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       IconButton(
-                //         onPressed: () {
-                //           // Use the controller to change the current page
-                //           landingPageController.blogCarouselController
-                //               .previousPage();
-                //         },
-                //         icon: const Icon(Icons.arrow_back),
-                //       ),
-                //       const SizedBox(
-                //         width: 24,
-                //       ),
-                //       IconButton(
-                //         onPressed: () {
-                //           // Use the controller to change the current page
-                //           landingPageController.blogCarouselController
-                //               .nextPage();
-                //         },
-                //         icon: const Icon(Icons.arrow_forward),
-                //       )
-                //     ],
-                //   ),
-                // ),
+                const SizedBox(height: 40),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Get.width > 1500
+                          ? 60
+                          : Get.width > 1000
+                          ? 22
+                          : Get.width > 600
+                          ? 15
+                          : 15),
+                  child: Row(
+                    children:  [
+                      Get.width > 500 ? const SizedBox( )
+                          :const SizedBox(width:  10),
+                      Expanded(
+                        child:
+                        // child: Text(
+                        //   "Blogs",
+                        //   textAlign: TextAlign.center,
+                        //   style: TextStyle(
+                        //     // fontSize: 40,
+                        //     //   fontSize: Get.width >1000 ?50:30,
+                        //       fontSize: 24,
+                        //       fontWeight: FontWeight.bold,
+                        //       color: Colors.black),
+                        // ),
+                        Center(
+                          child: Text(
+                            editController.allDataResponse[0]["testimonials_details"][0]["Blog_title"]
+                                .toString(),
+                            style: GoogleFonts.getFont(editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_font"].toString()).copyWith(
+                                fontSize: editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_size"].toString() !=""
+                                    ? double.parse(editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_size"].toString())
+                                    : Get.width > 1000
+                                    ? 50
+                                    : 30,
+                                fontWeight: FontWeight.bold,
+                                color: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_color"].toString()))),
+                            textAlign: TextAlign.center,
+
+                            // style: GoogleFonts.getFont(selectedFont).copyWith(
+                            //     color: Color(int.parse(introSecController.introMainTitleColor.value))),
+                          ),
+                        ),
+                      ),
+                      Get.width > 500 ? const SizedBox( )
+                          :const SizedBox(width:  10),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 40),
+                ///carousel
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Get.width < 504
+                        ? const SizedBox()
+                        : IconButton(
+                      onPressed: () {
+                        // Use the controller to change the current page
+                        landingPageController.blogCarouselController
+                            .previousPage();
+                      },
+                      icon: const Icon(Icons.arrow_back),
+                    ),
+
+                    Container(
+                      height: Get.width > 1500
+                          ? 300
+                          : Get.width > 1000
+                          ? 275
+                          : Get.width > 600
+                          ? 250
+                          : 200,
+                      width: Get.width > 1500
+                          ? Get.width - Get.width * 0.16
+                          : Get.width > 1000
+                          ? Get.width - Get.width * 0.15
+                          : Get.width > 500
+                          ? Get.width - Get.width * 0.2
+                          : Get.width - 50,
+
+                      alignment: Alignment.center,
+
+                      // padding: EdgeInsets.symmetric(vertical: 50),
+                      child: CarouselSlider(
+                        carouselController:
+                        landingPageController.blogCarouselController,
+                        // Give the controller
+                        options: CarouselOptions(
+                          height: Get.width > 1500
+                              ? 250
+                              : Get.width > 1000
+                              ? 250
+                              : Get.width < 500
+                              ? 250
+                              : 230,
+                          autoPlayAnimationDuration: const Duration(seconds: 1),
+                          // viewportFraction: 0.4,
+                          viewportFraction: Get.width > 1300
+                              ? 0.3
+                              : Get.width > 1000
+                              ? 0.305
+                              : Get.width > 700
+                              ? 0.35
+                              : Get.width < 500
+                              ? 0.89
+                              : 0.8,
+                          autoPlay: true,
+                        ),
+                        items: blog_controller.blogdata.map((featuredImage) {
+
+                          return InkWell(
+                            onTap: (){
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) => BlogDetailsScreen(
+                                    id: featuredImage["blog_auto_id"],
+                                    title:featuredImage["title"] ,
+                                    content:featuredImage["content"]  ,
+                                    name: featuredImage["userName"]  ,
+                                    media: featuredImage["media"]  ,
+                                    blogType: featuredImage["blogTypeKey"]  ,
+                                    mediaType:  featuredImage["media_type"]  ,
+                                    profileImg:  featuredImage["userImage"],
+                                    bgColor:  featuredImage["blogs_section_color"]  ,
+                                    blogDetails: List<Map<String, String>>.from(featuredImage["blog_details"]
+                                        .map((detail) => Map<String, String>.from(detail))),
+
+                                  )));
+                            },
+                            child: Container(
+                              // width: 400,
+                              width: Get.width > 1500
+                                  ? 400
+                                  : Get.width > 1000
+                                  ? 375
+                                  : Get.width > 700
+                                  ? 375
+                                  : Get.width < 500
+                                  ? Get.width - 30
+                                  : 400,
+                              decoration: const BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                              margin: const EdgeInsets.only(right: 5, left: 5),
+                              padding: const EdgeInsets.all(8),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "${featuredImage["title"]}",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 25,
+                                        color: Colors.black),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Expanded(
+                                      child: Text(
+                                        "${featuredImage["content"]}",
+                                        // overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            fontSize: 15, fontWeight: FontWeight.w200),
+                                      )),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.only(left: 8.0, bottom: 8),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height: 30,
+                                          width: 30,
+                                          child: Center(
+                                            child: ClipRRect(
+                                              borderRadius: const BorderRadius.all(Radius.circular(50)),
+                                              child: CachedNetworkImage(
+                                                imageUrl: APIString.latestmediaBaseUrl +featuredImage["userImage"].toString(),
+                                                fit: BoxFit.cover,
+                                                width: 30,
+                                                height: 30,
+                                                placeholder: (context, url) => Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Color(int.parse(editController.appDemoBgColor.value.toString())),
+                                                  ),
+                                                ),
+                                                errorWidget: (context, url, error) => const Icon(Icons.error),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+
+                                        const SizedBox(width: 8),
+
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 20),
+                                          child: Text("${featuredImage["userName"]}"),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    Get.width < 504
+                        ? const SizedBox()
+                        : IconButton(
+                      onPressed: () {
+                        // Use the controller to change the current page
+                        landingPageController.blogCarouselController
+                            .nextPage();
+                      },
+                      icon: const Icon(Icons.arrow_forward),
+                    ),
+                  ],
+                ),
+                Get.width > 504
+                    ? const SizedBox()
+                    : Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          // Use the controller to change the current page
+                          landingPageController.blogCarouselController
+                              .previousPage();
+                        },
+                        icon: const Icon(Icons.arrow_back),
+                      ),
+                      const SizedBox(
+                        width: 24,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          // Use the controller to change the current page
+                          landingPageController.blogCarouselController
+                              .nextPage();
+                        },
+                        icon: const Icon(Icons.arrow_forward),
+                      )
+                    ],
+                  ),
+                ),
                 ///Blog Ends
                 const SizedBox(height: 80),
               ],

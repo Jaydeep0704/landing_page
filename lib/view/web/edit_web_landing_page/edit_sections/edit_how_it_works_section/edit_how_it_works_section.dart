@@ -36,7 +36,8 @@ class _EditHowItWorksSectionState extends State<EditHowItWorksSection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return editController.homeComponentList.isEmpty && editController.allDataResponse.isEmpty ?const SizedBox():
+          return editController.homeComponentList.isEmpty || editController.allDataResponse.isEmpty
+              ? const SizedBox():
         Container(
           width: Get.width,
           decoration: editController.allDataResponse[0]["how_it_works_details"][0]["hiw_bg_color_switch"].toString() == "1" &&

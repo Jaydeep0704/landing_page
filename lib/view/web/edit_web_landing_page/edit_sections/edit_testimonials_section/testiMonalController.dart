@@ -16,6 +16,7 @@ class EditTestimonalController extends GetxController {
   RxList getTestimonal = [].obs;
   RxString msg = "".obs;
 
+  RxBool testimonial_title_1_Switch = false.obs;
   RxBool testimonial1Switch = false.obs;
   RxBool testimonial2Switch = false.obs;
 
