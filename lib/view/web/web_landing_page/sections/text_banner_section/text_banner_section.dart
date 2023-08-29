@@ -19,8 +19,7 @@ class TextBannerSection extends StatefulWidget {
 }
 
 class _TextBannerSectionState extends State<TextBannerSection> {
-  WebLandingPageController webLandingPageController = Get.find<
-      WebLandingPageController>();
+  WebLandingPageController webLandingPageController = Get.find<WebLandingPageController>();
   final editController = Get.find<EditController>();
 
   @override
@@ -39,12 +38,8 @@ class _TextBannerSectionState extends State<TextBannerSection> {
             width: Get.width,
             decoration:
               // BoxDecoration(color: AppColors.bgGrey.withOpacity(0.5)),
-              editController
-                  .allDataResponse[0]["text_banner_details"][0]["case_study_bg_color_switch"]
-              .toString() == "1" &&
-              editController
-                  .allDataResponse[0]["text_banner_details"][0]["case_study_bg_image_switch"]
-                  .toString() == "0"
+              editController.allDataResponse[0]["text_banner_details"][0]["text_banner_bg_color_switch"].toString() == "1" &&
+                  editController.allDataResponse[0]["text_banner_details"][0]["text_banner_bg_image_switch"].toString() == "0"
               ? BoxDecoration(
             color: editController.allDataResponse[0]
             ["text_banner_details"][0]["text_banner_bg_color"]

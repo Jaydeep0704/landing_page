@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:getwidget/getwidget.dart';
 
-import '../../../../config/api_string.dart';
 import '../helpController.dart';
 import 'ContactUsModel.dart';
 import 'package:url_launcher/url_launcher.dart';

@@ -5,7 +5,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:grobiz_web_landing/BlogSection/blog_controller.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/pricing_section_controller.dart';
@@ -19,6 +18,7 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_mix_banner_section/edit_mix_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_numbers_banner_section/number_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_showcase_apps_section/showcase_app_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/blog_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/address_section/Address.dart';
@@ -624,11 +624,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                 return editController.allDataResponse.isEmpty && editController.homeComponentList.isEmpty
                     ?  const SizedBox()
                 : ListView.builder(
-                  // physics: NeverScrollableScrollPhysics(),
-                  //shrinkWrap: true,
-                    // cacheExtent: 5000,
                     itemCount: editController.homeComponentList.length,
-                    // controller:allLayoutController ,
                     itemBuilder: (context, index) =>
                         Container(
                           key: ValueKey(editController.homeComponentList[index]),
@@ -713,58 +709,69 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
   }
 
 
-  void _scrollToPricingSection() {
-    final RenderObject? pricingSectionRenderObject =
-    PricingSection.pricingSectionKey.currentContext?.findRenderObject();
+  // void _scrollToPricingSection() {
+  //   final RenderObject? pricingSectionRenderObject =
+  //   PricingSection.pricingSectionKey.currentContext?.findRenderObject();
+  //
+  //   if (pricingSectionRenderObject != null) {
+  //     _scrollController.animateTo(
+  //       _scrollController.position.pixels +
+  //           pricingSectionRenderObject
+  //               .getTransformTo(null)
+  //               .getTranslation()
+  //               .y,
+  //       duration: const Duration(milliseconds: 500),
+  //       curve: Curves.easeInOut,
+  //     );
+  //   }
+  // }
 
-    if (pricingSectionRenderObject != null) {
-      _scrollController.animateTo(
-        _scrollController.position.pixels +
-            pricingSectionRenderObject
-                .getTransformTo(null)
-                .getTranslation()
-                .y,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-    }
+  void _scrollToPricingSection() {
+    final RenderBox renderBox = PricingSection.pricingSectionKey.currentContext!.findRenderObject() as RenderBox;
+    final position = renderBox.localToGlobal(Offset.zero);
+    _scrollController.animateTo(
+      position.dy,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
   }
 
-  getComponentUi(homecomponent) {
-    if (homecomponent == "intro") {
+  getComponentUi(homeComponent) {
+    if (homeComponent == "intro") {
       return const IntroSection();
-    } else if (homecomponent == "showcase_apps") {
+    } else if (homeComponent == "showcase_apps") {
       return const ShowcaseAppsSection();
-    } else if (homecomponent == "how_it_works") {
+    } else if (homeComponent == "how_it_works") {
       return const HowItWorksSection();
-    } else if (homecomponent == "testimonials") {
+    } else if (homeComponent == "testimonials") {
       return  TestimonialsSection(scrollToPricingSection: _scrollToPricingSection,);
-    } else if (homecomponent == "text_banner") {
+    }
+    else if (homeComponent == "text_banner") {
       return const TextBannerSection();
-    } else if (homecomponent == "mix_banner") {
+    } else if (homeComponent == "mix_banner") {
       return const MixBannerSection();
-    } else if (homecomponent == "benefit_banner") {
+    } else if (homeComponent == "benefit_banner") {
       return const BenefitBannerSection();
-    } else if (homecomponent == "numbers_banner") {
+    } else if (homeComponent == "numbers_banner") {
       return const NumbersBannerSection();
-    } else if (homecomponent == "help_banner") {
+    } else if (homeComponent == "help_banner") {
       return  HelpBannerSection(scrollToPricingSection: _scrollToPricingSection,);
-    } else if (homecomponent == "case_study") {
+    } else if (homeComponent == "case_study") {
       return const CaseStudySection();
-    } else if (homecomponent == "checkout_info") {
+    } else if (homeComponent == "checkout_info") {
       return const CheckoutInfoSection();
-    } else if (homecomponent == "pricing") {
+    } else if (homeComponent == "pricing") {
       return  PricingSection(key: PricingSection.pricingSectionKey);
-    } else if (homecomponent == "checkout") {
+    } else if (homeComponent == "checkout") {
       return const CheckoutSection();
     }
-    else if (homecomponent == "apps_demo") {
+    else if (homeComponent == "apps_demo") {
       return const AppsDemoSection();
     }
-    else if (homecomponent == "footer_section") {
+    else if (homeComponent == "footer_section") {
       return const InfoSection();
     }
-    else if (homecomponent == "address_section") {
+    else if (homeComponent == "address_section") {
       return const AddressSection();
     }
     else {
@@ -773,170 +780,3 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
   }
 
 }
-
-///--------------------------for reorder ------------------
-
-// class WebLandingScreen extends StatefulWidget {
-//   const WebLandingScreen({Key? key}) : super(key: key);
-//
-//   @override
-//   State<WebLandingScreen> createState() => _WebLandingScreenState();
-// }
-//
-// class _WebLandingScreenState extends State<WebLandingScreen> {
-//   CarouselController carouselController = CarouselController();
-//   CarouselController purchaseMemberCarouselController = CarouselController();
-//   CarouselController blogCarouselController = CarouselController();
-//   CarouselController reviewCarouselController = CarouselController();
-//
-//   ///for dynamic with edit functionality
-//   String fontSize = "";
-//   Color? color = Colors.white;
-//   FontWeight? fontWeight = FontWeight.w300;
-//   String? fontWeight1 = "${FontWeight.w300}";
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return LayoutBuilder(
-//       builder: (context, constraints) {
-//         return SafeArea(
-//           child: Scaffold(
-//             backgroundColor: Colors.white,
-//             body: SizedBox(
-//               width: Get.width,
-//               child: SingleChildScrollView(
-//                 physics: const AlwaysScrollableScrollPhysics(),
-//                 // child: Column(
-//                 //   mainAxisAlignment: MainAxisAlignment.center,
-//                 //   children: const [
-//                 //     // FifteenthSection(),
-//                 //     ///first part starts from here
-//                 //     FirstSection(),
-//                 //
-//                 //     ///second part starts from here
-//                 //     SecondSection(),
-//                 //
-//                 //     ///third part starts here
-//                 //     ThirdSection(),
-//                 //
-//                 //     ///fourth part starts from here
-//                 //     FourthSection(),
-//                 //
-//                 //     ///fifth part starts from here
-//                 //     FifthSection(),
-//                 //
-//                 //     ///sixth part starts from here
-//                 //     SixthSection(),
-//                 //
-//                 //     ///seventh part from here
-//                 //     SeventhSection(),
-//                 //
-//                 //     ///eighth part from here - shopify checkout view
-//                 //     EighthSection(),
-//                 //
-//                 //     ///ninth part from here - Builder.ai help select plan
-//                 //     NinthSection(),
-//                 //
-//                 //     ///tenth part from here - Builder.ai/pricing case study
-//                 //     TenthSection(),
-//                 //
-//                 //     ///Eleven part from here - shopify/checkout - info section of checkout for every apps
-//                 //     ElevenSection(),
-//                 //
-//                 //     ///Twelve part from here - Builder.ai/pricing platform vise price
-//                 //     TwelveSection(),
-//                 //
-//                 //     ///Thirteen part from here - shopify - info displaying how fast it is
-//                 //     ThirteenSection(),
-//                 //
-//                 //     ///Fourteen part from here - builder.ai/pricing - carousel showing different apps images
-//                 //     FourteenthSection(),
-//                 //
-//                 //     ///Fifteenth part from here - shopify/checkout - payment method overview
-//                 //     FifteenthSection(),
-//                 //
-//                 //     ///info section ---> Note : get this data from backend
-//                 //     InfoSection(),
-//                 //   ],
-//                 // ),
-//                 child :ReorderableListView(
-//                   shrinkWrap: true,
-//                 onReorder: reorderData,
-//                 children: <Widget>[
-//                   for(final items in listOfScreens)
-//                     Card(
-//                       key: ValueKey(items),
-//                       elevation: 2,
-//                       child: items,
-//                     ),
-//                 ],
-//
-//               ),
-//
-//             ),
-//             ),
-//           ),
-//         );
-//       },
-//     );
-//   }
-//   void reorderData(int oldIndex, int newindex){
-//     setState(() {
-//       if(newindex>oldIndex){
-//         newindex-=1;
-//       }
-//       log("index is --------> $newindex");
-//       final items =listOfScreens.removeAt(oldIndex);
-//       listOfScreens.insert(newindex, items);
-//     });
-//   }
-//   List listOfScreens = [
-//     ///first part starts from here
-//     const FirstSection(),
-//
-//     ///second part starts from here
-//     const SecondSection(),
-//
-//     ///third part starts here
-//     const ThirdSection(),
-//
-//     ///fourth part starts from here
-//     const FourthSection(),
-//
-//     ///fifth part starts from here
-//     const FifthSection(),
-//
-//     ///sixth part starts from here
-//     const SixthSection(),
-//
-//     ///seventh part from here
-//     const SeventhSection(),
-//
-//     ///eighth part from here - shopify checkout view
-//     const EighthSection(),
-//
-//     ///ninth part from here - Builder.ai help select plan
-//     const NinthSection(),
-//
-//     ///tenth part from here - Builder.ai/pricing case study
-//     const TenthSection(),
-//
-//     ///Eleven part from here - shopify/checkout - info section of checkout for every apps
-//     const ElevenSection(),
-//
-//     ///Twelve part from here - Builder.ai/pricing platform vise price
-//     const TwelveSection(),
-//
-//     ///Thirteen part from here - shopify - info displaying how fast it is
-//     const ThirteenSection(),
-//
-//     ///Fourteen part from here - builder.ai/pricing - carousel showing different apps images
-//     const FourteenthSection(),
-//
-//     // ///Fifteenth part from here - shopify/checkout - payment method overview
-//     // const FifteenthSection(),
-//
-//     ///info section ---> Note : get this data from backend
-//     const InfoSection(),
-//   ];
-// }

@@ -195,6 +195,7 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                       editController
                           .allDataResponse[0]["checkout_info_details"][0]["checkout_info_title1"]
                           .toString(),
+                      textAlign: TextAlign.center,
                       style: GoogleFonts.getFont(editController
                           .allDataResponse[0]["checkout_info_details"][0]["checkout_info_title1_font"]
                           .toString()).copyWith(
@@ -313,6 +314,61 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 25),
+
+                Get.width > 650
+                    ? const SizedBox()
+                    :    Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                      color: AppColors.yellowColor,
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(5))
+                  ),
+
+                  child: InkWell(
+                    onTap: () =>
+                        Get.dialog(
+                            TextEditModule(
+                              textKeyName: "checkout_info_tag",
+                              colorKeyName: "checkout_info_tag_color",
+                              fontFamilyKeyName: "checkout_info_tag_font",
+                              textValue: editController
+                                  .allDataResponse[0]["checkout_info_details"][0]["checkout_info_tag"]
+                                  .toString(),
+                              fontFamily: editController
+                                  .allDataResponse[0]["checkout_info_details"][0]["checkout_info_tag_font"]
+                                  .toString(),
+                              fontSize: editController
+                                  .allDataResponse[0]["checkout_info_details"][0]["checkout_info_tag_size"]
+                                  .toString(),
+                              textColor: Color(int.parse(
+                                  editController
+                                      .allDataResponse[0]["checkout_info_details"][0]["checkout_info_tag_color"]
+                                      .toString())),
+                            )),
+                    child: Text(
+                      editController
+                          .allDataResponse[0]["checkout_info_details"][0]["checkout_info_tag"]
+                          .toString(),
+                      style: GoogleFonts.getFont(editController
+                          .allDataResponse[0]["checkout_info_details"][0]["checkout_info_tag_font"]
+                          .toString()).copyWith(
+                          fontSize: editController
+                              .allDataResponse[0]["checkout_info_details"][0]["checkout_info_tag_size"]
+                              .toString() != ""
+                              ? double.parse(editController
+                              .allDataResponse[0]["checkout_info_details"][0]["checkout_info_tag_size"]
+                              .toString())
+                              : 14,
+                          fontWeight: FontWeight.w300,
+                          color: Color(int.parse(editController
+                              .allDataResponse[0]["checkout_info_details"][0]["checkout_info_tag_color"]
+                              .toString()))),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 25),
                 Get.width > 650
                     ? const SizedBox()
                 : InkWell(
@@ -401,122 +457,8 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                 ),
 
                 const SizedBox(height: 32),
-                Get.width < 650
-                    ? SizedBox(
-                  height: Get.width * 0.7,
-                  width: Get.width * 0.7,
-                  child: CarouselSlider.builder(
-                    carouselController: landingPageController.appDetailsController,
-                    options: CarouselOptions(
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _currentIndex = index;
-                        });
-                      },
-                      autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 5),
-                      viewportFraction: 1.0,
-                      // Set viewportFraction to 1.0
-                      height: 630,
-                    ),
-                    itemCount: checkoutInfoController.CheckInfoDataList.length,
-                    itemBuilder: (context, itemIndex, realIndex) {
-                      var a = checkoutInfoController
-                          .CheckInfoDataList[itemIndex];
-                      return _currentIndex == itemIndex
-                          ? SizedBox(
-                        width: Get.width > 500 ? Get.width * 0.5 : Get.width >
-                            350 ? Get.width * 0.7 : Get.width * 0.7,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 10),
-                            Container(
-                              height: 300,
-                              // Increase the height of the image container
-                              width: Get.width * 0.9,
-                              // Increase the width of the image container
-                              margin: const EdgeInsets.symmetric(horizontal: 5),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20)),
-                                    child: a["file_media_type"].toString() ==
-                                        "image" ||
-                                        a["file_media_type"].toString() == "gif"
-                                        ? CachedNetworkImage(
-                                      imageUrl: APIString.latestmediaBaseUrl +
-                                          a["files"].toString(),
-                                      placeholder: (context, url) =>
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: Color(int.parse(
-                                                  editController.appDemoBgColor
-                                                      .value.toString())),
-                                            ),
-                                          ),
-                                      errorWidget: (context, url,
-                                          error) => const Icon(Icons.error),
-                                      fit: BoxFit
-                                          .cover, // Use cover to make the image fit the container
-                                    )
-                                        :
-                                    //buildMediaWidget()
-                                    displayUploadedVideo(a["files"].toString()),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 30),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 60,
-                                      width: 2,
-                                      margin: const EdgeInsets.only(
-                                          right: 16),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.blueColor,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .start,
-                                        children: [
-                                          Text(
-                                            a["title"].toString(),
-                                            style: AppTextStyle.regular700
-                                                .copyWith(fontSize: 22),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            a["description"].toString(),
-                                            style: AppTextStyle.regular400
-                                                .copyWith(fontSize: 14),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 16),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                          : Container();
-                    },
-                  ),
-                )
-                    : Row(
+                Get.width > 650
+                    ? Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -787,18 +729,14 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                                 .CheckInfoDataList[itemIndex];
                             return _currentIndex == itemIndex
                                 ? SizedBox(
-                              width: Get.width > 500 ? Get.width * 0.5 : Get
-                                  .width > 350 ? Get.width * 0.7 : Get.width *
-                                  0.7,
+                              width: Get.width > 500 ? Get.width * 0.5 : Get.width > 350 ? Get.width * 0.7 : Get.width * 0.7,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const SizedBox(height: 10),
                                   Container(
                                     height: 550,
-                                    // Increase the height of the image container
                                     width: Get.width * 0.9,
-                                    // Increase the width of the image container
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 5),
                                     child: Center(
@@ -846,10 +784,122 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                     ),
 
                   ],
+                )
+                :SizedBox(
+                  // height: Get.width * 0.7,
+                  width: Get.width * 0.7,
+                  child: CarouselSlider.builder(
+                    carouselController: landingPageController.appDetailsController,
+                    options: CarouselOptions(
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _currentIndex = index;
+                        });
+                      },
+                      autoPlay: true,
+                      autoPlayInterval: const Duration(seconds: 5),
+                      viewportFraction: 1.0,
+                      // Set viewportFraction to 1.0
+                      // height: 630,
+                      height: 750,
+                    ),
+                    itemCount: checkoutInfoController.CheckInfoDataList.length,
+                    itemBuilder: (context, itemIndex, realIndex) {
+                      var a = checkoutInfoController
+                          .CheckInfoDataList[itemIndex];
+                      return _currentIndex == itemIndex
+                          ? SizedBox(
+                        width: Get.width > 500 ? Get.width * 0.5 : Get.width >
+                            350 ? Get.width * 0.7 : Get.width * 0.7,
+                           child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.center,
+                           children: [
+                            const SizedBox(height: 10),
+                            Container(
+                              height: 300,
+                              // Increase the height of the image container
+                              width: Get.width * 0.9,
+                              // Increase the width of the image container
+                              margin: const EdgeInsets.symmetric(horizontal: 5),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(20)),
+                                    child: a["file_media_type"].toString() ==
+                                        "image" ||
+                                        a["file_media_type"].toString() == "gif"
+                                        ? CachedNetworkImage(
+                                      imageUrl: APIString.latestmediaBaseUrl +
+                                          a["files"].toString(),
+                                      placeholder: (context, url) =>
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(int.parse(
+                                                  editController.appDemoBgColor
+                                                      .value.toString())),
+                                            ),
+                                          ),
+                                      errorWidget: (context, url,
+                                          error) => const Icon(Icons.error),
+                                      fit: BoxFit
+                                          .cover, // Use cover to make the image fit the container
+                                    )
+                                        :
+                                    //buildMediaWidget()
+                                    displayUploadedVideo(a["files"].toString()),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 30),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      height: 60,
+                                      width: 2,
+                                      margin: const EdgeInsets.only(
+                                          right: 16),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.blueColor,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment
+                                            .start,
+                                        children: [
+                                          Text(
+                                            a["title"].toString(),
+                                            style: AppTextStyle.regular700
+                                                .copyWith(fontSize: 22),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            a["description"].toString(),
+                                            style: AppTextStyle.regular400
+                                                .copyWith(fontSize: 14),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 16),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                          : Container();
+                    },
+                  ),
                 ),
-
-
-
                 const SizedBox(height: 80),
               ],
             ),);
@@ -918,294 +968,4 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
 }
 
 
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:grobiz_web_landing/config/app_colors.dart';
-// import 'package:grobiz_web_landing/config/text_style.dart';
-//
-// class EditCheckoutInfoSection extends StatefulWidget {
-//   const EditCheckoutInfoSection({Key? key}) : super(key: key);
-//
-//   @override
-//   State<EditCheckoutInfoSection> createState() => _EditCheckoutInfoSectionState();
-// }
-//
-// class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return LayoutBuilder(
-//       builder: (context, constraints) {
-//         return Container(
-//           // height: 700,
-//           padding: EdgeInsets.only(
-//               left: Get.width > 650 ? Get.width * 0.1 : Get.width * 0.05,
-//               right: Get.width > 650 ? Get.width * 0.1 : Get.width * 0.05),
-//           color: AppColors.bgNaturalGrey.withOpacity(0.5),
-//           width: Get.width,
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               const SizedBox(height: 80),
-//               Container(
-//                 alignment: Alignment.center,
-//                 padding: EdgeInsets.only(
-//                     left: Get.width * 0.1, right: Get.width * 0.1),
-//                 child: Text(
-//                   "Build your one-of-a-kind checkout with advanced customizations",
-//                   textAlign: TextAlign.center,
-//                   style: AppTextStyle.regular800.copyWith(fontSize: 32),
-//                 ),
-//               ),
-//               Container(
-//                 alignment: Alignment.center,
-//                 padding: EdgeInsets.only(
-//                     left: Get.width * 0.1,
-//                     right: Get.width * 0.1,
-//                     top: 16,
-//                     bottom: 16),
-//                 child: Text(
-//                   "Customize your checkout—and Shop Pay—with powerful apps and branding tools, without sacrificing security or performance.",
-//                   textAlign: TextAlign.center,
-//                   style: AppTextStyle.regular400.copyWith(fontSize: 14),
-//                 ),
-//               ),
-//               Get.width > 650
-//                   ? const SizedBox()
-//                   : Text(
-//                 "Apps for every checkout",
-//                 style: AppTextStyle.regularBold.copyWith(fontSize: 20),
-//               ),
-//               const SizedBox(height: 25),
-//               Get.width > 650
-//                   ? const SizedBox()
-//                   : Text(
-//                 """Install apps that extend your checkout’s functionality—from loyalty programs to upsells, and so much more. Or build your own app to meet your store’s unique needs.""",
-//                 style: AppTextStyle.regular400.copyWith(fontSize: 15),
-//               ),
-//               const SizedBox(
-//                 height: 32,
-//               ),
-//               Get.width < 650
-//                   ? Align(
-//                 alignment: Alignment.center,
-//                 child: Container(
-//                   color: AppColors.blackColor,
-//                   height: Get.width * 0.7,
-//                   width: Get.width * 0.7,
-//                 ),
-//               )
-//                   : Row(
-//                 crossAxisAlignment: CrossAxisAlignment.center,
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   Expanded(
-//                     child: Column(
-//                       mainAxisAlignment: MainAxisAlignment.start,
-//                       children: [
-//                         Container(
-//                           padding: const EdgeInsets.all(5),
-//                           decoration: const BoxDecoration(
-//                               color: AppColors.yellowColor,
-//                               borderRadius: BorderRadius.all(Radius.circular(5))
-//                           ),
-//                           child: Text(
-//                             "Grobiz Plus",
-//                             textAlign: TextAlign.center,
-//                             style: AppTextStyle.regular300
-//                                 .copyWith(fontSize: 14),
-//                           ),
-//                         ),
-//                         const SizedBox(height: 15),
-//                         Text(
-//                           "Apps for every checkout",
-//                           textAlign: TextAlign.center,
-//                           style: AppTextStyle.regularBold
-//                               .copyWith(fontSize: 20),
-//                         ),
-//                         const SizedBox(height: 20),
-//                         Text(
-//                           """Install apps that extend your checkout’s functionality—from loyalty programs to upsells, and so much more. Or build your own app to meet your store’s unique needs.""",
-//                           textAlign: TextAlign.center,
-//                           style: AppTextStyle.regular400
-//                               .copyWith(fontSize: 12),
-//                         ),
-//                         const SizedBox(
-//                           height: 16,
-//                         ),
-//                         Row(
-//                           children: [
-//                             Container(
-//                               height: 60,
-//                               width: 2,
-//                               margin: const EdgeInsets.only(right: 16),
-//                               decoration: BoxDecoration(
-//                                   color: AppColors.blueColor,
-//                                   borderRadius:
-//                                   BorderRadius.circular(10)),
-//                             ),
-//                             Expanded(
-//                               child: Column(
-//                                 crossAxisAlignment:
-//                                 CrossAxisAlignment.start,
-//                                 children: [
-//                                   Text(
-//                                     'Custom content',
-//                                     style: AppTextStyle.regular700
-//                                         .copyWith(fontSize: 22),
-//                                   ),
-//                                   Text(
-//                                     'Add custom banners and messages, like warnings or disclaimers.',
-//                                     style: AppTextStyle.regular400
-//                                         .copyWith(fontSize: 14),
-//                                   )
-//                                 ],
-//                               ),
-//                             )
-//                           ],
-//                         ),
-//                         const SizedBox(
-//                           height: 16,
-//                         ),
-//                         Row(
-//                           children: [
-//                             Container(
-//                               height: 60,
-//                               width: 2,
-//                               margin: const EdgeInsets.only(right: 16),
-//                               decoration: BoxDecoration(
-//                                   color: AppColors.greyBorderColor,
-//                                   borderRadius:
-//                                   BorderRadius.circular(10)),
-//                             ),
-//                             Expanded(
-//                               child: Column(
-//                                 crossAxisAlignment:
-//                                 CrossAxisAlignment.start,
-//                                 children: [
-//                                   Text(
-//                                     'Custom content',
-//                                     style: AppTextStyle.regular700
-//                                         .copyWith(fontSize: 22),
-//                                   ),
-//                                   Text(
-//                                     'Add custom banners and messages, like warnings or disclaimers.',
-//                                     style: AppTextStyle.regular400
-//                                         .copyWith(fontSize: 14),
-//                                   )
-//                                 ],
-//                               ),
-//                             )
-//                           ],
-//                         ),
-//                         const SizedBox(
-//                           height: 16,
-//                         ),
-//                         Row(
-//                           children: [
-//                             Container(
-//                               height: 60,
-//                               width: 2,
-//                               margin: const EdgeInsets.only(right: 16),
-//                               decoration: BoxDecoration(
-//                                   color: AppColors.greyBorderColor,
-//                                   borderRadius:
-//                                   BorderRadius.circular(10)),
-//                             ),
-//                             Expanded(
-//                               child: Column(
-//                                 crossAxisAlignment:
-//                                 CrossAxisAlignment.start,
-//                                 children: [
-//                                   Text(
-//                                     'Custom content',
-//                                     style: AppTextStyle.regular700
-//                                         .copyWith(fontSize: 22),
-//                                   ),
-//                                   Text(
-//                                     'Add custom banners and messages, like warnings or disclaimers.',
-//                                     style: AppTextStyle.regular400
-//                                         .copyWith(fontSize: 14),
-//                                   )
-//                                 ],
-//                               ),
-//                             )
-//                           ],
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                   SizedBox(
-//                     width: Get.width * 0.075,
-//                   ),
-//                   Expanded(
-//                     child: Container(
-//                       color: AppColors.blackColor,
-//                       height: Get.width > 2200 ? Get.width * 0.25 :Get.width > 1600 ? Get.width * 0.33 :Get.width * 0.4,
-//                       width: Get.width > 2200 ? Get.width * 0.25 :Get.width > 1600 ? Get.width * 0.33 :Get.width * 0.4,
-//
-//                       // height: Get.width * 0.4,
-//                       // width: Get.width * 0.4,
-//                     ),
-//                   )
-//                 ],
-//               ),
-//               Get.width < 650
-//                   ?Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   const SizedBox(
-//                     height: 24,
-//                   ),
-//                   Row(
-//                     children: [
-//                       Container(
-//                         height: 3,
-//                         width: 60,
-//                         decoration: BoxDecoration(
-//                             color: AppColors.blueColor,
-//                             borderRadius: BorderRadius.circular(10)
-//                         ),
-//                       ),
-//                       Container(
-//                         height: 3,
-//                         width: 60,
-//                         margin: const EdgeInsets.only(left: 16,right: 16),
-//                         decoration: BoxDecoration(
-//                             color: AppColors.greyBorderColor,
-//                             borderRadius: BorderRadius.circular(10)
-//                         ),
-//                       ),
-//                       Container(
-//                         height: 3,
-//                         width: 60,
-//                         decoration: BoxDecoration(
-//                             color: AppColors.greyBorderColor,
-//                             borderRadius: BorderRadius.circular(10)
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                   const SizedBox(
-//                     height: 8,
-//                   ),
-//                   Text(
-//                     'Custom content',
-//                     style: AppTextStyle.regular700
-//                         .copyWith(fontSize: 22),
-//                   ),
-//                   Text(
-//                     'Add custom banners and messages, like warnings or disclaimers.',
-//                     style: AppTextStyle.regular400
-//                         .copyWith(fontSize: 14),
-//                   )
-//                 ],
-//               )
-//                   :const SizedBox(),
-//               const SizedBox(height: 80),
-//             ],
-//           ),);
-//       },
-//     );
-//   }
-// }
+

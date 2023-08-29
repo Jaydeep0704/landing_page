@@ -122,6 +122,7 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
                                     IconButton(
                                         onPressed: () {
                                           Get.dialog(UpdateMediaFunction(
+                                            imageSize: "width * 0.08 & width * 0.15",
                                             keyNameMedia: "numbers_banner_file1",
                                             keyMediaType: "numbers_banner_file1_mediatype",
                                           ));
@@ -173,6 +174,7 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
                                         IconButton(
                                             onPressed: () {
                                               Get.dialog(UpdateMediaFunction(
+                                                imageSize: "width * 0.6 & width * 0.25",
                                                 keyNameMedia: "numbers_banner_file2",
                                                 keyMediaType: "numbers_banner_file2_mediatype",
                                               ));
@@ -1263,7 +1265,7 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(width: Get.width > 450 ? 0 : Get.width * 0.02, height: 8),
+                                        SizedBox(width: Get.width > 1500 ? Get.width * 0.02 : Get.width > 450 ? 0 : Get.width * 0.02, height: 8),
                                         Column(
                                           mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -1431,6 +1433,7 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
                                         IconButton(
                                             onPressed: () {
                                               Get.dialog(UpdateMediaFunction(
+                                                imageSize: "width * 0.6 & width * 0.25",
                                                 keyNameMedia: "numbers_banner_file3",
                                                 keyMediaType: "numbers_banner_file3_mediatype",
                                               ));

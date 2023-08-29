@@ -1,8 +1,5 @@
 
 import 'package:get/get.dart';
-import 'package:grobiz_web_landing/BlogSection/blog_controller.dart';
-import 'package:grobiz_web_landing/view/web/Footer/helpController.dart';
-import 'package:grobiz_web_landing/view/web/career/careers_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/intro_section_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/login_controller.dart';
@@ -17,11 +14,14 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_intro_section/edit_intro_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_mix_banner_section/edit_mix_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_numbers_banner_section/number_banner_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/blog_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/login_page.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_showcase_apps_section/showcase_app_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/checkout_info_section/CheckOutInfoControllers.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/career/careers_controller.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/helpController.dart';
 import 'package:grobiz_web_landing/widget/video_player_widget/video_player_controller.dart';
 
 getXPutInitializer(){

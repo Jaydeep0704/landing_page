@@ -11,7 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:getwidget/getwidget.dart';
 
-import '../../../../config/api_string.dart';
 import '../AboutUs/AboutUsModel.dart';
 import '../TandC/TFCModel.dart';
 import '../helpController.dart';

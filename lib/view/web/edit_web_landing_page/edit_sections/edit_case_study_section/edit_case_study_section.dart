@@ -424,8 +424,8 @@ class _EditCaseStudySectionState extends State<EditCaseStudySection> {
                                         Text(
                                           "${data["case_study_short_desciption"]}",
                                           overflow: TextOverflow.ellipsis,
+                                          maxLines: 7,
                                           style: AppTextStyle.regular300.copyWith(
-
                                               fontSize: 14),),
                                         const SizedBox(height: 10),
                                         const Spacer(),

@@ -10,7 +10,7 @@ import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'package:video_player/video_player.dart';
 
-import '../widget/common_snackbar.dart';
+import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'blog_details_list.dart';
 
 class EditBlogController extends GetxController {

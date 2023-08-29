@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
-import 'package:grobiz_web_landing/view/web/Footer/PrivacyPolicy/PrivacyPolicy.dart';
-import 'package:grobiz_web_landing/view/web/Footer/TandC/termsCondition.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_info_section/edit_info_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_info_section/edit_info_logo_screen.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/PrivacyPolicy/PrivacyPolicy.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/TandC/termsCondition.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -123,7 +123,7 @@ class _EditAddressSectionState extends State<EditAddressSection> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.to(() => TFCscreen())!.whenComplete(() =>
+                        Get.to(() => TnCScreen())!.whenComplete(() =>
                             Future.delayed(Duration.zero, () {
                               webLandingPageController.getUserCount();
                             }));
@@ -336,7 +336,7 @@ class _EditAddressSectionState extends State<EditAddressSection> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Get.to(() => TFCscreen())!.whenComplete(() =>
+                            Get.to(() => TnCScreen())!.whenComplete(() =>
                                 Future.delayed(Duration.zero, () {
                                   webLandingPageController.getUserCount();
                                 }));

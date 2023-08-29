@@ -3,13 +3,15 @@
 
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
+import 'package:grobiz_web_landing/config/api_string.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
+import 'package:grobiz_web_landing/widget/common_snackbar.dart';
+import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:http_parser/src/media_type.dart';
-import 'package:chewie/chewie.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:file_picker/file_picker.dart';
@@ -21,13 +23,7 @@ import 'package:video_player/video_player.dart';
 import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 
-import '../../../../../config/api_string.dart';
-import '../../../../../widget/common_snackbar.dart';
-import '../../../../../widget/loading_dialog.dart';
-import '../view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
-import 'all_blogs_list.dart';
 
-//blog_auto_id,title,content,blogTypeKey,media,media_type,userImage,userName,blogs_section_color
 class EditBlog extends StatefulWidget {
   final String id;
   final String name;

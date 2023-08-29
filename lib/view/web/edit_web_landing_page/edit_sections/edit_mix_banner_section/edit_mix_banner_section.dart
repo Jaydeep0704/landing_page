@@ -189,6 +189,7 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                                     IconButton(
                                         onPressed: (){
                                           Get.dialog(UpdateMediaFunction(
+                                            imageSize: "550*550",
                                             keyNameMedia: "mix_banner_file",
                                             keyMediaType: "mix_banner_file_mediatype",
                                           ));
@@ -521,6 +522,7 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                                   IconButton(
                                       onPressed: (){
                                         Get.dialog(UpdateMediaFunction(
+                                          imageSize: "550*550",
                                           keyNameMedia: "mix_banner_file",
                                           keyMediaType: "mix_banner_file_mediatype",
                                         ));

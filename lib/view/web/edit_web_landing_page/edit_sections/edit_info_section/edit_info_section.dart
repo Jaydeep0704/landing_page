@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
-import 'package:grobiz_web_landing/view/web/Footer/AboutUs/AboutScreen.dart';
-import 'package:grobiz_web_landing/view/web/career/careers_screen.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_info_section/edit_info_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_info_section/edit_info_logo_screen.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/login_page.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/AboutUs/AboutScreen.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/ContactUs/ContactUsScreen.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/FAQ/FaqScreen.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/PrivacyPolicy/PrivacyPolicy.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/TandC/termsCondition.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/career/careers_screen.dart';
 import 'package:grobiz_web_landing/widget/common_bg_color_pick.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../Footer/ContactUs/ContactUsScreen.dart';
-import '../../../Footer/FAQ/FaqScreen.dart';
-import '../../../Footer/PrivacyPolicy/PrivacyPolicy.dart';
-import '../../../Footer/TandC/termsCondition.dart';
 
 
 class EditInfoSection extends StatefulWidget {
@@ -416,7 +416,7 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => TFCscreen())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => TnCScreen())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
                 },
                 child: const Text("T&C",
                     style: TextStyle(fontSize: 18, color: Colors.black),
@@ -1034,7 +1034,7 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => TFCscreen())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => TnCScreen())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
                 },
                 child: const Text("T&C",
                     style: TextStyle(fontSize: 18, color: Colors.black),

@@ -876,7 +876,7 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(width: Get.width > 450 ? 0 : Get.width * 0.02, height: 8),
+                                        SizedBox(width: Get.width > 1500 ? Get.width * 0.02 : Get.width > 450 ? 0 : Get.width * 0.02, height: 8),
                                         Column(
                                           mainAxisAlignment:
                                           MainAxisAlignment.start,

@@ -11,25 +11,24 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:getwidget/getwidget.dart';
 
-import '../../../../config/api_string.dart';
 import '../AboutUs/AboutUsModel.dart';
 import '../helpController.dart';
 import 'TFCModel.dart';
 
 
 
-class TFCscreen extends StatefulWidget {
+class TnCScreen extends StatefulWidget {
 
-  TFCscreen();
+  TnCScreen();
 
 
   @override
-  State<TFCscreen> createState() => TFCscreenState();
+  State<TnCScreen> createState() => TnCScreenState();
 }
 
-class TFCscreenState extends State<TFCscreen> {
+class TnCScreenState extends State<TnCScreen> {
 
-  TFCscreenState();
+  TnCScreenState();
   final helpController = Get.find<HelpController>();
 
   @override

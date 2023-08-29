@@ -113,7 +113,7 @@ class _EditShowcaseAppsSectionState extends State<EditShowcaseAppsSection> {
                                  });
                                },
                              ),
-                             SizedBox(width: 10,),
+                             const SizedBox(width: 10,),
                              InkWell(
                                  onTap: () {
                                    showDialog(
@@ -197,67 +197,80 @@ class _EditShowcaseAppsSectionState extends State<EditShowcaseAppsSection> {
 
                      ///app created by genesi title and Carosul slider - commented for now
                      ///Starts
-                     Padding(
-                       padding: EdgeInsets.symmetric(
-                           horizontal: Get.width > 1500 ? 60
-                               : Get.width > 1000 ? 22
-                               : Get.width > 600 ? 15 : 15),
-                       child: Row(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: [
-                           Get.width > 500 ? const Expanded(child: SizedBox( )) :SizedBox(width:  Get.width * 0.10),
-                           Expanded(
-                             child:  InkWell(
-                               onTap: () {
-                                 Get.dialog(
-                                     TextEditModule(
-                                       textKeyName: "showcase_apps_heading",
-                                       colorKeyName: "showcase_apps_heading_color",
-                                       fontFamilyKeyName: "showcase_apps_heading_font",
-                                       textValue: editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading"].toString(),
-                                       fontFamily: editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_font"].toString(),
-                                       textColor: Color(int.parse(editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_color"].toString())),
-                                     ));
-                               },
-                               child: Text(
-                                 editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading"].toString(),
-                                 textAlign: TextAlign.center,
-                                 style: GoogleFonts.getFont(editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_font"].toString()).copyWith(
-                                     fontWeight: FontWeight.bold,
-                                     fontSize: editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_size"].toString() !=""
-                                         ? double.parse(editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_size"].toString())
-                                         : 24,
-                                     color:  editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_color"].toString() == ""
-                                         ?Colors.black
-                                         :Color(int.parse(editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_color"].toString()))),
+                     Stack(
+                       children: [
+                         Padding(
+                           padding: EdgeInsets.symmetric(
+                               horizontal: Get.width > 1500 ? 60
+                                   : Get.width > 1000 ? 22
+                                   : Get.width > 600 ? 15 : 15),
+                           child: Row(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               Get.width > 500 ? const Expanded(child: SizedBox( )) :SizedBox(width:  Get.width * 0.10),
+                               Expanded(
+                                 child:  InkWell(
+                                   onTap: () {
+                                     Get.dialog(
+                                         TextEditModule(
+                                           textKeyName: "showcase_apps_heading",
+                                           colorKeyName: "showcase_apps_heading_color",
+                                           fontFamilyKeyName: "showcase_apps_heading_font",
+                                           textValue: editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading"].toString(),
+                                           fontFamily: editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_font"].toString(),
+                                           textColor: Color(int.parse(editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_color"].toString())),
+                                         ));
+                                   },
+                                   child: Text(
+                                     editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading"].toString(),
+                                     textAlign: TextAlign.center,
+                                     style: GoogleFonts.getFont(editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_font"].toString()).copyWith(
+                                         fontWeight: FontWeight.bold,
+                                         fontSize: editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_size"].toString() !=""
+                                             ? double.parse(editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_size"].toString())
+                                             : 24,
+                                         color:  editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_color"].toString() == ""
+                                             ?Colors.black
+                                             :Color(int.parse(editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_color"].toString()))),
+                                   ),
+                                 ),
                                ),
-                             ),
+                               Get.width > 500 ? const Expanded(child: SizedBox( )) :SizedBox(width:  Get.width * 0.10),
+                               // const SizedBox(width: 30),
+                             ],
                            ),
-                           Get.width > 500 ? const Expanded(child: SizedBox( )) :SizedBox(width:  Get.width * 0.10),
-                           Switch(
-                             value: showCaseAppController.titleSwitch.value,
-                             onChanged: (value) {
-                               setState(() {
-                                 showCaseAppController.titleSwitch.value = value;
-                                 log("value ---- $value");
-                                 editController.showHideMedia(
-                                     value: value == false
-                                         ? "hide"
-                                         : "show",
-                                     keyName: "showcase_apps_heading_show_hide");
-                               });
-                             },
+                         ),
+                         Positioned(
+                           right: 10,
+                           child: Row(
+                             children: [
+                               Switch(
+                                 value: showCaseAppController.titleSwitch.value,
+                                 onChanged: (value) {
+                                   setState(() {
+                                     showCaseAppController.titleSwitch.value = value;
+                                     log("value ---- $value");
+                                     editController.showHideMedia(
+                                         value: value == false
+                                             ? "hide"
+                                             : "show",
+                                         keyName: "showcase_apps_heading_show_hide");
+                                   });
+                                 },
+                               ),
+                               const SizedBox(width: 8),
+                               const Text("App Data show/hide")
+                             ],
                            ),
-                           // const SizedBox(width: 30),
-                         ],
-                       ),
+                         ),
+                       ],
                      ),
                      Align(
                        alignment: Alignment.topRight,
                        child: InkWell(
                          onTap: () {
                            Navigator.push(context,
-                               MaterialPageRoute(builder: (context) => ShowCaseAppsList()));
+                               MaterialPageRoute(builder: (context) => const ShowCaseAppsList()));
 
                          },
                          child: FittedBox(
@@ -335,7 +348,7 @@ class _EditShowcaseAppsSectionState extends State<EditShowcaseAppsSection> {
                                      Container(
                                        // height: Get.width > 1500 ? 225 : Get.width > 1000 ? 200 : 175,
                                          height: Get.width > 1500 ? 275 : Get.width > 1000 ? 240 :Get.width > 500 ? 212 : 175,
-                                         width: Get.width > 1500 ? 650 : Get.width > 1000 ?400 :  Get.width > 600 ?500:Get.width-Get.width*0.2,
+                                         width: Get.width > 1500 ?  650 : Get.width > 1000 ?400 :  Get.width > 600 ?500:Get.width-Get.width*0.2,
                                          // width: Get.width > 1500 ? 600 : Get.width > 1000 ?500 :  Get.width > 500 ?450:Get.width-Get.width*0.2,
                                          decoration: const BoxDecoration(
                                              // color: Colors.blue,
@@ -857,7 +870,7 @@ class _EditShowcaseAppsSectionState extends State<EditShowcaseAppsSection> {
                                      //   });
                                      // },
                                        title: "Redeem Coupon",
-                                     btnColor: Color(0xFFEA5247),txtColor: AppColors.whiteColor,
+                                     btnColor: const Color(0xFFEA5247),txtColor: AppColors.whiteColor,
                                    ),
                                    Obx(() {
                                      return showCaseAppController.couponCode.value.isEmpty

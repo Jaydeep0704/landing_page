@@ -5,12 +5,12 @@ import 'dart:io';
 import 'package:get/get.dart';
 
 import 'package:flutter/material.dart';
+import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
-import '../../../config/api_string.dart';
 import 'AboutUs/AboutUsModel.dart';
 import 'ContactUs/ContactUsModel.dart';
 import 'FAQ/FaqModel.dart';
@@ -65,7 +65,7 @@ class HelpController extends GetxController{
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
       int status = resp['status'];
-      print("status=>" + status.toString());
+      print("status=>$status");
 
       if (status == 1) {
         isApiCallProcessing.value = false;
@@ -100,7 +100,7 @@ class HelpController extends GetxController{
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
       int status = resp['status'];
-      print("status=>" + status.toString());
+      print("status=>$status");
 
       if (status == 1) {
         isApiCallProcessing.value = false;
@@ -138,7 +138,7 @@ class HelpController extends GetxController{
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
       int status = resp['status'];
-      print("status=>" + status.toString());
+      print("status=>$status");
 
       if (status == 1) {
         isApiCallProcessing.value = false;
@@ -172,7 +172,7 @@ class HelpController extends GetxController{
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
       int status = resp['status'];
-      print("status=>" + status.toString());
+      print("status=>$status");
 
       if (status == 1) {
         isApiCallProcessing.value = false;
@@ -206,7 +206,7 @@ class HelpController extends GetxController{
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
       int status = resp['status'];
-      print("status=>" + status.toString());
+      print("status=>$status");
 
       if (status == 1) {
         isApiCallProcessing.value = false;
@@ -240,7 +240,7 @@ class HelpController extends GetxController{
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
       int status = resp['status'];
-      print("status=>" + status.toString());
+      print("status=>$status");
 
       if (status == 1) {
         isApiCallProcessing.value = false;

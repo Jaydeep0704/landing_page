@@ -31,11 +31,17 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
         mediaController = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl + widget.mainData["media"]));
         await mediaController.initialize().whenComplete(
               () {
+                log("data ------->    1");
             mediaController.setLooping(true);
+                log("data ------->    2");
             mediaController.setVolume(0);
+                log("data ------->    3");
             mediaVideoLoaded = true;
+                log("data ------->    4");
             mediaController.play();
+                log("data ------->    5");
             setState(() {});
+                log("data ------->    6");
           },
         );
       } else {
@@ -63,7 +69,8 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
             children: [
               const Expanded(child: SizedBox()),
               SizedBox(
-                width: Get.width > 1200 ? 1100 : Get.width > 800 ? 700 : /*400*/Get.width-40,
+                // width: Get.width > 1200 ? 1100 : Get.width > 800 ? 700 : /*400*/Get.width-40,
+                width: Get.width-Get.width*0.2,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,80 +78,36 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
                       const SizedBox(height: 25),
                       InkWell(
                           onTap: () => Get.back(),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.arrow_back_sharp,color: AppColors.blackColor,),
-                              const SizedBox(width: 5),
-                              Text("Go back",style: AppTextStyle.regular700.copyWith(fontSize: 16,),),
-                            ],
-                          )),
-                      const SizedBox(height: 25),
-                      Get.width>825 ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text("${widget.mainData["case_study_title"]}",style: AppTextStyle.regularBold.copyWith(fontSize: 55,color: AppColors.blackColor)),
-                                const SizedBox(height: 40),
-                                CachedNetworkImage(
-                                  height: 80,
-                                  width: 200,
-                                  fit: BoxFit.cover,
-                                  imageUrl: APIString.bannerMediaUrl +
-                                      widget.mainData["case_study_image"].toString(),
-                                  placeholder: (context, url) =>
-                                      Container(
-                                        height: 200,
-                                        width: 200,
-                                        decoration: const BoxDecoration(
-                                          color: AppColors.greyColor,
-                                        ),
-                                      ),
-                                  errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                                ),
-                                const SizedBox(height: 40),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                            color: AppColors.yellowColor.withOpacity(0.2),
-                                            borderRadius: const BorderRadius.all(Radius.circular(15))
-                                        ),
-                                        child: Text("${widget.mainData["case_study_category"]}",style: AppTextStyle.regularBold.copyWith(fontSize: 15,color: AppColors.blackColor))),
-                                  ],
-                                ),
-                                const SizedBox(height: 40),
-                                Text("${widget.mainData["case_study_short_desciption"]}",style: AppTextStyle.regular500.copyWith(fontSize: 22,color: AppColors.blackColor)),
+                                const Icon(Icons.arrow_back_sharp,color: AppColors.blackColor,),
+                                const SizedBox(width: 5),
+                                Text("Go back",style: AppTextStyle.regular700.copyWith(fontSize: 16,),),
                               ],
                             ),
-                          ),
-                          const SizedBox(width: 30),
-                          mediaComponent(mediaType: widget.mainData["mediaTypeKey"],media: widget.mainData["media"])
-                        ],
-                      )
-                      : Column(
+                          )),
+                      const SizedBox(height: 25),
+                      Get.width>825
+                      ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("${widget.mainData["case_study_title"]}",style: AppTextStyle.regularBold.copyWith(fontSize: 55,color: AppColors.blackColor)),
+                              const SizedBox(width: 15),
                               CachedNetworkImage(
-                                height: 80,
-                                width: 200,
+                                height: 50,
+                                width: 150,
                                 fit: BoxFit.cover,
                                 imageUrl: APIString.bannerMediaUrl +
                                     widget.mainData["case_study_image"].toString(),
                                 placeholder: (context, url) =>
                                     Container(
-                                      height: 200,
-                                      width: 200,
+                                      height: 50,
+                                      width: 150,
                                       decoration: const BoxDecoration(
                                         color: AppColors.greyColor,
                                       ),
@@ -153,6 +116,63 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
                                 const Icon(Icons.error),
                               ),
                             ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+
+                                    // const SizedBox(height: 40),
+
+                                    const SizedBox(height: 40),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            padding: const EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                                color: AppColors.yellowColor.withOpacity(0.2),
+                                                borderRadius: const BorderRadius.all(Radius.circular(15))
+                                            ),
+                                            child: Text("${widget.mainData["case_study_category"]}",style: AppTextStyle.regularBold.copyWith(fontSize: 15,color: AppColors.blackColor))),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 40),
+                                    Text("${widget.mainData["case_study_short_desciption"]}",style: AppTextStyle.regular500.copyWith(fontSize: 22,color: AppColors.blackColor)),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 30),
+                              mediaComponent(mediaType: widget.mainData["mediaTypeKey"],media: widget.mainData["media"])
+                            ],
+                          ),
+                        ],
+                      )
+                      : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("${widget.mainData["case_study_title"]}",style: AppTextStyle.regularBold.copyWith(fontSize: 55,color: AppColors.blackColor)),
+                          const SizedBox(height: 10),
+                          CachedNetworkImage(
+                            height: 50,
+                            width: 150,
+                            fit: BoxFit.cover,
+                            imageUrl: APIString.bannerMediaUrl +
+                                widget.mainData["case_study_image"].toString(),
+                            placeholder: (context, url) =>
+                                Container(
+                                  height: 50,
+                                  width: 150,
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.greyColor,
+                                  ),
+                                ),
+                            errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                           ),
                           const SizedBox(height: 20),
                           Row(
@@ -168,26 +188,7 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
                             ],
                           ),
                           const SizedBox(height: 20),
-                          // SizedBox(
-                          //   width: Get.width,
-                          //   child: CachedNetworkImage(
-                          //     height: 200,
-                          //     width: 200,
-                          //     fit: BoxFit.cover,
-                          //     imageUrl: APIString.bannerMediaUrl +
-                          //         widget.mainData["case_study_image"].toString(),
-                          //     placeholder: (context, url) =>
-                          //         Container(
-                          //           height: 200,
-                          //           width: 200,
-                          //           decoration: const BoxDecoration(
-                          //             color: AppColors.greyColor,
-                          //           ),
-                          //         ),
-                          //     errorWidget: (context, url, error) =>
-                          //     const Icon(Icons.error),
-                          //   ),
-                          // ),
+
                           Align(
                             alignment: Alignment.center,
                             child: mediaComponent(mediaType: widget.mainData["mediaTypeKey"],media: widget.mainData["media"]),
@@ -271,7 +272,7 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
     VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+videoUrl));
     controller.initialize().then((value) {
       controller.setLooping(true);
-      if(isCurrent == true)controller.play();
+      /*if(isCurrent == true)*/controller.play();
     });
 
     return  InkWell(
@@ -293,25 +294,13 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 child: Container(
-                    height:250,
-                    width: 250,
+                    height: Get.width>825 ?Get.width * 0.25: Get.width*0.6,
+                    width: Get.width>825 ?Get.width * 0.35: Get.width*0.6,
                     decoration: const BoxDecoration(color: AppColors.whiteColor),
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
                         VideoPlayer(controller),
-                        // Positioned(
-                        //   bottom: 25,right: 25,
-                        //   child: Obx(() =>  getLatestProject.isVideoPlaying.value == false
-                        //       ?const Icon(
-                        //     Icons.play_circle_fill,
-                        //     size: 30,
-                        //     color: Colors.black,)
-                        //       :const Icon(
-                        //     Icons.pause,
-                        //     size: 30,
-                        //     color: Colors.black,)),
-                        // ),
                       ],
                     )
                 ),
@@ -332,10 +321,11 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
 
   detailMediaComponent({String? mediaType , String? media}){
     return Container(
-      width: 250,
-      height:250,
-      // height: 550,
-      // height: 450,
+      // width: 250,
+      // height:250,
+      height: Get.width>825 ?Get.width * 0.25: Get.width*0.6,
+      width: Get.width>825 ?Get.width * 0.35: Get.width*0.6,
+      // width: Get.width * 0.35,
       margin: const EdgeInsets.only(left: 5,right: 5,top: 70),
       child: Center(
         child: Padding(
@@ -346,7 +336,8 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
             child: mediaType == "image" ||
                 mediaType== "gif"
                 ? CachedNetworkImage(
-              width: 250,
+              height: Get.width>825 ?Get.width * 0.25: Get.width*0.6,
+              width: Get.width>825 ?Get.width * 0.35: Get.width*0.6,
               imageUrl: APIString.latestmediaBaseUrl + media!,
               placeholder: (context, url) => Container(
                 decoration: const BoxDecoration(color: AppColors.greyColor),
@@ -362,10 +353,13 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
   }
 
 
-  mediaComponent({String? mediaType , String? media}){
+  mediaComponent({String? mediaType, String? media}){
+
     return Container(
-      width: Get.width > 1300 ?450: 350,
-      height: Get.width > 1300 ?450: 320,
+      // width: Get.width > 1300 ?450: 350,
+      // height: Get.width > 1300 ?450: 320,
+      height: Get.width>825 ?Get.width * 0.25: Get.width*0.6,
+      width: Get.width>825 ?Get.width * 0.35: Get.width*0.6,
       margin: const EdgeInsets.only(left: 5 ),
       child: Center(
         child: Padding(
@@ -376,8 +370,10 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
             child: mediaType == "image" ||
                 mediaType== "gif"
                 ? CachedNetworkImage(
-              height:  Get.width > 1300 ?450: 350,
-              width:  Get.width > 1300 ?450: 320,
+              // height:  Get.width > 1300 ?450: 350,
+              // width:  Get.width > 1300 ?450: 320,
+              height: Get.width>825 ?Get.width * 0.25: Get.width*0.6,
+              width: Get.width>825 ?Get.width * 0.35: Get.width*0.6,
                     imageUrl: APIString.latestmediaBaseUrl + media!,
                     placeholder: (context, url) => Container(
                       decoration: const BoxDecoration(color: AppColors.greyColor),

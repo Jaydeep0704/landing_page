@@ -83,6 +83,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                       alignment: Alignment.topRight,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Switch(
                             value: editController.benefitBanner
@@ -155,7 +156,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                         ],
                       )
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +168,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              SizedBox(height: 80,),
+                              const SizedBox(height: 80,),
                               InkWell(
                                 onTap: () =>
                                     Get.dialog(TextEditModule(
@@ -242,6 +243,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                   IconButton(
                                       onPressed: () {
                                         Get.dialog(UpdateMediaFunction(
+                                          imageSize: "600*415",
                                           keyNameMedia: "benefit_banner_file",
                                           keyMediaType: "benefit_banner_file_mediatype",
                                         ));
@@ -252,7 +254,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 80,),
+                        const SizedBox(height: 80,),
                       ],
                     ),
                   ),
@@ -261,7 +263,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 80,),
+                        const SizedBox(height: 80,),
                         Wrap(
                           crossAxisAlignment: WrapCrossAlignment.start,
                           alignment: WrapAlignment.start,
@@ -275,7 +277,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                 children: [
                                   commonIconButtonSmall(
                                       onTap: () async {
-                                        const url = 'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
+                                        const url = AppString.playStoreAppLink;
                                         if (await canLaunch(url)) {
                                           await launch(url);
                                         } else {
@@ -584,7 +586,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                             );
                           }
                         }),
-                        SizedBox(height: 80,),
+                        const SizedBox(height: 80,),
 
                       ],
                     ),
@@ -601,6 +603,8 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                   Align(
                       alignment: Alignment.topRight,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Switch(
                             value: editController.benefitBanner
@@ -673,7 +677,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                         ],
                       )
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -683,7 +687,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SizedBox(height: 80),
+                          const SizedBox(height: 80),
                           InkWell(
                             onTap: () =>
                                 Get.dialog(TextEditModule(
@@ -761,6 +765,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                               IconButton(
                                   onPressed: () {
                                     Get.dialog(UpdateMediaFunction(
+                                      imageSize: "600*415",
                                       keyNameMedia: "benefit_banner_file",
                                       keyMediaType: "benefit_banner_file_mediatype",
                                     ));
@@ -785,338 +790,119 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                       // ),
                     ],
                   ),
-                  const SizedBox(height: 10),
-                  // SizedBox(
-                  //   width: Get.width * 0.6,
-                  //   child: Wrap(
-                  //        crossAxisAlignment: WrapCrossAlignment.center,
-                  //        alignment: WrapAlignment.center,
-                  //        // mainAxisAlignment: MainAxisAlignment.center,
-                  //        children: [
-                  //          Padding(
-                  //            padding: const EdgeInsets.only(bottom: 10.0),
-                  //            child: Column(
-                  //              mainAxisAlignment: MainAxisAlignment.center,
-                  //              crossAxisAlignment: CrossAxisAlignment.start,
-                  //              children: [
-                  //                commonButtonSmall(
-                  //                    icon: Icons.phone_android,
-                  //                    margin: EdgeInsets.zero,
-                  //                    padding: EdgeInsets.zero,
-                  //                    // padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-                  //                    fontSize: 12,
-                  //                    title: "Create Your App",
-                  //                    btnColor: Colors.redAccent.withOpacity(0.7),
-                  //                    txtColor: Colors.white),
-                  //                const SizedBox(height: 10),
-                  //                SizedBox(
-                  //                  width: Get.width*0.4,
-                  //                  child: Row(
-                  //                    mainAxisAlignment: MainAxisAlignment.start,
-                  //                    children: const [
-                  //                      Icon(
-                  //                        Icons.remove_red_eye_rounded,
-                  //                        size: 18,
-                  //                      ),
-                  //                      SizedBox(width: 4),
-                  //                      Text(
-                  //                        "30k people creating App",
-                  //                        style: TextStyle(
-                  //                          fontSize: 12,
-                  //                        ),
-                  //                      ),
-                  //                    ],
-                  //                  ),
-                  //                ),
-                  //              ],
-                  //            ),
-                  //          ),
-                  //          Padding(
-                  //            padding: const EdgeInsets.only(bottom: 10.0),
-                  //            child: Column(
-                  //              mainAxisAlignment: MainAxisAlignment.start,
-                  //              crossAxisAlignment: CrossAxisAlignment.start,
-                  //              children: [
-                  //                commonButtonSmall(
-                  //                    margin: EdgeInsets.zero,
-                  //                    padding: const EdgeInsets.symmetric(
-                  //                        horizontal: 0, vertical: 5),
-                  //                    fontSize: 12,
-                  //                    icon: Icons.language,
-                  //                    title: "Create Your Website",
-                  //                    btnColor: Colors.green.withOpacity(0.7),
-                  //                    txtColor: Colors.white),
-                  //                const SizedBox(height: 10),
-                  //                SizedBox(
-                  //                  width: Get.width*0.4,
-                  //                  child: Row(
-                  //                    mainAxisAlignment: MainAxisAlignment.start,
-                  //                    children: const [
-                  //                      Icon(
-                  //                        Icons.remove_red_eye_rounded,
-                  //                        size: 18,
-                  //                      ),
-                  //                      SizedBox(width: 4),
-                  //                      Text(
-                  //                        "30k people creating Website",
-                  //                        style: TextStyle(
-                  //                          fontSize: 12,
-                  //                        ),
-                  //                      ),
-                  //                    ],
-                  //                  ),
-                  //                ),
-                  //              ],
-                  //            ),
-                  //          ),
-                  //          commonButtonSmall(
-                  //              margin: EdgeInsets.zero,
-                  //              padding: const EdgeInsets.symmetric(
-                  //                  horizontal: 0, vertical: 5),
-                  //              fontSize: 12,
-                  //              icon: Icons.perm_phone_msg_sharp,
-                  //              title: "Chat to our expert",
-                  //              btnColor: Colors.blue.withOpacity(0.7),
-                  //              txtColor: Colors.white),
-                  //        ],
-                  //      ),
-                  // ),
-                  // SizedBox(
-                  //   width: Get.width /** 0.6*/,
-                  //   child: Center(
-                  //     child: Column(
-                  //       // crossAxisAlignment: WrapCrossAlignment.center,
-                  //       // alignment: WrapAlignment.center,
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       crossAxisAlignment: CrossAxisAlignment.center,
-                  //       children: [
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(bottom: 10.0),
-                  //           child: Column(
-                  //             mainAxisAlignment: MainAxisAlignment.center,
-                  //             crossAxisAlignment: CrossAxisAlignment.center,
-                  //             children: [
-                  //               commonIconButtonSmall(
-                  //                   onTap: () async {
-                  //                     const url = 'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
-                  //                     if (await canLaunch(url)) {
-                  //                       await launch(url);
-                  //                     } else {
-                  //                       throw 'Could not launch $url';
-                  //                     }
-                  //                   },
-                  //                   icon: Icons.phone_android,
-                  //                   fontSize: 12,
-                  //                   title: "Create Your App",
-                  //                   btnColor: Colors.redAccent.withOpacity(0.7),
-                  //                   txtColor: Colors.white),
-                  //               const SizedBox(height: 10),
-                  //               SizedBox(
-                  //                 width: Get.width * 0.4,
-                  //                 child: Row(
-                  //                   mainAxisAlignment: MainAxisAlignment.center,
-                  //                   crossAxisAlignment: CrossAxisAlignment.center,
-                  //                   children: [
-                  //                     Center(
-                  //                       child: const Icon(
-                  //                         Icons.remove_red_eye_rounded,
-                  //                         size: 18,
-                  //                       ),
-                  //                     ),
-                  //                     const SizedBox(width: 4),
-                  //                     SizedBox(
-                  //                       width: /*Get.width > 500 ?Get.width*0.3 :*/ Get
-                  //                           .width * 0.3,
-                  //                       child: Obx(() =>
-                  //                       webLandingPageController.appLiveCount
-                  //                           .value.isEmpty ? const SizedBox()
-                  //                           : Center(
-                  //                             child: Text(
-                  //                         "${webLandingPageController.appLiveCount
-                  //                               .value} people creating App",
-                  //                         style: const TextStyle(
-                  //                             fontSize: 12,
-                  //                         ),),
-                  //                           )),
-                  //                     ),
-                  //                   ],
-                  //                 ),
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //         Padding(
-                  //           padding: const EdgeInsets.only(bottom: 10.0),
-                  //           child: Column(
-                  //             mainAxisAlignment: MainAxisAlignment.center,
-                  //             crossAxisAlignment: CrossAxisAlignment.center,
-                  //             children: [
-                  //               commonIconButtonSmall(
-                  //                 // margin: EdgeInsets.zero,
-                  //                 // padding: const EdgeInsets.symmetric(
-                  //                 //     horizontal: 0, vertical: 5),
-                  //                   fontSize: 12,
-                  //                   icon: Icons.language,
-                  //                   title: "Create Your Website",
-                  //                   btnColor: Colors.green.withOpacity(0.7),
-                  //                   txtColor: Colors.white),
-                  //               const SizedBox(height: 10),
-                  //               SizedBox(
-                  //                 width: Get.width * 0.4,
-                  //                 // width: Get.width > 500 ?Get.width*0.4 : Get.width*0.3,
-                  //                 child: Row(
-                  //                   mainAxisAlignment: MainAxisAlignment.center,
-                  //                   crossAxisAlignment: CrossAxisAlignment.center,
-                  //                   children: [
-                  //                     Center(
-                  //                       child: const Icon(
-                  //                         Icons.remove_red_eye_rounded,
-                  //                         size: 18,
-                  //                       ),
-                  //                     ),
-                  //                     const SizedBox(width: 4),
-                  //                     Center(
-                  //                       child: SizedBox(
-                  //                         width: /*Get.width > 500 ?Get.width*0.3 :*/ Get
-                  //                             .width * 0.3,
-                  //                         child: Obx(() =>
-                  //                         webLandingPageController.appLiveCount
-                  //                             .value.isEmpty ? const SizedBox()
-                  //                             : Text(
-                  //                           "${webLandingPageController.appLiveCount
-                  //                               .value} people creating Website",
-                  //                           style: const TextStyle(
-                  //                             fontSize: 12,
-                  //                           ),)),
-                  //                       ),
-                  //                     ),
-                  //                   ],
-                  //                 ),
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //         // commonIconButtonSmall(
-                  //         //   // margin: EdgeInsets.zero,
-                  //         //   // padding: const EdgeInsets.symmetric(
-                  //         //   //     horizontal: 0, vertical: 5),
-                  //         //     fontSize: 12,
-                  //         //     icon: Icons.perm_phone_msg_sharp,
-                  //         //     title: "Chat to our expert",
-                  //         //     btnColor: Colors.blue.withOpacity(0.7),
-                  //         //     txtColor: Colors.white),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    alignment: WrapAlignment.center,
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            commonIconButtonSmall(
-                                onTap: () async {
-                                  const url = 'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
-                                  if (await canLaunch(url)) {
-                                    await launch(url);
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
-                                },
-                                icon: Icons.phone_android,
-                                margin: EdgeInsets.zero,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 0, vertical: 5),
-                                fontSize: 12,
-                                title: "Create Your App",
-                                btnColor: Colors.redAccent.withOpacity(
-                                    0.7),
-                                txtColor: Colors.white),
-                            const SizedBox(height: 10),
-                            SizedBox(
-                              width: 250,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .start,
-                                children: [
-                                  const Icon(
-                                    Icons.remove_red_eye_rounded,
-                                    size: 18,
-                                  ),
-                                  const SizedBox(width: 4),
+                  const SizedBox(height: 25),
 
-                                  Obx(() =>
-                                  webLandingPageController.appLiveCount
-                                      .value.isEmpty ? const SizedBox()
-                                      : Text("${webLandingPageController
-                                      .appLiveCount
-                                      .value} people creating App",
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    ),)),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            commonIconButtonSmall(
-                                margin: EdgeInsets.zero,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 0, vertical: 5),
-                                fontSize: 12,
-                                icon: Icons.language,
-                                title: "Create Your Website",
-                                btnColor: Colors.green.withOpacity(0.7),
-                                txtColor: Colors.white),
-                            const SizedBox(height: 10),
-                            SizedBox(
-                              width: 250,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .start,
-                                children: [
-                                  const Icon(
-                                    Icons.remove_red_eye_rounded,
-                                    size: 18,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                commonIconButtonSmall(
+                                    onTap: () async {
+                                      const url = AppString.playStoreAppLink;
+                                      if (await canLaunch(url)) {
+                                        await launch(url);
+                                      } else {
+                                        throw 'Could not launch $url';
+                                      }
+                                    },
+                                    icon: Icons.phone_android,
+                                    margin: EdgeInsets.zero,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 0, vertical: 5),
+                                    fontSize: 12,
+                                    title: "Create Your App",
+                                    btnColor: Colors.redAccent.withOpacity(
+                                        0.7),
+                                    txtColor: Colors.white),
+                                const SizedBox(height: 10),
+                                SizedBox(
+                                  width: 250,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .start,
+                                    children: [
+                                      const Icon(
+                                        Icons.remove_red_eye_rounded,
+                                        size: 18,
+                                      ),
+                                      const SizedBox(width: 4),
+
+                                      Obx(() =>
+                                      webLandingPageController.appLiveCount
+                                          .value.isEmpty ? const SizedBox()
+                                          : Text("${webLandingPageController
+                                          .appLiveCount
+                                          .value} people creating App",
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        ),)),
+                                    ],
                                   ),
-                                  const SizedBox(width: 4),
-                                  Obx(() =>
-                                  webLandingPageController.appLiveCount
-                                      .value.isEmpty ? const SizedBox()
-                                      : Text("${webLandingPageController
-                                      .appLiveCount
-                                      .value} people creating Website",
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                    ),)),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                commonIconButtonSmall(
+                                    margin: EdgeInsets.zero,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 0, vertical: 5),
+                                    fontSize: 12,
+                                    icon: Icons.language,
+                                    title: "Create Your Website",
+                                    btnColor: Colors.green.withOpacity(0.7),
+                                    txtColor: Colors.white),
+                                const SizedBox(height: 10),
+                                SizedBox(
+                                  width: 250,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .start,
+                                    children: [
+                                      const Icon(
+                                        Icons.remove_red_eye_rounded,
+                                        size: 18,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Obx(() =>
+                                      webLandingPageController.appLiveCount
+                                          .value.isEmpty ? const SizedBox()
+                                          : Text("${webLandingPageController
+                                          .appLiveCount
+                                          .value} people creating Website",
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                        ),)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          // commonIconButtonSmall(
+                          //     margin: EdgeInsets.zero,
+                          //     padding: const EdgeInsets.symmetric(
+                          //         horizontal: 0, vertical: 5),
+                          //     fontSize: 12,
+                          //     icon: Icons.perm_phone_msg_sharp,
+                          //     title: "Chat to our expert",
+                          //     btnColor: Colors.blue.withOpacity(0.7),
+                          //     txtColor: Colors.white),
+                        ],
                       ),
-                      // commonIconButtonSmall(
-                      //     margin: EdgeInsets.zero,
-                      //     padding: const EdgeInsets.symmetric(
-                      //         horizontal: 0, vertical: 5),
-                      //     fontSize: 12,
-                      //     icon: Icons.perm_phone_msg_sharp,
-                      //     title: "Chat to our expert",
-                      //     btnColor: Colors.blue.withOpacity(0.7),
-                      //     txtColor: Colors.white),
                     ],
                   ),
                   const SizedBox(height: 25),
@@ -1292,13 +1078,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     TextButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          // boolValue = !boolValue;
-                                          benefitBannerController.bannerInfoReadMore[index] = !boolValue;
-
-                                        });
-                                      },
+                                      onPressed: () {setState(() {benefitBannerController.bannerInfoReadMore[index] = !boolValue;});},
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(horizontal : 5,vertical:2),
                                         child: Text(boolValue ? "Read less" : "Read more",
@@ -1330,7 +1110,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                       );
                     }
                   }),
-                  SizedBox(height: 80),
+                  const SizedBox(height: 80),
                 ],
               ),
             ),

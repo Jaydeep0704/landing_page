@@ -7,6 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/all_blogs_list.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/blog_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/blog_details_screen.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'dart:math' as math;
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
@@ -17,9 +20,6 @@ import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../../../../../BlogSection/all_blogs_list.dart';
-import '../../../../../BlogSection/blog_details_screen.dart';
-import '../../../../../BlogSection/blog_controller.dart';
 import '../../../../../config/app_string.dart';
 import '../../../../../widget/common_button.dart';
 import '../../../../../widget/edit_text_dialog.dart';
@@ -328,7 +328,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Expanded(flex: 1,child: SizedBox()),
+                      const Expanded(flex: 3,child: SizedBox()),
                       // SizedBox(width: Get.width * 0.08),
                       Expanded(
                         flex: 6,
@@ -379,7 +379,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           }),
                         ),
                       ),
-                      const Expanded(flex: 1,child: SizedBox()),
+                      const Expanded(flex: 3,child: SizedBox()),
                       // SizedBox(width: Get.width * 0.08)
                     ],
                   ),
@@ -565,8 +565,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                             return Container(
                               // height: 300,
                               width: Get.width > 700 ? 600 : 450,
-                              decoration: const BoxDecoration(
-                                  color: Colors.yellow,
+                              decoration:  BoxDecoration(
+                                  color: AppColors.redColor.withOpacity(0.2),
                                   borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                               padding: const EdgeInsets.all(10),
@@ -2061,8 +2061,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                     : Get.width < 500
                                     ? Get.width - 30
                                     : 400,
-                                decoration: const BoxDecoration(
-                                    color: Colors.green,
+                                decoration:  BoxDecoration(
+                                    color: AppColors.whiteColor.withOpacity(0.8),
                                     borderRadius:
                                     BorderRadius.all(Radius.circular(20))),
                                 margin: const EdgeInsets.only(right: 5, left: 5),
@@ -2089,38 +2089,44 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                     ),
                                     Padding(
                                       padding:
-                                      const EdgeInsets.only(left: 8.0, bottom: 8),
+                                      const EdgeInsets.only(left: 8.0, bottom: 8,right: 8.0),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Container(
-                                            height: 30,
-                                            width: 30,
-                                            child: Center(
-                                              child: ClipRRect(
-                                                borderRadius: const BorderRadius.all(Radius.circular(50)),
-                                                child: CachedNetworkImage(
-                                                  imageUrl: APIString.latestmediaBaseUrl +featuredImage["userImage"].toString(),
-                                                  fit: BoxFit.cover,
-                                                  width: 30,
-                                                  height: 30,
-                                                  placeholder: (context, url) => Container(
-                                                    decoration: BoxDecoration(
-                                                      color: Color(int.parse(editController.appDemoBgColor.value.toString())),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                height: 30,
+                                                width: 30,
+                                                child: Center(
+                                                  child: ClipRRect(
+                                                    borderRadius: const BorderRadius.all(Radius.circular(50)),
+                                                    child: CachedNetworkImage(
+                                                      imageUrl: APIString.latestmediaBaseUrl +featuredImage["userImage"].toString(),
+                                                      fit: BoxFit.cover,
+                                                      width: 30,
+                                                      height: 30,
+                                                      placeholder: (context, url) => Container(
+                                                        decoration: BoxDecoration(
+                                                          color: Color(int.parse(editController.appDemoBgColor.value.toString())),
+                                                        ),
+                                                      ),
+                                                      errorWidget: (context, url, error) => const Icon(Icons.error),
                                                     ),
                                                   ),
-                                                  errorWidget: (context, url, error) => const Icon(Icons.error),
                                                 ),
                                               ),
-                                            ),
-                                          ),
 
-                                          const SizedBox(width: 8),
+                                              const SizedBox(width: 8),
 
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 20),
-                                            child: Text("${featuredImage["userName"]}"),
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 0),
+                                                child: Text("${featuredImage["userName"]}"),
+                                              ),
+                                            ],
                                           ),
+                                          Text("Read more",style: AppTextStyle.regular400.copyWith(color: AppColors.blueColor),)
                                         ],
                                       ),
                                     ),

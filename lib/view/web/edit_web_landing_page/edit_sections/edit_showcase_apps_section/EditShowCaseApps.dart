@@ -141,6 +141,13 @@ class _EditShowCaseAppsState extends State<EditShowCaseApps> {
                           children: [
                             Center(child: Text("Select Image , Video or Gif  for upload",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
                             SizedBox(height: 10,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: const [
+                                Center(child: Text("Media Size : height*width - 275*650",)),
+                              ],
+                            ),
+                            SizedBox(height: 10,),
                             Divider(
                               color: Colors.grey,
                             ),

@@ -17,11 +17,13 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class ImgPickDialog extends StatefulWidget {
+  String? imageSize;
   String? keyNameImg;
   String? switchKeyNameImg;
   String? switchKeyNameClr;
     ImgPickDialog({
     Key? key,
+    this.imageSize,
     this.keyNameImg,
     this.switchKeyNameImg,
     this.switchKeyNameClr,
@@ -42,12 +44,15 @@ class _ImgPickDialogState extends State<ImgPickDialog> {
   Widget build(BuildContext context) {
 
     return AlertDialog(
+
       title: const Text('Pick an Image'),
       content: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            widget.imageSize == null ?const SizedBox():Text("media size  : height* width - ${widget.imageSize}"),
+            SizedBox(height : widget.imageSize == null ?0:10),
             TextButton(
               child: const Text('Pick Image From Gallery'),
               onPressed: () async {
@@ -61,18 +66,20 @@ class _ImgPickDialogState extends State<ImgPickDialog> {
       actions: <Widget>[
         Row(
             children: [
-              TextButton(
-                child: const Text('Back'),
-                onPressed: () async {
-                  // updateData();
-                  Navigator.of(context).pop();
-                },
-              ),
+
               TextButton(
                 child: const Text('Save'),
                 onPressed: () async {
                   updateData();
                   Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+              ),
+
+              TextButton(
+                child: const Text('Back'),
+                onPressed: () async {
+                  // updateData();
                   Navigator.of(context).pop();
                 },
               ),
@@ -167,9 +174,9 @@ class _ImgPickDialogState extends State<ImgPickDialog> {
 
     log("updateData bg image response   $response");
     log("response.statusCode   ---- ${response.statusCode}");
-
+    hideLoadingDialog();
     if (response.statusCode == 200) {
-      hideLoadingDialog();
+
       // Navigator.pop(context);
       // editController.getData();
       final resp = jsonDecode(response.body);
@@ -179,39 +186,47 @@ class _ImgPickDialogState extends State<ImgPickDialog> {
       int status = resp['status'];
       if (status == 1) {
         log("bg updated successfully ................  ");
-        editController.getData();
+        // editController.getData();
         Fluttertoast.showToast(
           msg: "Updated successfully",
           backgroundColor: Colors.grey,
         );
         editController.getData();
         Get.back();
+        Get.back();
       } else {
         String message = resp['msg'];
         editController.getData();
+        Get.back();
+        Get.back();
         log(message);
       }
-    } else if (response.statusCode == 500) {
+    }
+    else if (response.statusCode == 500) {
       //log(response.statusCode.toString());
-      Navigator.pop(context);
+
       editController.getData();
-      hideLoadingDialog();
       Fluttertoast.showToast(
         msg: "Server Error",
         backgroundColor: Colors.grey,
       );
+      Get.back();
+      Get.back();
       if (mounted) {
         setState(() {});
       }
-    } else {
+    }
+    else {
       log(response.statusCode.toString());
-      Navigator.pop(context);
+
       editController.getData();
       hideLoadingDialog();
       Fluttertoast.showToast(
         msg: response.toString(),
         backgroundColor: Colors.grey,
       );
+      Get.back();
+      Get.back();
       if (mounted) {
         setState(() {});
       }

@@ -17,12 +17,14 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class UpdateMediaFunction extends StatefulWidget {
+  String? imageSize;
   String? keyNameMedia;
   // String? mediaType;
   String? keyMediaType;
 
   UpdateMediaFunction({
     Key? key,
+    this.imageSize,
     this.keyNameMedia,
     this.keyMediaType,
     // this.mediaType,
@@ -89,22 +91,26 @@ class _UpdateMediaFunctionState extends State<UpdateMediaFunction> {
                   },
                 ),
                 const SizedBox(height: 15),
+                widget.imageSize == null ?const SizedBox():Text("media size : height*width - ${widget.imageSize}"),
+                SizedBox(height : widget.imageSize == null ?0:10),
+                const SizedBox(height: 15),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+
+                      TextButton(
+                        child: const Text('Save'),
+                        onPressed: () async {
+                          updateData();
+                          Navigator.of(context).pop();
+                        },
+                      ),
                       TextButton(
                         child: const Text('Back'),
                         onPressed: () async {
                           // updateData();
                           editController.mediaType.value = "";
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      TextButton(
-                        child: const Text('Save'),
-                        onPressed: () async {
-                          updateData();
                           Navigator.of(context).pop();
                         },
                       ),

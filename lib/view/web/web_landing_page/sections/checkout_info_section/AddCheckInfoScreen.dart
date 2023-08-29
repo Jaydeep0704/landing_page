@@ -77,14 +77,14 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            title: Text("Add Check Info",
+            title: const Text("Add Check Info",
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold)),
             leading: IconButton(
               onPressed: () => {Navigator.of(context).pop()},
-              icon: Icon(Icons.arrow_back, color: Colors.black),
+              icon: const Icon(Icons.arrow_back, color: Colors.black),
             ),
           ),
           body: Padding(
@@ -92,18 +92,26 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
             child: SingleChildScrollView(
               child: Row(
                   children:[
-                    Expanded(
+                    const Expanded(
                         child:
                         SizedBox()
                     ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        Center(child: Text("Media Size : height*width - 550*650",)),
+                      ],
+                    ),
+                    SizedBox(height: 10),
                     SizedBox(
                       width: Get.width > 800 ? 700 :400,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Center(child: Text("Select Image , Video or Gif  for upload",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
-                            SizedBox(height: 10,),
-                            Divider(
+                            const Center(child: Text("Select Image , Video or Gif  for upload",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
+                            const SizedBox(height: 10,),
+                            const Divider(
                               color: Colors.grey,
                             ),
                             Row(
@@ -111,7 +119,7 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
                                 Expanded(
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text(
+                                    title: const Text(
                                       'Image',
                                       style: TextStyle(fontSize: 16),
                                     ),
@@ -139,7 +147,7 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
                                 Expanded(
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text(
+                                    title: const Text(
                                       'Video',
                                       style: TextStyle(fontSize: 16),
                                     ),
@@ -168,7 +176,7 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
                                 Expanded(
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text(
+                                    title: const Text(
                                       'GIF',
                                       style: TextStyle(fontSize: 16),
                                     ),
@@ -196,7 +204,7 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             Visibility(
                                 visible:isImage == true ? true : false,
                                 child:
@@ -217,7 +225,7 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
                                         imageData!,
                                         fit: BoxFit.fill,
                                       )
-                                          : Center(child:  Icon(
+                                          : const Center(child:  Icon(
                                         Icons.photo_library,
                                         size: 50,
                                         color: Colors.grey,
@@ -302,7 +310,7 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
                                         gifData!,
                                         fit: BoxFit.fill,
                                       )
-                                          : Center(child:  Icon(
+                                          : const Center(child:  Icon(
                                         Icons.photo_library,
                                         size: 50,
                                         color: Colors.grey,
@@ -332,12 +340,12 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
                                   ],
                                 )
                             ),
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
 
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
                             const Text("Enter Title",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
 
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             TextFormField(
                               controller: project_tile_controller,
@@ -369,11 +377,11 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
                               ),
                             ),
 
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
 
                             const Text("Enter Description",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
 
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             TextFormField(
                                 controller: project_description_controller,
@@ -410,10 +418,10 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
                             ),
 
 
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             Container(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               color: Colors.white,
                               child: isApiProcessing == true
                                   ? Container(
@@ -434,7 +442,7 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
                                     color: Colors.blueAccent,
                                   ),
                                   height: 40,
-                                  padding: EdgeInsets.all(4),
+                                  padding: const EdgeInsets.all(4),
                                   alignment: Alignment.center,
                                   child: const Text(
                                     "Add",
@@ -449,7 +457,7 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
                           ]
                       ),
                     ),
-                    Expanded(
+                    const Expanded(
                         child:
                         SizedBox()
                     ),
@@ -570,6 +578,7 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
       int status=resp['status'];
       if(status==1){
         Fluttertoast.showToast(msg: " successfully Added", backgroundColor: Colors.grey,);
+        Get.back();
         checkoutInfocontroller.getCheckOutApi();
 
       }

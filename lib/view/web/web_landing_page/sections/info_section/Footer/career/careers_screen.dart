@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:dotted_border/dotted_border.dart';
-import 'package:grobiz_web_landing/view/web/career/careers_controller.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/career/careers_controller.dart';
 import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:grobiz_web_landing/widget/common_textfield.dart';

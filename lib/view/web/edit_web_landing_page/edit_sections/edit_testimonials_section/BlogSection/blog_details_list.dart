@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_numbers_banner_section/number_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/updateTestiMonalScreen.dart';
@@ -17,8 +18,6 @@ import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:video_player/video_player.dart';
 
-import '../view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
-import '../view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/addTestimonalScreen.dart';
 import 'add_new_blog.dart';
 import 'add_blog_details.dart';
 import 'blog_controller.dart';

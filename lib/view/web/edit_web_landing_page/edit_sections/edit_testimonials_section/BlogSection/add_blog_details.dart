@@ -6,7 +6,10 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
-import 'package:grobiz_web_landing/BlogSection/blog_details_list.dart';
+import 'package:grobiz_web_landing/config/api_string.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/blog_details_list.dart';
+import 'package:grobiz_web_landing/widget/common_snackbar.dart';
+import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:http_parser/src/media_type.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/services.dart';
@@ -17,10 +20,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:getwidget/getwidget.dart';
 
 import 'package:video_player/video_player.dart';
-import '../../../config/api_string.dart';
 import 'dart:html' as html;
-import '../../../widget/common_snackbar.dart';
-import '../../../widget/loading_dialog.dart';
 
 import 'package:http/http.dart' as http;
 

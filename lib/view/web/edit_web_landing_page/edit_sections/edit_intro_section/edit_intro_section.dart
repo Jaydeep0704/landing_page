@@ -219,6 +219,7 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                             child: IconButton(onPressed: () {
                               Get.to(() =>
                                   ImgPickDialog(
+                                    imageSize: "60*60",
                                     keyNameImg: "Logo_image",
                                     switchKeyNameImg: "",
                                     switchKeyNameClr: "",
@@ -227,50 +228,6 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                           )
                         ],
                       ),
-
-                      // Container(
-                      //   height: 50,
-                      //   width: 50,
-                      //   // margin: const EdgeInsets.symmetric(horizontal: 25),
-                      //   decoration: const BoxDecoration(
-                      //       color: Colors.blue,
-                      //       borderRadius: BorderRadius.all(
-                      //           Radius.circular(25))),
-                      //   // child: const Center(child: Text("logo"),
-                      //   child :  Stack(
-                      //       alignment: Alignment.topRight,
-                      //     children: [
-                      //       Center(
-                      //         child: ClipRRect(
-                      //           borderRadius: const BorderRadius.all(Radius.circular(25)),
-                      //
-                      //           child: CachedNetworkImage(
-                      //             width: Get.width,
-                      //             imageUrl: APIString.mediaBaseUrl +
-                      //                 editController.allDataResponse[0]["intro_details"][0]["Logo_image"]
-                      //                     .toString(),
-                      //             placeholder: (context, url) => Container(
-                      //                 decoration: BoxDecoration(
-                      //                   color: Color(int.parse(editController
-                      //                       .appDemoBgColor.value
-                      //                       .toString())),
-                      //                 )),
-                      //             // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
-                      //             errorWidget: (context, url, error) =>
-                      //             const Icon(Icons.error),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       IconButton(onPressed: () {
-                      //         Get.to(() => ImgPickDialog(
-                      //           keyNameImg: "Logo_image",
-                      //           switchKeyNameImg: "",
-                      //           switchKeyNameClr: "",
-                      //         ));
-                      //       }, icon: const Icon(Icons.edit))
-                      //     ],
-                      //   ),
-                      //   ),
                     ],
                   ),
                 ),
@@ -405,7 +362,9 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                     ),
                                     IconButton(
                                         onPressed: () {
-                                          Get.dialog(UpdateMediaFunction(
+                                          Get.dialog(
+                                              UpdateMediaFunction(
+                                                imageSize: "120*120",
                                             keyNameMedia: "intro_gif1",
                                             keyMediaType: "intro_gif1_mediatype",
                                           ));
@@ -514,7 +473,7 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                         IconButton(
                                             onPressed: () {
                                               Get.dialog(UpdateMediaFunction(
-                                                keyNameMedia: "intro_gif2",
+                                                imageSize: "160*120",
                                                 keyMediaType: "intro_gif2_mediatype",
                                               ));
                                             },
@@ -639,6 +598,7 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                         IconButton(
                                             onPressed: () {
                                               Get.dialog(UpdateMediaFunction(
+                                                imageSize: "120*120",
                                                 keyNameMedia: "intro_gif1",
                                                 keyMediaType: "intro_gif1_mediatype",
                                               ));
@@ -760,6 +720,7 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                                 onPressed: () {
                                                   Get.dialog(
                                                       UpdateMediaFunction(
+                                                        imageSize: "160*120",
                                                         keyNameMedia: "intro_gif2",
                                                         keyMediaType: "intro_gif2_mediatype",
                                                       ));

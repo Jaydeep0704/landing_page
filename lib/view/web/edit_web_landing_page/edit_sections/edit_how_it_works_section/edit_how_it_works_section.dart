@@ -252,6 +252,7 @@ class _EditHowItWorksSectionState extends State<EditHowItWorksSection> {
                               IconButton(
                                   onPressed: (){
                                     Get.dialog(UpdateMediaFunction(
+                                      imageSize: "350*350",
                                       keyNameMedia: "hiw_gif",
                                       keyMediaType: "hiw_gif_mediatype",
                                     ));

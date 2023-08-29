@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/controller/detailed_case_study_controller.dart';
 import 'package:video_player/video_player.dart';
 
-import '../view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'blog_controller.dart';
 
 class BlogDetailsScreen extends StatefulWidget {
@@ -99,15 +99,17 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                     blurRadius: 1,
                     spreadRadius: 2)
               ]),
-              width: Get.width > 1200
-                  ? 1100
-                  : Get.width > 1000
-                      ? 900
-                      : Get.width > 800
-                      ? 700
-                      : Get.width > 600
-                      ? 550
-                      : Get.width-40,
+              // width: Get.width > 1200
+              //     ? 1100
+              //     : Get.width > 1000
+              //         ? 900
+              //         : Get.width > 800
+              //         ? 700
+              //         : Get.width > 600
+              //         ? 550
+              //         : Get.width-40,
+
+              width: Get.width-Get.width*0.2,
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
@@ -134,11 +136,11 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                     const SizedBox(height: 30),
                     //blogType
                     Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: AppColors.lightBlueColor,
-                            border: Border.all(
-                                color: AppColors.blueColor, width: 0.8),
-                            borderRadius: const BorderRadius.all(
+                            // border: Border.all(
+                            //     color: AppColors.blueColor, width: 0.8),
+                            borderRadius: BorderRadius.all(
                                 Radius.circular(20))),
                         child: Padding(
                           padding: const EdgeInsets.only(
@@ -148,7 +150,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                             style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w100,
-                              color: AppColors.blueColor,
+                              color: AppColors.whiteColor,
                             ),
                           ),
                         )),
@@ -161,11 +163,9 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                         color: Colors.black,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 30),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
                           height: 50,
@@ -194,21 +194,28 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                           ),
                         ),
                         const SizedBox(
-                          width: 10,
+                          width: 15,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               widget.name,
                               style: const TextStyle(
-                                fontSize: 28,
+                                fontSize: 24,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
-                            const SizedBox(
-                              width: 15,
+                            const SizedBox(height: 8),
+                            const Text(
+                              "~ Author",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
                             ),
                           ],
                         ),
@@ -227,8 +234,8 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                                   imageUrl: APIString.latestmediaBaseUrl +
                                       widget.media,
                                   fit: BoxFit.fill,
-                                  height: 300,
-                                  width: Get.width,
+                                  height: 350,
+                                  width: Get.width > 850?750:Get.width,
                                   placeholder: (context, url) => Container(
                                     decoration: BoxDecoration(
                                       color: Color(int.parse(editController
@@ -253,7 +260,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                         color: Colors.black,
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 80),
 
                     Obx(() {
                       return editBlogController.blogDetails.isEmpty
@@ -266,7 +273,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                            var data = editBlogController.blogDetails[index];
                             return Container(
                             width: Get.width,
-                            margin: const EdgeInsets.only(bottom: 50),
+                            margin: const EdgeInsets.only(bottom: 80),
                             child: Get.width>825  ? Row(
                               children: [
                                 index.isEven ? const SizedBox():detailMediaComponent(media: data["media"].toString(),mediaType: data["mediaTypeKey"].toString()) ,
@@ -277,9 +284,9 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       const SizedBox(height: 15),
-                                      Text("${data["title"]}",style: AppTextStyle.regularBold.copyWith(fontSize: 24,color: AppColors.blackColor,height: 1.2),),
+                                      Text("${data["title"]}",style: AppTextStyle.regularBold.copyWith(fontSize: 24,color: AppColors.blackColor,height: 2),),
                                       const SizedBox(height: 15),
-                                      Text("${data["description"]}",style: AppTextStyle.regular300.copyWith(fontSize: 20,color: AppColors.blackColor,height: 1.2),),
+                                      Text("${data["description"]}",style: AppTextStyle.regular300.copyWith(fontSize: 20,color: AppColors.blackColor,height: 2),),
                                     ],
                                   ),
                                 ),
@@ -293,9 +300,9 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                               children: [
                                 detailMediaComponent(media: data["media"].toString(),mediaType: data["mediaTypeKey"].toString()) ,
                                 const SizedBox(height: 15),
-                                Text("${data["title"]}",style: AppTextStyle.regularBold.copyWith(fontSize: 24,color: AppColors.blackColor,height: 1.2),),
+                                Text("${data["title"]}",style: AppTextStyle.regularBold.copyWith(fontSize: 24,color: AppColors.blackColor,height: 2),),
                                 const SizedBox(height: 15),
-                                Text("${data["description"]}",style: AppTextStyle.regular300.copyWith(fontSize: 20,color: AppColors.blackColor,height: 1.2),),
+                                Text("${data["description"]}",style: AppTextStyle.regular300.copyWith(fontSize: 20,color: AppColors.blackColor,height: 2),),
                               ],
                             ),
                           );
@@ -338,7 +345,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
     VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+videoUrl));
     controller.initialize().then((value) {
       controller.setLooping(true);
-      if(isCurrent == true)controller.play();
+      /*if(isCurrent == true)*/controller.play();
     });
 
     return  InkWell(
@@ -360,8 +367,8 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 child: Container(
-                    height:250,
-                    width: 250,
+                    height: Get.width>825 ?Get.width * 0.25: Get.width*0.6,
+                    width: Get.width>825 ?Get.width * 0.35: Get.width*0.6,
                     decoration: const BoxDecoration(color: AppColors.whiteColor),
                     child: Stack(
                       alignment: Alignment.center,
@@ -399,10 +406,10 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
 
   detailMediaComponent({String? mediaType , String? media}){
     return Container(
-      width: 250,
-      height:250,
-      // height: 550,
-      // height: 450,
+      // width: 250,
+      // height:250,
+      height: Get.width>825 ?Get.width * 0.25: Get.width*0.6,
+      width: Get.width>825 ?Get.width * 0.35: Get.width*0.6,
       margin: const EdgeInsets.only(left: 5,right: 5,top: 70),
       child: Center(
         child: Padding(
@@ -413,7 +420,8 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
             child: mediaType == "image" ||
                 mediaType== "gif"
                 ? CachedNetworkImage(
-              width: 250,
+              height: Get.width>825 ?Get.width * 0.25: Get.width*0.6,
+              width: Get.width>825 ?Get.width * 0.35: Get.width*0.6,
               imageUrl: APIString.latestmediaBaseUrl + media!,
               placeholder: (context, url) => Container(
                 decoration: const BoxDecoration(color: AppColors.greyColor),
@@ -428,3 +436,5 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
     );
   }
 }
+//  height: Get.width>825 ?Get.width * 0.25: Get.width*0.6,
+//               width: Get.width>825 ?Get.width * 0.35: Get.width*0.6,

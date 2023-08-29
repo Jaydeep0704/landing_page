@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
+import 'package:grobiz_web_landing/config/app_string.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
@@ -202,7 +203,7 @@ class _CheckoutSectionState extends State<CheckoutSection> {
                                   fit: BoxFit.scaleDown,
                                   child: commonIconButton(
                                       onTap:() async {
-                                        const url = 'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
+                                        const url = AppString.playStoreAppLink;
                                         if (await canLaunch(url)) {
                                           await launch(url);
                                         } else {
@@ -388,7 +389,7 @@ class _CheckoutSectionState extends State<CheckoutSection> {
                             fit: BoxFit.scaleDown,
                             child: commonIconButton(
                                 onTap:() async {
-                                  const url = 'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
+                                  const url = AppString.playStoreAppLink;
                                   if (await canLaunch(url)) {
                                     await launch(url);
                                   } else {

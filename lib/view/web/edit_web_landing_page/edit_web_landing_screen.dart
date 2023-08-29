@@ -4,7 +4,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:grobiz_web_landing/BlogSection/blog_controller.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
@@ -34,12 +33,12 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_pricing_section/edit_pricing_section.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_showcase_apps_section/edit_showcase_apps_section.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_showcase_apps_section/showcase_app_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/blog_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/edit_testimonials_section.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_text_banner_section/edit_text_banner_section.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/checkout_info_section/CheckOutInfoControllers.dart';
-import 'package:grobiz_web_landing/view/web/web_landing_page/web_landing_screen.dart';
 import 'package:video_player/video_player.dart';
 
 import 'edit_sections/edit_case_study_section/edit_case_study_section.dart';
@@ -831,39 +830,39 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
     const EditAddressSection(),
   ];
 
-  getComponentUi(homecomponent) {
-    if (homecomponent["component_name"].toString() == "intro") {
+  getComponentUi(homeComponent) {
+    if (homeComponent["component_name"].toString() == "intro") {
       return const EditIntroSection();
-    } else if (homecomponent["component_name"].toString() == "showcase_apps") {
+    } else if (homeComponent["component_name"].toString() == "showcase_apps") {
       return const EditShowcaseAppsSection();
-    } else if (homecomponent["component_name"].toString() == "how_it_works") {
+    } else if (homeComponent["component_name"].toString() == "how_it_works") {
       return const EditHowItWorksSection();
-    } else if (homecomponent["component_name"].toString() == "testimonials") {
+    } else if (homeComponent["component_name"].toString() == "testimonials") {
       return const EditTestimonialsSection();
-    } else if (homecomponent["component_name"].toString() == "text_banner") {
+    } else if (homeComponent["component_name"].toString() == "text_banner") {
       return const EditTextBannerSection();
-    } else if (homecomponent["component_name"].toString() == "mix_banner") {
+    } else if (homeComponent["component_name"].toString() == "mix_banner") {
       return const EditMixBannerSection();
-    } else if (homecomponent["component_name"].toString() == "benefit_banner") {
+    } else if (homeComponent["component_name"].toString() == "benefit_banner") {
       return const EditBenefitBannerSection();
-    } else if (homecomponent["component_name"].toString() == "numbers_banner") {
+    } else if (homeComponent["component_name"].toString() == "numbers_banner") {
       return const EditNumbersBannerSection();
-    } else if (homecomponent["component_name"].toString() == "help_banner") {
+    } else if (homeComponent["component_name"].toString() == "help_banner") {
       return const EditHelpBannerSection();
-    } else if (homecomponent["component_name"].toString() == "case_study") {
+    } else if (homeComponent["component_name"].toString() == "case_study") {
       return const EditCaseStudySection();
-    } else if (homecomponent["component_name"].toString() == "checkout_info") {
+    } else if (homeComponent["component_name"].toString() == "checkout_info") {
       return const EditCheckoutInfoSection();
-    } else if (homecomponent["component_name"].toString() == "pricing") {
+    } else if (homeComponent["component_name"].toString() == "pricing") {
       return const EditPricingSection();
-    } else if (homecomponent["component_name"].toString() == "checkout") {
+    } else if (homeComponent["component_name"].toString() == "checkout") {
       return const EditCheckoutSection();
-    } else if (homecomponent["component_name"].toString() == "apps_demo") {
+    } else if (homeComponent["component_name"].toString() == "apps_demo") {
       return const EditAppsDemoSection();
-    }   else if (homecomponent["component_name"].toString() == "footer_section") {
+    }   else if (homeComponent["component_name"].toString() == "footer_section") {
       return const EditInfoSection();
     }
-    else if (homecomponent["component_name"].toString() == "address_section") {
+    else if (homeComponent["component_name"].toString() == "address_section") {
       return const EditAddressSection();
     }
     else {

@@ -91,7 +91,12 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
                       ),
                     ),
                   ),
-
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [
+                      Center(child: Text("Media Size : height*width - 50*50",)),
+                    ],
+                  ),
                   Expanded(
                     child: Obx(() {
                       return numberBannerController.partnerBannerLogos.isEmpty

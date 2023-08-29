@@ -40,10 +40,10 @@ class _EditTextBannerSectionState extends State<EditTextBannerSection> {
             decoration:
             // BoxDecoration(color: AppColors.bgGrey.withOpacity(0.5)),
             editController
-                .allDataResponse[0]["text_banner_details"][0]["case_study_bg_color_switch"]
+                .allDataResponse[0]["text_banner_details"][0]["text_banner_bg_color_switch"]
                 .toString() == "1" &&
                 editController
-                    .allDataResponse[0]["text_banner_details"][0]["case_study_bg_image_switch"]
+                    .allDataResponse[0]["text_banner_details"][0]["text_banner_bg_image_switch"]
                     .toString() == "0"
                 ? BoxDecoration(
               color: editController.allDataResponse[0]

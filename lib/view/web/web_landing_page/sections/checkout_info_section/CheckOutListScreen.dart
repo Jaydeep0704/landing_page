@@ -73,7 +73,7 @@ class _CheckOutListState extends State<CheckOutList> {
                     child: InkWell(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => AddCheckInfo()));
+                            MaterialPageRoute(builder: (context) => AddCheckInfo())).whenComplete(() => checkoutInfocontroller.getCheckOutApi());
 
                       },
                       child: FittedBox(

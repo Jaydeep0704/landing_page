@@ -1,3 +1,4 @@
+import 'package:grobiz_web_landing/config/app_string.dart';
 import 'package:grobiz_web_landing/widget/common_bg_color_pick.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -189,6 +190,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                       IconButton(
                           onPressed: () {
                             Get.dialog(UpdateMediaFunction(
+                              imageSize: "width * 0.6 & width * 0.6",
                               keyNameMedia: "checkout_file",
                               keyMediaType: "checkout_file_mediatype",
                             ));
@@ -334,7 +336,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                                   fit: BoxFit.scaleDown,
                                   child: commonIconButton(
                                       onTap:() async {
-                                        const url = 'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
+                                        const url = AppString.playStoreAppLink;
                                         if (await canLaunch(url)) {
                                           await launch(url);
                                         } else {
@@ -538,6 +540,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                       IconButton(
                           onPressed: () {
                             Get.dialog(UpdateMediaFunction(
+                              imageSize: "width * 0.6 & width * 0.6",
                               keyNameMedia: "checkout_file",
                               keyMediaType: "checkout_file_mediatype",
                             ));
@@ -567,7 +570,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                             fit: BoxFit.scaleDown,
                             child: commonIconButton(
                                 onTap:() async {
-                                  const url = 'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
+                                  const url = AppString.playStoreAppLink;
                                   if (await canLaunch(url)) {
                                     await launch(url);
                                   } else {
