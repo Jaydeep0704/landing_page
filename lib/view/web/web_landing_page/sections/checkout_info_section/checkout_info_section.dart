@@ -28,6 +28,7 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
   final checkoutInfocontroller = Get.find<CheckOutInfoController>();
   final landingPageController = Get.find<WebLandingPageController>();
   final editController = Get.find<EditController>();
+
   // late VideoPlayerController _controller;
   // ScrollController _scrollController = ScrollController();
   // Timer? _autoScrollTimer;
@@ -37,13 +38,14 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
 
 
   @override
-  void initState()  {
+  void initState() {
     // TODO: implement initState
     super.initState();
     // WidgetsBinding.instance.addPostFrameCallback((_){
     //   checkoutInfocontroller.getCheckOutApi();
     // });
   }
+
   @override
   void dispose() {
     // _timer?.cancel();
@@ -52,6 +54,7 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
 
     super.dispose();
   }
+
   // void startAutoScroll() {
   //   const autoScrollDuration = Duration(seconds: 5);
   //   const pixelsToScroll = 300.0;
@@ -103,32 +106,43 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
 
   @override
   Widget build(BuildContext context) {
-
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Obx(() => editController.checkoutInfo.value == false ||  editController.allDataResponse.isEmpty ?const SizedBox(): Container(
+        return Obx(() =>
+        editController.checkoutInfo.value == false ||
+            editController.allDataResponse.isEmpty
+            ? const SizedBox()
+            : Container(
           // height: 700,
           padding: EdgeInsets.only(
               left: Get.width > 650 ? Get.width * 0.1 : Get.width * 0.05,
               right: Get.width > 650 ? Get.width * 0.1 : Get.width * 0.05),
           width: Get.width,
-          decoration:  editController.allDataResponse[0]["checkout_info_details"][0]["checkout_info_bg_color_switch"].toString() == "1" &&
-              editController.allDataResponse[0]["checkout_info_details"][0]["checkout_info_bg_image_switch"].toString() == "0"
+          decoration: editController
+              .allDataResponse[0]["checkout_info_details"][0]["checkout_info_bg_color_switch"]
+              .toString() == "1" &&
+              editController
+                  .allDataResponse[0]["checkout_info_details"][0]["checkout_info_bg_image_switch"]
+                  .toString() == "0"
               ? BoxDecoration(
-            color: editController.allDataResponse[0]["checkout_info_details"][0]["checkout_info_bg_color"]
+            color: editController
+                .allDataResponse[0]["checkout_info_details"][0]["checkout_info_bg_color"]
                 .toString()
                 .isEmpty
                 ? Color(int.parse(
                 editController.introBgColor.value.toString()))
-                : Color(int.parse(editController.allDataResponse[0]["checkout_info_details"][0]["checkout_info_bg_color"]
+                : Color(int.parse(editController
+                .allDataResponse[0]["checkout_info_details"][0]["checkout_info_bg_color"]
                 .toString())),
           )
-              :BoxDecoration(
+              : BoxDecoration(
               image: DecorationImage(image: CachedNetworkImageProvider(
                 APIString.mediaBaseUrl +
-                    editController.allDataResponse[0]["checkout_info_details"][0]["checkout_info_bg_image"]
+                    editController
+                        .allDataResponse[0]["checkout_info_details"][0]["checkout_info_bg_image"]
                         .toString(),
-                errorListener: () =>  const Icon(Icons.error),),fit: BoxFit.cover)
+                errorListener: () => const Icon(Icons.error),),
+                  fit: BoxFit.cover)
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -272,7 +286,7 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
               const SizedBox(height: 32),
 
               Get.width > 650
-              ?Row(
+                  ? Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -362,147 +376,183 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                         const SizedBox(
                           height: 30,
                         ),
+
                         ///here need to change....
                         Obx(() {
-
-                            return checkoutInfocontroller.CheckInfoDataList.isEmpty ?
-                            const Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Center(
-                                child: Text(
-                                  'No Data...',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.grey,
-                                  ),
+                          return checkoutInfocontroller.CheckInfoDataList
+                              .isEmpty ?
+                          const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Center(
+                              child: Text(
+                                'No Data...',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.grey,
                                 ),
                               ),
-                            )
-                            : SizedBox(
-                              height: 600,
-                              child: ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                // controller: _scrollController,
-                                itemCount: checkoutInfocontroller.CheckInfoDataList.length,
-                                itemBuilder: (context, index) {
-                                  var data = checkoutInfocontroller.CheckInfoDataList[index];
-                                  return Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            height: 60,
-                                            width: 2,
-                                            margin: const EdgeInsets.only(right: 16),
-                                            decoration: BoxDecoration(
-                                              color: _currentIndex == index ? AppColors.blueColor : Colors.grey,
-                                              borderRadius: BorderRadius.circular(10),
-                                            ),
+                            ),
+                          )
+                              : SizedBox(
+                            height: 600,
+                            child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              // controller: _scrollController,
+                              itemCount: checkoutInfocontroller
+                                  .CheckInfoDataList.length,
+                              itemBuilder: (context, index) {
+                                var data = checkoutInfocontroller
+                                    .CheckInfoDataList[index];
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 60,
+                                          width: 2,
+                                          margin: const EdgeInsets.only(
+                                              right: 16),
+                                          decoration: BoxDecoration(
+                                            color: _currentIndex == index
+                                                ? AppColors.blueColor
+                                                : Colors.grey,
+                                            borderRadius: BorderRadius.circular(
+                                                10),
                                           ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  data["title"].toString(),
-                                                  style: AppTextStyle.regular700.copyWith(fontSize: 22),
-                                                ),
-                                                const SizedBox(height: 10),
-                                                Text(
-                                                  data["description"].toString(),
-                                                  style: AppTextStyle.regular400.copyWith(fontSize: 14),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(height: 16),
-                                    ],
-                                  );
-                                },
-                              ),
-                            );
-
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment
+                                                .start,
+                                            children: [
+                                              Text(
+                                                data["title"].toString(),
+                                                style: AppTextStyle.regular700
+                                                    .copyWith(fontSize: 22),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                data["description"].toString(),
+                                                style: AppTextStyle.regular400
+                                                    .copyWith(fontSize: 14),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(height: 16),
+                                  ],
+                                );
+                              },
+                            ),
+                          );
                         })
                       ],
                     ),
                   ),
                   SizedBox(width: Get.width * 0.075),
+
                   ///slider code
                   Expanded(
-                    child: Container(
-                      height: 600,
-                      width: Get.width,
-                      child: CarouselSlider.builder(
-                        carouselController: landingPageController.appDetailsController,
-                        options: CarouselOptions(
-                          // enableInfiniteScroll: false,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _currentIndex = index;
-                            });
-                          },
-                          autoPlay: true,
-                          autoPlayInterval: const Duration(seconds: 5),
-                          viewportFraction: 1.0, // Set viewportFraction to 1.0
-                          height: 630,
-                        ),
-                        itemCount: checkoutInfocontroller.CheckInfoDataList.length,
-                        itemBuilder: (context, itemIndex, realIndex) {
-                          var a = checkoutInfocontroller.CheckInfoDataList[itemIndex];
-                          return _currentIndex == itemIndex
-                              ? Container(
-                            width: Get.width > 500 ? Get.width * 0.5 : Get.width > 350 ? Get.width * 0.7 : Get.width * 0.7,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const SizedBox(height: 10),
-                                Container(
-                                  height: 550, // Increase the height of the image container
-                                  width: Get.width * 0.9, // Increase the width of the image container
-                                  margin: const EdgeInsets.symmetric(horizontal: 5),
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: ClipRRect(
-                                        borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                        child: a["file_media_type"].toString() == "image" || a["file_media_type"].toString() == "gif"
-                                            ? CachedNetworkImage(
-                                          imageUrl: APIString.latestmediaBaseUrl + a["files"].toString(),
-                                          placeholder: (context, url) => Container(
-                                            decoration: BoxDecoration(
-                                              color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                            ),
-                                          ),
-                                          errorWidget: (context, url, error) => const Icon(Icons.error),
-                                          fit: BoxFit.cover, // Use cover to make the image fit the container
-                                        )
-                                            :
-                                        //buildMediaWidget()
-                                        displayUploadedVideo( a["files"].toString()),
+                    child: Obx(() {
+                      return checkoutInfocontroller.CheckInfoDataList.isEmpty ?SizedBox(): Container(
+                        height: 600,
+                        width: Get.width,
+                        child: CarouselSlider.builder(
+                          carouselController: landingPageController
+                              .appDetailsController,
+                          options: CarouselOptions(
+                            // enableInfiniteScroll: false,
+                            onPageChanged: (index, reason) {
+                              setState(() {
+                                _currentIndex = index;
+                              });
+                            },
+                            autoPlay: true,
+                            autoPlayInterval: const Duration(seconds: 5),
+                            viewportFraction: 1.0,
+                            // Set viewportFraction to 1.0
+                            height: 630,
+                          ),
+                          itemCount: checkoutInfocontroller.CheckInfoDataList
+                              .length,
+                          itemBuilder: (context, itemIndex, realIndex) {
+                            var a = checkoutInfocontroller
+                                .CheckInfoDataList[itemIndex];
+                            return _currentIndex == itemIndex
+                                ? Container(
+                              width: Get.width > 500 ? Get.width * 0.5 : Get
+                                  .width > 350 ? Get.width * 0.7 : Get.width *
+                                  0.7,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const SizedBox(height: 10),
+                                  Container(
+                                    height: 550,
+                                    // Increase the height of the image container
+                                    width: Get.width * 0.9,
+                                    // Increase the width of the image container
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: ClipRRect(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(20)),
+                                          child: a["file_media_type"]
+                                              .toString() == "image" ||
+                                              a["file_media_type"].toString() ==
+                                                  "gif"
+                                              ? CachedNetworkImage(
+                                            imageUrl: APIString
+                                                .latestmediaBaseUrl +
+                                                a["files"].toString(),
+                                            placeholder: (context, url) =>
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Color(int.parse(
+                                                        editController
+                                                            .appDemoBgColor
+                                                            .value.toString())),
+                                                  ),
+                                                ),
+                                            errorWidget: (context, url,
+                                                error) =>
+                                            const Icon(Icons.error),
+                                            fit: BoxFit
+                                                .cover, // Use cover to make the image fit the container
+                                          )
+                                              :
+                                          //buildMediaWidget()
+                                          displayUploadedVideo(
+                                              a["files"].toString()),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )
-                              : Container();
-                        },
-                      ),
-                    ),
+                                ],
+                              ),
+                            )
+                                : Container();
+                          },
+                        ),
+                      );
+                    }),
                   ),
                 ],
               )
-              : Container(
+                  : Container(
                 // height: Get.width * 0.7,
                 width: Get.width * 0.7,
                 child: Center(
                   child: CarouselSlider.builder(
 
-                    carouselController: landingPageController.appDetailsController,
+                    carouselController: landingPageController
+                        .appDetailsController,
                     options: CarouselOptions(
                       onPageChanged: (index, reason) {
                         setState(() {
@@ -511,43 +561,58 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                       },
                       autoPlay: true,
                       autoPlayInterval: const Duration(seconds: 5),
-                      viewportFraction: 1.0, // Set viewportFraction to 1.0
+                      viewportFraction: 1.0,
+                      // Set viewportFraction to 1.0
                       // height: 630,
                       height: 750,
                     ),
                     itemCount: checkoutInfocontroller.CheckInfoDataList.length,
                     itemBuilder: (context, itemIndex, realIndex) {
-                      var a = checkoutInfocontroller.CheckInfoDataList[itemIndex];
+                      var a = checkoutInfocontroller
+                          .CheckInfoDataList[itemIndex];
                       return _currentIndex == itemIndex
                           ? SizedBox(
-                        width: Get.width > 500 ? Get.width * 0.5 : Get.width > 350 ? Get.width * 0.7 : Get.width * 0.7,
+                        width: Get.width > 500 ? Get.width * 0.5 : Get.width >
+                            350 ? Get.width * 0.7 : Get.width * 0.7,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const SizedBox(height: 10),
                             Container(
-                              height: 300, // Increase the height of the image container
-                              width: Get.width * 0.9, // Increase the width of the image container
+                              height: 300,
+                              // Increase the height of the image container
+                              width: Get.width * 0.9,
+                              // Increase the width of the image container
                               margin: const EdgeInsets.symmetric(horizontal: 5),
                               child: Center(
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: ClipRRect(
-                                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                    child: a["file_media_type"].toString() == "image" || a["file_media_type"].toString() == "gif"
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(20)),
+                                    child: a["file_media_type"].toString() ==
+                                        "image" ||
+                                        a["file_media_type"].toString() == "gif"
                                         ? CachedNetworkImage(
-                                      imageUrl: APIString.latestmediaBaseUrl + a["files"].toString(),
-                                      placeholder: (context, url) => Container(
-                                        decoration: BoxDecoration(
-                                          color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                        ),
-                                      ),
-                                      errorWidget: (context, url, error) => const Icon(Icons.error),
-                                      fit: BoxFit.cover, // Use cover to make the image fit the container
+                                      imageUrl: APIString.latestmediaBaseUrl +
+                                          a["files"].toString(),
+                                      placeholder: (context, url) =>
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(
+                                                  int.parse(editController
+                                                      .appDemoBgColor.value
+                                                      .toString())),
+                                            ),
+                                          ),
+                                      errorWidget: (context, url,
+                                          error) => const Icon(Icons.error),
+                                      fit: BoxFit
+                                          .cover, // Use cover to make the image fit the container
                                     )
                                         :
                                     //buildMediaWidget()
-                                    displayUploadedVideo( a["files"].toString()),
+                                    displayUploadedVideo(a["files"].toString()),
                                   ),
                                 ),
                               ),
@@ -567,19 +632,24 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                     ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          a["title"].toString(),
-                                          style: AppTextStyle.regular700.copyWith(fontSize: 22),
-                                        ),
-                                        const SizedBox(height: 10),
-                                        Text(
-                                          a["description"].toString(),
-                                          style: AppTextStyle.regular400.copyWith(fontSize: 14),
-                                        ),
-                                      ],
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment
+                                            .start,
+                                        children: [
+                                          Text(
+                                            a["title"].toString(),
+                                            style: AppTextStyle.regular700
+                                                .copyWith(fontSize: 22),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            a["description"].toString(),
+                                            style: AppTextStyle.regular400
+                                                .copyWith(fontSize: 14),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -607,7 +677,8 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
 
   ///video play after tab
   Widget displayUploadedVideo(String videoUrl) {
-    VideoPlayerController _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+videoUrl);
+    VideoPlayerController _controller = VideoPlayerController.network(
+        APIString.latestmediaBaseUrl + videoUrl);
     bool isVideoPlaying = false;
 
     // final double videoAspectRatio = /*_controller.value.aspectRatio > 0 ? _controller.value.aspectRatio :*/ 16 / 9;
@@ -615,11 +686,11 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
     return InkWell(
       onTap: () {
         if (_controller.value.isPlaying) {
-          isVideoPlaying=false;
+          isVideoPlaying = false;
           _controller.pause();
         } else {
           _controller.play();
-          isVideoPlaying=true;
+          isVideoPlaying = true;
         }
         // isVideoPlaying = !isVideoPlaying;
       },

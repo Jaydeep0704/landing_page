@@ -214,7 +214,7 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
 
 
                                   SizedBox(height: Get.width * 0.02),
-                                  Get.width > 450
+                                  Get.width > 550
                                       ? Row(
                                     crossAxisAlignment: CrossAxisAlignment
                                         .start,
