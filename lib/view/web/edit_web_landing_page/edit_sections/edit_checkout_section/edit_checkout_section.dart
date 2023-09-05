@@ -386,8 +386,8 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                                     children:  [
                                       Icon(Icons.remove_red_eye_rounded),
                                       SizedBox(width: 8),
-                                      Obx(()=> webLandingPageController.appLiveCount.value.isEmpty?const SizedBox()
-                                          : Text("${webLandingPageController.appLiveCount.value} people creating Website")),
+                                      Obx(()=> webLandingPageController.webLiveCount.value.isEmpty?const SizedBox()
+                                          : Text("${webLandingPageController.webLiveCount.value} people creating Website")),
                                     ],
                                   ),
                                 ),
@@ -619,8 +619,8 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                               children:  [
                                 Icon(Icons.remove_red_eye_rounded),
                                 SizedBox(width: 8),
-                                Obx(()=> webLandingPageController.appLiveCount.value.isEmpty?const SizedBox()
-                                    : Text("${webLandingPageController.appLiveCount.value} people creating Website")),
+                                Obx(()=> webLandingPageController.webLiveCount.value.isEmpty?const SizedBox()
+                                    : Text("${webLandingPageController.webLiveCount.value} people creating Website")),
                               ],
                             ),
                           ),

@@ -222,15 +222,13 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                     borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
                                     child: Container(
-                                        decoration: BoxDecoration(
-                                          color: editController
-                                              .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file"]
-                                              .toString()
-                                              .isEmpty ? Colors.transparent : Colors
-                                              .blue,
-                                        ),
-                                        // height: Get.width > 800 ? 500 : 400,
-                                        // width: Get.width > 800 ? 350 : 250,
+                                        // decoration: BoxDecoration(
+                                        //   color: editController
+                                        //       .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file"]
+                                        //       .toString()
+                                        //       .isEmpty ? Colors.transparent : Colors
+                                        //       .blue,
+                                        // ),
                                         height: Get.width > 1000 ? 600 : 400,
                                         width: Get.width > 1000 ? 415 : 275,
                                         child: buildMediaWidget()
@@ -349,10 +347,10 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                         ),
                                         const SizedBox(width: 4),
                                         Obx(() =>
-                                        webLandingPageController.appLiveCount
+                                        webLandingPageController.webLiveCount
                                             .value.isEmpty ? const SizedBox()
                                             : Text("${webLandingPageController
-                                            .appLiveCount
+                                            .webLiveCount
                                             .value} people creating Website",
                                           style: const TextStyle(
                                             fontSize: 12,
@@ -743,15 +741,13 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                   borderRadius:
                                   const BorderRadius.all(Radius.circular(10)),
                                   child: Container(
-                                      decoration: BoxDecoration(
-                                        color: editController
-                                            .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file"]
-                                            .toString()
-                                            .isEmpty ? Colors.transparent : Colors
-                                            .blue,
-                                      ),
-                                      // height: Get.width > 800 ? 500 : 400,
-                                      // width: Get.width > 800 ? 350 : 250,
+                                      // decoration: BoxDecoration(
+                                      //   color: editController
+                                      //       .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file"]
+                                      //       .toString()
+                                      //       .isEmpty ? Colors.transparent : Colors
+                                      //       .blue,
+                                      // ),
                                       height: Get.width > 1000 ? 600 : 400,
                                       width: Get.width > 1000 ? 415 : 275,
                                       child: buildMediaWidget()
@@ -878,10 +874,10 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                       ),
                                       const SizedBox(width: 4),
                                       Obx(() =>
-                                      webLandingPageController.appLiveCount
+                                      webLandingPageController.webLiveCount
                                           .value.isEmpty ? const SizedBox()
                                           : Text("${webLandingPageController
-                                          .appLiveCount
+                                          .webLiveCount
                                           .value} people creating Website",
                                         style: const TextStyle(
                                           fontSize: 12,

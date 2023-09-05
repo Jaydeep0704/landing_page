@@ -293,10 +293,10 @@ class _EditTextBannerSectionState extends State<EditTextBannerSection> {
                               const Icon(Icons.remove_red_eye_rounded),
                               const SizedBox(width: 8),
                               Obx(() =>
-                              webLandingPageController.appLiveCount.value
+                              webLandingPageController.webLiveCount.value
                                   .isEmpty ? const SizedBox()
                                   : Text(
-                                  "${webLandingPageController.appLiveCount
+                                  "${webLandingPageController.webLiveCount
                                       .value} people creating Website")),
                             ],
                           ),

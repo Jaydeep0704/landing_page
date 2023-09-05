@@ -156,9 +156,6 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                                 borderRadius:
                                 const BorderRadius.all(Radius.circular(10)),
                                 child: Container(
-
-                                  // height: Get.width > 800 ? 500 : 400,
-                                  // width: Get.width > 800 ? 350 : 250,
                                     height: Get.width > 1100 ?550: 450,
                                     width:  Get.width > 1100 ?550: 450,
                                     child : buildMediaWidget()
@@ -492,9 +489,6 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                             ClipRRect(
                               borderRadius: const BorderRadius.all(Radius.circular(10)),
                               child: Container(
-
-                                // height: Get.width > 800 ? 600 : 400,
-                                // width: Get.width > 800 ? 415 : 275,
                                   height: Get.width > 600 ?400: 300,
                                   width:  Get.width > 600 ?400: 300,
                                   child : buildMediaWidget()

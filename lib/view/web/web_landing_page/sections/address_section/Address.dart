@@ -270,9 +270,7 @@ class _AddressSectionState extends State<AddressSection> {
                 //     ),
                 //   ],
                 // ),
-                const Text(
-                  "Copyright © 2020-2023 Geobull Innovation. All rights reserved.",
-                  style: TextStyle(fontSize: 18, color: Colors.black),),
+                const Text("Copyright © 2020-2023 Geobull Innovation. All rights reserved.", style: TextStyle(fontSize: 18, color: Colors.black),),
                 Row(
                   children: [
                     InkWell(

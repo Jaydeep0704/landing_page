@@ -181,7 +181,6 @@ class _IntroSectionState extends State<IntroSection> {
                                                   decoration:
 
                                                       const BoxDecoration(
-                                                          // color:   editController.allDataResponse[0]["intro_details"][0]["intro_gif1"].toString().isEmpty ?Colors.transparent: Colors.blue,
                                                           borderRadius:
                                                               BorderRadius.all(
                                                                   Radius
@@ -255,7 +254,6 @@ class _IntroSectionState extends State<IntroSection> {
                                                       height: Get.width > 500 ? 300 : Get.width > 425 ?250:175,
                                                       width: Get.width > 500 ? 300 : Get.width > 425 ?250:175,
                                                       decoration:  const BoxDecoration(
-                                                        // color:   editController.allDataResponse[0]["intro_details"][0]["intro_gif1"].toString().isEmpty ?Colors.transparent: Colors.blue,
                                                           borderRadius:
                                                               BorderRadius.all(Radius.circular(5))),
                                                       child: Center(

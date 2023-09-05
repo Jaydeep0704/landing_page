@@ -385,14 +385,14 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                       // width: 50,
                                       height: 120,
                                       width: 120,
-                                      decoration: editController
-                                          .allDataResponse[0]["intro_details"][0]["intro_bot_file"]
-                                          .toString()
-                                          .isEmpty
-                                          ? const BoxDecoration()
-                                          : const BoxDecoration(
-                                        // color: Colors.yellow
-                                      ),
+                                      // decoration: editController
+                                      //     .allDataResponse[0]["intro_details"][0]["intro_bot_file"]
+                                      //     .toString()
+                                      //     .isEmpty
+                                      //     ? const BoxDecoration()
+                                      //     : const BoxDecoration(
+                                      //   // color: Colors.yellow
+                                      // ),
                                       child: Center(
                                         // child: Text("bot"),
                                         child: buildBotWidget(),
@@ -437,15 +437,15 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                       // width: 50,
                                       height: 160,
                                       width: 120,
-                                      decoration:
-                                      editController
-                                          .allDataResponse[0]["intro_details"][0]["intro_gif2"]
-                                          .toString()
-                                          .isEmpty
-                                          ? const BoxDecoration()
-                                          : const BoxDecoration(
-                                          color:
-                                          Colors.red),
+                                      // decoration:
+                                      // editController
+                                      //     .allDataResponse[0]["intro_details"][0]["intro_gif2"]
+                                      //     .toString()
+                                      //     .isEmpty
+                                      //     ? const BoxDecoration()
+                                      //     : const BoxDecoration(
+                                      //     color:
+                                      //     Colors.red),
                                       child: Center(
                                         // child: Text("gif"),
                                         child: buildGif2Widget(),
@@ -624,14 +624,14 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                               .width > 425 ? 100 : 75,
                                           width: Get.width > 500 ? 120 : Get
                                               .width > 425 ? 100 : 75,
-                                          decoration: editController
-                                              .allDataResponse[0]["intro_details"][0]["intro_bot_file"]
-                                              .toString()
-                                              .isEmpty
-                                              ? const BoxDecoration()
-                                              : const BoxDecoration(
-                                            // color: Colors.yellow
-                                          ),
+                                          // decoration: editController
+                                          //     .allDataResponse[0]["intro_details"][0]["intro_bot_file"]
+                                          //     .toString()
+                                          //     .isEmpty
+                                          //     ? const BoxDecoration()
+                                          //     : const BoxDecoration(
+                                          //   // color: Colors.yellow
+                                          // ),
                                           child: Center(
                                             // child: Text("bot"),
                                             child: buildBotWidget(),
@@ -683,15 +683,14 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                               .width > 425 ? 120 : 90,
                                           width: Get.width > 500 ? 120 : Get
                                               .width > 425 ? 100 : 75,
-                                          decoration:
-                                          editController
-                                              .allDataResponse[0]["intro_details"][0]["intro_gif2"]
-                                              .toString()
-                                              .isEmpty
-                                              ? const BoxDecoration()
-                                              : const BoxDecoration(
-                                              color: Colors
-                                                  .red),
+                                          // decoration:
+                                          // editController
+                                          //     .allDataResponse[0]["intro_details"][0]["intro_gif2"]
+                                          //     .toString()
+                                          //     .isEmpty
+                                          //     ? const BoxDecoration()
+                                          //     : const BoxDecoration(
+                                          //     color: Colors.red),
                                           child: Center(
                                             // child: Text("gif"),
                                             child: buildGif2Widget(),

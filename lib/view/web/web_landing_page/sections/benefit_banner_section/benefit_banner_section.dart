@@ -232,10 +232,10 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                         ),
                                         const SizedBox(width: 4),
                                         Obx(() =>
-                                        webLandingPageController.appLiveCount
+                                        webLandingPageController.webLiveCount
                                             .value.isEmpty ? const SizedBox()
                                             : Text("${webLandingPageController
-                                            .appLiveCount
+                                            .webLiveCount
                                             .value} people creating Website",
                                           style: const TextStyle(
                                             fontSize: 12,
@@ -603,10 +603,10 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                       ),
                                       const SizedBox(width: 4),
                                       Obx(() =>
-                                      webLandingPageController.appLiveCount
+                                      webLandingPageController.webLiveCount
                                           .value.isEmpty ? const SizedBox()
                                           : Text("${webLandingPageController
-                                          .appLiveCount
+                                          .webLiveCount
                                           .value} people creating Website",
                                         style: const TextStyle(
                                           fontSize: 12,

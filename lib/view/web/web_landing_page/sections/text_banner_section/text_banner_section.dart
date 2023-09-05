@@ -126,12 +126,7 @@ class _TextBannerSectionState extends State<TextBannerSection> {
                             onTap: () async {
                               html.window.open(
                                   AppString.playStoreAppLink, "_blank");
-                              // const url = 'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
-                              // if (await canLaunch(url)) {
-                              //   await launch(url);
-                              // } else {
-                              //   throw 'Could not launch $url';
-                              // }
+
                             },
                             icon: Icons.phone_android,
                             title: "Create Your App",
@@ -150,8 +145,7 @@ class _TextBannerSectionState extends State<TextBannerSection> {
                               webLandingPageController.appLiveCount.value
                                   .isEmpty ? const SizedBox()
                                   : Text(
-                                  "${webLandingPageController.appLiveCount
-                                      .value} people creating App")),
+                                  "${webLandingPageController.appLiveCount.value} people creating App")),
                             ],
                           ),
                         ),
@@ -178,10 +172,10 @@ class _TextBannerSectionState extends State<TextBannerSection> {
                               const Icon(Icons.remove_red_eye_rounded),
                               const SizedBox(width: 8),
                               Obx(() =>
-                              webLandingPageController.appLiveCount.value
+                              webLandingPageController.webLiveCount.value
                                   .isEmpty ? const SizedBox()
                                   : Text(
-                                  "${webLandingPageController.appLiveCount.value} people creating Website")),
+                                  "${webLandingPageController.webLiveCount.value} people creating Website")),
                             ],
                           ),
                         ),

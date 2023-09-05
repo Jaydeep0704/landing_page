@@ -180,7 +180,6 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                                       width: Get.width > 1500 ? 650 : Get.width > 1000 ?400 :  Get.width > 600 ?500:Get.width-Get.width*0.2,
                                       // width: Get.width > 1500 ? 600 : Get.width > 1000 ?500 :  Get.width > 500 ?450:Get.width-Get.width*0.2,
                                       decoration: const BoxDecoration(
-                                          // color: Colors.blue,
                                           borderRadius:
                                           BorderRadius.all(Radius.circular(5))),
                                       child: ClipRRect(
@@ -194,9 +193,7 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                                           APIString.latestmediaBaseUrl + featuredImage['files'].toString(),
                                           placeholder: (context, url) => Container(
                                             decoration: BoxDecoration(
-                                              color: Color(int.parse(editController
-                                                  .appDemoBgColor.value
-                                                  .toString())),
+                                              color: Color(int.parse(editController.appDemoBgColor.value.toString())),
                                             ),
                                           ),
                                           errorWidget: (context, url, error) =>
