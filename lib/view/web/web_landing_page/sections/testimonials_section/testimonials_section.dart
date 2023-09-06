@@ -47,10 +47,11 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
 
 
   oneTimeAnimation() {
+    if(mounted){
     _animationController.forward();
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 1), () {
       _animationController.reverse(from: 1);
-    });
+    });}
   }
 
 
@@ -81,9 +82,17 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
 
   @override
   void dispose() {
-    _animationController.dispose();
+    // _animationController.dispose();
+    _disposeAnimationController();
     super.dispose();
   }
+
+  void _disposeAnimationController() {
+    _animationController.dispose();
+  }
+  //  late AnimationController _animationController;
+  //   late Animation<double> _rotationAnimation;
+  //   late Animation<double> _rotationAnimation1;
 
   bool change = false;
   bool stop = false;

@@ -52,10 +52,11 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
   List<dynamic> rawData=[] ; // fetched data
 
   oneTimeAnimation() {
+    if(mounted){
     _animationController.forward();
     Future.delayed(const Duration(seconds: 2), () {
       _animationController.reverse(from: 1);
-    });
+    });}
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +18,7 @@ import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
 import 'package:grobiz_web_landing/widget/update_media_component.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 
 class EditHowItWorksSection extends StatefulWidget {
@@ -224,8 +226,10 @@ class _EditHowItWorksSectionState extends State<EditHowItWorksSection> {
                       alignment: Alignment.topRight,
                       children: [
                         Container(
-                          height: 350,
-                          width: 350,
+                          // height: 350,
+                          // width: 350,
+                          height: 800,
+                          width: 400,
                           decoration:  editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString().isEmpty
                               ? BoxDecoration()
                               : const BoxDecoration(
@@ -614,6 +618,7 @@ class _EditHowItWorksSectionState extends State<EditHowItWorksSection> {
       },
     );
   }
+  bool isEditVisible = false;
 
 
       Widget buildBotWidget() {
@@ -628,13 +633,47 @@ class _EditHowItWorksSectionState extends State<EditHowItWorksSection> {
       );
     }
     else if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == "video") {
-      return Obx(() {
-      return editHIWController.isBotVideoInitialized.value
-            ? AspectRatio(
-                 aspectRatio: editHIWController.botController.value.aspectRatio,
-                 child: VideoPlayer(editHIWController.botController),
-               )
-            : const Center(child: CircularProgressIndicator());});
+      return VisibilityDetector(
+        key: const Key('video-visibility-key-edit'),
+        onVisibilityChanged: (visibilityInfo) {
+          setState(() {
+            isEditVisible = visibilityInfo.visibleFraction > 0.0;
+            if (isEditVisible) {
+              print("is visible  ---------   true");
+              // editHIWController.editBotChewieController.play();
+              // editHIWController.editBotController.play();
+              setState(() {});
+            } else {
+              print("is visible  ---------   pause");
+              if(editHIWController.editBotChewieController.isPlaying)
+              editHIWController.editBotChewieController.pause();
+
+              // editHIWController.editBotController.pause();
+              setState(() {});
+              print("is visible  ---------   pause2");
+            }
+          });
+        },
+        child: Obx(() {
+          return editHIWController.isEditBotVideoInitialized.value
+              ? Chewie(
+            controller: editHIWController.editBotChewieController,
+          )
+              : const CircularProgressIndicator();}),
+      );
+      ///
+      // return Obx(() {
+      //   return editHIWController.isBotVideoInitialized.value
+      //       ? AspectRatio(
+      //           aspectRatio: editHIWController.botController.value.aspectRatio,
+      //           child: Stack(
+      //             children: [
+      //               VideoPlayer(editHIWController.botController),
+      //             ],
+      //           ),
+      //         )
+      //       : const Center(child: CircularProgressIndicator());
+      // });
     }
 
     else if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == "gif") {

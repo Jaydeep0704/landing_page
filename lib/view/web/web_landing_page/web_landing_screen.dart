@@ -2,6 +2,7 @@ import 'dart:html' as html;
 import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -55,11 +56,10 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
 
   final benefitBannerController = Get.find<BenefitBannerController>();
   final editCheckOutController = Get.find<EditCheckOutController>();
-  WebLandingPageController webLandingPageController =
-      Get.find<WebLandingPageController>();
-  EditController editController = Get.find<EditController>();
-  EditIntroController editIntroController = Get.find<EditIntroController>();
-  EditHiwController editHiwController = Get.find<EditHiwController>();
+  final webLandingPageController = Get.find<WebLandingPageController>();
+  final editController = Get.find<EditController>();
+  final editIntroController = Get.find<EditIntroController>();
+  final editHiwController = Get.find<EditHiwController>();
   final numberBannerController = Get.find<NumberBannerController>();
   final mixBannerController = Get.find<MixBannerController>();
   final pricingScreenController = Get.find<PricingScreenController>();
@@ -370,28 +370,43 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
   initializeVideoHIW() async {
     if (editController.allDataResponse.isNotEmpty) {
       ///------------how it works
-      if (editController.allDataResponse[0]["how_it_works_details"][0]
-                  ["hiw_gif_mediatype"]
-              .toString()
-              .toLowerCase() ==
-          "video") {
+      // if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == "video") {
+      //   editHiwController.botController = VideoPlayerController.networkUrl(
+      //       Uri.parse(APIString.mediaBaseUrl + editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString()));
+      //   await editHiwController.botController.initialize().whenComplete(
+      //     () {
+      //       editHiwController.botController.setLooping(true);
+      //       editHiwController.botController.setVolume(0);
+      //       editHiwController.isBotVideoInitialized.value = true;
+      //       editHiwController.botController.play();
+      //       setState(() {});
+      //     },
+      //   );
+      // }
+      // else {
+      //   editHiwController.isBotVideoInitialized.value = false;
+      // }
+
+
+      if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == "video"){
         editHiwController.botController = VideoPlayerController.networkUrl(
-            Uri.parse(APIString.mediaBaseUrl +
-                editController.allDataResponse[0]["how_it_works_details"][0]
-                        ["hiw_gif"]
-                    .toString()));
-        await editHiwController.botController.initialize().whenComplete(
-          () {
-            editHiwController.botController.setLooping(true);
-            editHiwController.botController.setVolume(0);
-            editHiwController.isBotVideoInitialized.value = true;
-            editHiwController.botController.play();
-            setState(() {});
-          },
-        );
-      } else {
-        editHiwController.isBotVideoInitialized.value = false;
-      }
+          Uri.parse(APIString.mediaBaseUrl + editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString()));
+
+      editHiwController.botChewieController = ChewieController(
+        videoPlayerController: editHiwController.botController,
+        allowFullScreen: false,
+        autoPlay: false,
+        looping: true,
+      );
+
+      editHiwController.botController.initialize().then((_) {
+        editHiwController.isBotVideoInitialized.value = true;
+        setState(() {});
+      });
+
+    }}
+    else {
+      editHiwController.isBotVideoInitialized.value = false;
     }
   }
 
@@ -591,22 +606,15 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
         editIntroController.introGif1Controller.pause();
         editIntroController.introGif1Controller.dispose();
       }
-      if (editController.allDataResponse[0]["intro_details"][0]
-                  ["intro_gif2_mediatype"]
-              .toString()
-              .toLowerCase() ==
-          'video') {
+      if (editController.allDataResponse[0]["intro_details"][0]["intro_gif2_mediatype"].toString().toLowerCase() == 'video') {
         editIntroController.introGif2Controller.pause();
         editIntroController.introGif2Controller.dispose();
       }
       //----------how it works
-      if (editController.allDataResponse[0]["how_it_works_details"][0]
-                  ["hiw_gif_mediatype"]
-              .toString()
-              .toLowerCase() ==
-          'video') {
+      if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == 'video') {
         editHiwController.botController.pause();
         editHiwController.botController.dispose();
+        editHiwController.botChewieController.dispose();
       }
       //----------mix banner
       if (editController.allDataResponse[0]["mix_banner_details"][0]

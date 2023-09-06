@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,15 @@ import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_string.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/pricing_section_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_apps_demo_section/add_latest_project/add_Project_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_benefit_banner_section/edit_banner_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_checkout_section/edit_checkoutController.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_how_it_works_section/edit_hiw_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_info_section/edit_info_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_intro_section/edit_intro_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_mix_banner_section/edit_mix_banner_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_numbers_banner_section/number_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/login_page.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/AboutUs/AboutScreen.dart';
@@ -29,6 +38,16 @@ class _InfoSectionState extends State<InfoSection> {
   final editController = Get.find<EditController>();
   final editInfoController = Get.find<EditInfoController>();
   final webLandingPageController = Get.find<WebLandingPageController>();
+
+  ///
+  final benefitBannerController = Get.find<BenefitBannerController>();
+  final editCheckOutController = Get.find<EditCheckOutController>();
+  final editIntroController = Get.find<EditIntroController>();
+  final editHiwController = Get.find<EditHiwController>();
+  final numberBannerController = Get.find<NumberBannerController>();
+  final mixBannerController = Get.find<MixBannerController>();
+  final pricingScreenController = Get.find<PricingScreenController>();
+  final getLatestProject = Get.find<AddProjectController>();
 
   @override
   void initState() {
@@ -379,6 +398,7 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
+                  Get.find<EditHiwController>().botController.pause();
                   Get.to(() => const LoginPage())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
                 },
                 child: const Text(
@@ -740,6 +760,8 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
+                  // Get.find<EditHiwController>().botController.pause();
+                  // disposeAllController();
                   Get.to(() => const LoginPage())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
                 },
                 child: const Text(
@@ -765,6 +787,76 @@ class _InfoSectionState extends State<InfoSection> {
       await launch(instagramAppUrl);
     } else {
       await launch(instagramUrl);
+    }
+  }
+
+
+  disposeAllController(){
+    if (editController.allDataResponse.isNotEmpty) {
+      log("dispose called when list isNotEmpty");
+      if (editController.allDataResponse[0]["intro_details"][0]
+      ["intro_bot_file_mediatype"]
+          .toString()
+          .toLowerCase() ==
+          'video') {
+        editIntroController.introBotController.pause();
+        editIntroController.introBotController.dispose();
+        // editIntroController.introBotControllerChewie!.dispose();
+      }
+      if (editController.allDataResponse[0]["intro_details"][0]
+      ["intro_gif1_mediatype"]
+          .toString()
+          .toLowerCase() ==
+          'video') {
+        editIntroController.introGif1Controller.pause();
+        editIntroController.introGif1Controller.dispose();
+      }
+      if (editController.allDataResponse[0]["intro_details"][0]["intro_gif2_mediatype"].toString().toLowerCase() == 'video') {
+        editIntroController.introGif2Controller.pause();
+        editIntroController.introGif2Controller.dispose();
+      }
+      //----------how it works
+      if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == 'video') {
+        editHiwController.botController.pause();
+        editHiwController.botController.dispose();
+        editHiwController.botChewieController.dispose();
+      }
+      //----------mix banner
+      if (editController.allDataResponse[0]["mix_banner_details"][0]
+      ["mix_banner_file_mediatype"]
+          .toString()
+          .toLowerCase() ==
+          'video') {
+        mixBannerController.videoController.pause();
+        mixBannerController.videoController.dispose();
+      }
+      //----------NUMBER BANNER
+      if (editController.allDataResponse[0]["numbers_banner_details"][0]
+      ["numbers_banner_file1_mediatype"]
+          .toString()
+          .toLowerCase() ==
+          'video') {
+        numberBannerController.media1Controller.pause();
+        numberBannerController.media1Controller.dispose();
+      }
+      //--------------
+      if (editController.allDataResponse[0]["numbers_banner_details"][0]
+      ["numbers_banner_file2_mediatype"]
+          .toString()
+          .toLowerCase() ==
+          'video') {
+        numberBannerController.media2Controller.pause();
+        numberBannerController.media2Controller.dispose();
+      }
+      //--------------
+      if (editController.allDataResponse[0]["numbers_banner_details"][0]
+      ["numbers_banner_file3_mediatype"]
+          .toString()
+          .toLowerCase() ==
+          'video') {
+        numberBannerController.media3Controller.pause();
+        numberBannerController.media3Controller.dispose();
+      }
     }
   }
 

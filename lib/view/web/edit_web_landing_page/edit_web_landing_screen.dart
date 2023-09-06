@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -357,43 +358,86 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
     }
   }
 
+  // initializeVideoHIW() async {
+  //   log("-=-=-=-=-   editController.allDataResponse.isNotEmpty");
+  //   if (editController.allDataResponse.isNotEmpty) {
+  //     log("-=-=-=-=- inside - editController.allDataResponse.isNotEmpty");
+  //
+  //     ///------------how it works
+  //     if (editController.allDataResponse[0]["how_it_works_details"][0]
+  //     ["hiw_gif_mediatype"]
+  //         .toString()
+  //         .toLowerCase() ==
+  //         "video") {
+  //       log("-=-=-=-=- inside - editController.allDataResponse.isNotEmpty");
+  //       editHiwController.botController = VideoPlayerController.networkUrl(
+  //           Uri.parse(APIString.mediaBaseUrl +
+  //               editController.allDataResponse[0]["how_it_works_details"][0]
+  //               ["hiw_gif"]
+  //                   .toString()));
+  //       await editHiwController.botController.initialize().whenComplete(
+  //             () {
+  //           log("-=-=-=-=- inside - editController.allDataResponse.isNotEmpty");
+  //           // Future.delayed(const Duration(seconds: 2),() {
+  //           log("-=-=-=-=- inside - editController.allDataResponse.isNotEmpty");
+  //           editHiwController.botController.setLooping(true);
+  //           editHiwController.botController.setVolume(0);
+  //           //editIntroController.isBotVideoInitialized.value = true;
+  //           editHiwController.isBotVideoInitialized.value = true;
+  //           editHiwController.botController.play();
+  //
+  //           setState(() {});
+  //         },
+  //       );
+  //       // });
+  //     } else {
+  //       editHiwController.isBotVideoInitialized.value = false;
+  //     }
+  //   }
+  // }
   initializeVideoHIW() async {
-    log("-=-=-=-=-   editController.allDataResponse.isNotEmpty");
     if (editController.allDataResponse.isNotEmpty) {
-      log("-=-=-=-=- inside - editController.allDataResponse.isNotEmpty");
-
       ///------------how it works
-      if (editController.allDataResponse[0]["how_it_works_details"][0]
-      ["hiw_gif_mediatype"]
-          .toString()
-          .toLowerCase() ==
-          "video") {
-        log("-=-=-=-=- inside - editController.allDataResponse.isNotEmpty");
-        editHiwController.botController = VideoPlayerController.networkUrl(
-            Uri.parse(APIString.mediaBaseUrl +
-                editController.allDataResponse[0]["how_it_works_details"][0]
-                ["hiw_gif"]
-                    .toString()));
-        await editHiwController.botController.initialize().whenComplete(
-              () {
-            log("-=-=-=-=- inside - editController.allDataResponse.isNotEmpty");
-            // Future.delayed(const Duration(seconds: 2),() {
-            log("-=-=-=-=- inside - editController.allDataResponse.isNotEmpty");
-            editHiwController.botController.setLooping(true);
-            editHiwController.botController.setVolume(0);
-            //editIntroController.isBotVideoInitialized.value = true;
-            editHiwController.isBotVideoInitialized.value = true;
-            editHiwController.botController.play();
+      // if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == "video") {
+      //   editHiwController.botController = VideoPlayerController.networkUrl(
+      //       Uri.parse(APIString.mediaBaseUrl + editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString()));
+      //   await editHiwController.botController.initialize().whenComplete(
+      //     () {
+      //       editHiwController.botController.setLooping(true);
+      //       editHiwController.botController.setVolume(0);
+      //       editHiwController.isBotVideoInitialized.value = true;
+      //       editHiwController.botController.play();
+      //       setState(() {});
+      //     },
+      //   );
+      // }
+      // else {
+      //   editHiwController.isBotVideoInitialized.value = false;
+      // }
 
-            setState(() {});
-          },
+
+      if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == "video"){
+        editHiwController.editBotController = VideoPlayerController.networkUrl(
+            Uri.parse(APIString.mediaBaseUrl + editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString()));
+
+        editHiwController.editBotChewieController = ChewieController(
+          videoPlayerController: editHiwController.editBotController,
+          allowFullScreen: false,
+          autoPlay: false,
+          looping: true,
         );
-        // });
-      } else {
-        editHiwController.isBotVideoInitialized.value = false;
-      }
+
+        editHiwController.editBotController.initialize().then((_) {
+          editHiwController.isEditBotVideoInitialized.value = true;
+          setState(() {});
+        });
+
+      }}
+    else {
+      editHiwController.isEditBotVideoInitialized.value = false;
     }
   }
+
 
   initializeVideoMixBanner() async {
     log("-=-=-=-=-   editController.allDataResponse.isNotEmpty");
@@ -629,8 +673,10 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
           .toString()
           .toLowerCase() ==
           'video') {
-        editHiwController.botController.pause();
-        editHiwController.botController.dispose();
+        editHiwController.editBotController.pause();
+        editHiwController.editBotController.dispose();
+        editHiwController.editBotChewieController.dispose();
+
       }
       //----------mix banner
       if (editController.allDataResponse[0]["mix_banner_details"][0]
@@ -692,17 +738,18 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
               actions: [
                 InkWell(
                   onTap: () {
+                    // editHiwController.editBotController.pause();
+                    // Get.find<EditHiwController>().botController.pause();
+
                     loginController.logout(context);
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 15),
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
                         border: Border.all(color: AppColors.blackColor),
-                        borderRadius:
-                        const BorderRadius.all(Radius.circular(8))),
+                        borderRadius: const BorderRadius.all(Radius.circular(8))),
                     child: Center(
                       child: Text(
                         "Logout",
