@@ -133,8 +133,10 @@ class _HowItWorksSectionState extends State<HowItWorksSection> {
                               : Container(
                                 // height: 350,
                                 // width: 350,
-                                height: 800,
-                                width: 400,
+                                // height: 800,
+                                // width: 400,
+                                height: Get.width > 800 ?  800 : 450,
+                                width: Get.width > 800 ?  800 : 450,
                                 decoration: const BoxDecoration(
                                     borderRadius:
                                     BorderRadius.all(Radius.circular(5))),

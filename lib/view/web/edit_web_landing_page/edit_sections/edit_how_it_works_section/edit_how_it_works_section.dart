@@ -84,7 +84,7 @@ class _EditHowItWorksSectionState extends State<EditHowItWorksSection> {
                             });
                           },
                         ),
-                        SizedBox(width: 10,),
+                        const SizedBox(width: 10,),
                         InkWell(
                             onTap: () {
                               showDialog(
@@ -228,10 +228,13 @@ class _EditHowItWorksSectionState extends State<EditHowItWorksSection> {
                         Container(
                           // height: 350,
                           // width: 350,
-                          height: 800,
-                          width: 400,
+                          // height: 800,
+                          // width: 400,
+                          height: Get.width > 800 ?  800 : 450,
+                          width: Get.width > 800 ?  800 : 450,
+
                           decoration:  editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString().isEmpty
-                              ? BoxDecoration()
+                              ? const BoxDecoration()
                               : const BoxDecoration(
                               // color: Colors.blue,
                               borderRadius: BorderRadius.all(Radius.circular(5))),
