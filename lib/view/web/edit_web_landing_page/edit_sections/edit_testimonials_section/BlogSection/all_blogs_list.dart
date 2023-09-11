@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/related_blog/types/blog_typs_add_update_screen.dart';
 import 'package:video_player/video_player.dart';
 import 'add_new_blog.dart';
 import 'blog_controller.dart';
@@ -64,31 +65,64 @@ class _BlogListScreenState extends State<BlogListScreen> {
                   const SizedBox(height: 25),
                   Align(
                     alignment: Alignment.topRight,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => AddBlog())).whenComplete(() =>  WidgetsBinding.instance.addPostFrameCallback((_){
-                          blogController.getBlogData();
-                        }));
-                      },
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Container(
-                          padding: const EdgeInsets.all(5),
-                          margin: const EdgeInsets.only(right: 10),
-                          decoration: BoxDecoration(
-                              color: AppColors.greyColor.withOpacity(0.5),
-                              borderRadius:
-                              const BorderRadius.all(Radius.circular(5))),
-                          child: Row(
-                            children: const [
-                              Icon(Icons.add),
-                              SizedBox(width: 3),
-                              Text("Add New Blog")
-                            ],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => const BlogsTypeCrudScreen()))
+                              .whenComplete(() =>  WidgetsBinding.instance.addPostFrameCallback((_){
+                            blogController.getBlogData();
+                          }));
+                        },
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Container(
+                            padding: const EdgeInsets.all(5),
+                            margin: const EdgeInsets.only(right: 10),
+                            decoration: BoxDecoration(
+                                color: AppColors.greyColor.withOpacity(0.5),
+                                borderRadius:
+                                const BorderRadius.all(Radius.circular(5))),
+                            child: Row(
+                              children: const [
+                                Icon(Icons.add),
+                                SizedBox(width: 3),
+                                Text("Blog Categories")
+                              ],
+                            ),
                           ),
                         ),
                       ),
+                        const SizedBox(height: 25),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => const AddBlog())).whenComplete(() =>  WidgetsBinding.instance.addPostFrameCallback((_){
+                              blogController.getBlogData();
+                            }));
+                          },
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Container(
+                              padding: const EdgeInsets.all(5),
+                              margin: const EdgeInsets.only(right: 10),
+                              decoration: BoxDecoration(
+                                  color: AppColors.greyColor.withOpacity(0.5),
+                                  borderRadius:
+                                  const BorderRadius.all(Radius.circular(5))),
+                              child: Row(
+                                children: const [
+                                  Icon(Icons.add),
+                                  SizedBox(width: 3),
+                                  Text("Add New Blog")
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 25),
@@ -102,8 +136,7 @@ class _BlogListScreenState extends State<BlogListScreen> {
                               itemCount:
                               blogController.blogdata.length,
                               itemBuilder: (context, index) {
-                                var data =
-                                blogController.blogdata[index];
+                                var data = blogController.blogdata[index];
                                 return Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child:

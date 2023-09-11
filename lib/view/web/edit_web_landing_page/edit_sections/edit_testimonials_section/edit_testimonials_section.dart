@@ -1220,62 +1220,9 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                                           buildMediaWidget(
                                                               testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
                                                               testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString())
-                                                        // testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "image" ||
-                                                        //     testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "gif"
-                                                        //     ? CachedNetworkImage(
-                                                        //   fit: BoxFit
-                                                        //       .cover,
-                                                        //   width: Get.width * 0.9,
-                                                        //   imageUrl:
-                                                        //   APIString.latestmediaBaseUrl +  testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString(),
-                                                        //   placeholder: (context, url) => Container(
-                                                        //     decoration: BoxDecoration(
-                                                        //       color: Color(int.parse(editController
-                                                        //           .appDemoBgColor.value
-                                                        //           .toString())),
-                                                        //     ),
-                                                        //   ),
-                                                        //   errorWidget: (context, url, error) =>
-                                                        //   const Icon(Icons.error),
-                                                        //
-                                                        // )
-                                                        //     : displayUploadedVideo( testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString()),
                                                       )
-
-                                                    // Image.asset("${featuredImage["image"]}"
-                                                    // )
                                                   ),
-                                                  // Container(
-                                                  //   height: Get.width > 1500
-                                                  //       ? 450
-                                                  //       : Get.width > 1000
-                                                  //       ? 400
-                                                  //       : 400,
-                                                  //   // width: Get.width > 1500 ? 200
-                                                  //   //     : Get.width > 1000 ? 200
-                                                  //   //     : Get.width > 600 ? 200 : 200,
-                                                  //   width: Get.width > 1500 ? 285
-                                                  //       : Get.width > 1000 ? 250
-                                                  //       : Get.width > 600
-                                                  //       ? 250
-                                                  //       : 200,
-                                                  //
-                                                  //
-                                                  //   decoration: BoxDecoration(
-                                                  //       color: Colors.black,
-                                                  //       image: DecorationImage(
-                                                  //           image: AssetImage(clientsTestimonial[webLandingPageController
-                                                  //               .aboveCardIndex
-                                                  //               .value]
-                                                  //           [
-                                                  //           "clientImage"]),
-                                                  //           fit: BoxFit
-                                                  //               .cover),
-                                                  //       borderRadius:
-                                                  //       BorderRadius
-                                                  //           .circular(
-                                                  //           10)),
-                                                  // ),
+
                                                 );
                                               },
                                             ),

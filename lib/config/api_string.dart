@@ -130,4 +130,19 @@ class APIString {
   static const String delete_benefit_list="delete_benefit_list";
 
 
+  //Related Case Studies & Categories
+  static const String related_casestudy="related_casestudy";
+  static const String case_study_type_add="case_study_type_add";
+  static const String case_study_type_update="case_study_type_update";
+  static const String case_study_type_delete="case_study_type_delete";
+  static const String case_study_type_get="case_study_type_get";
+
+  //Related Blogs & Categories
+  static const String related_blog="related_blog";
+  static const String blog_type_add="blog_type_add";
+  static const String blog_type_update="blog_type_update";
+  static const String blog_type_delete="blog_type_delete";
+  static const String blog_type_get="blog_type_get";
+
+
 }

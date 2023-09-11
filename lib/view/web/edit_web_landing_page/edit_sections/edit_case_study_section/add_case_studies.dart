@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/add_update_short_case_study.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/edit_Detail_case_study.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/related_case_studies/types/CS_typs_categorty_screen.dart';
 import 'package:http_parser/src/media_type.dart';
 
 import 'package:grobiz_web_landing/config/api_string.dart';
@@ -142,16 +143,16 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: AppColors.whiteColor,
-            leading: const BackButton(
-              color: AppColors.blackColor,
+            appBar: AppBar(
+              backgroundColor: AppColors.whiteColor,
+              leading: const BackButton(
+                color: AppColors.blackColor,
+              ),
+              title: Text("Edit Case Study",
+                  style: AppTextStyle.regularBold
+                      .copyWith(color: AppColors.blackColor, fontSize: 18)),
+              centerTitle: true,
             ),
-            title: Text("Edit Case Study",
-                style: AppTextStyle.regularBold
-                    .copyWith(color: AppColors.blackColor, fontSize: 18)),
-            centerTitle: true,
-          ),
           body: Row(
             children: [
               const Expanded(child: SizedBox()),
@@ -169,30 +170,56 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                     const SizedBox(height: 25),
                     Align(
                       alignment: Alignment.topRight,
-                      child: GestureDetector(
-                        onTap: () {
-                          // showPopup(isEdit: false);
-                          Get.to(()=>AddUpdateShortCaseStudy(isEdit: false,))!.whenComplete(() => editPartnerController.getCaseStudy());
-                          // pickFiles(addImage: true);
-                        },
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            margin: const EdgeInsets.only(right: 10),
-                            decoration: BoxDecoration(
-                                color: AppColors.greyColor.withOpacity(0.5),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(5))),
-                            child: Row(
-                              children: const [
-                                Icon(Icons.add),
-                                SizedBox(width: 3),
-                                Text("Add New Case Study")
-                              ],
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(()=>const CSTypeCategoryScreen())!.whenComplete(() => editPartnerController.getCaseStudy());
+                            },
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Container(
+                                padding: const EdgeInsets.all(5),
+                                margin: const EdgeInsets.only(right: 10),
+                                decoration: BoxDecoration(
+                                    color: AppColors.greyColor.withOpacity(0.5),
+                                    borderRadius:
+                                        const BorderRadius.all(Radius.circular(5))),
+                                child: Row(
+                                  children: const [
+                                    Icon(Icons.add),
+                                    SizedBox(width: 3),
+                                    Text("Case Study Categories")
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                          const SizedBox(height: 25),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(()=>AddUpdateShortCaseStudy(isEdit: false,))!.whenComplete(() => editPartnerController.getCaseStudy());
+                            },
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Container(
+                                padding: const EdgeInsets.all(5),
+                                margin: const EdgeInsets.only(right: 10),
+                                decoration: BoxDecoration(
+                                    color: AppColors.greyColor.withOpacity(0.5),
+                                    borderRadius:
+                                        const BorderRadius.all(Radius.circular(5))),
+                                child: Row(
+                                  children: const [
+                                    Icon(Icons.add),
+                                    SizedBox(width: 3),
+                                    Text("Add New Case Study")
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(height: 25),
