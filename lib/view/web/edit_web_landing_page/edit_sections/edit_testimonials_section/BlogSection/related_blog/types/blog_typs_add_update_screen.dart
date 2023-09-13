@@ -24,32 +24,20 @@ class _BlogsTypeCrudScreenState extends State<BlogsTypeCrudScreen> {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
         ),
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
-          child: Row(
-              children:[
-                const Expanded(
-                    child:
-                    SizedBox()
-                ),
-                SizedBox(
-                  width: Get.width > 800 ? 500 :300,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-
-                      ],
-                  ),
-                ),
-                const Expanded(
-                    child:
-                    SizedBox()
-                ),
-              ]
-
-          ),
+          child: Row(children: [
+            const Expanded(child: SizedBox()),
+            SizedBox(
+              width: Get.width > 800 ? 500 : 300,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [],
+              ),
+            ),
+            const Expanded(child: SizedBox()),
+          ]),
         ),
       ),
     );

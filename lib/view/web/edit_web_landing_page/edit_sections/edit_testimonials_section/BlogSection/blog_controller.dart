@@ -14,12 +14,13 @@ import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'blog_details_list.dart';
 
 class EditBlogController extends GetxController {
-
   late VideoPlayerController videoController;
 
   RxBool isVideoInitialized = false.obs;
 
   RxList blogdata = [].obs;
+  RxList blogdataReadMore = [].obs;
+
   RxList blogtype = [].obs;
   RxString msg = "".obs;
 
@@ -44,6 +45,9 @@ class EditBlogController extends GetxController {
 
         if (response['body']['status'].toString() == "1") {
           blogdata.value = response['body']["data"];
+          for (int i = 0; i < blogdata.length; i++) {
+            blogdataReadMore.add(false);
+          }
           blogtype.clear();
           for (var blog in blogdata) {
             blogtype.add(blog['blogTypeKey']);
@@ -61,12 +65,11 @@ class EditBlogController extends GetxController {
   }
 
   ///delete blog
-  Future<void> deleteBlogApi({String? id})  async {
-
+  Future<void> deleteBlogApi({String? id}) async {
     var url = APIString.grobizBaseUrl + APIString.delete_blog;
 //blog_auto_id
     final body = {
-      'blog_auto_id':id,
+      'blog_auto_id': id,
     };
 
     Uri uri = Uri.parse(url);
@@ -77,9 +80,8 @@ class EditBlogController extends GetxController {
       int status = resp['status'];
       log('USer Id: $status');
       if (status == 1) {
-
         Fluttertoast.showToast(
-          msg:  'successfully Deleted' ,
+          msg: 'successfully Deleted',
           backgroundColor: Colors.grey,
         );
         // Get.back();
@@ -94,7 +96,6 @@ class EditBlogController extends GetxController {
         );
       }
     } else if (response.statusCode == 500) {
-
       Fluttertoast.showToast(
         msg: 'Server error',
         backgroundColor: Colors.grey,
@@ -141,19 +142,20 @@ class EditBlogController extends GetxController {
         if (response['body']['status'].toString() == "1") {
           blogDetails.value = response['body']['data'];
         }
-      }
-      else if (response['error'] != null) {
+      } else if (response['error'] != null) {
         // showSnackbar(title: "Warning",message: "Error");
         hideLoadingDialog();
       }
     } catch (e, s) {
       debugPrint("getBlogDetailsData Error -- $e  $s");
-      Future.delayed(Duration.zero,() => hideLoadingDialog(),);
+      Future.delayed(
+        Duration.zero,
+        () => hideLoadingDialog(),
+      );
     }
   }
 
-
-  addBlogDetailsApi({String? id,String? title, String? description}) async {
+  addBlogDetailsApi({String? id, String? title, String? description}) async {
     showLoadingDialog();
     //blog_auto_id,title,description
     try {
@@ -161,9 +163,9 @@ class EditBlogController extends GetxController {
       var response = await HttpHandler.postHttpMethod(
           url: APIString.add_blog_details,
           data: {
-            "blog_auto_id":id,
-            "title":title,
-            "description":description,
+            "blog_auto_id": id,
+            "title": title,
+            "description": description,
             // "media":,
             // "mediaTypeKey":""
           });
@@ -174,8 +176,9 @@ class EditBlogController extends GetxController {
 
         if (response['body']['status'].toString() == "1") {
           showSnackbar(title: "Success", message: "${response['body']['msg']}");
-          Get.off(BlogDetailsList(id: id!,));
-
+          Get.off(BlogDetailsList(
+            id: id!,
+          ));
         }
       } else {
         log("step --------  +++  77 Error");
@@ -186,9 +189,11 @@ class EditBlogController extends GetxController {
     }
   }
 
-
-
-  editBlogDetailsApi({String? blogDetailsId,String? blogId,String? title, String? description}) async {
+  editBlogDetailsApi(
+      {String? blogDetailsId,
+      String? blogId,
+      String? title,
+      String? description}) async {
     log("step --------  +++ 1 ");
     showLoadingDialog();
     //blog_details_auto_id,
@@ -201,10 +206,10 @@ class EditBlogController extends GetxController {
       var response = await HttpHandler.postHttpMethod(
           url: APIString.edit_blog_details,
           data: {
-            "blog_details_auto_id":blogDetailsId,
-            "blog_auto_id":blogId,
-            "title":title,
-            "description":description,
+            "blog_details_auto_id": blogDetailsId,
+            "blog_auto_id": blogId,
+            "title": title,
+            "description": description,
           });
       log("step --------  +++ 3 ");
       hideLoadingDialog();
@@ -213,8 +218,9 @@ class EditBlogController extends GetxController {
 
         if (response['body']['status'].toString() == "1") {
           showSnackbar(title: "Success", message: "${response['body']['msg']}");
-          Get.to(BlogDetailsList(id: blogId!,));
-
+          Get.to(BlogDetailsList(
+            id: blogId!,
+          ));
         }
       } else {
         log("step --------  +++  77 Error");
@@ -225,11 +231,11 @@ class EditBlogController extends GetxController {
     }
   }
 
-  Future<void> deleteBlogDetails({String? id,String? detailsId})  async {
+  Future<void> deleteBlogDetails({String? id, String? detailsId}) async {
     var url = APIString.grobizBaseUrl + APIString.delete_blog_details;
     final body = {
-      'blog_auto_id':id,
-      'blog_details_auto_id':detailsId,
+      'blog_auto_id': id,
+      'blog_details_auto_id': detailsId,
     };
     Uri uri = Uri.parse(url);
     final response = await http.post(uri, body: body);
@@ -239,9 +245,8 @@ class EditBlogController extends GetxController {
       int status = resp['status'];
       log('USer Id: $status');
       if (status == 1) {
-
         Fluttertoast.showToast(
-          msg:  'successfully Deleted' ,
+          msg: 'successfully Deleted',
           backgroundColor: Colors.grey,
         );
         // Get.back();
@@ -256,12 +261,10 @@ class EditBlogController extends GetxController {
         );
       }
     } else if (response.statusCode == 500) {
-
       Fluttertoast.showToast(
         msg: 'Server error',
         backgroundColor: Colors.grey,
       );
     }
   }
-
 }

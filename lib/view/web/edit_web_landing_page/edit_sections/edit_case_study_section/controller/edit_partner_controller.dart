@@ -6,14 +6,15 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/utils/http_handler/network_http.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
-class EditCaseStudyController extends GetxController{
+
+class EditCaseStudyController extends GetxController {
   TextEditingController type = TextEditingController();
   TextEditingController category = TextEditingController();
   TextEditingController title = TextEditingController();
   TextEditingController shortDescription = TextEditingController();
   TextEditingController detailDescription = TextEditingController();
 
-  clearFields(){
+  clearFields() {
     type.clear();
     category.clear();
     title.clear();
@@ -22,9 +23,11 @@ class EditCaseStudyController extends GetxController{
   }
 
   RxList caseStudyList = [].obs;
+  RxList caseStudyReadMore = [].obs;
+
   RxString msg = "".obs;
 
- Future<void> getCaseStudy() async {
+  Future<void> getCaseStudy() async {
     showLoadingDialog();
     // hideLoadingDialog();
     try {
@@ -38,6 +41,9 @@ class EditCaseStudyController extends GetxController{
         if (response['body']['status'].toString() == "1") {
           log(" status------------->  ${response['body']['status']}");
           caseStudyList.value = response['body']["data"];
+          for (int i = 0; i < caseStudyList.length; i++) {
+            caseStudyReadMore.add(false);
+          }
           msg.value = response['body']["msg"];
           // getPartnerLogo2();
         }

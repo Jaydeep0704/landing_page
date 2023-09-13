@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class   AppColors {
+class AppColors {
   AppColors._();
 
   static const Color transparentColor = Color(0x00FFFFFF);
@@ -26,7 +26,6 @@ class   AppColors {
   static const Color lightGrey = Color(0xff999999);
   static const Color lightGreen = Color(0xff67C8A6);
 
-
   /// web landing page background colors
   static const Color bgGreen = Color(0xffE88F29);
   static const Color bgPurple = Color(0xff0C6FAC);
@@ -38,8 +37,6 @@ class   AppColors {
   static const Color bgLightOrange = Color(0xffC19A5D);
   static const Color bgBlue = Color(0xff1D88C4);
   static const Color bgNaturalGrey = Color(0xff948484);
-
-
 
   static const Color borderColor = Color(0xffd3d3d3);
 }

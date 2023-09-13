@@ -44,121 +44,27 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
     });
   }
 
-  void showPopup({bool? isEdit = true,String? category,String? title,String? type,String? shortDescription,String? id}) {
-    if(isEdit == true){
-      editPartnerController.category.text = category!;
-      editPartnerController.title.text =title! ;
-      editPartnerController.type.text = type!;
-      editPartnerController.shortDescription.text = shortDescription!;
-    }
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          alignment: Alignment.center,
-          title: Text(isEdit == false ?"Add Case Study":"Edit Case Study"),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  pickFiles();
-                },
-                child: Container(
-                  decoration: const BoxDecoration(color: AppColors.greyColor,
-                  borderRadius: BorderRadius.all(Radius.circular(10))
-                  ),
-                  height: 70,width: 150,
-                  child: _paths != null ? ClipRRect(child: Image.memory(_paths!.first.bytes!,height: 60,width: 60,))
-                  : const Center(
-                    child: Icon(Icons.image),
-                   ),
-                ),
-              ),
-              const SizedBox(height: 15),
-              const Text("Enter Case Study Type"),
-              TextField(
-                controller: editPartnerController.type,
-                decoration: const InputDecoration(
-                  hintText: "Enter the type",
-                  // border: InputBorder.none
-                ),
-              ),
-              const SizedBox(height: 15),
-              const Text("Enter Case Study Category"),
-              TextField(
-                controller: editPartnerController.category,
-                decoration: const InputDecoration(hintText: "Enter the category"),
-              ),
-              const SizedBox(height: 15),
-              const Text("Enter Case Study Title"),
-              TextField(
-                controller: editPartnerController.title,
-                decoration: const InputDecoration(hintText: "Enter the title"),
-              ),
-              const SizedBox(height: 15),
-              const Text("Enter Case Study Description"),
-              TextField(
-                controller: editPartnerController.shortDescription,
-                decoration: const InputDecoration(hintText: "Enter the description"),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                editPartnerController.clearFields();
-              },
-              child: const Text("Close"),
-            ),
-            TextButton(
-                onPressed: () async {
-                  isEdit == false ? addCaseStudy(
-                      caseStudyCategory: editPartnerController.category.text,
-                      caseStudyTitle: editPartnerController.title.text,
-                      caseStudyType: editPartnerController.type.text,
-                      detailDescription: "",
-                      shortDescription: editPartnerController.shortDescription.text)
-                  : editCaseStudy(
-                      id: id,
-                      caseStudyCategory: editPartnerController.category.text,
-                      caseStudyTitle: editPartnerController.title.text,
-                      caseStudyType: editPartnerController.type.text,
-                      detailDescription: "",
-                      shortDescription: editPartnerController.shortDescription.text);
-                  // await myController.getPartnerLogo2();
-                  Navigator.pop(context);
-                  // log("-----------------------------------^^^^^^^^^^^^^^${editpartnercontroller.getCaseStudy()}");
-                },
-                child: Text(isEdit == false ?"Save":"Update"))
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
-            appBar: AppBar(
-              backgroundColor: AppColors.whiteColor,
-              leading: const BackButton(
-                color: AppColors.blackColor,
-              ),
-              title: Text("Edit Case Study",
-                  style: AppTextStyle.regularBold
-                      .copyWith(color: AppColors.blackColor, fontSize: 18)),
-              centerTitle: true,
+          appBar: AppBar(
+            backgroundColor: AppColors.whiteColor,
+            leading: const BackButton(
+              color: AppColors.blackColor,
             ),
+            title: Text("Edit Case Study",
+                style: AppTextStyle.regularBold
+                    .copyWith(color: AppColors.blackColor, fontSize: 18)),
+            centerTitle: true,
+          ),
           body: Row(
             children: [
               const Expanded(child: SizedBox()),
               Container(
-                decoration: BoxDecoration(
-                        color: AppColors.whiteColor, boxShadow: [
+                decoration:
+                    BoxDecoration(color: AppColors.whiteColor, boxShadow: [
                   BoxShadow(
                       color: AppColors.blackColor.withOpacity(0.3),
                       blurRadius: 4,
@@ -174,7 +80,9 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Get.to(()=>const CSTypeCategoryScreen())!.whenComplete(() => editPartnerController.getCaseStudy());
+                              Get.to(() => const CSTypeCategoryScreen())!
+                                  .whenComplete(() =>
+                                      editPartnerController.getCaseStudy());
                             },
                             child: FittedBox(
                               fit: BoxFit.scaleDown,
@@ -183,8 +91,8 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                                 margin: const EdgeInsets.only(right: 10),
                                 decoration: BoxDecoration(
                                     color: AppColors.greyColor.withOpacity(0.5),
-                                    borderRadius:
-                                        const BorderRadius.all(Radius.circular(5))),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5))),
                                 child: Row(
                                   children: const [
                                     Icon(Icons.add),
@@ -198,7 +106,11 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                           const SizedBox(height: 25),
                           GestureDetector(
                             onTap: () {
-                              Get.to(()=>AddUpdateShortCaseStudy(isEdit: false,))!.whenComplete(() => editPartnerController.getCaseStudy());
+                              Get.to(() => AddUpdateShortCaseStudy(
+                                        isEdit: false,
+                                      ))!
+                                  .whenComplete(() =>
+                                      editPartnerController.getCaseStudy());
                             },
                             child: FittedBox(
                               fit: BoxFit.scaleDown,
@@ -207,8 +119,8 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                                 margin: const EdgeInsets.only(right: 10),
                                 decoration: BoxDecoration(
                                     color: AppColors.greyColor.withOpacity(0.5),
-                                    borderRadius:
-                                        const BorderRadius.all(Radius.circular(5))),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5))),
                                 child: Row(
                                   children: const [
                                     Icon(Icons.add),
@@ -228,58 +140,166 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                         return editPartnerController.caseStudyList.isEmpty
                             ? const Center(child: Text("No Data"))
                             : ListView.builder(
-                                padding: const EdgeInsets.symmetric(horizontal: 25),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 25),
                                 shrinkWrap: true,
-                                itemCount: editPartnerController.caseStudyList.length,
+                                itemCount:
+                                    editPartnerController.caseStudyList.length,
                                 itemBuilder: (context, index) {
-                                  var data = editPartnerController.caseStudyList[index];
+                                  var data = editPartnerController
+                                      .caseStudyList[index];
+                                  var boolValue = editPartnerController
+                                      .caseStudyReadMore[index];
                                   return Container(
                                     // height: 250,
                                     width: Get.width,
                                     padding: const EdgeInsets.all(25),
                                     margin: const EdgeInsets.only(bottom: 10),
                                     decoration: BoxDecoration(
-                                        color: AppColors.greyColor.withOpacity(0.2),
-                                        borderRadius: const BorderRadius.all(Radius.circular(10))),
+                                        color: AppColors.greyColor
+                                            .withOpacity(0.2),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10))),
                                     child: Column(
                                       children: [
                                         Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             CachedNetworkImage(
                                               height: 200,
                                               width: 150,
                                               fit: BoxFit.cover,
-                                              imageUrl: APIString.bannerMediaUrl +
-                                                  data["case_study_image"].toString(),
+                                              imageUrl:
+                                                  APIString.bannerMediaUrl +
+                                                      data["case_study_image"]
+                                                          .toString(),
                                               placeholder: (context, url) =>
                                                   Container(
-                                                    height: 70,
-                                                    width: 150,
-                                                    decoration: const BoxDecoration(
-                                                      color: AppColors.greyColor,
-                                                    ),
-                                                  ),
-                                              errorWidget: (context, url, error) =>
-                                              const Icon(Icons.error),
+                                                height: 70,
+                                                width: 150,
+                                                decoration: const BoxDecoration(
+                                                  color: AppColors.greyColor,
+                                                ),
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Icon(Icons.error),
                                             ),
                                             const SizedBox(width: 20),
                                             Expanded(
                                               child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  Text("Title",style: AppTextStyle.regularBold.copyWith(fontSize: 16,color: AppColors.blackColor),),
-                                                  Text("${data["case_study_title"]}",style: AppTextStyle.regular300.copyWith(fontSize: 14,color: AppColors.blackColor),),
+                                                  Text(
+                                                    "Title",
+                                                    style: AppTextStyle
+                                                        .regularBold
+                                                        .copyWith(
+                                                            fontSize: 16,
+                                                            color: AppColors
+                                                                .blackColor),
+                                                  ),
+                                                  Text(
+                                                    "${data["case_study_title"]}",
+                                                    style: AppTextStyle
+                                                        .regular300
+                                                        .copyWith(
+                                                            fontSize: 14,
+                                                            color: AppColors
+                                                                .blackColor),
+                                                  ),
                                                   const SizedBox(height: 10),
-                                                  Text("Case Study Type",style: AppTextStyle.regularBold.copyWith(fontSize: 16,color: AppColors.blackColor),),
-                                                  Text("${data["case_study_type"]}",style: AppTextStyle.regular300.copyWith(fontSize: 14,color: AppColors.blackColor),),
+                                                  Text(
+                                                    "Case Study Type",
+                                                    style: AppTextStyle
+                                                        .regularBold
+                                                        .copyWith(
+                                                            fontSize: 16,
+                                                            color: AppColors
+                                                                .blackColor),
+                                                  ),
+                                                  // Text(
+                                                  //   "${data["case_study_type"]}",
+                                                  //   style: AppTextStyle
+                                                  //       .regular300
+                                                  //       .copyWith(
+                                                  //           fontSize: 14,
+                                                  //           color: AppColors
+                                                  //               .blackColor),
+                                                  // ),
+                                                  // const SizedBox(height: 10),
+                                                  // Text(
+                                                  //   "Case Study Category",
+                                                  //   style: AppTextStyle
+                                                  //       .regularBold
+                                                  //       .copyWith(
+                                                  //           fontSize: 16,
+                                                  //           color: AppColors
+                                                  //               .blackColor),
+                                                  // ),
+                                                  Text(
+                                                    "${data["case_study_category"]}",
+                                                    style: AppTextStyle
+                                                        .regular300
+                                                        .copyWith(
+                                                            fontSize: 14,
+                                                            color: AppColors
+                                                                .blackColor),
+                                                  ),
                                                   const SizedBox(height: 10),
-                                                  Text("Case Study Category",style: AppTextStyle.regularBold.copyWith(fontSize: 16,color: AppColors.blackColor),),
-                                                  Text("${data["case_study_category"]}",style: AppTextStyle.regular300.copyWith(fontSize: 14,color: AppColors.blackColor),),
-                                                  const SizedBox(height: 10),
-                                                  Text("Case Study Short Desciption",style: AppTextStyle.regularBold.copyWith(fontSize: 16,color: AppColors.blackColor),),
-                                                  Text("${data["case_study_short_desciption"]}",style: AppTextStyle.regular300.copyWith(fontSize: 14,color: AppColors.blackColor),),
-
+                                                  Text(
+                                                    "Case Study Short Desciption",
+                                                    style: AppTextStyle
+                                                        .regularBold
+                                                        .copyWith(
+                                                            fontSize: 16,
+                                                            color: AppColors
+                                                                .blackColor),
+                                                  ),
+                                                  Text(
+                                                    "${data["case_study_short_desciption"]}",
+                                                    maxLines:
+                                                        boolValue ? 100 : 10,
+                                                    style: AppTextStyle
+                                                        .regular300
+                                                        .copyWith(
+                                                            fontSize: 14,
+                                                            color: AppColors
+                                                                .blackColor),
+                                                  ),
+                                                  SizedBox(
+                                                      height:
+                                                          Get.width * 0.005),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        // boolValue = !boolValue;
+                                                        editPartnerController
+                                                                .caseStudyReadMore[
+                                                            index] = !boolValue;
+                                                      });
+                                                    },
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 5,
+                                                          vertical: 2),
+                                                      child: Text(
+                                                        boolValue
+                                                            ? "Read less"
+                                                            : "Read more",
+                                                        style: AppTextStyle
+                                                            .regular300
+                                                            .copyWith(
+                                                                color: AppColors
+                                                                    .blueColor),
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -287,33 +307,52 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                                         ),
                                         const SizedBox(height: 10),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             GestureDetector(
                                               onTap: () async {
-                                                Get.to(()=>AddUpdateShortCaseStudy(
-                                                  isEdit: true,
-                                                media: data["media"],
-                                                  shortDescription: data["case_study_short_desciption"],
-                                                  detailDescription: data["case_study_detail_desciption"],
-                                                  caseType: data["case_study_type"],
-                                                  caseStudyImage: data["case_study_image"],
-                                                  caseStudyAutoId: data["case_study_auto_id"],
-                                                  caseCategory: data["case_study_category"],mediaTypeKey: data["mediaTypeKey"],
-                                                  title: data["case_study_title"],
-                                                
-                                                ))!.whenComplete(() => editPartnerController.getCaseStudy());
-
+                                                Get.to(() =>
+                                                        AddUpdateShortCaseStudy(
+                                                          isEdit: true,
+                                                          media: data["media"],
+                                                          shortDescription: data[
+                                                              "case_study_short_desciption"],
+                                                          detailDescription: data[
+                                                              "case_study_detail_desciption"],
+                                                          caseType: data[
+                                                              "case_study_type"],
+                                                          caseStudyImage: data[
+                                                              "case_study_image"],
+                                                          caseStudyAutoId: data[
+                                                              "case_study_auto_id"],
+                                                          caseCategory: data[
+                                                              "case_study_category"],
+                                                          mediaTypeKey: data[
+                                                              "mediaTypeKey"],
+                                                          title: data[
+                                                              "case_study_title"],
+                                                        ))!
+                                                    .whenComplete(() =>
+                                                        editPartnerController
+                                                            .getCaseStudy());
                                               },
                                               child: FittedBox(
                                                 fit: BoxFit.scaleDown,
                                                 child: Container(
-                                                  padding: const EdgeInsets.all(5),
-                                                  margin: const EdgeInsets.only(right: 10),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  margin: const EdgeInsets.only(
+                                                      right: 10),
                                                   decoration: BoxDecoration(
-                                                      color: AppColors.whiteColor.withOpacity(0.5),
+                                                      color: AppColors
+                                                          .whiteColor
+                                                          .withOpacity(0.5),
                                                       borderRadius:
-                                                      const BorderRadius.all(Radius.circular(5))),
+                                                          const BorderRadius
+                                                                  .all(
+                                                              Radius.circular(
+                                                                  5))),
                                                   child: Row(
                                                     children: const [
                                                       Icon(Icons.edit),
@@ -326,47 +365,73 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                                             ),
                                             GestureDetector(
                                               onTap: () {
-                                                showDialog(context: context, builder: (context) {
-                                                  return AlertDialog(
-                                                    content: SingleChildScrollView(
-                                                      child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          const SizedBox(height: 20),
-                                                          const Text("Are you sure you want to delete?"),
-                                                          const SizedBox(height: 20),
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                            children: [
-
-                                                              ElevatedButton(onPressed: (){
-                                                                Get.back();
-                                                              },
-                                                                  child: const Text("Cancel")),
-                                                              ElevatedButton(onPressed: (){
-                                                                deleteCaseStudy(caseStudyAutoId: data["case_study_auto_id"]).then((value) => Get.back());
-                                                              },
-                                                                  child: const Text("Delete")),
-                                                            ],
-                                                          ),
-                                                          const SizedBox(height: 20),
-                                                        ],
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return AlertDialog(
+                                                      content:
+                                                          SingleChildScrollView(
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            const SizedBox(
+                                                                height: 20),
+                                                            const Text(
+                                                                "Are you sure you want to delete?"),
+                                                            const SizedBox(
+                                                                height: 20),
+                                                            Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceEvenly,
+                                                              children: [
+                                                                ElevatedButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      Get.back();
+                                                                    },
+                                                                    child: const Text(
+                                                                        "Cancel")),
+                                                                ElevatedButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      deleteCaseStudy(caseStudyAutoId: data["case_study_auto_id"]).then(
+                                                                          (value) =>
+                                                                              Get.back());
+                                                                    },
+                                                                    child: const Text(
+                                                                        "Delete")),
+                                                              ],
+                                                            ),
+                                                            const SizedBox(
+                                                                height: 20),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  );
-                                                },
+                                                    );
+                                                  },
                                                   // deleteCaseStudy(caseStudyAutoId: data["case_study_auto_id"]);
-                                                );},
+                                                );
+                                              },
                                               child: FittedBox(
                                                 fit: BoxFit.scaleDown,
                                                 child: Container(
-                                                  padding: const EdgeInsets.all(5),
-                                                  margin: const EdgeInsets.only(right: 10),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  margin: const EdgeInsets.only(
+                                                      right: 10),
                                                   decoration: BoxDecoration(
-                                                      color: AppColors.whiteColor.withOpacity(0.5),
+                                                      color: AppColors
+                                                          .whiteColor
+                                                          .withOpacity(0.5),
                                                       borderRadius:
-                                                      const BorderRadius.all(Radius.circular(5))),
-                                                  child:  Row(
+                                                          const BorderRadius
+                                                                  .all(
+                                                              Radius.circular(
+                                                                  5))),
+                                                  child: Row(
                                                     children: const [
                                                       Icon(Icons.delete),
                                                       SizedBox(width: 3),
@@ -378,22 +443,33 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                                             ),
                                             GestureDetector(
                                               onTap: () {
-                                                Get.to(()=> EditDetailCaseStudyPage(shortDescription: data,));
+                                                Get.to(() =>
+                                                    EditDetailCaseStudyPage(
+                                                      shortDescription: data,
+                                                    ));
                                               },
                                               child: FittedBox(
                                                 fit: BoxFit.scaleDown,
                                                 child: Container(
-                                                  padding: const EdgeInsets.all(5),
-                                                  margin: const EdgeInsets.only(right: 10),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  margin: const EdgeInsets.only(
+                                                      right: 10),
                                                   decoration: BoxDecoration(
-                                                      color: AppColors.whiteColor.withOpacity(0.5),
+                                                      color: AppColors
+                                                          .whiteColor
+                                                          .withOpacity(0.5),
                                                       borderRadius:
-                                                      const BorderRadius.all(Radius.circular(5))),
+                                                          const BorderRadius
+                                                                  .all(
+                                                              Radius.circular(
+                                                                  5))),
                                                   child: Row(
                                                     children: const [
                                                       Icon(Icons.edit),
                                                       SizedBox(width: 3),
-                                                      Text("Go to Detail Edit Page")
+                                                      Text(
+                                                          "Go to Detail Edit Page")
                                                     ],
                                                   ),
                                                 ),
@@ -458,7 +534,12 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
     }
   }
 
-  Future addCaseStudy({String? caseStudyType, String? caseStudyCategory,String? caseStudyTitle,String? shortDescription,String? detailDescription}) async {
+  Future addCaseStudy(
+      {String? caseStudyType,
+      String? caseStudyCategory,
+      String? caseStudyTitle,
+      String? shortDescription,
+      String? detailDescription}) async {
     showLoadingDialog();
 
     var url = APIString.grobizBaseUrl + APIString.addCaseStudy;
@@ -489,13 +570,14 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
 
     debugPrint(request.fields.toString());
     request.fields["case_study_type"] = caseStudyType.toString();
-    request.fields["case_study_category"] =caseStudyCategory.toString();
-    request.fields["case_study_title"] =caseStudyTitle.toString();
-    request.fields["case_study_short_desciption"] =shortDescription.toString();
-    request.fields["case_study_detail_desciption"] =detailDescription.toString();
+    request.fields["case_study_category"] = caseStudyCategory.toString();
+    request.fields["case_study_title"] = caseStudyTitle.toString();
+    request.fields["case_study_short_desciption"] = shortDescription.toString();
+    request.fields["case_study_detail_desciption"] =
+        detailDescription.toString();
 
-
-    http.Response response = await http.Response.fromStream(await request.send());
+    http.Response response =
+        await http.Response.fromStream(await request.send());
 
     debugPrint("update response$response");
     hideLoadingDialog();
@@ -545,9 +627,13 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
     }
   }
 
-  Future editCaseStudy({String? id,String? caseStudyType, String? caseStudyCategory,
-    String? caseStudyTitle,String? shortDescription,String? detailDescription}) async {
-
+  Future editCaseStudy(
+      {String? id,
+      String? caseStudyType,
+      String? caseStudyCategory,
+      String? caseStudyTitle,
+      String? shortDescription,
+      String? detailDescription}) async {
     showLoadingDialog();
 
     var url = APIString.grobizBaseUrl + APIString.editCaseStudy;
@@ -577,14 +663,16 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
     }
     request.fields["case_study_auto_id"] = id.toString();
     request.fields["case_study_type"] = caseStudyType.toString();
-    request.fields["case_study_category"] =caseStudyCategory.toString();
-    request.fields["case_study_title"] =caseStudyTitle.toString();
-    request.fields["case_study_short_desciption"] =shortDescription.toString();
-    request.fields["case_study_detail_desciption"] =detailDescription.toString();
+    request.fields["case_study_category"] = caseStudyCategory.toString();
+    request.fields["case_study_title"] = caseStudyTitle.toString();
+    request.fields["case_study_short_desciption"] = shortDescription.toString();
+    request.fields["case_study_detail_desciption"] =
+        detailDescription.toString();
 
     debugPrint(request.fields.toString());
 
-    http.Response response = await http.Response.fromStream(await request.send());
+    http.Response response =
+        await http.Response.fromStream(await request.send());
 
     debugPrint("update response$response");
     editPartnerController.clearFields();

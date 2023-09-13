@@ -5,7 +5,9 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
+import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
+import 'package:grobiz_web_landing/widget/common_drop_down.dart';
 
 import 'package:http_parser/src/media_type.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +25,6 @@ import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 
 import 'package:http/http.dart' as http;
-
 
 class AddBlog extends StatefulWidget {
   const AddBlog({Key? key}) : super(key: key);
@@ -145,6 +146,46 @@ class _AddBlogState extends State<AddBlog> {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
+
+                        ///
+                        const Text(
+                          "Select Blog Type",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        DropdownButtonFormField<Map<String, String>>(
+                          decoration: const InputDecoration(
+                            // labelText: 'Select an item',
+                            hintText: "Select an item",
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ), // Use OutlineInputBorder for outlined border
+                          ),
+                          isExpanded: true,
+                          value: selectedValue,
+                          onChanged: (newValue) {
+                            setState(() {
+                              selectedValue = newValue;
+                              FocusScope.of(context).unfocus();
+                            });
+                          },
+                          items: dropdownItems
+                              .map<DropdownMenuItem<Map<String, String>>>(
+                                  (Map<String, String> item) {
+                            return DropdownMenuItem<Map<String, String>>(
+                              value: item,
+                              child: Text(
+                                  "${item['blog_type']} - ${item['value']}"),
+                            );
+                          }).toList(),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         const Text(
                           "Enter User Name",
                           style: TextStyle(
@@ -260,88 +301,87 @@ class _AddBlogState extends State<AddBlog> {
                           color: Colors.grey,
                           thickness: 0.3,
                         ),
-                        const Text(
-                          "Enter Blog Type",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: blogType_controller,
-                          decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding: const EdgeInsets.all(10),
-                              hintText: "Enter Blog Type",
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.grey, width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.red, width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.black, width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              )),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Divider(
-                          color: Colors.grey,
-                          thickness: 0.3,
-                        ),
-                        const Text(
-                          "Enter Blog Section Color",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: blogBg_controller,
-                          decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding: const EdgeInsets.all(10),
-                              hintText: "Enter Blog Section Color",
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.grey, width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.red, width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.black, width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              )),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Divider(
-                          color: Colors.grey,
-                          thickness: 0.3,
-                        ),
+                        // const Text(
+                        //   "Enter Blog Type",
+                        //   style: TextStyle(
+                        //       fontSize: 16, fontWeight: FontWeight.w600),
+                        // ),
+                        // const SizedBox(
+                        //   height: 10,
+                        // ),
+                        // TextFormField(
+                        //   controller: blogType_controller,
+                        //   decoration: InputDecoration(
+                        //       filled: true,
+                        //       fillColor: Colors.white,
+                        //       contentPadding: const EdgeInsets.all(10),
+                        //       hintText: "Enter Blog Type",
+                        //       focusedBorder: OutlineInputBorder(
+                        //         borderSide: const BorderSide(
+                        //             color: Colors.grey, width: 1),
+                        //         borderRadius: BorderRadius.circular(10),
+                        //       ),
+                        //       errorBorder: OutlineInputBorder(
+                        //         borderSide: const BorderSide(
+                        //             color: Colors.red, width: 1),
+                        //         borderRadius: BorderRadius.circular(10),
+                        //       ),
+                        //       enabledBorder: OutlineInputBorder(
+                        //         borderSide: const BorderSide(
+                        //             color: Colors.black, width: 1),
+                        //         borderRadius: BorderRadius.circular(10),
+                        //       )),
+                        // ),
+                        // const SizedBox(
+                        //   height: 10,
+                        // ),
+                        // const Divider(
+                        //   color: Colors.grey,
+                        //   thickness: 0.3,
+                        // ),
+                        // const Text(
+                        //   "Enter Blog Section Color",
+                        //   style: TextStyle(
+                        //       fontSize: 16, fontWeight: FontWeight.w600),
+                        // ),
+                        // const SizedBox(
+                        //   height: 10,
+                        // ),
+                        // TextFormField(
+                        //   controller: blogBg_controller,
+                        //   decoration: InputDecoration(
+                        //       filled: true,
+                        //       fillColor: Colors.white,
+                        //       contentPadding: const EdgeInsets.all(10),
+                        //       hintText: "Enter Blog Section Color",
+                        //       focusedBorder: OutlineInputBorder(
+                        //         borderSide: const BorderSide(
+                        //             color: Colors.grey, width: 1),
+                        //         borderRadius: BorderRadius.circular(10),
+                        //       ),
+                        //       errorBorder: OutlineInputBorder(
+                        //         borderSide: const BorderSide(
+                        //             color: Colors.red, width: 1),
+                        //         borderRadius: BorderRadius.circular(10),
+                        //       ),
+                        //       enabledBorder: OutlineInputBorder(
+                        //         borderSide: const BorderSide(
+                        //             color: Colors.black, width: 1),
+                        //         borderRadius: BorderRadius.circular(10),
+                        //       )),
+                        // ),
+                        // const SizedBox(height: 10),
+                        // const Divider(
+                        //   color: Colors.grey,
+                        //   thickness: 0.3,
+                        // ),
                         const Center(
-                            child: Text(
-                          "Select Media type",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        )),
+                          child: Text(
+                            "Select Media type",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
+                        ),
                         const SizedBox(
                           height: 20,
                         ),
@@ -604,7 +644,7 @@ class _AddBlogState extends State<AddBlog> {
                                     ),
                                   ),
                                 ),
-                        )
+                        ),
                       ]),
                 ),
                 const Expanded(child: SizedBox()),
@@ -724,9 +764,17 @@ class _AddBlogState extends State<AddBlog> {
     request.fields["userName"] = username_controller.text;
     request.fields["content"] = content_controller.text;
     request.fields["title"] = title_controller.text;
-    request.fields["blogs_section_color"] = blogBg_controller.text;
-    request.fields["blogTypeKey"] = blogType_controller.text;
     request.fields["media_type"] = VideoImg;
+
+    ///use it as a value of blog category -> blogs_section_color
+    ///use it as a blog_type of blog category -> blogTypeKey
+    print("selectedValue!['blog_type']!   ${selectedValue!['blog_type']!}");
+    print("selectedValue!['value']!   ${selectedValue!['value']!}");
+    //selectedValue!['case_study_type']!;
+    // request.fields["blogs_section_color"] = blogBg_controller.text;
+    request.fields["blogs_section_color"] = selectedValue!['value']!;
+    // request.fields["blogTypeKey"] = blogType_controller.text;
+    request.fields["blogTypeKey"] = selectedValue!['blog_type']!;
 
     http.Response response =
         await http.Response.fromStream(await request.send());
@@ -889,6 +937,13 @@ class _AddBlogState extends State<AddBlog> {
   }
 
   bool validation() {
+    if (pimageData == null) {
+      Fluttertoast.showToast(
+        msg: 'Please Select Profile Image',
+        backgroundColor: Colors.grey,
+      );
+      return false;
+    }
     if (username_controller.text.isEmpty || username_controller.text == "") {
       Fluttertoast.showToast(
         msg: 'Please Enter Name',
@@ -908,20 +963,22 @@ class _AddBlogState extends State<AddBlog> {
         backgroundColor: Colors.grey,
       );
       return false;
-    } else if (blogType_controller.text.isEmpty ||
-        blogType_controller.text == "") {
+    }
+    // else if (blogType_controller.text.isEmpty || blogType_controller.text == "") {
+    else if (selectedValue == null) {
       Fluttertoast.showToast(
         msg: 'Please Enter Blog Type',
         backgroundColor: Colors.grey,
       );
       return false;
-    } else if (blogBg_controller.text.isEmpty || blogBg_controller.text == "") {
+    } /* else if (blogBg_controller.text.isEmpty || blogBg_controller.text == "") {
       Fluttertoast.showToast(
         msg: 'Please Enter Color',
         backgroundColor: Colors.grey,
       );
       return false;
-    } else if (VideoImg.isEmpty || VideoImg == "") {
+    }*/
+    else if (VideoImg.isEmpty || VideoImg == "") {
       Fluttertoast.showToast(
         msg: 'Please Select type',
         backgroundColor: Colors.grey,
@@ -930,4 +987,24 @@ class _AddBlogState extends State<AddBlog> {
     }
     return true;
   }
+
+  Map<String, String>? selectedValue;
+  final List<Map<String, String>> dropdownItems = [
+    {
+      "blog_type": "AI",
+      "value": "Artificial Intelligence",
+    },
+    {
+      "blog_type": "Science",
+      "value": "Science & Technologies",
+    },
+    {
+      "blog_type": "Marketing",
+      "value": "Marketing Fundamentals",
+    },
+    {
+      "blog_type": "Finance",
+      "value": "Finance Services",
+    },
+  ];
 }

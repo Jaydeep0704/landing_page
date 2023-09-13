@@ -1,8 +1,5 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, implementation_imports, must_be_immutable
 
-
-
-
 import 'dart:developer';
 import 'dart:typed_data';
 import 'dart:html' as html;
@@ -11,6 +8,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
@@ -34,16 +32,28 @@ class AddUpdateShortCaseStudy extends StatefulWidget {
   String? caseStudyImage;
   String? media;
   String? mediaTypeKey;
-  AddUpdateShortCaseStudy({super.key,this.mediaTypeKey,this.media,this.title,this.isEdit,this.shortDescription,this.detailDescription,this.caseStudyAutoId,this.caseCategory,this.caseStudyImage,this.caseType});
+  AddUpdateShortCaseStudy(
+      {super.key,
+      this.mediaTypeKey,
+      this.media,
+      this.title,
+      this.isEdit,
+      this.shortDescription,
+      this.detailDescription,
+      this.caseStudyAutoId,
+      this.caseCategory,
+      this.caseStudyImage,
+      this.caseType});
 
   @override
-  State<AddUpdateShortCaseStudy> createState() => _AddUpdateShortCaseStudyState();
+  State<AddUpdateShortCaseStudy> createState() =>
+      _AddUpdateShortCaseStudyState();
 }
 
 class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
   final editCaseStudyController = Get.find<EditCaseStudyController>();
 
-
+  String profile = "";
   String mediaTypeKey = "";
 
   String videoImg = "";
@@ -51,12 +61,11 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
   bool isImage = false;
   bool isGif = false;
   VideoPlayerController? _controller;
-  
+
   ///for logo
   List<PlatformFile>? _pathsLogo;
   var pathsFileLogo;
   var pathsFileNameLogo;
-
 
   //  List<PlatformFile>? _pathsLogo;  _paths
 //   var pathsFileLogo;  pathsFile
@@ -85,38 +94,45 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
     // TODO: implement initState
     super.initState();
 
-    if(widget.isEdit == true){
+    if (widget.isEdit == true) {
+      profile = widget.caseStudyImage!;
       mediaTypeKey = widget.mediaTypeKey!;
       videoImg = widget.mediaTypeKey!;
 
       editCaseStudyController.category.text = widget.caseCategory!;
-      editCaseStudyController.title.text =widget.title! ;
+      editCaseStudyController.title.text = widget.title!;
       editCaseStudyController.type.text = widget.caseType!;
       editCaseStudyController.shortDescription.text = widget.shortDescription!;
-      editCaseStudyController.detailDescription.text = widget.detailDescription!;
+      editCaseStudyController.detailDescription.text =
+          widget.detailDescription!;
 
       // VideoImg = mediaTypeKey.toString();
-      if(mediaTypeKey == "image"){
+      if (mediaTypeKey == "image") {
         isImage = true;
         isvideo = false;
         isGif = false;
-
-      }
-      else if(mediaTypeKey == "video"){
+      } else if (mediaTypeKey == "video") {
         isImage = false;
         isvideo = true;
         isGif = false;
         preVideo(link: widget.media!);
-      }
-      else if(mediaTypeKey == "gif"){
+      } else if (mediaTypeKey == "gif") {
         isImage = false;
         isvideo = false;
         isGif = true;
       }
+    } else {
+      profile = "";
+      mediaTypeKey = "";
+      videoImg = "";
+
+      editCaseStudyController.category.text = "";
+      editCaseStudyController.title.text = "";
+      editCaseStudyController.type.text = "";
+      editCaseStudyController.shortDescription.text = "";
+      editCaseStudyController.detailDescription.text = "";
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -124,16 +140,19 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
     return LayoutBuilder(
       builder: (p0, p1) {
         return Scaffold(
-          appBar: AppBar(title: Text(widget.isEdit == false ?"Add Case Study":"Edit Case Study"),
+          appBar: AppBar(
+            title: Text(
+                widget.isEdit == false ? "Add Case Study" : "Edit Case Study"),
             // backgroundColor: AppColors.whiteColor,
-            centerTitle: true,),
+            centerTitle: true,
+          ),
           body: SingleChildScrollView(
             child: Row(
               children: [
                 const Expanded(child: SizedBox()),
                 Container(
-                  decoration: BoxDecoration(
-                      color: AppColors.whiteColor, boxShadow: [
+                  decoration:
+                      BoxDecoration(color: AppColors.whiteColor, boxShadow: [
                     BoxShadow(
                         color: AppColors.blackColor.withOpacity(0.3),
                         blurRadius: 4,
@@ -144,25 +163,90 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                       Text("Enter Case Study Logo",style: AppTextStyle.regular400.copyWith(fontSize: 16),),
+                      const SizedBox(height: 15),
+                      Text(
+                        "Select Case Study Logo",
+                        style: AppTextStyle.regular400.copyWith(fontSize: 16),
+                      ),
                       const SizedBox(height: 10),
                       GestureDetector(
                         onTap: () {
                           pickFilesLogo();
                         },
                         child: Container(
-                          decoration: const BoxDecoration(color: AppColors.greyColor,
-                              borderRadius: BorderRadius.all(Radius.circular(10))
-                          ),
-                          height: 70,width: 150,
-                          child: _pathsLogo != null ? ClipRRect(child: Image.memory(_pathsLogo!.first.bytes!,height: 60,width: 60,))
-                              : const Center(
-                            child: Icon(Icons.image),
-                          ),
+                          decoration: const BoxDecoration(
+                              color: AppColors.greyColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          height: 150,
+                          width: 150,
+                          child: _pathsLogo != null
+                              ? ClipRRect(
+                                  child: Image.memory(
+                                  _pathsLogo!.first.bytes!,
+                                  height: 60,
+                                  width: 60,
+                                ))
+                              : profile.toString().isNotEmpty
+                                  ? CachedNetworkImage(
+                                      height: 100,
+                                      width: MediaQuery.of(context).size.width,
+                                      imageUrl: APIString.latestmediaBaseUrl +
+                                          profile,
+                                      placeholder: (context, url) => Container(
+                                        decoration: const BoxDecoration(
+                                          color: AppColors.greyBorderColor,
+                                        ),
+                                      ),
+                                      // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                      fit: BoxFit.contain,
+                                    )
+                                  : const Center(
+                                      child: Icon(Icons.image),
+                                    ),
                         ),
                       ),
                       const SizedBox(height: 15),
-                       Text("Enter Case Study Title",style: AppTextStyle.regular400.copyWith(fontSize: 16),),
+                      Text(
+                        "Enter Blog Section Color",
+                        style: AppTextStyle.regular400.copyWith(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      DropdownButtonFormField<Map<String, String>>(
+                        decoration: const InputDecoration(
+                          // labelText: 'Select an item',
+                          hintText: "Select an item",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ), // Use OutlineInputBorder for outlined border
+                        ),
+                        isExpanded: true,
+                        value: selectedValue,
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedValue = newValue;
+                            FocusScope.of(context).unfocus();
+                          });
+                        },
+                        items: dropdownItems
+                            .map<DropdownMenuItem<Map<String, String>>>(
+                                (Map<String, String> item) {
+                          return DropdownMenuItem<Map<String, String>>(
+                            value: item,
+                            child: Text(
+                                "${item['case_study_type']} - ${item['value']}"),
+                          );
+                        }).toList(),
+                      ),
+                      const SizedBox(height: 15),
+                      Text(
+                        "Enter Case Study Title",
+                        style: AppTextStyle.regular400.copyWith(fontSize: 16),
+                      ),
                       const SizedBox(height: 10),
                       Container(
                         decoration: BoxDecoration(
@@ -170,7 +254,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
-                              offset: const Offset(0,0),
+                              offset: const Offset(0, 0),
                               blurRadius: 1,
                               spreadRadius: 1,
                               color: Colors.black.withOpacity(0.08),
@@ -183,15 +267,18 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                           decoration: InputDecoration(
                               hintText: "Enter Case Study Title",
                               border: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: AppColors.borderColor),
+                                  borderSide: const BorderSide(
+                                      color: AppColors.blackColor),
                                   borderRadius: BorderRadius.circular(10))),
                           textAlign: TextAlign.start,
                           style: AppTextStyle.regular500.copyWith(fontSize: 15),
-
                         ),
                       ),
                       const SizedBox(height: 15),
-                       Text("Enter Case Study Short Description",style: AppTextStyle.regular400.copyWith(fontSize: 16),),
+                      Text(
+                        "Enter Case Study Short Description",
+                        style: AppTextStyle.regular400.copyWith(fontSize: 16),
+                      ),
                       const SizedBox(height: 10),
                       Container(
                         decoration: BoxDecoration(
@@ -199,7 +286,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
-                              offset: const Offset(0,0),
+                              offset: const Offset(0, 0),
                               blurRadius: 1,
                               spreadRadius: 1,
                               color: Colors.black.withOpacity(0.08),
@@ -212,15 +299,18 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                           decoration: InputDecoration(
                               hintText: "Enter Case Study Short Description",
                               border: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: AppColors.borderColor),
+                                  borderSide: const BorderSide(
+                                      color: AppColors.blackColor),
                                   borderRadius: BorderRadius.circular(10))),
                           textAlign: TextAlign.start,
                           style: AppTextStyle.regular500.copyWith(fontSize: 15),
-
                         ),
                       ),
                       const SizedBox(height: 15),
-                      Text("Enter Case Study Detail Description",style: AppTextStyle.regular400.copyWith(fontSize: 16),),
+                      Text(
+                        "Enter Case Study Detail Description",
+                        style: AppTextStyle.regular400.copyWith(fontSize: 16),
+                      ),
                       const SizedBox(height: 10),
                       Container(
                         decoration: BoxDecoration(
@@ -228,7 +318,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
-                              offset: const Offset(0,0),
+                              offset: const Offset(0, 0),
                               blurRadius: 1,
                               spreadRadius: 1,
                               color: Colors.black.withOpacity(0.08),
@@ -241,77 +331,84 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                           decoration: InputDecoration(
                               hintText: "Enter Case Study Detailed Description",
                               border: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: AppColors.borderColor),
+                                  borderSide: const BorderSide(
+                                      color: AppColors.blackColor),
                                   borderRadius: BorderRadius.circular(10))),
                           textAlign: TextAlign.start,
                           style: AppTextStyle.regular500.copyWith(fontSize: 15),
-
                         ),
                       ),
-                      const SizedBox(height: 15),
-                       Text("Enter Case Study Type",style: AppTextStyle.regular400.copyWith(fontSize: 16),),
-                      const SizedBox(height: 10),
-
-                      Container(
-                        // width: Get.width/2,
-                        decoration: BoxDecoration(
-                          color: AppColors.whiteColor,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(0,0),
-                              blurRadius: 1,
-                              spreadRadius: 1,
-                              color: Colors.black.withOpacity(0.08),
-                            ),
-                          ],
-                        ),
-                        child: TextFormField(
-                          controller: editCaseStudyController.type,
-                          maxLines: 3,
-                          decoration: InputDecoration(
-                              hintText: "Enter Case Study type",
-                              border: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: AppColors.borderColor),
-                                  borderRadius: BorderRadius.circular(10))),
-                          textAlign: TextAlign.start,
-                          style: AppTextStyle.regular500.copyWith(fontSize: 15),
-
-                        ),
+                      // const SizedBox(height: 15),
+                      // Text(
+                      //   "Enter Case Study Type",
+                      //   style: AppTextStyle.regular400.copyWith(fontSize: 16),
+                      // ),
+                      // const SizedBox(height: 10),
+                      // Container(
+                      //   // width: Get.width/2,
+                      //   decoration: BoxDecoration(
+                      //     color: AppColors.whiteColor,
+                      //     borderRadius: BorderRadius.circular(10),
+                      //     boxShadow: [
+                      //       BoxShadow(
+                      //         offset: const Offset(0, 0),
+                      //         blurRadius: 1,
+                      //         spreadRadius: 1,
+                      //         color: Colors.black.withOpacity(0.08),
+                      //       ),
+                      //     ],
+                      //   ),
+                      //   child: TextFormField(
+                      //     controller: editCaseStudyController.type,
+                      //     maxLines: 3,
+                      //     decoration: InputDecoration(
+                      //         hintText: "Enter Case Study type",
+                      //         border: OutlineInputBorder(
+                      //             borderSide: const BorderSide(
+                      //                 color: AppColors.blackColor),
+                      //             borderRadius: BorderRadius.circular(10))),
+                      //     textAlign: TextAlign.start,
+                      //     style: AppTextStyle.regular500.copyWith(fontSize: 15),
+                      //   ),
+                      // ),
+                      // const SizedBox(height: 15),
+                      // Text(
+                      //   "Enter Case Study Category",
+                      //   style: AppTextStyle.regular400.copyWith(fontSize: 16),
+                      // ),
+                      // const SizedBox(height: 10),
+                      // Container(
+                      //   // width: Get.width/2,
+                      //   decoration: BoxDecoration(
+                      //     color: AppColors.whiteColor,
+                      //     borderRadius: BorderRadius.circular(10),
+                      //     boxShadow: [
+                      //       BoxShadow(
+                      //         offset: const Offset(0, 0),
+                      //         blurRadius: 1,
+                      //         spreadRadius: 1,
+                      //         color: Colors.black.withOpacity(0.08),
+                      //       ),
+                      //     ],
+                      //   ),
+                      //   child: TextFormField(
+                      //     controller: editCaseStudyController.category,
+                      //     maxLines: 3,
+                      //     decoration: InputDecoration(
+                      //         hintText: "Enter Case Study Category",
+                      //         border: OutlineInputBorder(
+                      //             borderSide: const BorderSide(
+                      //                 color: AppColors.blackColor),
+                      //             borderRadius: BorderRadius.circular(10))),
+                      //     textAlign: TextAlign.start,
+                      //     style: AppTextStyle.regular500.copyWith(fontSize: 15),
+                      //   ),
+                      // ),
+                      const SizedBox(
+                        height: 20,
                       ),
-
-                      const SizedBox(height: 15),
-                       Text("Enter Case Study Category",style: AppTextStyle.regular400.copyWith(fontSize: 16),),
-                      const SizedBox(height: 10),
-                      Container(
-                        // width: Get.width/2,
-                        decoration: BoxDecoration(
-                          color: AppColors.whiteColor,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(0,0),
-                              blurRadius: 1,
-                              spreadRadius: 1,
-                              color: Colors.black.withOpacity(0.08),
-                            ),
-                          ],
-                        ),
-                        child: TextFormField(
-                          controller: editCaseStudyController.category,
-                          maxLines: 3,
-                          decoration: InputDecoration(
-                              hintText: "Enter Case Study Category",
-                              border: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: AppColors.borderColor),
-                                  borderRadius: BorderRadius.circular(10))),
-                          textAlign: TextAlign.start,
-                          style: AppTextStyle.regular500.copyWith(fontSize: 15),
-
-                        ),
-                      ),
-                      const SizedBox(height: 20,),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Expanded(
                             child: ListTile(
@@ -413,11 +510,12 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10,),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Visibility(
-                          visible:isImage == true ? true : false,
-                          child:
-                          Column(
+                          visible: isImage == true ? true : false,
+                          child: Column(
                             children: [
                               Container(
                                 height: 200,
@@ -431,27 +529,31 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                                 ),
                                 child: imageData != null
                                     ? Image.memory(
-                                  imageData!,
-                                  fit: BoxFit.fill,
-                                )
-                                    :  widget.mediaTypeKey == "image" ?
-                                CachedNetworkImage(imageUrl: APIString.latestmediaBaseUrl + widget.media!)
-                                    :const Center(child:  Icon(
-                                  Icons.photo_library,
-                                  size: 50,
-                                  color: Colors.grey,
-                                )),
+                                        imageData!,
+                                        fit: BoxFit.fill,
+                                      )
+                                    : widget.mediaTypeKey == "image"
+                                        ? CachedNetworkImage(
+                                            imageUrl:
+                                                APIString.latestmediaBaseUrl +
+                                                    widget.media!)
+                                        : const Center(
+                                            child: Icon(
+                                            Icons.photo_library,
+                                            size: 50,
+                                            color: Colors.grey,
+                                          )),
                               ),
-
                               SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.02,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.02,
                               ),
                               SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.05,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
                                 child: ElevatedButton.icon(
                                   onPressed: () {
                                     pickImageFiles();
-
                                   },
                                   icon: const Icon(
                                     Icons.camera,
@@ -462,14 +564,11 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                                   ),
                                 ),
                               ),
-
                             ],
-                          )
-                      ),
+                          )),
                       Visibility(
-                          visible:isvideo == true ? true : false,
-                          child:
-                          Center(
+                          visible: isvideo == true ? true : false,
+                          child: Center(
                             child: Column(
                               children: [
                                 Container(
@@ -482,28 +581,33 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                                       width: 1.0,
                                     ),
                                   ),
-                                  child: controller != null && controller.value.isInitialized ?
-                                  AspectRatio(
-                                    // aspectRatio: controller.value.aspectRatio,
-                                    aspectRatio: 1 / 0.3,
-                                    child: VideoPlayer(controller),
-                                  ): widget.mediaTypeKey == "video" ?
-                                  AspectRatio(
-                                    // aspectRatio: controller.value.aspectRatio,
-                                    aspectRatio: 1 / 0.3,
-                                    child: VideoPlayer(controller!),
-                                  )
-                                      :const Center(child:  Icon(
-                                    Icons.photo_library,
-                                    size: 50,
-                                    color: Colors.grey,
-                                  )),
+                                  child: controller != null &&
+                                          controller.value.isInitialized
+                                      ? AspectRatio(
+                                          // aspectRatio: controller.value.aspectRatio,
+                                          aspectRatio: 1 / 0.3,
+                                          child: VideoPlayer(controller),
+                                        )
+                                      : widget.mediaTypeKey == "video"
+                                          ? AspectRatio(
+                                              // aspectRatio: controller.value.aspectRatio,
+                                              aspectRatio: 1 / 0.3,
+                                              child: VideoPlayer(controller!),
+                                            )
+                                          : const Center(
+                                              child: Icon(
+                                              Icons.photo_library,
+                                              size: 50,
+                                              color: Colors.grey,
+                                            )),
                                 ),
                                 SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.02,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
                                 ),
                                 SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.05,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
                                   child: ElevatedButton.icon(
                                     onPressed: () {
                                       pickVideoFiles();
@@ -517,12 +621,10 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                                 ),
                               ],
                             ),
-                          )
-                      ),
+                          )),
                       Visibility(
                           visible: isGif == true ? true : false,
-                          child:
-                          Column(
+                          child: Column(
                             children: [
                               Container(
                                 height: 200,
@@ -536,26 +638,30 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                                 ),
                                 child: gifData != null
                                     ? Image.memory(
-                                  gifData!,
-                                  fit: BoxFit.fill,
-                                )
-                                    :  widget.mediaTypeKey == "gif" ?
-                                CachedNetworkImage(imageUrl: APIString.latestmediaBaseUrl + widget.media!)
-                                    :const Center(child:  Icon(
-                                  Icons.photo_library,
-                                  size: 50,
-                                  color: Colors.grey,
-                                )),
+                                        gifData!,
+                                        fit: BoxFit.fill,
+                                      )
+                                    : widget.mediaTypeKey == "gif"
+                                        ? CachedNetworkImage(
+                                            imageUrl:
+                                                APIString.latestmediaBaseUrl +
+                                                    widget.media!)
+                                        : const Center(
+                                            child: Icon(
+                                            Icons.photo_library,
+                                            size: 50,
+                                            color: Colors.grey,
+                                          )),
                               ),
-
                               SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.02,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.02,
                               ),
                               SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.05,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
                                 child: ElevatedButton.icon(
                                   onPressed: () {
-
                                     pickGifFiles();
                                   },
                                   icon: const Icon(
@@ -567,40 +673,41 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                                   ),
                                 ),
                               ),
-
                             ],
-                          )
-                      ),
+                          )),
                       const SizedBox(height: 15),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: GestureDetector(
-                              onTap: () async {                                 
-                                widget.isEdit == false ? addCaseStudy(
-                                )
-                                    : editCaseStudy(
-                                );
+                              onTap: () async {
+                                if (validation() == true) {
+                                  widget.isEdit == false
+                                      ? addCaseStudy()
+                                      : editCaseStudy();
+                                }
                                 // Navigator.pop(context);
                               },
                               child: Container(
-
-                                padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 10),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 25, vertical: 10),
                                 margin: const EdgeInsets.only(right: 10),
                                 decoration: BoxDecoration(
                                     color: AppColors.greyColor.withOpacity(0.5),
-                                    borderRadius:
-                                    const BorderRadius.all(Radius.circular(5))),
-                                child: Text(widget.isEdit == false ?"Save":"Update"),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5))),
+                                child: Text(
+                                    widget.isEdit == false ? "Save" : "Update"),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 30,),
+                      const SizedBox(
+                        height: 30,
+                      ),
                     ],
                   ),
                 ),
@@ -613,8 +720,8 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
     );
   }
 
-
-  void pickFilesLogo({bool addImage = false, String? numberBannerAutoId}) async {
+  void pickFilesLogo(
+      {bool addImage = false, String? numberBannerAutoId}) async {
     // Navigator.of(context).pop(false);
     showLoadingDialog(loader: false, loadingText: true, delay: true);
 
@@ -727,7 +834,8 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
 
   Future<void> preVideo({String? link}) async {
     // _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+link!);
-    _controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+link!));
+    _controller = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.latestmediaBaseUrl + link!));
     await _controller?.initialize();
     setState(() {});
   }
@@ -762,7 +870,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
     }
   }
 
-
   Future addCaseStudy() async {
     showLoadingDialog();
 
@@ -789,7 +896,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
     } catch (exception) {
       request.fields["case_study_image"] = '';
     }
-    
+
     try {
       if (videoImg == 'video') {
         try {
@@ -864,21 +971,24 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
           print('pic not selected');
         }
       }
-    }
-    catch (exception){
+    } catch (exception) {
       request.fields["media"] = '';
     }
 
     debugPrint(request.fields.toString());
-    request.fields["case_study_type"] = editCaseStudyController.type.text;
-    request.fields["case_study_category"] =editCaseStudyController.category.text;
-    request.fields["case_study_title"] =editCaseStudyController.title.text;
-    request.fields["case_study_short_desciption"] =editCaseStudyController.shortDescription.text;
-    request.fields["case_study_detail_desciption"] =editCaseStudyController.detailDescription.text;
-    request.fields["mediaTypeKey"] =mediaTypeKey.toString();
+    // request.fields["case_study_type"] = editCaseStudyController.type.text;
+    request.fields["case_study_type"] = selectedValue!['case_study_type']!;
+    // request.fields["case_study_category"] = editCaseStudyController.category.text;
+    request.fields["case_study_category"] = selectedValue!['value']!;
+    request.fields["case_study_title"] = editCaseStudyController.title.text;
+    request.fields["case_study_short_desciption"] =
+        editCaseStudyController.shortDescription.text;
+    request.fields["case_study_detail_desciption"] =
+        editCaseStudyController.detailDescription.text;
+    request.fields["mediaTypeKey"] = mediaTypeKey.toString();
 
-
-    http.Response response = await http.Response.fromStream(await request.send());
+    http.Response response =
+        await http.Response.fromStream(await request.send());
 
     debugPrint("update response$response");
     hideLoadingDialog();
@@ -895,7 +1005,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
 
       int status = resp['status'];
       if (status == 1) {
-          showSnackbar(title: "", message: "Added successfully");
+        showSnackbar(title: "", message: "Added successfully");
         Get.back();
       } else {
         String message = resp['msg'];
@@ -916,8 +1026,149 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
     }
   }
 
-  Future editCaseStudy() async {
+  bool validation() {
+    if (widget.isEdit == true) {
+      if (profile.toString().isEmpty) {
+        if (_pathsLogo == null) {
+          Fluttertoast.showToast(
+            msg: 'Please Select Profile Image',
+            backgroundColor: Colors.grey,
+          );
+        }
 
+        return false;
+      }
+    } else {
+      if (_pathsLogo == null) {
+        Fluttertoast.showToast(
+          msg: 'Please Select Profile Image',
+          backgroundColor: Colors.grey,
+        );
+        return false;
+      }
+    }
+
+    if (selectedValue == null) {
+      Fluttertoast.showToast(
+        msg: 'Please Select Case Study Type',
+        backgroundColor: Colors.grey,
+      );
+      return false;
+    }
+
+    if (editCaseStudyController.title.text.isEmpty ||
+        editCaseStudyController.title.text == "") {
+      Fluttertoast.showToast(
+        msg: 'Please Enter Title',
+        backgroundColor: Colors.grey,
+      );
+      return false;
+    } else if (editCaseStudyController.shortDescription.text.isEmpty ||
+        editCaseStudyController.shortDescription.text == "") {
+      Fluttertoast.showToast(
+        msg: 'Please Enter Short Description',
+        backgroundColor: Colors.grey,
+      );
+      return false;
+    } else if (editCaseStudyController.detailDescription.text.isEmpty ||
+        editCaseStudyController.detailDescription.text == "") {
+      Fluttertoast.showToast(
+        msg: 'Please Enter Detail Description',
+        backgroundColor: Colors.grey,
+      );
+      return false;
+    }
+    // else if (videoImg.isEmpty || videoImg == "") {
+    else if (mediaTypeKey.isEmpty || mediaTypeKey == "") {
+      Fluttertoast.showToast(
+        msg: 'Please Select Media type',
+        backgroundColor: Colors.grey,
+      );
+      return false;
+    }
+
+    if (mediaTypeKey.isNotEmpty &&
+        mediaTypeKey != "" &&
+        mediaTypeKey == "image") {
+      if (widget.isEdit == true) {
+        if (widget.media!.isEmpty) {
+          if (widget.mediaTypeKey != "image") {
+            if (pathsFileName == null) {
+              Fluttertoast.showToast(
+                msg: 'Please Select type',
+                backgroundColor: Colors.grey,
+              );
+              return false;
+            }
+          }
+        }
+      } else {
+        if (pathsFileName == null) {
+          Fluttertoast.showToast(
+            msg: 'Please Select media',
+            backgroundColor: Colors.grey,
+          );
+          return false;
+        }
+      }
+    }
+
+    if (mediaTypeKey.isNotEmpty &&
+        mediaTypeKey != "" &&
+        mediaTypeKey == "video") {
+      if (widget.isEdit == true) {
+        if (widget.media!.isEmpty) {
+          if (widget.mediaTypeKey != "video") {
+            if (videopathsFileName == null) {
+              Fluttertoast.showToast(
+                msg: 'Please Select type',
+                backgroundColor: Colors.grey,
+              );
+              return false;
+            }
+          }
+        }
+      } else {
+        if (videopathsFileName == null) {
+          Fluttertoast.showToast(
+            msg: 'Please Select media',
+            backgroundColor: Colors.grey,
+          );
+          return false;
+        }
+      }
+    }
+
+    if (mediaTypeKey.isNotEmpty &&
+        mediaTypeKey != "" &&
+        mediaTypeKey == "gif") {
+      if (widget.isEdit == true) {
+        if (widget.media!.isEmpty) {
+          if (widget.mediaTypeKey != "gif") {
+            if (gifpathsFileName == null) {
+              Fluttertoast.showToast(
+                msg: 'Please Select type',
+                backgroundColor: Colors.grey,
+              );
+              return false;
+            }
+          }
+        }
+      } else {
+        if (gifpathsFileName == null) {
+          Fluttertoast.showToast(
+            msg: 'Please Select media',
+            backgroundColor: Colors.grey,
+          );
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  Future editCaseStudy() async {
     showLoadingDialog();
 
     var url = APIString.grobizBaseUrl + APIString.editCaseStudy;
@@ -1019,23 +1270,27 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
           print('pic not selected');
         }
       }
-    }
-    catch (exception){
+    } catch (exception) {
       request.fields["media"] = '';
     }
 
-    
     request.fields["case_study_auto_id"] = widget.caseStudyAutoId.toString();
-    request.fields["case_study_type"] = editCaseStudyController.type.text;
-    request.fields["case_study_category"] = editCaseStudyController.category.text;
+    // request.fields["case_study_type"] = editCaseStudyController.type.text;
+    request.fields["case_study_type"] = selectedValue!['case_study_type']!;
+    // request.fields["case_study_category"] = editCaseStudyController.category.text;
+    request.fields["case_study_category"] = selectedValue!['value']!;
+
     request.fields["case_study_title"] = editCaseStudyController.title.text;
-    request.fields["case_study_short_desciption"] = editCaseStudyController.shortDescription.text;
-    request.fields["case_study_detail_desciption"] = editCaseStudyController.detailDescription.text;
-    request.fields["mediaTypeKey"] =mediaTypeKey.toString();
+    request.fields["case_study_short_desciption"] =
+        editCaseStudyController.shortDescription.text;
+    request.fields["case_study_detail_desciption"] =
+        editCaseStudyController.detailDescription.text;
+    request.fields["mediaTypeKey"] = mediaTypeKey.toString();
 
     debugPrint(request.fields.toString());
 
-    http.Response response = await http.Response.fromStream(await request.send());
+    http.Response response =
+        await http.Response.fromStream(await request.send());
     hideLoadingDialog();
 
     debugPrint("update response$response");
@@ -1050,7 +1305,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
       if (status == 1) {
         showSnackbar(title: "", message: "Updated successfully");
         Get.back();
-
       } else {
         String message = resp['msg'];
       }
@@ -1067,8 +1321,23 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
     }
   }
 
-
-
-
-
+  Map<String, String>? selectedValue;
+  final List<Map<String, String>> dropdownItems = [
+    {
+      "case_study_type": "AI",
+      "value": "Artificial Intelligence",
+    },
+    {
+      "case_study_type": "Science",
+      "value": "Science & Technologies",
+    },
+    {
+      "case_study_type": "Marketing",
+      "value": "Marketing Fundamentals",
+    },
+    {
+      "case_study_type": "Finance",
+      "value": "Finance Services",
+    },
+  ];
 }

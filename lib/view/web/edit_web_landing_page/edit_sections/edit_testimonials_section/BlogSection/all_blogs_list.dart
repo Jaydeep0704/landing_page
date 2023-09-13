@@ -14,7 +14,6 @@ import 'blog_controller.dart';
 import 'blog_details_list.dart';
 import 'edit_blog.dart';
 
-
 class BlogListScreen extends StatefulWidget {
   const BlogListScreen({Key? key}) : super(key: key);
 
@@ -29,7 +28,7 @@ class _BlogListScreenState extends State<BlogListScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       blogController.getBlogData();
     });
   }
@@ -53,7 +52,7 @@ class _BlogListScreenState extends State<BlogListScreen> {
             const Expanded(child: SizedBox()),
             Container(
               decoration:
-              BoxDecoration(color: AppColors.whiteColor, boxShadow: [
+                  BoxDecoration(color: AppColors.whiteColor, boxShadow: [
                 BoxShadow(
                     color: AppColors.blackColor.withOpacity(0.0),
                     blurRadius: 1,
@@ -69,39 +68,16 @@ class _BlogListScreenState extends State<BlogListScreen> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         InkWell(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => const BlogsTypeCrudScreen()))
-                              .whenComplete(() =>  WidgetsBinding.instance.addPostFrameCallback((_){
-                            blogController.getBlogData();
-                          }));
-                        },
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Container(
-                            padding: const EdgeInsets.all(5),
-                            margin: const EdgeInsets.only(right: 10),
-                            decoration: BoxDecoration(
-                                color: AppColors.greyColor.withOpacity(0.5),
-                                borderRadius:
-                                const BorderRadius.all(Radius.circular(5))),
-                            child: Row(
-                              children: const [
-                                Icon(Icons.add),
-                                SizedBox(width: 3),
-                                Text("Blog Categories")
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                        const SizedBox(height: 25),
-                        InkWell(
                           onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => const AddBlog())).whenComplete(() =>  WidgetsBinding.instance.addPostFrameCallback((_){
-                              blogController.getBlogData();
-                            }));
+                            Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const BlogsTypeCrudScreen()))
+                                .whenComplete(() => WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      blogController.getBlogData();
+                                    }));
                           },
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
@@ -110,8 +86,39 @@ class _BlogListScreenState extends State<BlogListScreen> {
                               margin: const EdgeInsets.only(right: 10),
                               decoration: BoxDecoration(
                                   color: AppColors.greyColor.withOpacity(0.5),
-                                  borderRadius:
-                                  const BorderRadius.all(Radius.circular(5))),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5))),
+                              child: Row(
+                                children: const [
+                                  Icon(Icons.add),
+                                  SizedBox(width: 3),
+                                  Text("Blog Categories")
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 25),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const AddBlog()))
+                                .whenComplete(() => WidgetsBinding.instance
+                                        .addPostFrameCallback((_) {
+                                      blogController.getBlogData();
+                                    }));
+                          },
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Container(
+                              padding: const EdgeInsets.all(5),
+                              margin: const EdgeInsets.only(right: 10),
+                              decoration: BoxDecoration(
+                                  color: AppColors.greyColor.withOpacity(0.5),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5))),
                               child: Row(
                                 children: const [
                                   Icon(Icons.add),
@@ -133,18 +140,21 @@ class _BlogListScreenState extends State<BlogListScreen> {
                             height: Get.height,
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,
-                              itemCount:
-                              blogController.blogdata.length,
+                              itemCount: blogController.blogdata.length,
                               itemBuilder: (context, index) {
                                 var data = blogController.blogdata[index];
+                                var boolValue =
+                                    blogController.blogdataReadMore[index];
+
                                 return Padding(
                                   padding: const EdgeInsets.all(10.0),
-                                  child:
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           Align(
                                             alignment: Alignment.bottomLeft,
@@ -153,21 +163,39 @@ class _BlogListScreenState extends State<BlogListScreen> {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) => EditBlog(
-                                                      id: data["blog_auto_id"].toString(),
-                                                      name: data["userName"].toString(),
-                                                      media: data["media"].toString(),
-                                                      mediatype: data["media_type"].toString(),
-                                                      bgColor: data["blogs_section_color"].toString(),
-                                                      content: data["content"].toString(),
-                                                      blogtype: data["blogTypeKey"].toString(),
-                                                      title: data["title"].toString(),
-                                                      profilimg: data["userImage"].toString(),
+                                                    builder: (context) =>
+                                                        EditBlog(
+                                                      id: data["blog_auto_id"]
+                                                          .toString(),
+                                                      name: data["userName"]
+                                                          .toString(),
+                                                      media: data["media"]
+                                                          .toString(),
+                                                      mediatype:
+                                                          data["media_type"]
+                                                              .toString(),
+                                                      bgColor: data[
+                                                              "blogs_section_color"]
+                                                          .toString(),
+                                                      content: data["content"]
+                                                          .toString(),
+                                                      blogtype:
+                                                          data["blogTypeKey"]
+                                                              .toString(),
+                                                      title: data["title"]
+                                                          .toString(),
+                                                      profilimg:
+                                                          data["userImage"]
+                                                              .toString(),
                                                     ),
                                                   ),
-                                                ).whenComplete(() => WidgetsBinding.instance.addPostFrameCallback((_){
-                                                  blogController.getBlogData();
-                                                }));
+                                                ).whenComplete(() =>
+                                                    WidgetsBinding.instance
+                                                        .addPostFrameCallback(
+                                                            (_) {
+                                                      blogController
+                                                          .getBlogData();
+                                                    }));
                                               },
                                               icon: const Icon(Icons.edit),
                                             ),
@@ -176,27 +204,55 @@ class _BlogListScreenState extends State<BlogListScreen> {
                                             alignment: Alignment.bottomLeft,
                                             child: IconButton(
                                               onPressed: () {
-                                                blogController.deleteBlogApi(id: data["blog_auto_id"].toString());
+                                                blogController.deleteBlogApi(
+                                                    id: data["blog_auto_id"]
+                                                        .toString());
                                               },
-                                              icon: const Icon(Icons.delete_forever),
+                                              icon: const Icon(
+                                                  Icons.delete_forever),
                                             ),
                                           ),
-
                                         ],
                                       ),
                                       Align(
                                         alignment: Alignment.center,
                                         child: Text(
                                           data["title"].toString(),
-                                          style: AppTextStyle.regularBold.copyWith(fontSize: 20),
+                                          style: AppTextStyle.regularBold
+                                              .copyWith(fontSize: 20),
                                         ),
                                       ),
                                       Text(
                                         data["content"].toString(),
+                                        maxLines: boolValue ? 100 : 10,
+                                        overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w100,
                                           color: AppColors.blackColor,
+                                        ),
+                                      ),
+                                      SizedBox(height: Get.width * 0.005),
+                                      TextButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            // boolValue = !boolValue;
+                                            blogController
+                                                    .blogdataReadMore[index] =
+                                                !boolValue;
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 5, vertical: 2),
+                                          child: Text(
+                                            boolValue
+                                                ? "Read less"
+                                                : "Read more",
+                                            style: AppTextStyle.regular300
+                                                .copyWith(
+                                                    color: AppColors.blueColor),
+                                          ),
                                         ),
                                       ),
                                       const SizedBox(height: 10),
@@ -207,18 +263,30 @@ class _BlogListScreenState extends State<BlogListScreen> {
                                             width: 50,
                                             child: Center(
                                               child: ClipRRect(
-                                                borderRadius: const BorderRadius.all(Radius.circular(50)),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(50)),
                                                 child: CachedNetworkImage(
-                                                  imageUrl: APIString.latestmediaBaseUrl + data["userImage"].toString(),
+                                                  imageUrl: APIString
+                                                          .latestmediaBaseUrl +
+                                                      data["userImage"]
+                                                          .toString(),
                                                   fit: BoxFit.cover,
                                                   width: 50,
                                                   height: 50,
-                                                  placeholder: (context, url) => Container(
+                                                  placeholder: (context, url) =>
+                                                      Container(
                                                     decoration: BoxDecoration(
-                                                      color: Color(int.parse(editController.appDemoBgColor.value.toString())),
+                                                      color: Color(int.parse(
+                                                          editController
+                                                              .appDemoBgColor
+                                                              .value
+                                                              .toString())),
                                                     ),
                                                   ),
-                                                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.error),
                                                 ),
                                               ),
                                             ),
@@ -234,7 +302,6 @@ class _BlogListScreenState extends State<BlogListScreen> {
                                           ),
                                         ],
                                       ),
-
                                       Align(
                                         alignment: Alignment.bottomRight,
                                         child: InkWell(
@@ -242,11 +309,16 @@ class _BlogListScreenState extends State<BlogListScreen> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (context) => BlogDetailsList(id: data["blog_auto_id"].toString()),
+                                                builder: (context) =>
+                                                    BlogDetailsList(
+                                                        id: data["blog_auto_id"]
+                                                            .toString()),
                                               ),
-                                            ).whenComplete(() => WidgetsBinding.instance.addPostFrameCallback((_){
-                                              blogController.getBlogData();
-                                            }));
+                                            ).whenComplete(() => WidgetsBinding
+                                                    .instance
+                                                    .addPostFrameCallback((_) {
+                                                  blogController.getBlogData();
+                                                }));
                                           },
                                           child: const Text(
                                             "Edit Blog Details...",
@@ -254,19 +326,19 @@ class _BlogListScreenState extends State<BlogListScreen> {
                                               fontSize: 15,
                                               fontWeight: FontWeight.w100,
                                               color: Colors.blue,
-                                              decoration: TextDecoration.underline,
+                                              decoration:
+                                                  TextDecoration.underline,
                                             ),
                                           ),
                                         ),
                                       ),
                                       Divider(
                                         thickness: 0.8,
-                                        color: AppColors.blackColor.withOpacity(0.5),
+                                        color: AppColors.blackColor
+                                            .withOpacity(0.5),
                                       ),
                                     ],
                                   ),
-
-
                                 );
                               },
                             ));
@@ -295,20 +367,24 @@ class _BlogListScreenState extends State<BlogListScreen> {
       );
     });
   }
+
   Widget displayUploadedVideo(String videoUrl) {
-    VideoPlayerController _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+videoUrl);
+    VideoPlayerController _controller =
+        VideoPlayerController.network(APIString.latestmediaBaseUrl + videoUrl);
     bool isVideoPlaying = false;
 
-    final double videoAspectRatio = /*_controller.value.aspectRatio > 0 ? _controller.value.aspectRatio :*/ 16 / 9;
+    final double
+        videoAspectRatio = /*_controller.value.aspectRatio > 0 ? _controller.value.aspectRatio :*/
+        16 / 9;
 
     return InkWell(
       onTap: () {
         if (_controller.value.isPlaying) {
-          isVideoPlaying=false;
+          isVideoPlaying = false;
           _controller.pause();
         } else {
           _controller.play();
-          isVideoPlaying=true;
+          isVideoPlaying = true;
         }
         // isVideoPlaying = !isVideoPlaying;
       },
@@ -333,7 +409,6 @@ class _BlogListScreenState extends State<BlogListScreen> {
                   ],
                 ));
             // );
-
           } else {
             return const Center(
               child: CircularProgressIndicator(
