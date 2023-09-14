@@ -315,6 +315,8 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
                                                 Get.to(() =>
                                                         AddUpdateShortCaseStudy(
                                                           isEdit: true,
+                                                          caseStudyCatagoryId: data[
+                                                              "case_study_catagory_id"],
                                                           media: data["media"],
                                                           shortDescription: data[
                                                               "case_study_short_desciption"],

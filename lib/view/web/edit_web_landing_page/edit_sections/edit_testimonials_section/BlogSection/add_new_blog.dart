@@ -6,6 +6,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/related_blog/types/blog_category_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'package:grobiz_web_landing/widget/common_drop_down.dart';
 
@@ -28,11 +29,15 @@ import 'package:http/http.dart' as http;
 
 class AddBlog extends StatefulWidget {
   const AddBlog({Key? key}) : super(key: key);
+
   @override
   State<AddBlog> createState() => _AddBlogState();
 }
 
 class _AddBlogState extends State<AddBlog> {
+  Map<String, String>? selectedValue;
+  final blogCategoriesController = Get.find<BlogCategoriesController>();
+
   ///for gif file
   List<PlatformFile>? gifpaths;
   var gifpathsFile;
@@ -74,6 +79,16 @@ class _AddBlogState extends State<AddBlog> {
   @override
   void initState() {
     super.initState();
+    getData();
+  }
+
+  getData() {
+    Future.delayed(
+      Duration(microseconds: 50),
+      () => blogCategoriesController
+          .geBlogCategory()
+          .whenComplete(() => print("-=-=-=-=")),
+    );
   }
 
   @override
@@ -156,33 +171,42 @@ class _AddBlogState extends State<AddBlog> {
                         const SizedBox(
                           height: 10,
                         ),
-                        DropdownButtonFormField<Map<String, String>>(
-                          decoration: const InputDecoration(
-                            // labelText: 'Select an item',
-                            hintText: "Select an item",
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ), // Use OutlineInputBorder for outlined border
-                          ),
-                          isExpanded: true,
-                          value: selectedValue,
-                          onChanged: (newValue) {
-                            setState(() {
-                              selectedValue = newValue;
-                              FocusScope.of(context).unfocus();
-                            });
-                          },
-                          items: dropdownItems
-                              .map<DropdownMenuItem<Map<String, String>>>(
-                                  (Map<String, String> item) {
-                            return DropdownMenuItem<Map<String, String>>(
-                              value: item,
-                              child: Text(
-                                  "${item['blog_type']} - ${item['value']}"),
-                            );
-                          }).toList(),
-                        ),
+                        Obx(() {
+                          return blogCategoriesController
+                                  .blogsCategories.isEmpty
+                              ? Text("Please Wait while Categories Load")
+                              : DropdownButtonFormField<Map<String, String>>(
+                                  decoration: const InputDecoration(
+                                    // labelText: 'Select an item',
+                                    hintText: "Select an item",
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                    ), // Use OutlineInputBorder for outlined border
+                                  ),
+                                  isExpanded: true,
+                                  value: selectedValue,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      selectedValue = newValue;
+                                      FocusScope.of(context).unfocus();
+                                    });
+                                  },
+                                  items: blogCategoriesController
+                                      .blogsCategories
+                                      .map<
+                                              DropdownMenuItem<
+                                                  Map<String, String>>>(
+                                          (Map<String, String> item) {
+                                    return DropdownMenuItem<
+                                        Map<String, String>>(
+                                      value: item,
+                                      child: Text(
+                                          "${item['blog_type']} - ${item['value']}"),
+                                    );
+                                  }).toList(),
+                                );
+                        }),
                         const SizedBox(
                           height: 20,
                         ),
@@ -773,6 +797,9 @@ class _AddBlogState extends State<AddBlog> {
     //selectedValue!['case_study_type']!;
     // request.fields["blogs_section_color"] = blogBg_controller.text;
     request.fields["blogs_section_color"] = selectedValue!['value']!;
+    // request.fields["blogs_section_color"] = selectedValue!['id']!;
+    request.fields["blog_catagory_id"] = selectedValue!['id']!;
+
     // request.fields["blogTypeKey"] = blogType_controller.text;
     request.fields["blogTypeKey"] = selectedValue!['blog_type']!;
 
@@ -971,7 +998,8 @@ class _AddBlogState extends State<AddBlog> {
         backgroundColor: Colors.grey,
       );
       return false;
-    } /* else if (blogBg_controller.text.isEmpty || blogBg_controller.text == "") {
+    }
+    /* else if (blogBg_controller.text.isEmpty || blogBg_controller.text == "") {
       Fluttertoast.showToast(
         msg: 'Please Enter Color',
         backgroundColor: Colors.grey,
@@ -988,7 +1016,6 @@ class _AddBlogState extends State<AddBlog> {
     return true;
   }
 
-  Map<String, String>? selectedValue;
   final List<Map<String, String>> dropdownItems = [
     {
       "blog_type": "AI",

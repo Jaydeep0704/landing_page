@@ -14,6 +14,7 @@ import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/controller/edit_partner_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/related_case_studies/types/cs_category_controller.dart';
 import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:video_player/video_player.dart';
@@ -25,6 +26,7 @@ class AddUpdateShortCaseStudy extends StatefulWidget {
   bool? isEdit = true;
   String? caseType;
   String? caseCategory;
+  String? caseStudyCatagoryId;
   String? title;
   String? shortDescription;
   String? detailDescription;
@@ -35,6 +37,7 @@ class AddUpdateShortCaseStudy extends StatefulWidget {
   AddUpdateShortCaseStudy(
       {super.key,
       this.mediaTypeKey,
+      this.caseStudyCatagoryId,
       this.media,
       this.title,
       this.isEdit,
@@ -52,6 +55,7 @@ class AddUpdateShortCaseStudy extends StatefulWidget {
 
 class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
   final editCaseStudyController = Get.find<EditCaseStudyController>();
+  final csCategoriesController = Get.find<CSCategoriesController>();
 
   String profile = "";
   String mediaTypeKey = "";
@@ -93,6 +97,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getData();
 
     if (widget.isEdit == true) {
       profile = widget.caseStudyImage!;
@@ -132,6 +137,28 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
       editCaseStudyController.shortDescription.text = "";
       editCaseStudyController.detailDescription.text = "";
     }
+  }
+
+  getData() {
+    Future.delayed(
+      const Duration(microseconds: 50),
+      () {
+        //csCategoriesController.caseStudyCategories
+
+        csCategoriesController.geCSCategory().whenComplete(() {
+          print("data loaded ");
+          if (widget.isEdit == true) {
+            List<Map<String, String>> data =
+                csCategoriesController.caseStudyCategories
+                    // .where((p0) => p0["id"] == widget.caseCategory)
+                    .where((p0) => p0["id"] == widget.caseStudyCatagoryId)
+                    .toList();
+            selectedValue = data[0];
+            print("selectedValue loaded   $selectedValue");
+          }
+        });
+      },
+    );
   }
 
   @override
@@ -210,38 +237,46 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                       ),
                       const SizedBox(height: 15),
                       Text(
-                        "Enter Blog Section Color",
+                        "Select Case Study Category",
                         style: AppTextStyle.regular400.copyWith(fontSize: 16),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
-                      DropdownButtonFormField<Map<String, String>>(
-                        decoration: const InputDecoration(
-                          // labelText: 'Select an item',
-                          hintText: "Select an item",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ), // Use OutlineInputBorder for outlined border
-                        ),
-                        isExpanded: true,
-                        value: selectedValue,
-                        onChanged: (newValue) {
-                          setState(() {
-                            selectedValue = newValue;
-                            FocusScope.of(context).unfocus();
-                          });
-                        },
-                        items: dropdownItems
-                            .map<DropdownMenuItem<Map<String, String>>>(
-                                (Map<String, String> item) {
-                          return DropdownMenuItem<Map<String, String>>(
-                            value: item,
-                            child: Text(
-                                "${item['case_study_type']} - ${item['value']}"),
-                          );
-                        }).toList(),
-                      ),
+                      Obx(() {
+                        return csCategoriesController
+                                .caseStudyCategories.isEmpty
+                            ? Text("Please Wait while Categories Load")
+                            : DropdownButtonFormField<Map<String, String>>(
+                                decoration: const InputDecoration(
+                                  // labelText: 'Select an item',
+                                  hintText: "Select an item",
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ), // Use OutlineInputBorder for outlined border
+                                ),
+                                isExpanded: true,
+                                value: selectedValue,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    selectedValue = newValue;
+                                    FocusScope.of(context).unfocus();
+                                  });
+                                },
+                                items: csCategoriesController
+                                    .caseStudyCategories
+                                    .map<DropdownMenuItem<Map<String, String>>>(
+                                        (Map<String, String> item) {
+                                  return DropdownMenuItem<Map<String, String>>(
+                                    value: item,
+                                    child: Text(
+                                        "${item['case_study_type']} - ${item['value']}"),
+                                  );
+                                }).toList(),
+                              );
+                      }),
+
                       const SizedBox(height: 15),
                       Text(
                         "Enter Case Study Title",
@@ -980,6 +1015,9 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
     request.fields["case_study_type"] = selectedValue!['case_study_type']!;
     // request.fields["case_study_category"] = editCaseStudyController.category.text;
     request.fields["case_study_category"] = selectedValue!['value']!;
+    // request.fields["case_study_category"] = selectedValue!['id']!;
+    request.fields["case_study_catagory_id"] = selectedValue!['id']!;
+
     request.fields["case_study_title"] = editCaseStudyController.title.text;
     request.fields["case_study_short_desciption"] =
         editCaseStudyController.shortDescription.text;
@@ -1279,6 +1317,8 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
     request.fields["case_study_type"] = selectedValue!['case_study_type']!;
     // request.fields["case_study_category"] = editCaseStudyController.category.text;
     request.fields["case_study_category"] = selectedValue!['value']!;
+    // request.fields["case_study_category"] = selectedValue!['id']!;
+    request.fields["case_study_catagory_id"] = selectedValue!['id']!;
 
     request.fields["case_study_title"] = editCaseStudyController.title.text;
     request.fields["case_study_short_desciption"] =

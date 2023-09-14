@@ -7,6 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/related_blog/types/blog_category_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
@@ -28,6 +29,8 @@ class EditBlog extends StatefulWidget {
   final String title;
   final String content;
   final String blogtype;
+  final String blogsSectionColor;
+  final String blogCatagoryId;
   final String bgColor;
   final String media;
   final String profilimg;
@@ -39,6 +42,8 @@ class EditBlog extends StatefulWidget {
       required this.bgColor,
       required this.content,
       required this.title,
+      required this.blogsSectionColor,
+      required this.blogCatagoryId,
       required this.blogtype,
       required this.profilimg,
       required this.mediatype,
@@ -50,6 +55,9 @@ class EditBlog extends StatefulWidget {
 }
 
 class _EditBlogState extends State<EditBlog> {
+  Map<String, String>? selectedValue;
+  final blogCategoriesController = Get.find<BlogCategoriesController>();
+
   ///for Profile image file
   List<PlatformFile>? Profilepaths;
   var ProfilepathsFile;
@@ -91,6 +99,9 @@ class _EditBlogState extends State<EditBlog> {
   @override
   void initState() {
     super.initState();
+    getData();
+    // blogCategoriesController.geBlogCategory().whenComplete(() => print("****"));
+
     username_controller.text = widget.name;
     title_controller.text = widget.title;
     content_controller.text = widget.content;
@@ -99,6 +110,22 @@ class _EditBlogState extends State<EditBlog> {
     videoUrl = widget.media;
 
     checkIsVideo();
+  }
+
+  getData() {
+    Future.delayed(
+      Duration(microseconds: 50),
+      () => blogCategoriesController.geBlogCategory().whenComplete(() {
+        print("-=-=-=-=");
+
+        List<Map<String, String>> data = blogCategoriesController
+            .blogsCategories
+            .where((p0) => p0["id"] == widget.blogCatagoryId)
+            .toList();
+        selectedValue = data[0];
+        print("selectedValue loaded   $selectedValue");
+      }),
+    );
   }
 
   @override
@@ -224,33 +251,70 @@ class _EditBlogState extends State<EditBlog> {
                         const SizedBox(
                           height: 10,
                         ),
-                        DropdownButtonFormField<Map<String, String>>(
-                          decoration: const InputDecoration(
-                            // labelText: 'Select an item',
-                            hintText: "Select an item",
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ), // Use OutlineInputBorder for outlined border
-                          ),
-                          isExpanded: true,
-                          value: selectedValue,
-                          onChanged: (newValue) {
-                            setState(() {
-                              selectedValue = newValue;
-                              FocusScope.of(context).unfocus();
-                            });
-                          },
-                          items: dropdownItems
-                              .map<DropdownMenuItem<Map<String, String>>>(
-                                  (Map<String, String> item) {
-                            return DropdownMenuItem<Map<String, String>>(
-                              value: item,
-                              child: Text(
-                                  "${item['blog_type']} - ${item['value']}"),
-                            );
-                          }).toList(),
-                        ),
+                        Obx(() {
+                          return blogCategoriesController
+                                  .blogsCategories.isEmpty
+                              ? Text("Please Wait while Categories Load")
+                              : DropdownButtonFormField<Map<String, String>>(
+                                  decoration: const InputDecoration(
+                                    // labelText: 'Select an item',
+                                    hintText: "Select an item",
+                                    border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                    ), // Use OutlineInputBorder for outlined border
+                                  ),
+                                  isExpanded: true,
+                                  value: selectedValue,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      selectedValue = newValue;
+                                      FocusScope.of(context).unfocus();
+                                    });
+                                  },
+                                  items: blogCategoriesController
+                                      .blogsCategories
+                                      .map<
+                                              DropdownMenuItem<
+                                                  Map<String, String>>>(
+                                          (Map<String, String> item) {
+                                    return DropdownMenuItem<
+                                        Map<String, String>>(
+                                      value: item,
+                                      child: Text(
+                                          "${item['blog_type']} - ${item['value']}"),
+                                    );
+                                  }).toList(),
+                                );
+                        }),
+
+                        // DropdownButtonFormField<Map<String, String>>(
+                        //   decoration: const InputDecoration(
+                        //     // labelText: 'Select an item',
+                        //     hintText: "Select an item",
+                        //     border: OutlineInputBorder(
+                        //       borderRadius:
+                        //           BorderRadius.all(Radius.circular(10)),
+                        //     ), // Use OutlineInputBorder for outlined border
+                        //   ),
+                        //   isExpanded: true,
+                        //   value: selectedValue,
+                        //   onChanged: (newValue) {
+                        //     setState(() {
+                        //       selectedValue = newValue;
+                        //       FocusScope.of(context).unfocus();
+                        //     });
+                        //   },
+                        //   items: dropdownItems
+                        //       .map<DropdownMenuItem<Map<String, String>>>(
+                        //           (Map<String, String> item) {
+                        //     return DropdownMenuItem<Map<String, String>>(
+                        //       value: item,
+                        //       child: Text(
+                        //           "${item['blog_type']} - ${item['value']}"),
+                        //     );
+                        //   }).toList(),
+                        // ),
                         const SizedBox(
                           height: 20,
                         ),
@@ -1109,10 +1173,15 @@ class _EditBlogState extends State<EditBlog> {
     ///use it as a value of blog category -> blogs_section_color
     ///use it as a blog_type of blog category -> blogTypeKey
 
+    print("selectedValue!['id']!   ${selectedValue!['id']!}");
+    print("selectedValue!['blog_type']!   ${selectedValue!['blog_type']!}");
+
     //selectedValue!['blog_type']!;
     // request.fields["blogs_section_color"] = color_controller.text;
     request.fields["blogs_section_color"] = selectedValue!['value']!;
-    // request.fields["blogTypeKey"] = blogType_controller.text;
+    // request.fields["blogs_section_color"] = selectedValue!['id']!;
+    request.fields["blog_catagory_id"] = selectedValue!['id']!;
+// request.fields["blogTypeKey"] = blogType_controller.text;
     request.fields["blogTypeKey"] = selectedValue!['blog_type']!;
 
     http.Response response =
@@ -1144,7 +1213,6 @@ class _EditBlogState extends State<EditBlog> {
     }
   }
 
-  Map<String, String>? selectedValue;
   final List<Map<String, String>> dropdownItems = [
     {
       "blog_type": "AI",

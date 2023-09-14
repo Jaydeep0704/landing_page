@@ -165,6 +165,12 @@ class _BlogListScreenState extends State<BlogListScreen> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         EditBlog(
+                                                      blogsSectionColor: data[
+                                                              "blogs_section_color"]
+                                                          .toString(),
+                                                      blogCatagoryId: data[
+                                                              "blog_catagory_id"]
+                                                          .toString(),
                                                       id: data["blog_auto_id"]
                                                           .toString(),
                                                       name: data["userName"]

@@ -13,10 +13,20 @@ class ColorPickDialog extends StatefulWidget {
   String? keyNameImg;
   String? switchKeyNameImg;
   String? switchKeyNameClr;
-  String?  clrSwitchValue;
-  String?  imgSwitchValue;
-  bool  isTextBGColorEdit;
-  ColorPickDialog({Key? key,this.containerColor,this.isTextBGColorEdit = false,this.keyNameClr,this.keyNameImg,this.switchKeyNameImg,this.clrSwitchValue,this.imgSwitchValue,this.switchKeyNameClr,}) : super(key: key);
+  String? clrSwitchValue;
+  String? imgSwitchValue;
+  bool isTextBGColorEdit;
+  ColorPickDialog({
+    Key? key,
+    this.containerColor,
+    this.isTextBGColorEdit = false,
+    this.keyNameClr,
+    this.keyNameImg,
+    this.switchKeyNameImg,
+    this.clrSwitchValue,
+    this.imgSwitchValue,
+    this.switchKeyNameClr,
+  }) : super(key: key);
 
   @override
   State<ColorPickDialog> createState() => _ColorPickDialogState();
@@ -29,10 +39,9 @@ class _ColorPickDialogState extends State<ColorPickDialog> {
     log("color is ---------- $color");
     setState(() {
       widget.containerColor = color;
-      // Color(int.parse(widget.containerColor!.toString())) = color;
-      // widget.containerColor!.toString() = color.value.toString();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -69,5 +78,4 @@ class _ColorPickDialogState extends State<ColorPickDialog> {
       ],
     );
   }
-
 }
