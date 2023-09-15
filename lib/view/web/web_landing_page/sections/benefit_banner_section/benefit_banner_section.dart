@@ -373,6 +373,7 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               CircleAvatar(
                                                   radius: 10,
@@ -386,11 +387,15 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                                         color: AppColors.blueColor,
                                                       ))),
                                               const SizedBox(width: 12),
-                                              Text(
-                                                  data["title"].toString(),
-                                                  style: AppTextStyle.regularBold
-                                                      .copyWith(fontSize: 20)
+                                              Expanded(
+                                                child: Text(
+                                                    data["title"].toString(),
+                                                    maxLines: 2,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: AppTextStyle.regularBold
+                                                        .copyWith(fontSize: 20)
 
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -462,8 +467,6 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 80,),
-
                       ///here need to change
                       Expanded(
                         child: Column(
@@ -476,7 +479,9 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                               editController
                                   .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title"]
                                   .toString(),
+                              maxLines: 2,
                               textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.getFont(editController
                                   .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_font"]
                                   .toString()).copyWith(
@@ -643,6 +648,7 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           CircleAvatar(
                                               radius: 10,
@@ -655,11 +661,15 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                                     color: AppColors.blueColor,
                                                   ))),
                                           const SizedBox(width: 12),
-                                          Text(
-                                              data["title"].toString(),
-                                              style: AppTextStyle.regularBold
-                                                  .copyWith(fontSize: 20)
+                                          Expanded(
+                                            child: Text(
+                                                data["title"].toString(),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: AppTextStyle.regularBold
+                                                    .copyWith(fontSize: 20)
 
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -712,102 +722,6 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                     }
                   }),
                   const SizedBox(height: 80,),
-
-                  // Column(
-                  //   children: [
-                  //     Row(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       mainAxisAlignment: MainAxisAlignment.start,
-                  //       children: [
-                  //         CircleAvatar(
-                  //             radius: 10,
-                  //             backgroundColor: AppColors.blueColor.withOpacity(
-                  //                 0.1),
-                  //             child: const Center(
-                  //                 child: Icon(
-                  //                   Icons.radio_button_checked_rounded,
-                  //                   size: 15,
-                  //                   opticalSize: 15,
-                  //                   color: AppColors.blueColor,
-                  //                 ))),
-                  //         const SizedBox(width: 12),
-                  //         SizedBox(
-                  //           width: Get.width * 0.7,
-                  //           child: Column(
-                  //             children: [
-                  //               Column(
-                  //                 crossAxisAlignment: CrossAxisAlignment.start,
-                  //                 children: [
-                  //                   Text("Title Title Title",
-                  //                       style: AppTextStyle.regularBold
-                  //                           .copyWith(fontSize: 20)),
-                  //                   const SizedBox(height: 10),
-                  //                   Text(StaticString.content,
-                  //                       style: AppTextStyle.regular300
-                  //                           .copyWith(fontSize: 14))
-                  //                 ],
-                  //               ),
-                  //
-                  //             ],
-                  //           ),
-                  //         )
-                  //       ],
-                  //     ),
-                  //     SizedBox(height: Get.width * 0.02),
-                  //     const Divider(
-                  //       thickness: 0.8,
-                  //       color: AppColors.blackColor,
-                  //     ),
-                  //   ],
-                  // ),
-                  // const SizedBox(height: 25),
-                  // Column(
-                  //   children: [
-                  //     Row(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       mainAxisAlignment: MainAxisAlignment.start,
-                  //       children: [
-                  //         CircleAvatar(
-                  //             radius: 10,
-                  //             backgroundColor: AppColors.blueColor.withOpacity(
-                  //                 0.1),
-                  //             child: const Center(
-                  //                 child: Icon(
-                  //                   Icons.radio_button_checked_rounded,
-                  //                   size: 15,
-                  //                   opticalSize: 15,
-                  //                   color: AppColors.blueColor,
-                  //                 ))),
-                  //         const SizedBox(width: 12),
-                  //         SizedBox(
-                  //           width: Get.width * 0.7,
-                  //           child: Column(
-                  //             children: [
-                  //               Column(
-                  //                 crossAxisAlignment: CrossAxisAlignment.start,
-                  //                 children: [
-                  //                   Text("Title Title Title",
-                  //                       style: AppTextStyle.regularBold
-                  //                           .copyWith(fontSize: 20)),
-                  //                   const SizedBox(height: 10),
-                  //                   Text(StaticString.content,
-                  //                       style: AppTextStyle.regular300
-                  //                           .copyWith(fontSize: 14))
-                  //                 ],
-                  //               ),
-                  //
-                  //             ],
-                  //           ),
-                  //         )
-                  //       ],
-                  //     ),
-                  //     SizedBox(height: Get.width * 0.02),
-                  //     Divider(
-                  //       thickness: 0.8,
-                  //       color: AppColors.blackColor.withOpacity(0.5),
-                  //     ),
-                  //   ],
-                  // )
                 ],
               ),
             ),

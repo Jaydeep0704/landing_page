@@ -168,8 +168,14 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
       builder: (p0, p1) {
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: AppColors.whiteColor,
+            leading: const BackButton(
+              color: AppColors.blackColor,
+            ),
             title: Text(
-                widget.isEdit == false ? "Add Case Study" : "Edit Case Study"),
+                widget.isEdit == false ? "Add Case Study" : "Edit Case Study",
+                style: AppTextStyle.regularBold
+                    .copyWith(color: AppColors.blackColor, fontSize: 18)),
             // backgroundColor: AppColors.whiteColor,
             centerTitle: true,
           ),
@@ -276,7 +282,38 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                                 }).toList(),
                               );
                       }),
-
+                      const SizedBox(height: 15),
+                      Text(
+                        "Enter Username",
+                        style: AppTextStyle.regular400.copyWith(fontSize: 16),
+                      ),
+                      const SizedBox(height: 10),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.whiteColor,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(0, 0),
+                              blurRadius: 1,
+                              spreadRadius: 1,
+                              color: Colors.black.withOpacity(0.08),
+                            ),
+                          ],
+                        ),
+                        child: TextFormField(
+                          controller: editCaseStudyController.detailDescription,
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                              hintText: "Enter Username",
+                              border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: AppColors.blackColor),
+                                  borderRadius: BorderRadius.circular(10))),
+                          textAlign: TextAlign.start,
+                          style: AppTextStyle.regular500.copyWith(fontSize: 15),
+                        ),
+                      ),
                       const SizedBox(height: 15),
                       Text(
                         "Enter Case Study Title",
@@ -330,7 +367,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                         ),
                         child: TextFormField(
                           controller: editCaseStudyController.shortDescription,
-                          maxLines: 5,
+                          maxLines: 10,
                           decoration: InputDecoration(
                               hintText: "Enter Case Study Short Description",
                               border: OutlineInputBorder(
@@ -341,104 +378,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                           style: AppTextStyle.regular500.copyWith(fontSize: 15),
                         ),
                       ),
-                      const SizedBox(height: 15),
-                      Text(
-                        "Enter Case Study Detail Description",
-                        style: AppTextStyle.regular400.copyWith(fontSize: 16),
-                      ),
-                      const SizedBox(height: 10),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.whiteColor,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(0, 0),
-                              blurRadius: 1,
-                              spreadRadius: 1,
-                              color: Colors.black.withOpacity(0.08),
-                            ),
-                          ],
-                        ),
-                        child: TextFormField(
-                          controller: editCaseStudyController.detailDescription,
-                          maxLines: 10,
-                          decoration: InputDecoration(
-                              hintText: "Enter Case Study Detailed Description",
-                              border: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: AppColors.blackColor),
-                                  borderRadius: BorderRadius.circular(10))),
-                          textAlign: TextAlign.start,
-                          style: AppTextStyle.regular500.copyWith(fontSize: 15),
-                        ),
-                      ),
-                      // const SizedBox(height: 15),
-                      // Text(
-                      //   "Enter Case Study Type",
-                      //   style: AppTextStyle.regular400.copyWith(fontSize: 16),
-                      // ),
-                      // const SizedBox(height: 10),
-                      // Container(
-                      //   // width: Get.width/2,
-                      //   decoration: BoxDecoration(
-                      //     color: AppColors.whiteColor,
-                      //     borderRadius: BorderRadius.circular(10),
-                      //     boxShadow: [
-                      //       BoxShadow(
-                      //         offset: const Offset(0, 0),
-                      //         blurRadius: 1,
-                      //         spreadRadius: 1,
-                      //         color: Colors.black.withOpacity(0.08),
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   child: TextFormField(
-                      //     controller: editCaseStudyController.type,
-                      //     maxLines: 3,
-                      //     decoration: InputDecoration(
-                      //         hintText: "Enter Case Study type",
-                      //         border: OutlineInputBorder(
-                      //             borderSide: const BorderSide(
-                      //                 color: AppColors.blackColor),
-                      //             borderRadius: BorderRadius.circular(10))),
-                      //     textAlign: TextAlign.start,
-                      //     style: AppTextStyle.regular500.copyWith(fontSize: 15),
-                      //   ),
-                      // ),
-                      // const SizedBox(height: 15),
-                      // Text(
-                      //   "Enter Case Study Category",
-                      //   style: AppTextStyle.regular400.copyWith(fontSize: 16),
-                      // ),
-                      // const SizedBox(height: 10),
-                      // Container(
-                      //   // width: Get.width/2,
-                      //   decoration: BoxDecoration(
-                      //     color: AppColors.whiteColor,
-                      //     borderRadius: BorderRadius.circular(10),
-                      //     boxShadow: [
-                      //       BoxShadow(
-                      //         offset: const Offset(0, 0),
-                      //         blurRadius: 1,
-                      //         spreadRadius: 1,
-                      //         color: Colors.black.withOpacity(0.08),
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   child: TextFormField(
-                      //     controller: editCaseStudyController.category,
-                      //     maxLines: 3,
-                      //     decoration: InputDecoration(
-                      //         hintText: "Enter Case Study Category",
-                      //         border: OutlineInputBorder(
-                      //             borderSide: const BorderSide(
-                      //                 color: AppColors.blackColor),
-                      //             borderRadius: BorderRadius.circular(10))),
-                      //     textAlign: TextAlign.start,
-                      //     style: AppTextStyle.regular500.copyWith(fontSize: 15),
-                      //   ),
-                      // ),
                       const SizedBox(
                         height: 20,
                       ),

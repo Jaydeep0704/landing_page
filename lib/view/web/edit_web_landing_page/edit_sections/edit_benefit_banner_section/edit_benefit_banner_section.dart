@@ -517,6 +517,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               CircleAvatar(
                                                   radius: 10,
@@ -530,14 +531,19 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                                         color: AppColors.blueColor,
                                                       ))),
                                               const SizedBox(width: 12),
-                                              Text(
-                                                  data["title"].toString(),
-                                                  style: AppTextStyle.regularBold
-                                                      .copyWith(fontSize: 20)
+                                              Expanded(
+                                                child: Text(
+                                                    data["title"].toString(),
+                                                    maxLines: 2,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: AppTextStyle.regularBold
+                                                        .copyWith(fontSize: 20)
 
+                                                ),
                                               ),
                                             ],
                                           ),
+                                        
                                           const SizedBox(height: 10),
                                           Text(
                                               data["description"].toString(),
@@ -675,115 +681,82 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                         ],
                       )
                   ),
-                  const SizedBox(height: 10,),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  const SizedBox(height: 80),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ///here need to change
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                      SizedBox(
+                        child: InkWell(
+                          onTap: () =>
+                              Get.dialog(TextEditModule(
+                                textKeyName: "benefit_banner_title",
+                                colorKeyName: "benefit_banner_title_color",
+                                fontFamilyKeyName: "benefit_banner_title_font",
+                                textValue: editController
+                                    .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title"]
+                                    .toString(),
+                                fontFamily: editController
+                                    .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_font"]
+                                    .toString(),
+                                fontSize: editController
+                                    .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_size"]
+                                    .toString(),
+                                textColor: Color(int.parse(editController
+                                    .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_color"]
+                                    .toString())),
+                              )),
+                          child: Text(
+                            editController
+                                .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title"]
+                                .toString(),
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.getFont(editController
+                                .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_font"]
+                                .toString()).copyWith(
+                                fontSize: editController
+                                    .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_size"]
+                                    .toString() != ""
+                                    ? double.parse(editController
+                                    .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_size"]
+                                    .toString())
+                                    : 35,
+                                fontWeight: FontWeight.bold,
+                                color: Color(int.parse(editController
+                                    .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_color"]
+                                    .toString()))),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 25),
+                      Stack(
+                        alignment: Alignment.topRight,
                         children: [
-                          const SizedBox(height: 80),
-                          InkWell(
-                            onTap: () =>
-                                Get.dialog(TextEditModule(
-                                  textKeyName: "benefit_banner_title",
-                                  colorKeyName: "benefit_banner_title_color",
-                                  fontFamilyKeyName: "benefit_banner_title_font",
-                                  textValue: editController
-                                      .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title"]
-                                      .toString(),
-                                  fontFamily: editController
-                                      .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_font"]
-                                      .toString(),
-                                  fontSize: editController
-                                      .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_size"]
-                                      .toString(),
-                                  textColor: Color(int.parse(editController
-                                      .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_color"]
-                                      .toString())),
-                                )),
+                          Center(
+                            child: ClipRRect(
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                              child: Container(
 
-                            child: Text(
-                              editController
-                                  .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title"]
-                                  .toString(),
-                              style: GoogleFonts.getFont(editController
-                                  .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_font"]
-                                  .toString()).copyWith(
-                                  fontSize: editController
-                                      .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_size"]
-                                      .toString() != ""
-                                      ? double.parse(editController
-                                      .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_size"]
-                                      .toString())
-                                      : 35,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(int.parse(editController
-                                      .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_title_color"]
-                                      .toString()))),
+                                  height: Get.width > 1000 ? 600 : 400,
+                                  width: Get.width > 1000 ? 415 : 275,
+                                  child: buildMediaWidget()
+                              ),
                             ),
                           ),
-                          // const Text(
-                          //   "Streamline your\nBack Office",
-                          //   style: TextStyle(
-                          //       fontSize: 25, fontWeight: FontWeight.bold),
-                          // ),
-                          const SizedBox(height: 25),
-                          Stack(
-                            alignment: Alignment.topRight,
-                            children: [
-                              ///picture==================================
-                              Center(
-                                child: ClipRRect(
-                                  borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
-                                  child: Container(
-                                      // decoration: BoxDecoration(
-                                      //   color: editController
-                                      //       .allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file"]
-                                      //       .toString()
-                                      //       .isEmpty ? Colors.transparent : Colors
-                                      //       .blue,
-                                      // ),
-                                      height: Get.width > 1000 ? 600 : 400,
-                                      width: Get.width > 1000 ? 415 : 275,
-                                      child: buildMediaWidget()
-                                    // child: Image.asset(
-                                    //   "assets/nature.jpeg",
-                                    //   fit: BoxFit.cover,
-                                    // ),
-                                  ),
-                                ),
-                              ),
-                              IconButton(
-                                  onPressed: () {
-                                    Get.dialog(UpdateMediaFunction(
-                                      imageSize: "600*415",
-                                      keyNameMedia: "benefit_banner_file",
-                                      keyMediaType: "benefit_banner_file_mediatype",
-                                    ));
-                                  },
-                                  icon: const Icon(Icons.edit))
-                            ],
-                          ),
+                          IconButton(
+                              onPressed: () {
+                                Get.dialog(UpdateMediaFunction(
+                                  imageSize: "600*415",
+                                  keyNameMedia: "benefit_banner_file",
+                                  keyMediaType: "benefit_banner_file_mediatype",
+                                ));
+                              },
+                              icon: const Icon(Icons.edit))
                         ],
                       ),
-
-                      // Container(
-                      //   // height: 400,
-                      //   height: Get.width * 0.60,
-                      //   width: Get.width * 0.60,
-                      //   // alignment: Alignment.center,
-                      //   // width: 400,
-                      //   decoration: BoxDecoration(
-                      //       color: Colors.yellowAccent.withOpacity(0.1),
-                      //       borderRadius:
-                      //       const BorderRadius.all(Radius.circular(10))),
-                      //   child: const Center(child: Text("media")),
-                      // ),
                     ],
                   ),
                   const SizedBox(height: 25),
@@ -1043,6 +1016,8 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+
                                       children: [
                                         CircleAvatar(
                                             radius: 10,
@@ -1056,11 +1031,15 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                                   color: AppColors.blueColor,
                                                 ))),
                                         const SizedBox(width: 12),
-                                        Text(
-                                            data["title"].toString(),
-                                            style: AppTextStyle.regularBold
-                                                .copyWith(fontSize: 20)
+                                        Expanded(
+                                          child: Text(
+                                              data["title"].toString(),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: AppTextStyle.regularBold
+                                                  .copyWith(fontSize: 20)
 
+                                          ),
                                         ),
                                       ],
                                     ),

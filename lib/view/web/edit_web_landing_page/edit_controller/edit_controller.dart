@@ -3,7 +3,6 @@ import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_how_it_works_section/edit_hiw_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_intro_section/edit_intro_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_mix_banner_section/edit_mix_banner_controller.dart';
-import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_numbers_banner_section/edit_partner_logos_screen.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_numbers_banner_section/number_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_showcase_apps_section/showcase_app_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
@@ -56,10 +55,7 @@ class EditController extends GetxController {
   RxList homeComponentList = [].obs;
 
   Future getData() async {
-    log("inside getData ---------1");
     try {
-      log("inside getData ---------2");
-
       allDataResponse.clear();
       showLoadingDialog();
       // Get.focusScope!.unfocus();
@@ -69,10 +65,7 @@ class EditController extends GetxController {
             "user_auto_id": APIString.userAutoId,
           });
       if (response['error'] == null) {
-        log("inside getData ---------3");
-
         if (response['body']['status'].toString() == "1") {
-          log("response[data][0]  ---- ${response['body']["data"][0]}");
           allDataResponse.value = response['body']["data"];
           introDataList.value = response['body']["data"][0]["intro_details"];
 
@@ -107,9 +100,6 @@ class EditController extends GetxController {
                   ? true
                   : false;
 
-          log("showcase_apps_heading_show_hide  ----------> ${allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_show_hide"]}");
-          log("showcase_apps_show_hide  ----------> ${allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_show_hide"]}");
-
           Get.find<ShowCaseAppsController>().titleSwitch.value =
               allDataResponse[0]["showcase_apps_details"][0]
                           ["showcase_apps_heading_show_hide"] ==
@@ -124,10 +114,20 @@ class EditController extends GetxController {
                   : false;
 
           ///testimonials show hide
-          Get.find<EditTestimonalController>().testimonial_title_1_Switch.value = allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] == "show" ? true : false;
+          Get.find<EditTestimonalController>()
+              .testimonial_title_1_Switch
+              .value = allDataResponse[0]["testimonials_details"][0]
+                      ["testimonials_title1_visible"] ==
+                  "show"
+              ? true
+              : false;
 
-
-          Get.find<EditTestimonalController>().testimonial1Switch.value = allDataResponse[0]["testimonials_details"][0]["testimonial1_visible"] == "show" ? true : false;
+          Get.find<EditTestimonalController>().testimonial1Switch.value =
+              allDataResponse[0]["testimonials_details"][0]
+                          ["testimonial1_visible"] ==
+                      "show"
+                  ? true
+                  : false;
           Get.find<EditTestimonalController>().testimonial2Switch.value =
               allDataResponse[0]["testimonials_details"][0]
                           ["testimonial2_visible"] ==
@@ -143,7 +143,6 @@ class EditController extends GetxController {
                   : false;
 
           ///benefit banner remains
-          // Get.find<>().mixBannerFileShowSwitch.value = allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file_show"] == "show" ?true:false;
 
           Get.find<NumberBannerController>().file1Switch.value =
               allDataResponse[0]["numbers_banner_details"][0]
@@ -163,15 +162,12 @@ class EditController extends GetxController {
                       "show"
                   ? true
                   : false;
-          log("allDataResponse.value   ---- $allDataResponse");
           functionToGetAllVideos();
 
           // showSnackbar(title: "Success", message: "${response['body']['msg']}");
           hideLoadingDialog();
         }
       } else if (response['error'] != null) {
-        log("inside getData ---------4");
-
         showSnackbar(title: "Warning", message: "Error");
         hideLoadingDialog();
       }
@@ -247,21 +243,14 @@ class EditController extends GetxController {
     try {
       showLoadingDialog();
       Get.focusScope!.unfocus();
-      log("update_web_landing_page_data  ======================::");
-      log("user_auto_id  ======================:: ${APIString.userAutoId.toString()}");
-      log("textKeyName  ======================:: ${textKeyName.toString()}");
-      log("colorKeyName  ======================:: ${colorKeyName.toString()}");
-      log("fontFamilyKeyName  ======================:: ${fontFamilyKeyName.toString()}");
-      log("text  ======================:: ${text.toString()}");
-      log("color!.value  ======================:: ${color!.value.toString()}");
-      log("fontFamily  ======================:: ${fontFamily.toString()}");
+      // log("color!.value  ======================:: ${color!.value.toString()}");
       if (text!.isNotEmpty) {
         var response = await HttpHandler.postHttpMethod(
             url: APIString.update_web_landing_page_data,
             data: {
               "user_auto_id": APIString.userAutoId,
               textKeyName.toString(): text.toString(),
-              colorKeyName.toString(): color.value.toString(),
+              colorKeyName.toString(): color!.value.toString(),
               fontFamilyKeyName.toString(): fontFamily.toString()
             });
 
@@ -282,7 +271,7 @@ class EditController extends GetxController {
             url: APIString.update_web_landing_page_data,
             data: {
               "user_auto_id": APIString.userAutoId,
-              colorKeyName.toString(): color.value.toString(),
+              colorKeyName.toString(): color!.value.toString(),
               fontFamilyKeyName.toString(): fontFamily.toString()
             });
 
@@ -472,23 +461,39 @@ class EditController extends GetxController {
         if (response['body']['status'].toString() == "1") {
           homeComponentList.value = response['body']["data"];
 
-          introComp.value = homeComponentList[0]["visible"] == "Yes" ? true : false;
-          log(" introComp.value   -------------- > ${ introComp.value}");
-          showcaseApps.value = homeComponentList[1]["visible"] == "Yes" ? true : false;
-          howItWorks.value = homeComponentList[2]["visible"] == "Yes" ? true : false;
-          testimonials.value = homeComponentList[3]["visible"] == "Yes" ? true : false;
-          textBanner.value = homeComponentList[4]["visible"] == "Yes" ? true : false;
-          mixBanner.value = homeComponentList[5]["visible"] == "Yes" ? true : false;
-          benefitBanner.value = homeComponentList[6]["visible"] == "Yes" ? true : false;
-          numbersBanner.value = homeComponentList[7]["visible"] == "Yes" ? true : false;
-          helpBanner.value = homeComponentList[8]["visible"] == "Yes" ? true : false;
-          caseStudy.value = homeComponentList[9]["visible"] == "Yes" ? true : false;
-          checkoutInfo.value = homeComponentList[10]["visible"] == "Yes" ? true : false;
-          pricing.value = homeComponentList[11]["visible"] == "Yes" ? true : false;
-          checkout.value = homeComponentList[12]["visible"] == "Yes" ? true : false;
-          appsDemo.value = homeComponentList[13]["visible"] == "Yes" ? true : false;
-          footerSection.value = homeComponentList[14]["visible"] == "Yes" ? true : false;
-          addressSection.value = homeComponentList[15]["visible"] == "Yes" ? true : false;
+          introComp.value =
+              homeComponentList[0]["visible"] == "Yes" ? true : false;
+          log(" introComp.value   -------------- > ${introComp.value}");
+          showcaseApps.value =
+              homeComponentList[1]["visible"] == "Yes" ? true : false;
+          howItWorks.value =
+              homeComponentList[2]["visible"] == "Yes" ? true : false;
+          testimonials.value =
+              homeComponentList[3]["visible"] == "Yes" ? true : false;
+          textBanner.value =
+              homeComponentList[4]["visible"] == "Yes" ? true : false;
+          mixBanner.value =
+              homeComponentList[5]["visible"] == "Yes" ? true : false;
+          benefitBanner.value =
+              homeComponentList[6]["visible"] == "Yes" ? true : false;
+          numbersBanner.value =
+              homeComponentList[7]["visible"] == "Yes" ? true : false;
+          helpBanner.value =
+              homeComponentList[8]["visible"] == "Yes" ? true : false;
+          caseStudy.value =
+              homeComponentList[9]["visible"] == "Yes" ? true : false;
+          checkoutInfo.value =
+              homeComponentList[10]["visible"] == "Yes" ? true : false;
+          pricing.value =
+              homeComponentList[11]["visible"] == "Yes" ? true : false;
+          checkout.value =
+              homeComponentList[12]["visible"] == "Yes" ? true : false;
+          appsDemo.value =
+              homeComponentList[13]["visible"] == "Yes" ? true : false;
+          footerSection.value =
+              homeComponentList[14]["visible"] == "Yes" ? true : false;
+          addressSection.value =
+              homeComponentList[15]["visible"] == "Yes" ? true : false;
         }
       } else {
         log("geComponents step --------  +++  77 Error");

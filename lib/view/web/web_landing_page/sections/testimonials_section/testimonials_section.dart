@@ -955,9 +955,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                   ),
                 )
                     : Obx(() {
-                  return webLandingPageController.aboveCardIndex.value
-                      .toString()
-                      .isEmpty
+                  return webLandingPageController.aboveCardIndex.value.toString().isEmpty
                       ? const SizedBox()
                       : Container(
                     // height: 500,
@@ -977,18 +975,6 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                   Radius.circular(10)),
                               child: Container(
                                 height: 400,
-                                // height: 300,
-                                // width: Get.width > 1500 ? 175
-                                //     : Get.width > 1000 ? 175
-                                //     : Get.width > 600 ? 200 : 200,
-                                // width: Get.width > 1500 ? 300
-                                //     : Get.width > 1000 ? 300
-                                //     :  325,
-                                // child: Image.asset(
-                                //   "assets/nature.jpeg",
-                                //   fit: BoxFit.cover,
-                                // ),
-                                // margin: const EdgeInsets.only(left: 50,top: 10),
                                 child: Stack(
                                   children: [
                                     Padding(
@@ -1024,63 +1010,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                                   child:buildMediaWidget(
                                                       testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
                                                       testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString())
-                                                // ClipRRect(
-                                                //   borderRadius:
-                                                //   const BorderRadius.all(Radius.circular(20)),
-                                                //
-                                                //   child:  testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'] == "image" ||
-                                                //       testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'] == "gif"
-                                                //       ? CachedNetworkImage(
-                                                //     fit: BoxFit
-                                                //         .cover,
-                                                //     width: Get.width * 0.9,
-                                                //     imageUrl:
-                                                //     APIString.latestmediaBaseUrl +  testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString(),
-                                                //     placeholder: (context, url) => Container(
-                                                //       decoration: BoxDecoration(
-                                                //         color: Color(int.parse(editController
-                                                //             .appDemoBgColor.value
-                                                //             .toString())),
-                                                //       ),
-                                                //     ),
-                                                //     errorWidget: (context, url, error) =>
-                                                //     const Icon(Icons.error),
-                                                //
-                                                //   )
-                                                //       : displayUploadedVideo( testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString()),
-                                                // )
-                                                // Image.asset("${featuredImage["image"]}"
-                                                // )
                                               ),
-                                              // Container(
-                                              //   height: 350,
-                                              //   width: Get.width >
-                                              //       1500
-                                              //       ? 175
-                                              //       : Get.width > 1000
-                                              //       ? 175
-                                              //       : Get.width >
-                                              //       600
-                                              //       ? 200
-                                              //       : 200,
-                                              //   decoration:
-                                              //   BoxDecoration(
-                                              //     color: Colors.blue,
-                                              //     image: DecorationImage(
-                                              //         image: AssetImage(clientsTestimonial[
-                                              //         webLandingPageController
-                                              //             .belowCardIndex
-                                              //             .value]
-                                              //         [
-                                              //         "clientImage"]),
-                                              //         fit: BoxFit
-                                              //             .cover),
-                                              //     borderRadius:
-                                              //     BorderRadius
-                                              //         .circular(
-                                              //         10),
-                                              //   ),
-                                              // ),
                                             ),
                                           );
                                         },
@@ -1556,12 +1486,12 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                         // Give the controller
                         options: CarouselOptions(
                           height: Get.width > 1500
-                              ? 250
+                              ? 325
                               : Get.width > 1000
-                              ? 250
-                              : Get.width < 500
-                              ? 250
-                              : 230,
+                              ? 300
+                              : Get.width > 600
+                              ? 255
+                              : 205,
                           autoPlayAnimationDuration: const Duration(seconds: 1),
                           // viewportFraction: 0.4,
                           viewportFraction: Get.width > 1300
@@ -1582,6 +1512,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) => BlogDetailsScreen(
                                     id: featuredImage["blog_auto_id"],
+                                    blogTypeKey: featuredImage["blogTypeKey"],
                                     title:featuredImage["title"] ,
                                     content:featuredImage["content"]  ,
                                     name: featuredImage["userName"]  ,
@@ -1592,7 +1523,6 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                     bgColor:  featuredImage["blogs_section_color"]  ,
                                     blogDetails: List<Map<String, String>>.from(featuredImage["blog_details"]
                                         .map((detail) => Map<String, String>.from(detail))),
-
                                   )));
                             },
                             child: Container(
@@ -1614,12 +1544,13 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                               margin: const EdgeInsets.only(right: 5, left: 5),
                               padding: const EdgeInsets.all(8),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     "${featuredImage["title"]}",
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w600,
-                                        fontSize: 25,
+                                        fontSize: 20,
                                         color: Colors.black),
                                   ),
                                   const SizedBox(height: 8),
@@ -1634,49 +1565,109 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  Padding(
-                                    padding:
-                                    const EdgeInsets.only(left: 8.0, bottom: 8,right: 8.0),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              height: 30,
-                                              width: 30,
-                                              child: Center(
-                                                child: ClipRRect(
-                                                  borderRadius: const BorderRadius.all(Radius.circular(50)),
-                                                  child: CachedNetworkImage(
-                                                    imageUrl: APIString.latestmediaBaseUrl +featuredImage["userImage"].toString(),
-                                                    fit: BoxFit.cover,
-                                                    width: 30,
-                                                    height: 30,
-                                                    placeholder: (context, url) => Container(
-                                                      decoration: BoxDecoration(
-                                                        color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                                      ),
-                                                    ),
-                                                    errorWidget: (context, url, error) => const Icon(Icons.error),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-
-                                            const SizedBox(width: 8),
-
-                                            Padding(
-                                              padding: const EdgeInsets.only(top: 0),
-                                              child: Text("${featuredImage["userName"]}"),
-                                            ),
-                                          ],
-                                        ),
-                                        Text("Read more",style: AppTextStyle.regular400.copyWith(color: AppColors.blueColor),)
-                                      ],
-                                    ),
+                                  Align(
+                                    alignment: AlignmentDirectional.centerEnd,
+                                    child: Text("Read more",
+                                      style: AppTextStyle.regular400
+                                          .copyWith(
+                                          color: AppColors.blueColor),),
                                   ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .start,
+                                    children: [
+                                      Container(
+                                        height: 30,
+                                        width: 30,
+                                        child: Center(
+                                          child: ClipRRect(
+                                            borderRadius: const BorderRadius
+                                                .all(
+                                                Radius.circular(50)),
+                                            child: CachedNetworkImage(
+                                              imageUrl: APIString
+                                                  .latestmediaBaseUrl +
+                                                  featuredImage["userImage"]
+                                                      .toString(),
+                                              fit: BoxFit.cover,
+                                              width: 30,
+                                              height: 30,
+                                              placeholder: (context,
+                                                  url) =>
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Color(
+                                                          int.parse(
+                                                              editController
+                                                                  .appDemoBgColor
+                                                                  .value
+                                                                  .toString())),
+                                                    ),
+                                                  ),
+                                              errorWidget: (context,
+                                                  url, error) =>
+                                              const Icon(Icons.error),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+
+                                      const SizedBox(width: 8),
+
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 0),
+                                        child: Text(
+                                            "${featuredImage["userName"]}"),
+                                      ),
+                                    ],
+                                  ),
+                                  // Padding(
+                                  //   padding:
+                                  //   const EdgeInsets.only(left: 8.0, bottom: 8,right: 8.0),
+                                  //   child: Row(
+                                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  //     children: [
+                                  //       Row(
+                                  //         mainAxisAlignment: MainAxisAlignment.start,
+                                  //         children: [
+                                  //           Container(
+                                  //             height: 30,
+                                  //             width: 30,
+                                  //             child: Center(
+                                  //               child: ClipRRect(
+                                  //                 borderRadius: const BorderRadius.all(Radius.circular(50)),
+                                  //                 child: CachedNetworkImage(
+                                  //                   imageUrl: APIString.latestmediaBaseUrl +featuredImage["userImage"].toString(),
+                                  //                   fit: BoxFit.cover,
+                                  //                   width: 30,
+                                  //                   height: 30,
+                                  //                   placeholder: (context, url) => Container(
+                                  //                     decoration: BoxDecoration(
+                                  //                       color: Color(int.parse(editController.appDemoBgColor.value.toString())),
+                                  //                     ),
+                                  //                   ),
+                                  //                   errorWidget: (context, url, error) => const Icon(Icons.error),
+                                  //                 ),
+                                  //               ),
+                                  //             ),
+                                  //           ),
+                                  //
+                                  //           const SizedBox(width: 8),
+                                  //
+                                  //           Padding(
+                                  //             padding: const EdgeInsets.only(top: 0),
+                                  //             child: Text("${featuredImage["userName"]}"),
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //       Text("Read more",style: AppTextStyle.regular400.copyWith(color: AppColors.blueColor),)
+                                  //     ],
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),

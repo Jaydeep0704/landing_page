@@ -13,21 +13,22 @@ class BlogCategoriesController extends GetxController {
   final blogType = TextEditingController();
   final valueController = TextEditingController();
 
-  Future getRelatedBlogs({String? blog_id, String? blog_type}) async {
-    assert(blog_id != null);
+  Future getRelatedBlogs({String? blog_id, String? blogTypeKey}) async {
+    // assert(blog_id != null);
     log("inside getRelatedBlogs ---------1");
     try {
       log("inside getRelatedBlogs ---------2");
       showLoadingDialog();
       relatedBlogs.clear();
-
+      //blogTypeKey as a blog_type
       var response = await HttpHandler.postHttpMethod(
           url: APIString.related_blog,
-          data: {"blog_id": blog_id, "blog_type": blog_type});
+          data: {"blog_id": blog_id, "blog_type": blogTypeKey});
+      hideLoadingDialog();
       if (response['error'] == null) {
-        hideLoadingDialog();
         if (response['body']['status'].toString() == "1") {
           relatedBlogs.value = response['body']['data'];
+          print("relatedBlogs    ${relatedBlogs.value}");
         }
       } else if (response['error'] != null) {
         hideLoadingDialog();

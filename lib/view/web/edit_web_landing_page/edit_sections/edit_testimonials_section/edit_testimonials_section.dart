@@ -34,10 +34,12 @@ class EditTestimonialsSection extends StatefulWidget {
   const EditTestimonialsSection({Key? key}) : super(key: key);
 
   @override
-  State<EditTestimonialsSection> createState() => _EditTestimonialsSectionState();
+  State<EditTestimonialsSection> createState() =>
+      _EditTestimonialsSectionState();
 }
 
-class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with SingleTickerProviderStateMixin {
+class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
+    with SingleTickerProviderStateMixin {
   final webLandingPageController = Get.find<WebLandingPageController>();
 
   late AnimationController _animationController;
@@ -49,14 +51,15 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
   final editIntroController = Get.find<EditIntroController>();
   final testimonialController = Get.find<EditTestimonalController>();
   final blogController = Get.find<EditBlogController>();
-  List<dynamic> rawData=[] ; // fetched data
+  List<dynamic> rawData = []; // fetched data
 
   oneTimeAnimation() {
-    if(mounted){
-    _animationController.forward();
-    Future.delayed(const Duration(seconds: 2), () {
-      _animationController.reverse(from: 1);
-    });}
+    if (mounted) {
+      _animationController.forward();
+      Future.delayed(const Duration(seconds: 2), () {
+        _animationController.reverse(from: 1);
+      });
+    }
   }
 
   @override
@@ -108,12 +111,17 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return editController.homeComponentList.isEmpty &&  editController.allDataResponse.isEmpty
-              ?const SizedBox()
-              :Container(
+          return editController.homeComponentList.isEmpty &&
+              editController.allDataResponse.isEmpty
+              ? const SizedBox()
+              : Container(
             // decoration: BoxDecoration(color: AppColors.bgOrange.withOpacity(0.3)),
-              decoration:  editController.allDataResponse[0]["case_study_details"][0]["case_study_bg_color_switch"].toString() == "1" &&
-                  editController.allDataResponse[0]["case_study_details"][0]["case_study_bg_image_switch"].toString() == "0"
+              decoration: editController
+                  .allDataResponse[0]["case_study_details"][0]["case_study_bg_color_switch"]
+                  .toString() == "1" &&
+                  editController
+                      .allDataResponse[0]["case_study_details"][0]["case_study_bg_image_switch"]
+                      .toString() == "0"
                   ? BoxDecoration(
                 color: editController.allDataResponse[0]
                 ["testimonials_details"][0]["testimonials_bg_color"]
@@ -125,13 +133,15 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                 ["testimonials_details"][0]["testimonials_bg_color"]
                     .toString())),
               )
-                  :BoxDecoration(
+                  : BoxDecoration(
                   image: DecorationImage(image: CachedNetworkImageProvider(
                     APIString.mediaBaseUrl +
-                        editController.allDataResponse[0]["testimonials_details"]
+                        editController
+                            .allDataResponse[0]["testimonials_details"]
                         [0]["testimonials_bg_image"]
                             .toString(),
-                    errorListener: () =>  const Icon(Icons.error),),fit: BoxFit.cover)
+                    errorListener: () => const Icon(Icons.error),),
+                      fit: BoxFit.cover)
               ),
 
               child: Column(
@@ -182,9 +192,11 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                                           // containerColor: Color(int.parse(editController.showcaseAppsBgColor.value.toString())),
                                                           // containerColor: Color(int.parse(editController.showcaseAppsBgColor.value.toString())),
                                                           containerColor: Color(
-                                                              int.parse(editController.allDataResponse[0]["testimonials_details"][0][
-                                                              "testimonials_bg_color"]
-                                                                  .toString())),
+                                                              int.parse(
+                                                                  editController
+                                                                      .allDataResponse[0]["testimonials_details"][0][
+                                                                  "testimonials_bg_color"]
+                                                                      .toString())),
                                                           keyNameClr:
                                                           "testimonials_bg_color",
                                                           clrSwitchValue: "1",
@@ -200,14 +212,15 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                               const SizedBox(height: 20),
                                               ElevatedButton(
                                                   onPressed: () {
-                                                    Get.to(() => ImgPickDialog(
-                                                      keyNameImg:
-                                                      "testimonials_bg_image",
-                                                      switchKeyNameImg:
-                                                      "testimonials_bg_image_switch",
-                                                      switchKeyNameClr:
-                                                      "testimonials_bg_color_switch",
-                                                    ));
+                                                    Get.to(() =>
+                                                        ImgPickDialog(
+                                                          keyNameImg:
+                                                          "testimonials_bg_image",
+                                                          switchKeyNameImg:
+                                                          "testimonials_bg_image_switch",
+                                                          switchKeyNameClr:
+                                                          "testimonials_bg_color_switch",
+                                                        ));
                                                   },
                                                   child: const Text(
                                                       "Image Picker"))
@@ -225,21 +238,27 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10,
+                            vertical: 5),
                         decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            borderRadius: const BorderRadius.all(
+                                Radius.circular(10)),
                             color: AppColors.greyBorderColor.withOpacity(0.5)
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text("Customer Logos Visibility",style: AppTextStyle.regular500.copyWith(fontSize: 14),),
+                            Text("Customer Logos Visibility",
+                              style: AppTextStyle.regular500.copyWith(
+                                  fontSize: 14),),
                             const SizedBox(width: 5,),
                             Switch(
-                              value: testimonialController.testimonial_title_1_Switch.value,
+                              value: testimonialController
+                                  .testimonial_title_1_Switch.value,
                               onChanged: (value) {
                                 setState(() {
-                                  testimonialController.testimonial_title_1_Switch.value = value;
+                                  testimonialController
+                                      .testimonial_title_1_Switch.value = value;
                                   print("value ---- $value");
                                   editController.showHideMedia(
                                       value: value == false
@@ -258,34 +277,52 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
 
                   Row(
                     children: [
-                      Get.width > 500 ? const SizedBox( )
-                          :const SizedBox(width:  10),
+                      Get.width > 500 ? const SizedBox()
+                          : const SizedBox(width: 10),
                       Expanded(
                         child:
 
                         InkWell(
-                          onTap: () => Get.dialog(
-                              TextEditModule(
-                                textKeyName: "testimonials_title1",
-                                colorKeyName: "testimonials_title1_color",
-                                fontFamilyKeyName: "testimonials_title1_font",
-                                textValue: editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1"].toString(),
-                                fontFamily: editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_font"].toString(),
-                                fontSize: editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_size"].toString(),
-                                textColor: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_color"].toString())),
-                              )),
+                          onTap: () =>
+                              Get.dialog(
+                                  TextEditModule(
+                                    textKeyName: "testimonials_title1",
+                                    colorKeyName: "testimonials_title1_color",
+                                    fontFamilyKeyName: "testimonials_title1_font",
+                                    textValue: editController
+                                        .allDataResponse[0]["testimonials_details"][0]["testimonials_title1"]
+                                        .toString(),
+                                    fontFamily: editController
+                                        .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_font"]
+                                        .toString(),
+                                    fontSize: editController
+                                        .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_size"]
+                                        .toString(),
+                                    textColor: Color(int.parse(editController
+                                        .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_color"]
+                                        .toString())),
+                                  )),
                           child: Center(
                             child: Text(
-                              editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1"]
+                              editController
+                                  .allDataResponse[0]["testimonials_details"][0]["testimonials_title1"]
                                   .toString(),
-                              style: GoogleFonts.getFont(editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_font"].toString()).copyWith(
-                                  fontSize: editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_size"].toString() !=""
-                                      ? double.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_size"].toString())
+                              style: GoogleFonts.getFont(editController
+                                  .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_font"]
+                                  .toString()).copyWith(
+                                  fontSize: editController
+                                      .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_size"]
+                                      .toString() != ""
+                                      ? double.parse(editController
+                                      .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_size"]
+                                      .toString())
                                       : Get.width > 1000
                                       ? 50
                                       : 30,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_color"].toString()))),
+                                  color: Color(int.parse(editController
+                                      .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_color"]
+                                      .toString()))),
                               textAlign: TextAlign.center,
 
                               // style: GoogleFonts.getFont(selectedFont).copyWith(
@@ -294,14 +331,15 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           ),
                         ),
                       ),
-                      Get.width > 500 ? const SizedBox( )
-                          :const SizedBox(width:  10),
+                      Get.width > 500 ? const SizedBox()
+                          : const SizedBox(width: 10),
                       Align(
                         alignment: Alignment.topRight,
                         child: InkWell(
                           onTap: () {
                             Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => const EditTestimonalScreen()));
+                                MaterialPageRoute(builder: (
+                                    context) => const EditTestimonalScreen()));
                           },
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
@@ -329,7 +367,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Expanded(flex: 3,child: SizedBox()),
+                      const Expanded(flex: 3, child: SizedBox()),
                       // SizedBox(width: Get.width * 0.08),
                       Expanded(
                         flex: 6,
@@ -346,11 +384,14 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                   mainAxisExtent: 100,
                                   mainAxisSpacing: 10),
                               shrinkWrap: true,
-                              itemCount: testimonialController.appLogoListt.length,
+                              itemCount: testimonialController.appLogoListt
+                                  .length,
                               itemBuilder: (context, index) {
-                                var data = testimonialController.appLogoListt[index];
+                                var data = testimonialController
+                                    .appLogoListt[index];
                                 return ClipRRect(
-                                  borderRadius: BorderRadius.circular(5), // Adjust the radius to your preference
+                                  borderRadius: BorderRadius.circular(5),
+                                  // Adjust the radius to your preference
                                   child: Container(
                                     height: 50,
                                     width: 50,
@@ -362,37 +403,41 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                     ),
                                     child: CachedNetworkImage(
                                       fit: BoxFit.cover,
-                                      imageUrl: APIString.bannerMediaUrl + data["images"].toString(),
-                                      placeholder: (context, url) => Container(
-                                        decoration: const BoxDecoration(
-                                          color: AppColors.greyColor,
-                                        ),
-                                      ),
+                                      imageUrl: APIString.bannerMediaUrl +
+                                          data["images"].toString(),
+                                      placeholder: (context, url) =>
+                                          Container(
+                                            decoration: const BoxDecoration(
+                                              color: AppColors.greyColor,
+                                            ),
+                                          ),
                                       // progressIndicatorBuilder: (context, url, downloadProgress) =>
                                       //     CircularProgressIndicator(value: downloadProgress.progress),
-                                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                                      errorWidget: (context, url,
+                                          error) => const Icon(Icons.error),
                                     ),
                                   ),
                                 );
-
                               },
                             );
                           }),
                         ),
                       ),
-                      const Expanded(flex: 3,child: SizedBox()),
+                      const Expanded(flex: 3, child: SizedBox()),
                       // SizedBox(width: Get.width * 0.08)
                     ],
                   ),
 
                   const SizedBox(height: 40),
+
                   ///edit testimonial button
                   Align(
                     alignment: Alignment.topRight,
                     child: InkWell(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => const EditTestimonalScreenList()));
+                            MaterialPageRoute(builder: (
+                                context) => const EditTestimonalScreenList()));
                       },
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
@@ -414,6 +459,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                       ),
                     ),
                   ),
+
                   ///testimonial 1 starts
                   ///our testimonial
                   Align(
@@ -421,21 +467,27 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10,
+                            vertical: 5),
                         decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
-                          color: AppColors.greyBorderColor.withOpacity(0.5)
+                            borderRadius: const BorderRadius.all(
+                                Radius.circular(10)),
+                            color: AppColors.greyBorderColor.withOpacity(0.5)
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text("Testimonial 1 Visibility",style: AppTextStyle.regular500.copyWith(fontSize: 14),),
+                            Text("Testimonial 1 Visibility",
+                              style: AppTextStyle.regular500.copyWith(
+                                  fontSize: 14),),
                             const SizedBox(width: 5,),
                             Switch(
-                              value: testimonialController.testimonial1Switch.value,
+                              value: testimonialController.testimonial1Switch
+                                  .value,
                               onChanged: (value) {
                                 setState(() {
-                                  testimonialController.testimonial1Switch.value = value;
+                                  testimonialController.testimonial1Switch
+                                      .value = value;
                                   print("value ---- $value");
                                   editController.showHideMedia(
                                       value: value == false
@@ -445,7 +497,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                 });
                               },
                             ),
-                             ],
+                          ],
                         ),
                       ),
                     ),
@@ -461,9 +513,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                             : 15),
                     child: Row(
                       children: [
-                        Get.width > 500 ? const SizedBox( )
-                            :const SizedBox(width:  10),
-
+                        Get.width > 500 ? const SizedBox()
+                            : const SizedBox(width: 10),
 
 
                         Expanded(
@@ -479,28 +530,46 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           //       color: Colors.black),
                           // ),
                           InkWell(
-                            onTap: () => Get.dialog(
-                                TextEditModule(
-                                  textKeyName: "testimonials1_title",
-                                  colorKeyName: "testimonials1_title_color",
-                                  fontFamilyKeyName: "testimonials1_title_font",
-                                  textValue: editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title"].toString(),
-                                  fontFamily: editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title_font"].toString(),
-                                  fontSize: editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title_size"].toString(),
-                                  textColor: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title_color"].toString())),
-                                )),
+                            onTap: () =>
+                                Get.dialog(
+                                    TextEditModule(
+                                      textKeyName: "testimonials1_title",
+                                      colorKeyName: "testimonials1_title_color",
+                                      fontFamilyKeyName: "testimonials1_title_font",
+                                      textValue: editController
+                                          .allDataResponse[0]["testimonials_details"][0]["testimonials1_title"]
+                                          .toString(),
+                                      fontFamily: editController
+                                          .allDataResponse[0]["testimonials_details"][0]["testimonials1_title_font"]
+                                          .toString(),
+                                      fontSize: editController
+                                          .allDataResponse[0]["testimonials_details"][0]["testimonials1_title_size"]
+                                          .toString(),
+                                      textColor: Color(int.parse(editController
+                                          .allDataResponse[0]["testimonials_details"][0]["testimonials1_title_color"]
+                                          .toString())),
+                                    )),
                             child: Center(
                               child: Text(
-                                editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title"]
+                                editController
+                                    .allDataResponse[0]["testimonials_details"][0]["testimonials1_title"]
                                     .toString(),
-                                style: GoogleFonts.getFont(editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title_font"].toString()).copyWith(
-                                    fontSize: editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title_size"].toString() !=""
-                                        ? double.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title_size"].toString())
+                                style: GoogleFonts.getFont(editController
+                                    .allDataResponse[0]["testimonials_details"][0]["testimonials1_title_font"]
+                                    .toString()).copyWith(
+                                    fontSize: editController
+                                        .allDataResponse[0]["testimonials_details"][0]["testimonials1_title_size"]
+                                        .toString() != ""
+                                        ? double.parse(editController
+                                        .allDataResponse[0]["testimonials_details"][0]["testimonials1_title_size"]
+                                        .toString())
                                         : Get.width > 1000
                                         ? 50
                                         : 30,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title_color"].toString()))),
+                                    color: Color(int.parse(editController
+                                        .allDataResponse[0]["testimonials_details"][0]["testimonials1_title_color"]
+                                        .toString()))),
                                 textAlign: TextAlign.center,
 
                                 // style: GoogleFonts.getFont(selectedFont).copyWith(
@@ -509,8 +578,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                             ),
                           ),
                         ),
-                        Get.width > 500 ? const SizedBox( )
-                            :const SizedBox(width:  10),
+                        Get.width > 500 ? const SizedBox()
+                            : const SizedBox(width: 10),
                       ],
                     ),
                   ),
@@ -551,7 +620,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                 : Get.width < 500
                                 ? 250
                                 : 230,
-                            autoPlayAnimationDuration: const Duration(seconds: 1),
+                            autoPlayAnimationDuration: const Duration(
+                                seconds: 1),
                             // viewportFraction: 0.4,
                             viewportFraction: Get.width > 1500
                                 ? 0.3
@@ -562,22 +632,27 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                 : 0.90,
                             autoPlay: true,
                           ),
-                          items: testimonialController.getTestimonal.map((featuredImage) {
+                          items: testimonialController.getTestimonal.map((
+                              featuredImage) {
                             return Container(
                               // height: 300,
                               width: Get.width > 700 ? 600 : 450,
-                              decoration:  BoxDecoration(
+                              decoration: BoxDecoration(
                                   color: AppColors.redColor.withOpacity(0.2),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                                  const BorderRadius.all(Radius.circular(10))),
                               padding: const EdgeInsets.all(10),
                               margin: const EdgeInsets.symmetric(horizontal: 5),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
 
-                                  ytMediaWidget(featuredImage['media_type'].toString(),featuredImage['banner_mediatype'].toString(),
-                                    featuredImage['banner'].toString(),featuredImage['media_link'].toString(),),
+                                  ytMediaWidget(
+                                    featuredImage['media_type'].toString(),
+                                    featuredImage['banner_mediatype']
+                                        .toString(),
+                                    featuredImage['banner'].toString(),
+                                    featuredImage['media_link'].toString(),),
 
                                   // Center(
                                   //   child: ClipRRect(
@@ -614,18 +689,29 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                         width: 30,
                                         child: Center(
                                           child: ClipRRect(
-                                            borderRadius: const BorderRadius.all(Radius.circular(50)),
+                                            borderRadius: const BorderRadius
+                                                .all(Radius.circular(50)),
                                             child: CachedNetworkImage(
-                                              imageUrl: APIString.latestmediaBaseUrl +featuredImage["user_image"].toString(),
+                                              imageUrl: APIString
+                                                  .latestmediaBaseUrl +
+                                                  featuredImage["user_image"]
+                                                      .toString(),
                                               fit: BoxFit.cover,
                                               width: 30,
                                               height: 30,
-                                              placeholder: (context, url) => Container(
-                                                decoration: BoxDecoration(
-                                                  color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                                ),
-                                              ),
-                                              errorWidget: (context, url, error) => const Icon(Icons.error),
+                                              placeholder: (context, url) =>
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Color(int.parse(
+                                                          editController
+                                                              .appDemoBgColor
+                                                              .value
+                                                              .toString())),
+                                                    ),
+                                                  ),
+                                              errorWidget: (context, url,
+                                                  error) =>
+                                              const Icon(Icons.error),
                                             ),
                                           ),
                                         ),
@@ -644,7 +730,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                       const SizedBox(width: 8),
                                       Padding(
                                         padding: const EdgeInsets.only(top: 20),
-                                        child: Text("${featuredImage["user_name"]}"),
+                                        child: Text(
+                                            "${featuredImage["user_name"]}"),
                                       ),
                                     ],
                                   ),
@@ -695,31 +782,39 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                       ],
                     ),
                   ),
+
                   ///testimonial 1 ends
 
                   const SizedBox(height: 40),
-                    ///testimonial 2 starts
+
+                  ///testimonial 2 starts
                   ///inspired testimonial
                   Align(
                     alignment: AlignmentDirectional.centerEnd,
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10,
+                            vertical: 5),
                         decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            borderRadius: const BorderRadius.all(
+                                Radius.circular(10)),
                             color: AppColors.greyBorderColor.withOpacity(0.5)
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text("Testimonial 2 Visibility",style: AppTextStyle.regular500.copyWith(fontSize: 14),),
+                            Text("Testimonial 2 Visibility",
+                              style: AppTextStyle.regular500.copyWith(
+                                  fontSize: 14),),
                             const SizedBox(width: 5),
                             Switch(
-                              value: testimonialController.testimonial2Switch.value,
+                              value: testimonialController.testimonial2Switch
+                                  .value,
                               onChanged: (value) {
                                 setState(() {
-                                  testimonialController.testimonial2Switch.value = value;
+                                  testimonialController.testimonial2Switch
+                                      .value = value;
                                   print("value ---- $value");
                                   editController.showHideMedia(
                                       value: value == false
@@ -745,34 +840,52 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                             : 15),
                     child: Row(
                       children: [
-                        Get.width > 500 ? const SizedBox( )
-                            :const SizedBox(width:  10),
+                        Get.width > 500 ? const SizedBox()
+                            : const SizedBox(width: 10),
                         Expanded(
                           child:
 
                           InkWell(
-                            onTap: () => Get.dialog(
-                                TextEditModule(
-                                  textKeyName: "testimonials2_title",
-                                  colorKeyName: "testimonials2_title_color",
-                                  fontFamilyKeyName: "testimonials2_title_font",
-                                  textValue: editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title"].toString(),
-                                  fontFamily: editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title_font"].toString(),
-                                  fontSize: editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title_size"].toString(),
-                                  textColor: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title_color"].toString())),
-                                )),
+                            onTap: () =>
+                                Get.dialog(
+                                    TextEditModule(
+                                      textKeyName: "testimonials2_title",
+                                      colorKeyName: "testimonials2_title_color",
+                                      fontFamilyKeyName: "testimonials2_title_font",
+                                      textValue: editController
+                                          .allDataResponse[0]["testimonials_details"][0]["testimonials2_title"]
+                                          .toString(),
+                                      fontFamily: editController
+                                          .allDataResponse[0]["testimonials_details"][0]["testimonials2_title_font"]
+                                          .toString(),
+                                      fontSize: editController
+                                          .allDataResponse[0]["testimonials_details"][0]["testimonials2_title_size"]
+                                          .toString(),
+                                      textColor: Color(int.parse(editController
+                                          .allDataResponse[0]["testimonials_details"][0]["testimonials2_title_color"]
+                                          .toString())),
+                                    )),
                             child: Center(
                               child: Text(
-                                editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title"]
+                                editController
+                                    .allDataResponse[0]["testimonials_details"][0]["testimonials2_title"]
                                     .toString(),
-                                style: GoogleFonts.getFont(editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title_font"].toString()).copyWith(
-                                    fontSize: editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title_size"].toString() !=""
-                                        ? double.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title_size"].toString())
+                                style: GoogleFonts.getFont(editController
+                                    .allDataResponse[0]["testimonials_details"][0]["testimonials2_title_font"]
+                                    .toString()).copyWith(
+                                    fontSize: editController
+                                        .allDataResponse[0]["testimonials_details"][0]["testimonials2_title_size"]
+                                        .toString() != ""
+                                        ? double.parse(editController
+                                        .allDataResponse[0]["testimonials_details"][0]["testimonials2_title_size"]
+                                        .toString())
                                         : Get.width > 1000
                                         ? 50
                                         : 30,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title_color"].toString()))),
+                                    color: Color(int.parse(editController
+                                        .allDataResponse[0]["testimonials_details"][0]["testimonials2_title_color"]
+                                        .toString()))),
                                 textAlign: TextAlign.center,
 
                                 // style: GoogleFonts.getFont(selectedFont).copyWith(
@@ -782,7 +895,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           ),
                         ),
                         Get.width > 500 ? const SizedBox()
-                            :const SizedBox(width:  10),
+                            : const SizedBox(width: 10),
                       ],
                     ),
                   ),
@@ -800,13 +913,16 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                         : Get.width > 600
                         ? 500
                         : 450,
-                    decoration: BoxDecoration(color: Colors.blue.withOpacity(0.2)),
+                    decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(0.2)),
                     padding: const EdgeInsets.all(25),
                     child: Row(
                       children: [
                         Obx(() {
                           return webLandingPageController.aboveCardIndex.value
-                              .toString().isEmpty || testimonialController.getTestimonal.isEmpty
+                              .toString()
+                              .isEmpty ||
+                              testimonialController.getTestimonal.isEmpty
                               ? const SizedBox()
                               : Expanded(
                             child: Padding(
@@ -818,11 +934,13 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                 children: [
                                   /*  Get.width > 350
                                               ? */Text(
-                                    "${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['Description']}",
+                                    "${testimonialController
+                                        .getTestimonal[webLandingPageController
+                                        .aboveCardIndex.value]['Description']}",
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 17),
-                                  )/*
+                                  ) /*
                                               : Text(
                                                   "${clientsTestimonial[webLandingPageController.aboveCardIndex.value]["content"]}",
                                                   maxLines: 13,
@@ -837,7 +955,10 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                     MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Company : ${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['company_name']}",
+                                        "Company : ${testimonialController
+                                            .getTestimonal[webLandingPageController
+                                            .aboveCardIndex
+                                            .value]['company_name']}",
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 17),
@@ -851,14 +972,20 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                     children: [
                                       Text(
                                         // "Mr Gary",
-                                        "Name : ${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['user_name']}",
+                                        "Name : ${testimonialController
+                                            .getTestimonal[webLandingPageController
+                                            .aboveCardIndex
+                                            .value]['user_name']}",
                                         style: const TextStyle(
                                             fontWeight:
                                             FontWeight.bold,
                                             fontSize: 17),
                                       ),
                                       Text(
-                                        " -${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['Position']}",
+                                        " -${testimonialController
+                                            .getTestimonal[webLandingPageController
+                                            .aboveCardIndex
+                                            .value]['Position']}",
                                         style: const TextStyle(
                                             fontWeight:
                                             FontWeight.w400,
@@ -916,7 +1043,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                             webLandingPageController
                                                 .aboveCardIndex
                                                 .value =
-                                                testimonialController.getTestimonal
+                                                testimonialController
+                                                    .getTestimonal
                                                     .length -
                                                     1;
                                           }
@@ -947,11 +1075,13 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                       InkWell(
                                         onTap: () {
                                           print(
-                                              "1111111111111${webLandingPageController.aboveCardIndex.value}");
+                                              "1111111111111${webLandingPageController
+                                                  .aboveCardIndex.value}");
                                           if (webLandingPageController
                                               .aboveCardIndex
                                               .value <
-                                              testimonialController.getTestimonal
+                                              testimonialController
+                                                  .getTestimonal
                                                   .length -
                                                   1) {
                                             webLandingPageController
@@ -967,7 +1097,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                             webLandingPageController
                                                 .belowCardIndex
                                                 .value =
-                                                testimonialController.getTestimonal
+                                                testimonialController
+                                                    .getTestimonal
                                                     .length -
                                                     1;
                                             webLandingPageController
@@ -1079,257 +1210,197 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           child: SizedBox(
                             height: Get.width > 1500 ? 550 : 500,
                             // color: Colors.yellowAccent,
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 0),
-                                child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(Get.width > 1000 ? 42 : 37),
-                                          child: AnimatedBuilder(
-                                            animation: _rotationAnimation,
-                                            builder: (context, child) {
-                                              return Transform.rotate(
-                                                angle: _rotationAnimation.value * 0.33,
-                                                transformHitTests: true,
-                                                child: Transform.rotate(
-                                                  angle: -math.pi / 15,
-                                                  child: Container(
-                                                      height: Get.width > 1500
-                                                          ? 450
-                                                          : Get.width > 1000
-                                                          ? 400
-                                                          : 400,
-                                                      // width: Get.width > 1500 ? 285
-                                                      //     : Get.width > 1000 ? 250
-                                                      //         : Get.width > 600 ? 200 : 200,
-                                                      width: Get.width > 1500 ? 285
-                                                          : Get.width > 1000 ? 250
-                                                          : Get.width > 600 ? 250 : 200,
-                                                      decoration: const BoxDecoration(
-                                                        // color: Colors.blue,
-                                                          borderRadius:
-                                                          BorderRadius.all(Radius.circular(5))),
-                                                      child:buildMediaWidget(
-                                                          testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
-                                                          testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString())
-                                                    // ClipRRect(
-                                                    //       borderRadius:
-                                                    //       const BorderRadius.all(Radius.circular(20)),
-                                                    //
-                                                    //       child:  testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'] == "image" ||
-                                                    //           testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'] == "gif"?
-                                                    //       CachedNetworkImage(
-                                                    //         fit: BoxFit
-                                                    //             .cover,
-                                                    //         width: Get.width * 0.9,
-                                                    //         imageUrl:
-                                                    //         APIString.latestmediaBaseUrl +  testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString(),
-                                                    //         placeholder: (context, url) => Container(
-                                                    //           decoration: BoxDecoration(
-                                                    //             color: Color(int.parse(editController
-                                                    //                 .appDemoBgColor.value
-                                                    //                 .toString())),
-                                                    //           ),
-                                                    //         ),
-                                                    //         errorWidget: (context, url, error) =>
-                                                    //         const Icon(Icons.error),
-                                                    //
-                                                    //       )
-                                                    //           : displayUploadedVideo( testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString()),
-                                                    //     )
-
-                                                    // Image.asset("${featuredImage["image"]}"
-                                                    // )
-                                                  ),
-                                                  // Container(
-                                                  //   height: Get.width > 1500
-                                                  //       ? 450
-                                                  //       : Get.width > 1000
-                                                  //       ? 400
-                                                  //       : 400,
-                                                  //   // width: Get.width > 1500 ? 285
-                                                  //   //     : Get.width > 1000 ? 250
-                                                  //   //         : Get.width > 600 ? 200 : 200,
-                                                  //   width: Get.width > 1500 ? 285
-                                                  //       : Get.width > 1000 ? 250
-                                                  //       : Get.width > 600 ? 250 : 200,
-                                                  //   decoration:
-                                                  //   BoxDecoration(
-                                                  //     color:
-                                                  //     Colors.blue,
-                                                  //     image: DecorationImage(
-                                                  //         image: AssetImage(clientsTestimonial[webLandingPageController.belowCardIndex.value]["clientImage"]),
-                                                  //         fit: BoxFit
-                                                  //             .cover),
-                                                  //     borderRadius:
-                                                  //     BorderRadius
-                                                  //         .circular(
-                                                  //         10),
-                                                  //   ),
-                                                  // ),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                        Positioned(
-                                          top: 5,
-                                          left: 10,
-                                          child: Padding(
+                            child: Obx(() {
+                              return webLandingPageController.aboveCardIndex.value.toString().isEmpty
+                                  ? const SizedBox()
+                                  : Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          Padding(
                                             padding: EdgeInsets.all(
-                                                Get.width > 1000
-                                                    ? 42
-                                                    : 35),
+                                                Get.width > 1000 ? 42 : 37),
                                             child: AnimatedBuilder(
-                                              animation: _rotationAnimation1,
+                                              animation: _rotationAnimation,
                                               builder: (context, child) {
                                                 return Transform.rotate(
-                                                  origin: const Offset(
-                                                      0, 100),
-                                                  angle: -_rotationAnimation.value * 0.2,
-                                                  child:  Container(
-                                                      height: Get.width > 1500
-                                                          ? 450
-                                                          : Get.width > 1000
-                                                          ? 400
-                                                          : 400,
-                                                      // width: Get.width > 1500 ? 200
-                                                      //     : Get.width > 1000 ? 200
-                                                      //     : Get.width > 600 ? 200 : 200,
-                                                      width: Get.width > 1500 ? 285
-                                                          : Get.width > 1000 ? 250
-                                                          : Get.width > 600
-                                                          ? 250
-                                                          : 200,
-                                                      decoration: const BoxDecoration(
-                                                        // color: Colors.blue,
-                                                          borderRadius:
-                                                          BorderRadius.all(Radius.circular(5))),
-                                                      child:
-                                                      ClipRRect(
-                                                          borderRadius:
-                                                          const BorderRadius.all(Radius.circular(20)),
+                                                  angle: _rotationAnimation
+                                                      .value * 0.33,
+                                                  transformHitTests: true,
+                                                  child: Transform.rotate(
+                                                    angle: -math.pi / 15,
+                                                    child: Container(
+                                                        height: Get.width > 1500
+                                                            ? 450
+                                                            : Get.width > 1000
+                                                            ? 400
+                                                            : 400,
+                                                        // width: Get.width > 1500 ? 285
+                                                        //     : Get.width > 1000 ? 250
+                                                        //         : Get.width > 600 ? 200 : 200,
+                                                        width: Get.width > 1500
+                                                            ? 285
+                                                            : Get.width > 1000
+                                                            ? 250
+                                                            : Get.width > 600
+                                                            ? 250
+                                                            : 200,
+                                                        decoration: const BoxDecoration(
+                                                          // color: Colors.blue,
+                                                            borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    5))),
+                                                        child: buildMediaWidget(
+                                                            testimonialController
+                                                                .getTestimonal[webLandingPageController
+                                                                .belowCardIndex
+                                                                .value]['banner_mediatype']
+                                                                .toString(),
+                                                            testimonialController
+                                                                .getTestimonal[webLandingPageController
+                                                                .belowCardIndex
+                                                                .value]['banner']
+                                                                .toString())
+                                                      // ClipRRect(
+                                                      //       borderRadius:
+                                                      //       const BorderRadius.all(Radius.circular(20)),
+                                                      //
+                                                      //       child:  testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'] == "image" ||
+                                                      //           testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'] == "gif"?
+                                                      //       CachedNetworkImage(
+                                                      //         fit: BoxFit
+                                                      //             .cover,
+                                                      //         width: Get.width * 0.9,
+                                                      //         imageUrl:
+                                                      //         APIString.latestmediaBaseUrl +  testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString(),
+                                                      //         placeholder: (context, url) => Container(
+                                                      //           decoration: BoxDecoration(
+                                                      //             color: Color(int.parse(editController
+                                                      //                 .appDemoBgColor.value
+                                                      //                 .toString())),
+                                                      //           ),
+                                                      //         ),
+                                                      //         errorWidget: (context, url, error) =>
+                                                      //         const Icon(Icons.error),
+                                                      //
+                                                      //       )
+                                                      //           : displayUploadedVideo( testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString()),
+                                                      //     )
 
-                                                          child:
-                                                          buildMediaWidget(
-                                                              testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
-                                                              testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString())
-                                                      )
+                                                      // Image.asset("${featuredImage["image"]}"
+                                                      // )
+                                                    ),
+                                                    // Container(
+                                                    //   height: Get.width > 1500
+                                                    //       ? 450
+                                                    //       : Get.width > 1000
+                                                    //       ? 400
+                                                    //       : 400,
+                                                    //   // width: Get.width > 1500 ? 285
+                                                    //   //     : Get.width > 1000 ? 250
+                                                    //   //         : Get.width > 600 ? 200 : 200,
+                                                    //   width: Get.width > 1500 ? 285
+                                                    //       : Get.width > 1000 ? 250
+                                                    //       : Get.width > 600 ? 250 : 200,
+                                                    //   decoration:
+                                                    //   BoxDecoration(
+                                                    //     color:
+                                                    //     Colors.blue,
+                                                    //     image: DecorationImage(
+                                                    //         image: AssetImage(clientsTestimonial[webLandingPageController.belowCardIndex.value]["clientImage"]),
+                                                    //         fit: BoxFit
+                                                    //             .cover),
+                                                    //     borderRadius:
+                                                    //     BorderRadius
+                                                    //         .circular(
+                                                    //         10),
+                                                    //   ),
+                                                    // ),
                                                   ),
-
                                                 );
                                               },
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    )
-                                    // Center(
-                                    //   child: Stack(
-                                    //     children: [
-                                    //       Padding(
-                                    //         padding: EdgeInsets.all(Get.width > 1000 ? 42 : 37),
-                                    //         child: AnimatedBuilder(
-                                    //           animation: _rotationAnimation,
-                                    //           builder: (context, child) {
-                                    //             return Transform.rotate(
-                                    //               angle: _rotationAnimation.value * 0.33,
-                                    //               transformHitTests: true,
-                                    //               child: Transform.rotate(
-                                    //                 angle: -math.pi / 15,
-                                    //                 child: Container(
-                                    //                   height: Get.width > 1500
-                                    //                       ? 450
-                                    //                       : Get.width > 1000
-                                    //                       ? 400
-                                    //                       : 400,
-                                    //                   // width: Get.width > 1500 ? 285
-                                    //                   //     : Get.width > 1000 ? 250
-                                    //                   //         : Get.width > 600 ? 200 : 200,
-                                    //                   width: Get.width > 1500 ? 285
-                                    //                       : Get.width > 1000 ? 250
-                                    //                       : Get.width > 600 ? 250 : 200,
-                                    //                   decoration:
-                                    //                   BoxDecoration(
-                                    //                     color:
-                                    //                     Colors.blue,
-                                    //                     image: DecorationImage(
-                                    //                         image: AssetImage(clientsTestimonial[webLandingPageController.belowCardIndex.value]["clientImage"]),
-                                    //                         fit: BoxFit
-                                    //                             .cover),
-                                    //                     borderRadius:
-                                    //                     BorderRadius
-                                    //                         .circular(
-                                    //                         10),
-                                    //                   ),
-                                    //                 ),
-                                    //               ),
-                                    //             );
-                                    //           },
-                                    //         ),
-                                    //       ),
-                                    //       Positioned(
-                                    //         top: 5,
-                                    //         left: 10,
-                                    //         child: Padding(
-                                    //           padding: EdgeInsets.all(
-                                    //               Get.width > 1000
-                                    //                   ? 42
-                                    //                   : 35),
-                                    //           child: AnimatedBuilder(
-                                    //             animation: _rotationAnimation1,
-                                    //             builder: (context, child) {
-                                    //               return Transform.rotate(
-                                    //                 origin: const Offset(
-                                    //                     0, 100),
-                                    //                 angle: -_rotationAnimation.value * 0.2,
-                                    //                 child: Container(
-                                    //                   height: Get.width > 1500
-                                    //                       ? 450
-                                    //                       : Get.width > 1000
-                                    //                       ? 400
-                                    //                       : 400,
-                                    //                   // width: Get.width > 1500 ? 200
-                                    //                   //     : Get.width > 1000 ? 200
-                                    //                   //     : Get.width > 600 ? 200 : 200,
-                                    //                   width: Get.width > 1500 ? 285
-                                    //                       : Get.width > 1000 ? 250
-                                    //                       : Get.width > 600
-                                    //                       ? 250
-                                    //                       : 200,
-                                    //                   decoration: BoxDecoration(
-                                    //                       color: Colors.black,
-                                    //                       image: DecorationImage(
-                                    //                           image: AssetImage(clientsTestimonial[webLandingPageController
-                                    //                               .aboveCardIndex
-                                    //                               .value]
-                                    //                           [
-                                    //                           "clientImage"]),
-                                    //                           fit: BoxFit
-                                    //                               .cover),
-                                    //                       borderRadius:
-                                    //                       BorderRadius
-                                    //                           .circular(
-                                    //                           10)),
-                                    //                 ),
-                                    //               );
-                                    //             },
-                                    //           ),
-                                    //         ),
-                                    //       ),
-                                    //     ],
-                                    //   ),
-                                    // )
-                                  ],
+                                          Positioned(
+                                            top: 5,
+                                            left: 10,
+                                            child: Padding(
+                                              padding: EdgeInsets.all(
+                                                  Get.width > 1000
+                                                      ? 42
+                                                      : 35),
+                                              child: AnimatedBuilder(
+                                                animation: _rotationAnimation1,
+                                                builder: (context, child) {
+                                                  return Transform.rotate(
+                                                    origin: const Offset(
+                                                        0, 100),
+                                                    angle: -_rotationAnimation
+                                                        .value * 0.2,
+                                                    child: Container(
+                                                        height: Get.width > 1500
+                                                            ? 450
+                                                            : Get.width > 1000
+                                                            ? 400
+                                                            : 400,
+                                                        // width: Get.width > 1500 ? 200
+                                                        //     : Get.width > 1000 ? 200
+                                                        //     : Get.width > 600 ? 200 : 200,
+                                                        width: Get.width > 1500
+                                                            ? 285
+                                                            : Get.width > 1000
+                                                            ? 250
+                                                            : Get.width > 600
+                                                            ? 250
+                                                            : 200,
+                                                        decoration: const BoxDecoration(
+                                                          // color: Colors.blue,
+                                                            borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    5))),
+                                                        child:
+                                                        ClipRRect(
+                                                            borderRadius:
+                                                            const BorderRadius
+                                                                .all(
+                                                                Radius.circular(
+                                                                    20)),
+
+                                                            child:
+                                                            buildMediaWidget(
+                                                                testimonialController
+                                                                    .getTestimonal[webLandingPageController
+                                                                    .aboveCardIndex
+                                                                    .value]['banner_mediatype']
+                                                                    .toString(),
+                                                                testimonialController
+                                                                    .getTestimonal[webLandingPageController
+                                                                    .aboveCardIndex
+                                                                    .value]['banner']
+                                                                    .toString())
+                                                        )
+                                                    ),
+
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ),
+                              );
+                            }),
                           ),
                         ),
                       ],
@@ -1341,8 +1412,6 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                         .isEmpty
                         ? const SizedBox()
                         : Container(
-                      // height: 500,
-                      // width: Get.width>1500 ?800:Get.width>1000?600:Get.width>600 ?450:450,
                       decoration: BoxDecoration(
                           color: Colors.blue.withOpacity(0.2)),
                       padding: const EdgeInsets.all(25),
@@ -1358,18 +1427,6 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                     Radius.circular(10)),
                                 child: Container(
                                   height: 400,
-                                  // height: 300,
-                                  // width: Get.width > 1500 ? 175
-                                  //     : Get.width > 1000 ? 175
-                                  //     : Get.width > 600 ? 200 : 200,
-                                  // width: Get.width > 1500 ? 300
-                                  //     : Get.width > 1000 ? 300
-                                  //     :  325,
-                                  // child: Image.asset(
-                                  //   "assets/nature.jpeg",
-                                  //   fit: BoxFit.cover,
-                                  // ),
-                                  // margin: const EdgeInsets.only(left: 50,top: 10),
                                   child: Stack(
                                     children: [
                                       Padding(
@@ -1401,68 +1458,29 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                                     decoration: const BoxDecoration(
                                                       // color: Colors.blue,
                                                         borderRadius:
-                                                        BorderRadius.all(Radius.circular(5))),
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                5))),
                                                     child: ClipRRect(
                                                         borderRadius:
-                                                        const BorderRadius.all(Radius.circular(20)),
+                                                        const BorderRadius.all(
+                                                            Radius.circular(
+                                                                20)),
 
-                                                        child:  buildMediaWidget(
-                                                            testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
-                                                            testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString())
+                                                        child: buildMediaWidget(
+                                                            testimonialController
+                                                                .getTestimonal[webLandingPageController
+                                                                .belowCardIndex
+                                                                .value]['banner_mediatype']
+                                                                .toString(),
+                                                            testimonialController
+                                                                .getTestimonal[webLandingPageController
+                                                                .belowCardIndex
+                                                                .value]['banner']
+                                                                .toString())
 
-                                                      // testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'] == "image" ||
-                                                      //     testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'] == "gif"
-                                                      //     ? CachedNetworkImage(
-                                                      //   fit: BoxFit
-                                                      //       .cover,
-                                                      //   width: Get.width * 0.9,
-                                                      //   imageUrl:
-                                                      //   APIString.latestmediaBaseUrl +  testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString(),
-                                                      //   placeholder: (context, url) => Container(
-                                                      //     decoration: BoxDecoration(
-                                                      //       color: Color(int.parse(editController
-                                                      //           .appDemoBgColor.value
-                                                      //           .toString())),
-                                                      //     ),
-                                                      //   ),
-                                                      //   errorWidget: (context, url, error) =>
-                                                      //   const Icon(Icons.error),
-                                                      //
-                                                      // )
-                                                      //     : displayUploadedVideo( testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString()),
-                                                    )
-                                                  // Image.asset("${featuredImage["image"]}"
-                                                  // )
+                                                    ),
                                                 ),
-                                                // Container(
-                                                //   height: 350,
-                                                //   width: Get.width >
-                                                //       1500
-                                                //       ? 175
-                                                //       : Get.width > 1000
-                                                //       ? 175
-                                                //       : Get.width >
-                                                //       600
-                                                //       ? 200
-                                                //       : 200,
-                                                //   decoration:
-                                                //   BoxDecoration(
-                                                //     color: Colors.blue,
-                                                //     image: DecorationImage(
-                                                //         image: AssetImage(clientsTestimonial[
-                                                //         webLandingPageController
-                                                //             .belowCardIndex
-                                                //             .value]
-                                                //         [
-                                                //         "clientImage"]),
-                                                //         fit: BoxFit
-                                                //             .cover),
-                                                //     borderRadius:
-                                                //     BorderRadius
-                                                //         .circular(
-                                                //         10),
-                                                //   ),
-                                                // ),
                                               ),
                                             );
                                           },
@@ -1487,7 +1505,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                                 -_rotationAnimation
                                                     .value *
                                                     0.2,
-                                                child:  Container(
+                                                child: Container(
                                                     height: 350,
                                                     width: Get.width >
                                                         1500
@@ -1501,66 +1519,28 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                                     decoration: const BoxDecoration(
                                                       // color: Colors.blue,
                                                         borderRadius:
-                                                        BorderRadius.all(Radius.circular(5))),
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                5))),
                                                     child: ClipRRect(
                                                         borderRadius:
-                                                        const BorderRadius.all(Radius.circular(20)),
+                                                        const BorderRadius.all(
+                                                            Radius.circular(
+                                                                20)),
 
                                                         child: buildMediaWidget(
-                                                            testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
-                                                            testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString())
-                                                      // testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "image" ||
-                                                      //     testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "gif"
-                                                      //     ? CachedNetworkImage(
-                                                      //   fit: BoxFit
-                                                      //       .cover,
-                                                      //   width: Get.width * 0.9,
-                                                      //   imageUrl:
-                                                      //   APIString.latestmediaBaseUrl +  testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString(),
-                                                      //   placeholder: (context, url) => Container(
-                                                      //     decoration: BoxDecoration(
-                                                      //       color: Color(int.parse(editController
-                                                      //           .appDemoBgColor.value
-                                                      //           .toString())),
-                                                      //     ),
-                                                      //   ),
-                                                      //   errorWidget: (context, url, error) =>
-                                                      //   const Icon(Icons.error),
-                                                      //
-                                                      // )
-                                                      //     : displayUploadedVideo( testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString()),
-                                                    )
-                                                  // Image.asset("${featuredImage["image"]}"
-                                                  // )
+                                                            testimonialController
+                                                                .getTestimonal[webLandingPageController
+                                                                .aboveCardIndex
+                                                                .value]['banner_mediatype']
+                                                                .toString(),
+                                                            testimonialController
+                                                                .getTestimonal[webLandingPageController
+                                                                .aboveCardIndex
+                                                                .value]['banner']
+                                                                .toString())
+                                                    ),
                                                 ),
-
-                                                // Container(
-                                                //   height: 350,
-                                                //   width: Get.width >
-                                                //       1500
-                                                //       ? 175
-                                                //       : Get.width > 1000
-                                                //       ? 175
-                                                //       : Get.width >
-                                                //       600
-                                                //       ? 200
-                                                //       : 200,
-                                                //   decoration: BoxDecoration(
-                                                //       color:
-                                                //       Colors.black,
-                                                //       image: DecorationImage(
-                                                //           image: AssetImage(clientsTestimonial[webLandingPageController
-                                                //               .aboveCardIndex
-                                                //               .value]
-                                                //           [
-                                                //           "clientImage"]),
-                                                //           fit: BoxFit
-                                                //               .cover),
-                                                //       borderRadius:
-                                                //       BorderRadius
-                                                //           .circular(
-                                                //           10)),
-                                                // ),
                                               );
                                             },
                                           ),
@@ -1575,7 +1555,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           const SizedBox(height: 10),
                           Text(
                             // StaticString.loremIpsum,
-                            "${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['Description']}",
+                            "${testimonialController
+                                .getTestimonal[webLandingPageController.aboveCardIndex.value]['Description']}",
                             maxLines: 13,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -1583,24 +1564,28 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            // "ABC & Co.",
-                            "${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]["company_name"]}",
+                            "${testimonialController
+                                .getTestimonal[webLandingPageController
+                                .aboveCardIndex.value]["company_name"]}",
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 17),
                           ),
                           const SizedBox(height: 10),
                           Row(
-                            children:  [
+                            children: [
                               Text(
-                                // "Mr Gary",
-                                "${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['user_name']}",
+                                "${testimonialController
+                                    .getTestimonal[webLandingPageController
+                                    .aboveCardIndex.value]['user_name']}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 17),
                               ),
                               Text(
-                                " - ${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['Position']}",
+                                " - ${testimonialController
+                                    .getTestimonal[webLandingPageController
+                                    .aboveCardIndex.value]['Position']}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 17),
@@ -1625,7 +1610,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                       .belowCardIndex.value = 0;
                                   webLandingPageController
                                       .aboveCardIndex.value =
-                                      testimonialController.getTestimonal.length - 1;
+                                      testimonialController.getTestimonal
+                                          .length - 1;
                                 }
                                 setState(() {});
                                 _animationController.reset();
@@ -1649,11 +1635,11 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                             const SizedBox(width: 15),
                             InkWell(
                               onTap: () {
-                                print(
-                                    "1111111111111${webLandingPageController.aboveCardIndex.value}");
+                                print("1111111111111${webLandingPageController.aboveCardIndex.value}");
                                 if (webLandingPageController
                                     .aboveCardIndex.value <
-                                    testimonialController.getTestimonal.length - 1) {
+                                    testimonialController.getTestimonal.length -
+                                        1) {
                                   webLandingPageController
                                       .belowCardIndex.value =
                                       webLandingPageController
@@ -1666,7 +1652,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                 } else {
                                   webLandingPageController
                                       .belowCardIndex.value =
-                                      testimonialController.getTestimonal.length - 1;
+                                      testimonialController.getTestimonal
+                                          .length - 1;
                                   webLandingPageController
                                       .aboveCardIndex.value = 0;
                                 }
@@ -1724,7 +1711,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                         children: [
                           commonIconButton(
                               onTap: () async {
-                                html.window.open(AppString.playStoreAppLink,"_blank");
+                                html.window.open(
+                                    AppString.playStoreAppLink, "_blank");
                               },
                               icon: Icons.phone_android,
                               title: "Create Your App",
@@ -1734,12 +1722,18 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2),
-                              decoration : BoxDecoration(
-                                borderRadius: const BorderRadius.all(Radius.circular(2)),
-                                color: editController.allDataResponse[0]["live_app_count_bg"] == "hide"
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 2),
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(2)),
+                                color: editController
+                                    .allDataResponse[0]["live_app_count_bg"] ==
+                                    "hide"
                                     ? AppColors.transparentColor
-                                    : Color(int.parse(editController.allDataResponse[0]["live_app_count_bg_color"].toString()),
+                                    : Color(int.parse(editController
+                                    .allDataResponse[0]["live_app_count_bg_color"]
+                                    .toString()),
                                 ),
                               ),
                               child: Row(
@@ -1750,21 +1744,38 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                   const SizedBox(width: 8),
                                   Row(
                                     children: [
-                                      Obx(() => Text("${webLandingPageController.appLiveCount.value} ",style: GoogleFonts.getFont(editController.allDataResponse[0]["live_app_count_font"].toString()).copyWith(
-                                        // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
-                                        //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
-                                        //     : 14,
-                                        // fontWeight: FontWeight.w400,
-                                          color: Color(int.parse(editController.allDataResponse[0]["live_app_count_color"].toString()))))),
+                                      Obx(() =>
+                                          Text("${webLandingPageController
+                                              .appLiveCount.value} ",
+                                              style: GoogleFonts.getFont(
+                                                  editController
+                                                      .allDataResponse[0]["live_app_count_font"]
+                                                      .toString()).copyWith(
+                                                // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
+                                                //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
+                                                //     : 14,
+                                                // fontWeight: FontWeight.w400,
+                                                  color: Color(int.parse(
+                                                      editController
+                                                          .allDataResponse[0]["live_app_count_color"]
+                                                          .toString()))))),
                                       // Obx(() => Text(" people creating App")),
                                       Text(
-                                        editController.allDataResponse[0]["live_app_count_string"].toString(),
-                                        style: GoogleFonts.getFont(editController.allDataResponse[0]["live_app_count_font"].toString()).copyWith(
+                                        editController
+                                            .allDataResponse[0]["live_app_count_string"]
+                                            .toString(),
+                                        style: GoogleFonts.getFont(
+                                            editController
+                                                .allDataResponse[0]["live_app_count_font"]
+                                                .toString()).copyWith(
                                           // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
                                           //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
                                           //     : 14,
                                           // fontWeight: FontWeight.w400,
-                                            color: Color(int.parse(editController.allDataResponse[0]["live_app_count_color"].toString()))),
+                                            color: Color(int.parse(
+                                                editController
+                                                    .allDataResponse[0]["live_app_count_color"]
+                                                    .toString()))),
                                       ),
                                     ],
                                   ),
@@ -1781,7 +1792,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           FittedBox(fit: BoxFit.scaleDown,
                             child: commonIconButton(
                                 onTap: () {
-                                  html.window.open(AppString.websiteLink,"_blank");
+                                  html.window.open(
+                                      AppString.websiteLink, "_blank");
                                 },
                                 icon: Icons.language,
                                 title: "Create Your Website",
@@ -1791,12 +1803,18 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2),
-                              decoration : BoxDecoration(
-                                borderRadius: const BorderRadius.all(Radius.circular(2)),
-                                color: editController.allDataResponse[0]["live_web_count_bg"] == "hide"
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 2),
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(2)),
+                                color: editController
+                                    .allDataResponse[0]["live_web_count_bg"] ==
+                                    "hide"
                                     ? AppColors.transparentColor
-                                    : Color(int.parse(editController.allDataResponse[0]["live_web_count_bg_color"].toString()),
+                                    : Color(int.parse(editController
+                                    .allDataResponse[0]["live_web_count_bg_color"]
+                                    .toString()),
                                 ),
                               ),
                               child: Row(
@@ -1807,21 +1825,38 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                   const SizedBox(width: 8),
                                   Row(
                                     children: [
-                                      Obx(() => Text("${webLandingPageController.webLiveCount.value} ",style: GoogleFonts.getFont(editController.allDataResponse[0]["live_web_count_font"].toString()).copyWith(
-                                        // fontSize: editController.allDataResponse[0]["live_web_count_size"].toString() ==""
-                                        //     ? double.parse(editController.allDataResponse[0]["live_web_count_size"].toString())
-                                        //     : 14,
-                                        // fontWeight: FontWeight.w400,
-                                          color: Color(int.parse(editController.allDataResponse[0]["live_web_count_color"].toString()))),)),
+                                      Obx(() =>
+                                          Text("${webLandingPageController
+                                              .webLiveCount.value} ",
+                                            style: GoogleFonts.getFont(
+                                                editController
+                                                    .allDataResponse[0]["live_web_count_font"]
+                                                    .toString()).copyWith(
+                                              // fontSize: editController.allDataResponse[0]["live_web_count_size"].toString() ==""
+                                              //     ? double.parse(editController.allDataResponse[0]["live_web_count_size"].toString())
+                                              //     : 14,
+                                              // fontWeight: FontWeight.w400,
+                                                color: Color(int.parse(
+                                                    editController
+                                                        .allDataResponse[0]["live_web_count_color"]
+                                                        .toString()))),)),
                                       // Obx(() => Text(" people creating App")),
                                       Text(
-                                        editController.allDataResponse[0]["live_web_count_string"].toString(),
-                                        style: GoogleFonts.getFont(editController.allDataResponse[0]["live_web_count_font"].toString()).copyWith(
+                                        editController
+                                            .allDataResponse[0]["live_web_count_string"]
+                                            .toString(),
+                                        style: GoogleFonts.getFont(
+                                            editController
+                                                .allDataResponse[0]["live_web_count_font"]
+                                                .toString()).copyWith(
                                           // fontSize: editController.allDataResponse[0]["live_web_count_size"].toString() ==""
                                           //     ? double.parse(editController.allDataResponse[0]["live_web_count_size"].toString())
                                           //     : 14,
                                           // fontWeight: FontWeight.w400,
-                                            color: Color(int.parse(editController.allDataResponse[0]["live_web_count_color"].toString()))),
+                                            color: Color(int.parse(
+                                                editController
+                                                    .allDataResponse[0]["live_web_count_color"]
+                                                    .toString()))),
                                       ),
 
                                     ],
@@ -1868,9 +1903,9 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                             ? 15
                             : 15),
                     child: Row(
-                      children:  [
-                        Get.width > 500 ? const SizedBox( )
-                            :const SizedBox(width:  10),
+                      children: [
+                        Get.width > 500 ? const SizedBox()
+                            : const SizedBox(width: 10),
                         Expanded(
                           child:
                           // child: Text(
@@ -1884,27 +1919,45 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                           //       color: Colors.black),
                           // ),
                           InkWell(
-                            onTap: () => Get.dialog(
-                                TextEditModule(
-                                  textKeyName: "Blog_title",
-                                  colorKeyName: "Blog_title_color",
-                                  fontFamilyKeyName: "Blog_title_font",
-                                  textValue: editController.allDataResponse[0]["testimonials_details"][0]["Blog_title"].toString(),
-                                  fontFamily: editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_font"].toString(),
-                                  fontSize: editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_size"].toString(),
-                                  textColor: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_color"].toString())),
-                                )),
+                            onTap: () =>
+                                Get.dialog(
+                                    TextEditModule(
+                                      textKeyName: "Blog_title",
+                                      colorKeyName: "Blog_title_color",
+                                      fontFamilyKeyName: "Blog_title_font",
+                                      textValue: editController
+                                          .allDataResponse[0]["testimonials_details"][0]["Blog_title"]
+                                          .toString(),
+                                      fontFamily: editController
+                                          .allDataResponse[0]["testimonials_details"][0]["Blog_title_font"]
+                                          .toString(),
+                                      fontSize: editController
+                                          .allDataResponse[0]["testimonials_details"][0]["Blog_title_size"]
+                                          .toString(),
+                                      textColor: Color(int.parse(editController
+                                          .allDataResponse[0]["testimonials_details"][0]["Blog_title_color"]
+                                          .toString())),
+                                    )),
                             child: Text(
-                              editController.allDataResponse[0]["testimonials_details"][0]["Blog_title"]
+                              editController
+                                  .allDataResponse[0]["testimonials_details"][0]["Blog_title"]
                                   .toString(),
-                              style: GoogleFonts.getFont(editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_font"].toString()).copyWith(
-                                  fontSize: editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_size"].toString() !=""
-                                      ? double.parse(editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_size"].toString())
+                              style: GoogleFonts.getFont(editController
+                                  .allDataResponse[0]["testimonials_details"][0]["Blog_title_font"]
+                                  .toString()).copyWith(
+                                  fontSize: editController
+                                      .allDataResponse[0]["testimonials_details"][0]["Blog_title_size"]
+                                      .toString() != ""
+                                      ? double.parse(editController
+                                      .allDataResponse[0]["testimonials_details"][0]["Blog_title_size"]
+                                      .toString())
                                       : Get.width > 1000
                                       ? 50
                                       : 30,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_color"].toString()))),
+                                  color: Color(int.parse(editController
+                                      .allDataResponse[0]["testimonials_details"][0]["Blog_title_color"]
+                                      .toString()))),
                               textAlign: TextAlign.center,
 
                               // style: GoogleFonts.getFont(selectedFont).copyWith(
@@ -1912,8 +1965,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                             ),
                           ),
                         ),
-                        Get.width > 500 ? const SizedBox( )
-                            :const SizedBox(width:  10),
+                        Get.width > 500 ? const SizedBox()
+                            : const SizedBox(width: 10),
                       ],
                     ),
                   ),
@@ -1937,12 +1990,12 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
 
                       Container(
                         height: Get.width > 1500
-                            ? 300
+                            ? 325
                             : Get.width > 1000
-                            ? 275
+                            ? 300
                             : Get.width > 600
-                            ? 250
-                            : 200,
+                            ? 255
+                            : 205,
                         width: Get.width > 1500
                             ? Get.width - Get.width * 0.16
                             : Get.width > 1000
@@ -1966,7 +2019,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                 : Get.width < 500
                                 ? 250
                                 : 230,
-                            autoPlayAnimationDuration: const Duration(seconds: 1),
+                            autoPlayAnimationDuration: const Duration(
+                                seconds: 1),
                             // viewportFraction: 0.4,
                             viewportFraction: Get.width > 1300
                                 ? 0.3
@@ -1980,23 +2034,29 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                             autoPlay: true,
                           ),
                           items: blogController.blogdata.map((featuredImage) {
-
                             return InkWell(
-                              onTap: (){
+                              onTap: () {
                                 Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) => BlogDetailsScreen(
-                                      id: featuredImage["blog_auto_id"],
-                                      title:featuredImage["title"] ,
-                                      content:featuredImage["content"]  ,
-                                      name: featuredImage["userName"]  ,
-                                      media: featuredImage["media"]  ,
-                                      blogType: featuredImage["blogTypeKey"]  ,
-                                      mediaType:  featuredImage["media_type"]  ,
-                                      profileImg:  featuredImage["userImage"],
-                                      bgColor:  featuredImage["blogs_section_color"]  ,
-                                      blogDetails: List<Map<String, String>>.from(featuredImage["blog_details"].map((detail) => Map<String, String>.from(detail))),
+                                    MaterialPageRoute(builder: (context) =>
+                                        BlogDetailsScreen(
+                                          id: featuredImage["blog_auto_id"],
+                                          blogTypeKey: featuredImage["blogTypeKey"],
+                                          title: featuredImage["title"],
+                                          content: featuredImage["content"],
+                                          name: featuredImage["userName"],
+                                          media: featuredImage["media"],
+                                          blogType: featuredImage["blogTypeKey"],
+                                          mediaType: featuredImage["media_type"],
+                                          profileImg: featuredImage["userImage"],
+                                          bgColor: featuredImage["blogs_section_color"],
+                                          blogDetails: List<
+                                              Map<String, String>>.from(
+                                              featuredImage["blog_details"]
+                                                  .map((detail) =>
+                                              Map<String, String>.from(
+                                                  detail))),
 
-                                    )));
+                                        )));
                               },
                               child: Container(
                                 // width: 400,
@@ -2009,19 +2069,22 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                     : Get.width < 500
                                     ? Get.width - 30
                                     : 400,
-                                decoration:  BoxDecoration(
-                                    color: AppColors.whiteColor.withOpacity(0.8),
+                                decoration: BoxDecoration(
+                                    color: AppColors.whiteColor.withOpacity(
+                                        0.8),
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
-                                margin: const EdgeInsets.only(right: 5, left: 5),
+                                    const BorderRadius.all(Radius.circular(20))),
+                                margin: const EdgeInsets.only(
+                                    right: 5, left: 5),
                                 padding: const EdgeInsets.all(8),
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       "${featuredImage["title"]}",
                                       style: const TextStyle(
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 25,
+                                          fontSize: 20,
                                           color: Colors.black),
                                     ),
                                     const SizedBox(height: 8),
@@ -2030,54 +2093,137 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                                           "${featuredImage["content"]}",
                                           // overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
-                                              fontSize: 15, fontWeight: FontWeight.w200),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w200),
                                         )),
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.only(left: 8.0, bottom: 8,right: 8.0),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                height: 30,
-                                                width: 30,
-                                                child: Center(
-                                                  child: ClipRRect(
-                                                    borderRadius: const BorderRadius.all(Radius.circular(50)),
-                                                    child: CachedNetworkImage(
-                                                      imageUrl: APIString.latestmediaBaseUrl +featuredImage["userImage"].toString(),
-                                                      fit: BoxFit.cover,
-                                                      width: 30,
-                                                      height: 30,
-                                                      placeholder: (context, url) => Container(
-                                                        decoration: BoxDecoration(
-                                                          color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                                        ),
-                                                      ),
-                                                      errorWidget: (context, url, error) => const Icon(Icons.error),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-
-                                              const SizedBox(width: 8),
-
-                                              Padding(
-                                                padding: const EdgeInsets.only(top: 0),
-                                                child: Text("${featuredImage["userName"]}"),
-                                              ),
-                                            ],
-                                          ),
-                                          Text("Read more",style: AppTextStyle.regular400.copyWith(color: AppColors.blueColor),)
-                                        ],
-                                      ),
+                                    Align(
+                                      alignment: AlignmentDirectional.centerEnd,
+                                      child: Text("Read more",
+                                        style: AppTextStyle.regular400
+                                            .copyWith(
+                                            color: AppColors.blueColor),),
                                     ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .start,
+                                      children: [
+                                        Container(
+                                          height: 30,
+                                          width: 30,
+                                          child: Center(
+                                            child: ClipRRect(
+                                              borderRadius: const BorderRadius
+                                                  .all(
+                                                  Radius.circular(50)),
+                                              child: CachedNetworkImage(
+                                                imageUrl: APIString
+                                                    .latestmediaBaseUrl +
+                                                    featuredImage["userImage"]
+                                                        .toString(),
+                                                fit: BoxFit.cover,
+                                                width: 30,
+                                                height: 30,
+                                                placeholder: (context,
+                                                    url) =>
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Color(
+                                                            int.parse(
+                                                                editController
+                                                                    .appDemoBgColor
+                                                                    .value
+                                                                    .toString())),
+                                                      ),
+                                                    ),
+                                                errorWidget: (context,
+                                                    url, error) =>
+                                                const Icon(Icons.error),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+
+                                        const SizedBox(width: 8),
+
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 0),
+                                          child: Text(
+                                              "${featuredImage["userName"]}"),
+                                        ),
+                                      ],
+                                    ),
+                                    // Padding(
+                                    //   padding:
+                                    //   const EdgeInsets.only(
+                                    //       left: 8.0, bottom: 8, right: 8.0),
+                                    //   child: Row(
+                                    //     mainAxisAlignment: MainAxisAlignment
+                                    //         .spaceBetween,
+                                    //     children: [
+                                    //       Row(
+                                    //         mainAxisAlignment: MainAxisAlignment
+                                    //             .start,
+                                    //         children: [
+                                    //           Container(
+                                    //             height: 30,
+                                    //             width: 30,
+                                    //             child: Center(
+                                    //               child: ClipRRect(
+                                    //                 borderRadius: const BorderRadius
+                                    //                     .all(
+                                    //                     Radius.circular(50)),
+                                    //                 child: CachedNetworkImage(
+                                    //                   imageUrl: APIString
+                                    //                       .latestmediaBaseUrl +
+                                    //                       featuredImage["userImage"]
+                                    //                           .toString(),
+                                    //                   fit: BoxFit.cover,
+                                    //                   width: 30,
+                                    //                   height: 30,
+                                    //                   placeholder: (context,
+                                    //                       url) =>
+                                    //                       Container(
+                                    //                         decoration: BoxDecoration(
+                                    //                           color: Color(
+                                    //                               int.parse(
+                                    //                                   editController
+                                    //                                       .appDemoBgColor
+                                    //                                       .value
+                                    //                                       .toString())),
+                                    //                         ),
+                                    //                       ),
+                                    //                   errorWidget: (context,
+                                    //                       url, error) =>
+                                    //                   const Icon(Icons.error),
+                                    //                 ),
+                                    //               ),
+                                    //             ),
+                                    //           ),
+                                    //
+                                    //           const SizedBox(width: 8),
+                                    //
+                                    //           Padding(
+                                    //             padding: const EdgeInsets.only(
+                                    //                 top: 0),
+                                    //             child: Text(
+                                    //                 "${featuredImage["userName"]}"),
+                                    //           ),
+                                    //         ],
+                                    //       ),
+                                    //       Text("Read more",
+                                    //         style: AppTextStyle.regular400
+                                    //             .copyWith(
+                                    //             color: AppColors.blueColor),)
+                                    //     ],
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),
@@ -2102,7 +2248,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                     child: InkWell(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => const BlogListScreen()));
+                            MaterialPageRoute(
+                                builder: (context) => const BlogListScreen()));
                       },
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
@@ -2153,31 +2300,33 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                       ],
                     ),
                   ),
+
                   ///Blog Ends
                   const SizedBox(height: 80),
                 ],
               )
           );
-
-
         });
       },
     );
   }
+
   Widget displayUploadedVideo(String videoUrl) {
-    VideoPlayerController _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+videoUrl);
+    VideoPlayerController _controller = VideoPlayerController.network(
+        APIString.latestmediaBaseUrl + videoUrl);
     bool isVideoPlaying = false;
 
-    final double videoAspectRatio = /*_controller.value.aspectRatio > 0 ? _controller.value.aspectRatio :*/ 16 / 9;
+    final double videoAspectRatio = /*_controller.value.aspectRatio > 0 ? _controller.value.aspectRatio :*/ 16 /
+        9;
 
     return InkWell(
       onTap: () {
         if (_controller.value.isPlaying) {
-          isVideoPlaying=false;
+          isVideoPlaying = false;
           _controller.pause();
         } else {
           _controller.play();
-          isVideoPlaying=true;
+          isVideoPlaying = true;
         }
         // isVideoPlaying = !isVideoPlaying;
       },
@@ -2187,7 +2336,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
           if (snapshot.connectionState == ConnectionState.done) {
             return AspectRatio(
               // aspectRatio: _controller.value.aspectRatio,
-                aspectRatio: 16/9,
+                aspectRatio: 16 / 9,
                 // aspectRatio: 1 / 6,
                 child: Stack(
                   alignment: Alignment.center,
@@ -2202,7 +2351,6 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
                   ],
                 )
             );
-
           } else {
             return const Center(
               child: CircularProgressIndicator(
@@ -2214,7 +2362,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
       ),
     );
   }
-  Widget displayYoutubeVideo(String videoUrl, ) {
+
+  Widget displayYoutubeVideo(String videoUrl,) {
     final YoutubePlayerController _controller = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(videoUrl)!,
       flags: const YoutubePlayerFlags(
@@ -2242,8 +2391,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
     );
   }
 
-  Widget buildMediaWidget( String bannerMediaType, String bannerMedia) {
-
+  Widget buildMediaWidget(String bannerMediaType, String bannerMedia) {
     if (bannerMediaType == "image" || bannerMediaType == "gif") {
       return ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -2251,17 +2399,19 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
           fit: BoxFit.cover,
           width: Get.width * 0.9,
           imageUrl: APIString.latestmediaBaseUrl + bannerMedia,
-          placeholder: (context, url) => Container(
-            decoration: BoxDecoration(
-              color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-            ),
-          ),
+          placeholder: (context, url) =>
+              Container(
+                decoration: BoxDecoration(
+                  color: Color(int.parse(
+                      editController.appDemoBgColor.value.toString())),
+                ),
+              ),
           errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
       );
-    } else if(bannerMediaType == "video"){
+    } else if (bannerMediaType == "video") {
       return displayUploadedVideo(bannerMedia);
-    }else{
+    } else {
       return
         Center(
           child: ClipRRect(
@@ -2276,10 +2426,10 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
           ),
         );
     }
-
   }
 
-  Widget ytMediaWidget(String mediaType, String bannerMediaType, String bannerMedia,String youthtube) {
+  Widget ytMediaWidget(String mediaType, String bannerMediaType,
+      String bannerMedia, String youthtube) {
     if (mediaType == 'normal') {
       if (bannerMediaType == "image" || bannerMediaType == "gif") {
         return ClipRRect(
@@ -2302,11 +2452,13 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
               width: 160,
               height: 80,
               imageUrl: APIString.latestmediaBaseUrl + bannerMedia,
-              placeholder: (context, url) => Container(
-                decoration: BoxDecoration(
-                  color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                ),
-              ),
+              placeholder: (context, url) =>
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color(int.parse(
+                          editController.appDemoBgColor.value.toString())),
+                    ),
+                  ),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
@@ -2320,8 +2472,10 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>  with
       return Container();
     }
   }
+
   Widget ytvideo(String videoUrl, {double width = 200}) {
-    VideoPlayerController _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl + videoUrl);
+    VideoPlayerController _controller = VideoPlayerController.network(
+        APIString.latestmediaBaseUrl + videoUrl);
     bool isVideoPlaying = false;
 
     final double videoAspectRatio = 16 / 9;

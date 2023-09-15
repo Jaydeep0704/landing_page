@@ -58,7 +58,7 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
   CarouselController reviewCarouselController = CarouselController();
   LoginController loginController = Get.find<LoginController>();
   WebLandingPageController webLandingPageController =
-  Get.find<WebLandingPageController>();
+      Get.find<WebLandingPageController>();
   EditController editController = Get.find<EditController>();
   EditIntroController editIntroController = Get.find<EditIntroController>();
   EditHiwController editHiwController = Get.find<EditHiwController>();
@@ -98,7 +98,6 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
 
   Future<Position> getUserLocation() async {
     log("getUserLocation ----- 1");
-    // pricingScreenController.getPlansData(lat: "21.2378888", long: "72.863352");
     LocationPermission permission;
     log("getUserLocation ----- 2");
 
@@ -154,7 +153,7 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
   getDataFunction() {
     Future.delayed(
       Duration.zero,
-          () {
+      () {
         webLandingPageController.getUserCount(isFromInit: true);
       },
     );
@@ -162,11 +161,11 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
     // editController.geComponents();
     Future.delayed(
       Duration.zero,
-          () {
+      () {
         editController.getData().then((value) {
           Future.delayed(
             const Duration(seconds: 5),
-                () {
+            () {
               initializeVideo();
               print("inside timer ---- 10");
               initializeVideoHIW();
@@ -181,67 +180,84 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
     );
   }
 
-  getTestimonialData(){
-    Future.delayed(const Duration(microseconds: 20),() {
-      WidgetsBinding.instance.addPostFrameCallback((_){
-        Get.find<EditTestimonalController>().GetAppLogoes();
-        Get.find<EditTestimonalController>().GetTestimonal().then((value) {
-          webLandingPageController.belowCardIndex.value = Get.find<EditTestimonalController>().getTestimonal.length - 1;
+  getTestimonialData() {
+    Future.delayed(
+      const Duration(microseconds: 20),
+      () {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Get.find<EditTestimonalController>().GetAppLogoes();
+          Get.find<EditTestimonalController>().GetTestimonal().then((value) {
+            webLandingPageController.belowCardIndex.value =
+                Get.find<EditTestimonalController>().getTestimonal.length - 1;
+          });
+          Get.find<EditBlogController>().getBlogData();
         });
-        Get.find<EditBlogController>().getBlogData();
-      });
-    },);
-
+      },
+    );
   }
-  geComponents(){
-    Future.delayed(const Duration(microseconds: 20),() {
-      WidgetsBinding.instance.addPostFrameCallback((_){
-        editController.geComponents();
-      });
-    },);
 
-  }
-  getShowcaseData(){
-    Future.delayed(const Duration(microseconds: 25),() {
-      WidgetsBinding.instance.addPostFrameCallback((_){
-        Get.find<ShowCaseAppsController>().getShowCaseApi();
-      });
-    },);
-
-  }
-  getBenefitBannerData(){
-    Future.delayed(const Duration(microseconds: 30),() {
-      WidgetsBinding.instance.addPostFrameCallback((_){
-        benefitBannerController.getDataApi().whenComplete(() {
+  geComponents() {
+    Future.delayed(
+      const Duration(microseconds: 20),
+      () {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          editController.geComponents();
         });
-      });
-    },);
+      },
+    );
   }
-  getNumbersBannerData(){
+
+  getShowcaseData() {
+    Future.delayed(
+      const Duration(microseconds: 25),
+      () {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Get.find<ShowCaseAppsController>().getShowCaseApi();
+        });
+      },
+    );
+  }
+
+  getBenefitBannerData() {
+    Future.delayed(
+      const Duration(microseconds: 30),
+      () {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          benefitBannerController.getDataApi().whenComplete(() {});
+        });
+      },
+    );
+  }
+
+  getNumbersBannerData() {
     Future.delayed(const Duration(microseconds: 35), () {
       numberBannerController.getPartnerLogo();
     });
   }
-  getCaseStudyData(){
+
+  getCaseStudyData() {
     Future.delayed(const Duration(microseconds: 40), () {
       Get.find<EditCaseStudyController>().getCaseStudy();
     });
   }
-  getCheckoutInfoData(){
+
+  getCheckoutInfoData() {
     Future.delayed(const Duration(microseconds: 45), () {
-      WidgetsBinding.instance.addPostFrameCallback((_){
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         Get.find<CheckOutInfoController>().getCheckOutApi();
       });
     });
   }
-  getAppDemoData(){
+
+  getAppDemoData() {
     Future.delayed(const Duration(microseconds: 50), () {
-      WidgetsBinding.instance.addPostFrameCallback((_){
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         Get.find<AddProjectController>().getProjectData();
       });
     });
   }
-  getAddressData(){
+
+  getAddressData() {
     Future.delayed(const Duration(microseconds: 50), () {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Get.find<EditInfoController>().getImages();
@@ -256,24 +272,22 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
 
       ///
       if (editController.allDataResponse[0]["intro_details"][0]
-      ["intro_bot_file_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["intro_bot_file_mediatype"]
+              .toString()
+              .toLowerCase() ==
           "video") {
         log("-=-=-=-=-   inside intro_bot_file_mediatype");
         editIntroController.introBotController =
             VideoPlayerController.networkUrl(Uri.parse(APIString.mediaBaseUrl +
                 editController.allDataResponse[0]["intro_details"][0]
-                ["intro_bot_file"]
+                        ["intro_bot_file"]
                     .toString()));
-        log("-=-=-=-=-   inside intro_bot_file_mediatype ${editIntroController
-            .introBotController.setVolume(0)}");
+        log("-=-=-=-=-   inside intro_bot_file_mediatype ${editIntroController.introBotController.setVolume(0)}");
         // Future.delayed(const Duration(seconds: 1),() async {
         await editIntroController.introBotController
             .initialize()
             .whenComplete(() {
-          log("-=-=-=-=-   inside <><><><><> ${editIntroController
-              .introBotController}");
+          log("-=-=-=-=-   inside <><><><><> ${editIntroController.introBotController}");
           editIntroController.introBotController.setLooping(true);
           editIntroController.introBotController.setVolume(0);
           editIntroController.isBotVideoInitialized.value = true;
@@ -287,35 +301,31 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
 
       ///---------------
       if (editController.allDataResponse[0]["intro_details"][0]
-      ["intro_gif1_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["intro_gif1_mediatype"]
+              .toString()
+              .toLowerCase() ==
           "video") {
         log("-=-=-=-=- inside - intro_gif1_mediatype");
 
         editIntroController.introGif1Controller =
             VideoPlayerController.networkUrl(Uri.parse(APIString.mediaBaseUrl +
                 editController.allDataResponse[0]["intro_details"][0]
-                ["intro_gif1"]
+                        ["intro_gif1"]
                     .toString()));
         // Future.delayed(const Duration(seconds: 0), () async{
         log("-=-=-=-=- inside - editController.allDataResponse.isNotEmpty");
         await editIntroController.introGif1Controller
             .initialize()
             .whenComplete(() {
-          log("-=-=-=-=- inside - video --- ${editIntroController
-              .introGif1Controller}");
+          log("-=-=-=-=- inside - video --- ${editIntroController.introGif1Controller}");
           editIntroController.introGif1Controller.setLooping(true);
           editIntroController.introGif1Controller.setVolume(0);
-          log("-=-=-=-=- inside - isIntroGif1Initialized ${editIntroController
-              .isIntroGif1Initialized.value}");
+          log("-=-=-=-=- inside - isIntroGif1Initialized ${editIntroController.isIntroGif1Initialized.value}");
           editIntroController.isIntroGif1Initialized.value = true;
           Future.delayed(
             const Duration(seconds: 10),
-                () {
-              log(
-                  "-=-=-=-=- inside - isIntroGif1Initialized ${editIntroController
-                      .isIntroGif1Initialized.value}");
+            () {
+              log("-=-=-=-=- inside - isIntroGif1Initialized ${editIntroController.isIntroGif1Initialized.value}");
             },
           );
           editIntroController.introGif1Controller.play();
@@ -329,15 +339,15 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
 
       ///----------
       if (editController.allDataResponse[0]["intro_details"][0]
-      ["intro_gif2_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["intro_gif2_mediatype"]
+              .toString()
+              .toLowerCase() ==
           "video") {
         log("-=-=-=-=- inside - editController.allDataResponse.isNotEmpty");
         editIntroController.introGif2Controller =
             VideoPlayerController.networkUrl(Uri.parse(APIString.mediaBaseUrl +
                 editController.allDataResponse[0]["intro_details"][0]
-                ["intro_gif2"]
+                        ["intro_gif2"]
                     .toString()));
         await editIntroController.introGif2Controller
             .initialize()
@@ -415,10 +425,16 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
       //   editHiwController.isBotVideoInitialized.value = false;
       // }
 
-
-      if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == "video"){
+      if (editController.allDataResponse[0]["how_it_works_details"][0]
+                  ["hiw_gif_mediatype"]
+              .toString()
+              .toLowerCase() ==
+          "video") {
         editHiwController.editBotController = VideoPlayerController.networkUrl(
-            Uri.parse(APIString.mediaBaseUrl + editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString()));
+            Uri.parse(APIString.mediaBaseUrl +
+                editController.allDataResponse[0]["how_it_works_details"][0]
+                        ["hiw_gif"]
+                    .toString()));
 
         editHiwController.editBotChewieController = ChewieController(
           videoPlayerController: editHiwController.editBotController,
@@ -431,13 +447,11 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
           editHiwController.isEditBotVideoInitialized.value = true;
           setState(() {});
         });
-
-      }}
-    else {
+      }
+    } else {
       editHiwController.isEditBotVideoInitialized.value = false;
     }
   }
-
 
   initializeVideoMixBanner() async {
     log("-=-=-=-=-   editController.allDataResponse.isNotEmpty");
@@ -446,14 +460,14 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
 
       ///------------mix banner
       if (editController.allDataResponse[0]["mix_banner_details"][0]
-      ["mix_banner_file_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["mix_banner_file_mediatype"]
+              .toString()
+              .toLowerCase() ==
           "video") {
         mixBannerController.videoController = VideoPlayerController.networkUrl(
             Uri.parse(APIString.mediaBaseUrl +
                 editController.allDataResponse[0]["mix_banner_details"][0]
-                ["mix_banner_file"]
+                        ["mix_banner_file"]
                     .toString()));
         await mixBannerController.videoController.initialize().whenComplete(() {
           // Future.delayed(const Duration(seconds: 2),() {
@@ -477,14 +491,14 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
 
       ///------------mix banner
       if (editController.allDataResponse[0]["benefit_banner_details"][0]
-      ["benefit_banner_file_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["benefit_banner_file_mediatype"]
+              .toString()
+              .toLowerCase() ==
           "video") {
         benefitBannerController.videoController =
             VideoPlayerController.networkUrl(Uri.parse(APIString.mediaBaseUrl +
                 editController.allDataResponse[0]["benefit_banner_details"][0]
-                ["benefit_banner_file"]
+                        ["benefit_banner_file"]
                     .toString()));
         await benefitBannerController.videoController
             .initialize()
@@ -512,14 +526,14 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
 
       ///------------mix banner
       if (editController.allDataResponse[0]["checkout_details"][0]
-      ["checkout_file_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["checkout_file_mediatype"]
+              .toString()
+              .toLowerCase() ==
           "video") {
         editCheckOutController.checkvideoController =
             VideoPlayerController.networkUrl(Uri.parse(APIString.mediaBaseUrl +
                 editController.allDataResponse[0]["checkout_details"][0]
-                ["checkout_file"]
+                        ["checkout_file"]
                     .toString()));
         await editCheckOutController.checkvideoController
             .initialize()
@@ -545,15 +559,15 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
 
       ///------------NUMBER BANNER
       if (editController.allDataResponse[0]["numbers_banner_details"][0]
-      ["numbers_banner_file1_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["numbers_banner_file1_mediatype"]
+              .toString()
+              .toLowerCase() ==
           "video") {
         log("-=-=-=-=- inside - editController.allDataResponse.isNotEmpty");
         numberBannerController.media1Controller =
             VideoPlayerController.networkUrl(Uri.parse(APIString.mediaBaseUrl +
                 editController.allDataResponse[0]["numbers_banner_details"][0]
-                ["numbers_banner_file1"]
+                        ["numbers_banner_file1"]
                     .toString()));
         await numberBannerController.media1Controller
             .initialize()
@@ -575,15 +589,15 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
 
       ///------------
       if (editController.allDataResponse[0]["numbers_banner_details"][0]
-      ["numbers_banner_file2_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["numbers_banner_file2_mediatype"]
+              .toString()
+              .toLowerCase() ==
           "video") {
         log("-=-=-=-=- inside - editController.allDataResponse.isNotEmpty");
         numberBannerController.media2Controller =
             VideoPlayerController.networkUrl(Uri.parse(APIString.mediaBaseUrl +
                 editController.allDataResponse[0]["numbers_banner_details"][0]
-                ["numbers_banner_file2"]
+                        ["numbers_banner_file2"]
                     .toString()));
         await numberBannerController.media2Controller
             .initialize()
@@ -607,15 +621,15 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
 
       ///------------
       if (editController.allDataResponse[0]["numbers_banner_details"][0]
-      ["numbers_banner_file3_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["numbers_banner_file3_mediatype"]
+              .toString()
+              .toLowerCase() ==
           "video") {
         log("-=-=-=-=- inside - editController.allDataResponse.isNotEmpty");
         numberBannerController.media3Controller =
             VideoPlayerController.networkUrl(Uri.parse(APIString.mediaBaseUrl +
                 editController.allDataResponse[0]["numbers_banner_details"][0]
-                ["numbers_banner_file3"]
+                        ["numbers_banner_file3"]
                     .toString()));
         await numberBannerController.media3Controller
             .initialize()
@@ -643,73 +657,72 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
     if (editController.allDataResponse.isNotEmpty) {
       log("dispose called when list isNotEmpty");
       if (editController.allDataResponse[0]["intro_details"][0]
-      ["intro_bot_file_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["intro_bot_file_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         editIntroController.introBotController.pause();
         editIntroController.introBotController.dispose();
         // editIntroController.introBotControllerChewie!.dispose();
       }
       if (editController.allDataResponse[0]["intro_details"][0]
-      ["intro_gif1_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["intro_gif1_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         editIntroController.introGif1Controller.pause();
         editIntroController.introGif1Controller.dispose();
       }
       if (editController.allDataResponse[0]["intro_details"][0]
-      ["intro_gif2_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["intro_gif2_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         editIntroController.introGif2Controller.pause();
         editIntroController.introGif2Controller.dispose();
       }
       //----------how it works
       if (editController.allDataResponse[0]["how_it_works_details"][0]
-      ["hiw_gif_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["hiw_gif_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         editHiwController.editBotController.pause();
         editHiwController.editBotController.dispose();
         editHiwController.editBotChewieController.dispose();
-
       }
       //----------mix banner
       if (editController.allDataResponse[0]["mix_banner_details"][0]
-      ["mix_banner_file_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["mix_banner_file_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         mixBannerController.videoController.pause();
         mixBannerController.videoController.dispose();
       }
       //----------NUMBER BANNER
       if (editController.allDataResponse[0]["numbers_banner_details"][0]
-      ["numbers_banner_file1_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["numbers_banner_file1_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         numberBannerController.media1Controller.pause();
         numberBannerController.media1Controller.dispose();
       }
       //--------------
       if (editController.allDataResponse[0]["numbers_banner_details"][0]
-      ["numbers_banner_file2_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["numbers_banner_file2_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         numberBannerController.media2Controller.pause();
         numberBannerController.media2Controller.dispose();
       }
       //--------------
       if (editController.allDataResponse[0]["numbers_banner_details"][0]
-      ["numbers_banner_file3_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["numbers_banner_file3_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         numberBannerController.media3Controller.pause();
         numberBannerController.media3Controller.dispose();
@@ -746,10 +759,12 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
                   child: Container(
                     margin: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 15),
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
                         border: Border.all(color: AppColors.blackColor),
-                        borderRadius: const BorderRadius.all(Radius.circular(8))),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8))),
                     child: Center(
                       child: Text(
                         "Logout",
@@ -765,35 +780,38 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
             body: SizedBox(
                 width: Get.width,
                 child: Obx(() {
-                  return editController.allDataResponse.isEmpty && editController.homeComponentList.isEmpty
+                  return editController.allDataResponse.isEmpty &&
+                          editController.homeComponentList.isEmpty
                       ? const SizedBox()
                       : ReorderableListView.builder(
-                      cacheExtent: 5000,
-                      itemCount: editController.homeComponentList.length,
-                      onReorder: reorderData,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          key: ValueKey(editController.homeComponentList[index]),
-                          child: getComponentUi(editController.homeComponentList[index]),
-                        );
-                      });
+                          cacheExtent: 5000,
+                          itemCount: editController.homeComponentList.length,
+                          onReorder: reorderData,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              key: ValueKey(
+                                  editController.homeComponentList[index]),
+                              child: getComponentUi(
+                                  editController.homeComponentList[index]),
+                            );
+                          });
                 })
-              // child: SingleChildScrollView(
-              //   physics: const AlwaysScrollableScrollPhysics(),
-              //   child: ReorderableListView(
-              //     shrinkWrap: true,
-              //     onReorder: reorderData,
-              //     children: <Widget>[
-              //       for (final items in listOfScreens)
-              //         Card(
-              //           key: ValueKey(items),
-              //           elevation: 2,
-              //           child: items,
-              //         ),
-              //     ],
-              //   ),
-              // ),
-            ),
+                // child: SingleChildScrollView(
+                //   physics: const AlwaysScrollableScrollPhysics(),
+                //   child: ReorderableListView(
+                //     shrinkWrap: true,
+                //     onReorder: reorderData,
+                //     children: <Widget>[
+                //       for (final items in listOfScreens)
+                //         Card(
+                //           key: ValueKey(items),
+                //           elevation: 2,
+                //           child: items,
+                //         ),
+                //     ],
+                //   ),
+                // ),
+                ),
           ),
         );
       },
@@ -802,7 +820,8 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
 
   Future<void> reorderData(int oldIndex, int newIndex) async {
     String id = editController.homeComponentList[oldIndex]["_id"];
-    editController.reorderComponent(id: id,newindex: newIndex.toString(),oldIndex: oldIndex.toString());
+    editController.reorderComponent(
+        id: id, newindex: newIndex.toString(), oldIndex: oldIndex.toString());
     setState(() {
       if (newIndex > oldIndex) {
         newIndex -= 1;
@@ -817,7 +836,6 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
   }
 
   List listOfScreens = [
-
     ///first part starts from here
     const EditIntroSection(),
 
@@ -906,13 +924,12 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
       return const EditCheckoutSection();
     } else if (homeComponent["component_name"].toString() == "apps_demo") {
       return const EditAppsDemoSection();
-    }   else if (homeComponent["component_name"].toString() == "footer_section") {
+    } else if (homeComponent["component_name"].toString() == "footer_section") {
       return const EditInfoSection();
-    }
-    else if (homeComponent["component_name"].toString() == "address_section") {
+    } else if (homeComponent["component_name"].toString() ==
+        "address_section") {
       return const EditAddressSection();
-    }
-    else {
+    } else {
       return Container();
     }
   }

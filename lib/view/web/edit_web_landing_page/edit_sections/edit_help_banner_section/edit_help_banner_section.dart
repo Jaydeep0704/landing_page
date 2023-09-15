@@ -49,7 +49,7 @@ class _EditHelpBannerSectionState extends State<EditHelpBannerSection> {
                   errorListener: () =>  const Icon(Icons.error),),fit: BoxFit.cover)
             ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
                   child: SizedBox(
                     width: Get.width > 1200 ? Get.width * 0.5 : Get.width > 600
                         ? Get.width * 0.65
@@ -131,9 +131,7 @@ class _EditHelpBannerSectionState extends State<EditHelpBannerSection> {
                         ),
                         SizedBox(height: Get.width > 600 ? Get.width * 0.015 : Get
                             .width * 0.03),
-                        // Text("Need help to decide?",
-                        //   style: AppTextStyle.regular800.copyWith(color: AppColors
-                        //       .darkPurpleColor, fontSize: 20),),
+
 
                         InkWell(
                           onTap: () => Get.dialog(
@@ -162,9 +160,7 @@ class _EditHelpBannerSectionState extends State<EditHelpBannerSection> {
 
                         SizedBox(height: Get.width > 600 ? Get.width * 0.015 : Get
                             .width * 0.03),
-                        // Text("Find out which plan is right for you",
-                        //   style: AppTextStyle.regularBold.copyWith(color: AppColors
-                        //       .blackColor, fontSize: 24),),
+
                         InkWell(
                           onTap: () => Get.dialog(
                               TextEditModule(
@@ -192,9 +188,7 @@ class _EditHelpBannerSectionState extends State<EditHelpBannerSection> {
 
                         SizedBox(height: Get.width > 600 ? Get.width * 0.015 : Get
                             .width * 0.03),
-                        // Text("In less than 60 seconds",
-                        //   style: AppTextStyle.regularBold.copyWith(color: AppColors
-                        //       .blackColor, fontSize: 16),),
+
                         InkWell(
                           onTap: () => Get.dialog(
                               TextEditModule(
@@ -222,17 +216,7 @@ class _EditHelpBannerSectionState extends State<EditHelpBannerSection> {
 
                         SizedBox(height: Get.width > 600 ? Get.width * 0.015 : Get
                             .width * 0.03),
-                        // FittedBox(
-                        //   fit: BoxFit.scaleDown,
-                        //   child: Container(
-                        //       padding: const EdgeInsets.symmetric(
-                        //           horizontal: 25, vertical: 15),
-                        //       decoration: BoxDecoration(
-                        //           color: AppColors.greenColor.withOpacity(0.7)),
-                        //       child: Center(child: Text("Help me find a plan",
-                        //         style: AppTextStyle.regularBold.copyWith(
-                        //             color: AppColors.blackColor, fontSize: 16),))),
-                        // ),
+
                         InkWell(
                           onTap: () => Get.dialog(
                               TextEditModule(

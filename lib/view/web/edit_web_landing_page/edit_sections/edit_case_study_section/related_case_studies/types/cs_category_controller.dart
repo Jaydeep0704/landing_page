@@ -20,7 +20,8 @@ class CSCategoriesController extends GetxController {
       log("inside getRelatedCaseStudies ---------2");
       showLoadingDialog();
       relatedCaseStudies.clear();
-
+      ////blogTypeKey as a blog_type
+      //case_study_type
       var response = await HttpHandler.postHttpMethod(
           url: APIString.related_casestudy,
           data: {
