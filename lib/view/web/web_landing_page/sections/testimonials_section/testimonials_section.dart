@@ -1410,16 +1410,6 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                           :const SizedBox(width:  10),
                       Expanded(
                         child:
-                        // child: Text(
-                        //   "Blogs",
-                        //   textAlign: TextAlign.center,
-                        //   style: TextStyle(
-                        //     // fontSize: 40,
-                        //     //   fontSize: Get.width >1000 ?50:30,
-                        //       fontSize: 24,
-                        //       fontWeight: FontWeight.bold,
-                        //       color: Colors.black),
-                        // ),
                         Center(
                           child: Text(
                             editController.allDataResponse[0]["testimonials_details"][0]["Blog_title"]

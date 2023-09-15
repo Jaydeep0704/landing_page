@@ -204,9 +204,9 @@ class _EditTextBannerSectionState extends State<EditTextBannerSection> {
                   InkWell(
                     onTap: () => Get.dialog(
                         TextEditModule(
-                          textKeyName: "text_banner_heading",
-                          colorKeyName: "text_banner_heading_color",
-                          fontFamilyKeyName: "text_banner_heading_font",
+                          textKeyName: "text_banner_description",
+                          colorKeyName: "text_banner_description_color",
+                          fontFamilyKeyName: "text_banner_description_font",
                           textValue: editController.allDataResponse[0]["text_banner_details"][0]["text_banner_description"].toString(),
                           fontFamily: editController.allDataResponse[0]["text_banner_details"][0]["text_banner_description_font"].toString(),
                           fontSize: editController.allDataResponse[0]["text_banner_details"][0]["text_banner_description_size"].toString(),

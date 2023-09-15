@@ -387,25 +387,30 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
       //   editHiwController.isBotVideoInitialized.value = false;
       // }
 
-
-      if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == "video"){
+      if (editController.allDataResponse[0]["how_it_works_details"][0]
+                  ["hiw_gif_mediatype"]
+              .toString()
+              .toLowerCase() ==
+          "video") {
         editHiwController.botController = VideoPlayerController.networkUrl(
-          Uri.parse(APIString.mediaBaseUrl + editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString()));
+            Uri.parse(APIString.mediaBaseUrl +
+                editController.allDataResponse[0]["how_it_works_details"][0]
+                        ["hiw_gif"]
+                    .toString()));
 
-      editHiwController.botChewieController = ChewieController(
-        videoPlayerController: editHiwController.botController,
-        allowFullScreen: false,
-        autoPlay: false,
-        looping: true,
-      );
+        editHiwController.botChewieController = ChewieController(
+          videoPlayerController: editHiwController.botController,
+          allowFullScreen: false,
+          autoPlay: false,
+          looping: true,
+        );
 
-      editHiwController.botController.initialize().then((_) {
-        editHiwController.isBotVideoInitialized.value = true;
-        setState(() {});
-      });
-
-    }}
-    else {
+        editHiwController.botController.initialize().then((_) {
+          editHiwController.isBotVideoInitialized.value = true;
+          setState(() {});
+        });
+      }
+    } else {
       editHiwController.isBotVideoInitialized.value = false;
     }
   }
@@ -606,12 +611,20 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
         editIntroController.introGif1Controller.pause();
         editIntroController.introGif1Controller.dispose();
       }
-      if (editController.allDataResponse[0]["intro_details"][0]["intro_gif2_mediatype"].toString().toLowerCase() == 'video') {
+      if (editController.allDataResponse[0]["intro_details"][0]
+                  ["intro_gif2_mediatype"]
+              .toString()
+              .toLowerCase() ==
+          'video') {
         editIntroController.introGif2Controller.pause();
         editIntroController.introGif2Controller.dispose();
       }
       //----------how it works
-      if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == 'video') {
+      if (editController.allDataResponse[0]["how_it_works_details"][0]
+                  ["hiw_gif_mediatype"]
+              .toString()
+              .toLowerCase() ==
+          'video') {
         editHiwController.botController.pause();
         editHiwController.botController.dispose();
         editHiwController.botChewieController.dispose();
@@ -672,84 +685,91 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                 return editController.allDataResponse.isEmpty &&
                         editController.homeComponentList.isEmpty
                     ? const SizedBox()
-                  //   : ListView.builder(
-                  // controller: _scrollController,
-                  //       itemCount: editController.homeComponentList.length,
-                  //       itemBuilder: (context, index) =>
-                  //           Container(
-                  //             key: ValueKey(editController.homeComponentList[index]),
-                  //             child: getComponentUi(editController.homeComponentList[index]["component_name"],keyScroll: PricingSection.pricingSectionKey),
-                  //           ));
-                    : SingleChildScrollView(
+                    //   : ListView.builder(
+                    // controller: _scrollController,
+                    //       itemCount: editController.homeComponentList.length,
+                    //       itemBuilder: (context, index) =>
+                    //           Container(
+                    //             key: ValueKey(editController.homeComponentList[index]),
+                    //             child: getComponentUi(editController.homeComponentList[index]["component_name"],keyScroll: PricingSection.pricingSectionKey),
+                    //           ));
+                    : Scrollbar(
                         controller: _scrollController,
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ///first part starts from here ----  intro
-                            const IntroSection(),
+                        trackVisibility: true,
+                        thickness: 15,
+                        interactive: true,
+                        isAlwaysShown: true,
+                        child: SingleChildScrollView(
+                          controller: _scrollController,
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ///first part starts from here ----  intro
+                              const IntroSection(),
 
-                            ///second part starts from here ---- showcase_apps
-                            const ShowcaseAppsSection(),
+                              ///second part starts from here ---- showcase_apps
+                              const ShowcaseAppsSection(),
 
-                            ///third part starts here --- how_it_works
-                            const HowItWorksSection(),
+                              ///third part starts here --- how_it_works
+                              const HowItWorksSection(),
 
-                            ///fourth part starts from here --- testimonials
-                            //Phase2
-                            TestimonialsSection(
-                              scrollToPricingSection: _scrollToPricingSection,
-                            ),
+                              ///fourth part starts from here --- testimonials
+                              //Phase2
+                              TestimonialsSection(
+                                scrollToPricingSection: _scrollToPricingSection,
+                              ),
 
-                            ///fifth part starts from here --- text_banner
-                            //Phase2
-                            const TextBannerSection(),
+                              ///fifth part starts from here --- text_banner
+                              //Phase2
+                              const TextBannerSection(),
 
-                            ///sixth part starts from here --- mix_banner
-                            const MixBannerSection(),
+                              ///sixth part starts from here --- mix_banner
+                              const MixBannerSection(),
 
-                            ///seventh part from here --- benefit_banner
-                            //Phase2
-                            const BenefitBannerSection(),
+                              ///seventh part from here --- benefit_banner
+                              //Phase2
+                              const BenefitBannerSection(),
 
-                            ///eighth part from here - shopify checkout view --- numbers_banner
-                            const NumbersBannerSection(),
+                              ///eighth part from here - shopify checkout view --- numbers_banner
+                              const NumbersBannerSection(),
 
-                            ///ninth part from here - Builder.ai help select plan --- help_banner
-                            //Phase2
-                            HelpBannerSection(
-                              scrollToPricingSection: _scrollToPricingSection,
-                            ),
+                              ///ninth part from here - Builder.ai help select plan --- help_banner
+                              //Phase2
+                              HelpBannerSection(
+                                scrollToPricingSection: _scrollToPricingSection,
+                              ),
 
-                            ///tenth part from here - Builder.ai/pricing case study --- case_study
-                            //Phase2
-                            const CaseStudySection(),
+                              ///tenth part from here - Builder.ai/pricing case study --- case_study
+                              //Phase2
+                              const CaseStudySection(),
 
-                            ///Eleven part from here - shopify/checkout - info section of checkout for every apps --- checkout_info
-                            //Phase2
-                            const CheckoutInfoSection(),
+                              ///Eleven part from here - shopify/checkout - info section of checkout for every apps --- checkout_info
+                              //Phase2
+                              const CheckoutInfoSection(),
 
-                            ///twelfth part from here - Builder.ai/pricing platform vise price --- pricing
-                            PricingSection(
-                                key: PricingSection.pricingSectionKey),
+                              ///twelfth part from here - Builder.ai/pricing platform vise price --- pricing
+                              PricingSection(
+                                  key: PricingSection.pricingSectionKey),
 
-                            ///Thirteen part from here - shopify - info displaying how fast it is --- checkout
-                            //Phase2
-                            const CheckoutSection(),
+                              ///Thirteen part from here - shopify - info displaying how fast it is --- checkout
+                              //Phase2
+                              const CheckoutSection(),
 
-                            ///Fourteen part from here - builder.ai/pricing - carousel showing different apps images --- apps_demo
-                            const AppsDemoSection(),
+                              ///Fourteen part from here - builder.ai/pricing - carousel showing different apps images --- apps_demo
+                              const AppsDemoSection(),
 
-                            ///Don't open
-                            ///Fifteenth part from here - shopify/checkout - payment method overview --- how app works
-                            // FifteenthSection(),
+                              ///Don't open
+                              ///Fifteenth part from here - shopify/checkout - payment method overview --- how app works
+                              // FifteenthSection(),
 
-                            ///info section ---> Note : get this data from backend --- info
-                            const InfoSection(),
+                              ///info section ---> Note : get this data from backend --- info
+                              const InfoSection(),
 
-                            ///Address Section ---> Note : Static data--- Address
-                            const AddressSection(),
-                          ],
+                              ///Address Section ---> Note : Static data--- Address
+                              const AddressSection(),
+                            ],
+                          ),
                         ),
                       );
               }),
@@ -762,7 +782,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
 
   void _scrollToPricingSection() {
     final RenderObject? pricingSectionRenderObject =
-    PricingSection.pricingSectionKey.currentContext?.findRenderObject();
+        PricingSection.pricingSectionKey.currentContext?.findRenderObject();
     log("_scrollToPricingSection    ------ 1");
     log("pricingSectionRenderObject    ------ ${pricingSectionRenderObject}");
 
@@ -771,7 +791,9 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
 
       log("sjhfjhsgfjgsjhfjk  :::::: ${pricingSectionRenderObject.getTransformTo(null).getTranslation().y}");
 
-      _scrollController.animateTo(_scrollController.position.pixels + pricingSectionRenderObject.getTransformTo(null).getTranslation().y,
+      _scrollController.animateTo(
+        _scrollController.position.pixels +
+            pricingSectionRenderObject.getTransformTo(null).getTranslation().y,
         duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
@@ -779,7 +801,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     log("_scrollToPricingSection    ------ 3");
   }
 
-  getComponentUi(homeComponent,{var keyScroll}) {
+  getComponentUi(homeComponent, {var keyScroll}) {
     if (homeComponent == "intro") {
       return const IntroSection();
     } else if (homeComponent == "showcase_apps") {

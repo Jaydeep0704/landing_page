@@ -32,11 +32,53 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
   final editController = Get.find<EditController>();
   final ScrollController controller = ScrollController();
   final numberBannerController = Get.find<NumberBannerController>();
+  final ScrollController _scrollController1 = ScrollController();
+
+  void _scrollListenerBack1() {
+    if (_scrollController1.offset <=
+        _scrollController1.position.minScrollExtent &&
+        !_scrollController1.position.outOfRange) {
+      // setState(() {
+      //   _showButtonBack1 = false;
+      // });
+    } else {
+      // setState(() {
+      //   _showButtonBack1 = true;
+      // });
+    }
+  }
+
+  void _scrollListenerForward1() {
+    if (_scrollController1.offset >=
+        _scrollController1.position
+            .maxScrollExtent /* &&
+        !_scrollController.position.outOfRange*/
+    ) {
+      // setState(() {
+      //   _showButtonForward1 = false;
+      // });
+    } else {
+      // setState(() {
+      //   _showButtonForward1 = true;
+      // });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    // Future.delayed(Duration.zero,(){numberBannerController.getPartnerLogo();} );
+    _scrollController1.addListener(_scrollListenerBack1);
+    _scrollController1.addListener(_scrollListenerForward1);
+    // Future.delayed(Duration.zero, () {
+    //   numberBannerController.getPartnerLogo();
+    // });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _scrollController1.dispose();
   }
 
   @override
@@ -1480,89 +1522,146 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
                     ),
                   ),
                 ),
-                Container(
-                  width: Get.width,
-                  decoration: const BoxDecoration(color: AppColors.whiteColor),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Container(
-                          height: 70,
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          child: Obx(() {
-                            return numberBannerController.partnerBannerLogos.isEmpty
-                                ? ListView.builder(
-                              // padding: EdgeInsets.only(right: 15),
-                              physics: const AlwaysScrollableScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              // itemCount: companiesData.length,
-                              itemCount: 5,
-                              itemBuilder: (context, index) {
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: Get.width,
+                      decoration: const BoxDecoration(color: AppColors.whiteColor),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: Container(
+                              height: 70,
+                              margin: const EdgeInsets.symmetric(vertical: 10),
+                              child: Obx(() {
+                                return numberBannerController.partnerBannerLogos.isEmpty
+                                    ? ListView.builder(
+                                  // padding: EdgeInsets.only(right: 15),
+                                  physics: const AlwaysScrollableScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  // itemCount: companiesData.length,
+                                  itemCount: 5,
+                                  itemBuilder: (context, index) {
 
-                                return Padding(
-                                  padding: const EdgeInsets.only(right: 15.0),
-                                  child: ClipOval(
-                                    clipBehavior: Clip.antiAlias,
-                                    // borderRadius: BorderRadius.all(Radius.circular(25)),
-                                    child: Container(
-                                      height: 70,
-                                      width: 70,
-                                      color: AppColors.greyColor,
-                                    ),
-                                  ),
-                                );
-                              },
-                            )
-                                : ListView.builder(
-                              padding: const EdgeInsets.only(right: 15),
-                              physics: const AlwaysScrollableScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              // itemCount: companiesData.length,
-                              itemCount: numberBannerController
-                                  .partnerBannerLogos.length,
-                              itemBuilder: (context, index) {
-                                var data = numberBannerController
-                                    .partnerBannerLogos[index];
-                                return Padding(
-                                  padding: const EdgeInsets.only(right: 15.0),
-                                  child: ClipOval(
-                                    clipBehavior: Clip.antiAlias,
-                                    // borderRadius: BorderRadius.all(Radius.circular(25)),
-                                    child: CachedNetworkImage(
-                                      height: 70,
-                                      width: 70,
-                                      fit: BoxFit.cover,
-                                      imageUrl: APIString.bannerMediaUrl +
-                                          data["images"].toString(),
-                                      placeholder: (context, url) =>
-                                          Container(
-                                              height: 150,
-                                              width: 150,
-                                              decoration: const BoxDecoration(
-                                                color: AppColors.greyColor,
-                                              )),
-                                      // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
-                                      errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                    ),
-                                  ),
-                                );
+                                    return Padding(
+                                      padding: const EdgeInsets.only(right: 15.0),
+                                      child: ClipOval(
+                                        clipBehavior: Clip.antiAlias,
+                                        // borderRadius: BorderRadius.all(Radius.circular(25)),
+                                        child: Container(
+                                          height: 70,
+                                          width: 70,
+                                          color: AppColors.greyColor,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                )
+                                    : ListView.builder(
+                                  padding: const EdgeInsets.only(right: 15),
+                                  physics: const AlwaysScrollableScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  // itemCount: companiesData.length,
+                                  itemCount: numberBannerController
+                                      .partnerBannerLogos.length,
+                                  itemBuilder: (context, index) {
+                                    var data = numberBannerController
+                                        .partnerBannerLogos[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.only(right: 15.0),
+                                      child: ClipOval(
+                                        clipBehavior: Clip.antiAlias,
+                                        // borderRadius: BorderRadius.all(Radius.circular(25)),
+                                        child: CachedNetworkImage(
+                                          height: 70,
+                                          width: 70,
+                                          fit: BoxFit.cover,
+                                          imageUrl: APIString.bannerMediaUrl +
+                                              data["images"].toString(),
+                                          placeholder: (context, url) =>
+                                              Container(
+                                                  height: 150,
+                                                  width: 150,
+                                                  decoration: const BoxDecoration(
+                                                    color: AppColors.greyColor,
+                                                  )),
+                                          // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
+                                          errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                        ),
+                                      ),
+                                    );
 
-                                return Image.asset(
-                                  "${companiesData[index]["logo"]}",
-                                  height: 150,
-                                  width: 150,
+                                    return Image.asset(
+                                      "${companiesData[index]["logo"]}",
+                                      height: 150,
+                                      width: 150,
+                                    );
+                                  },
                                 );
-                              },
-                            );
-                          }),
-                        ),
+                              }),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                 Row(
+                     mainAxisAlignment:MainAxisAlignment.spaceEvenly,
+                     children: [
+                       Obx(() {
+                         return numberBannerController
+                             .partnerBannerLogos.isEmpty ? SizedBox() : IconButton(
+                             onPressed: () {
+                               // performMultipleScrolls(3);
+                               int currentIndex = _scrollController1.hasClients
+                                   ? (_scrollController1.position.maxScrollExtent -
+                                   _scrollController1.position.pixels) ~/
+                                   56
+                                   : 0;
+                               int targetIndex = currentIndex + 2;
+                               if (targetIndex < numberBannerController
+                                   .partnerBannerLogos.length) {
+                                 _scrollController1.animateTo(
+                                   _scrollController1.position.maxScrollExtent -
+                                       targetIndex * 56.0,
+                                   duration: const Duration(milliseconds: 500),
+                                   curve: Curves.easeInOut,
+                                 );
+                               }
+                             },
+                             icon: const Icon(Icons.arrow_back_ios));
+                       }),
+
+                       Obx(() {
+                         return numberBannerController
+                             .partnerBannerLogos.isEmpty?SizedBox():IconButton(
+                             onPressed: () {
+                               int currentIndex = _scrollController1.hasClients
+                                   ? (_scrollController1.position.minScrollExtent +
+                                   _scrollController1.position.pixels) ~/
+                                   56
+                                   : 0;
+                               int targetIndex = currentIndex + 2;
+                               if (targetIndex < numberBannerController
+                                   .partnerBannerLogos.length) {
+                                 _scrollController1.animateTo(
+                                   _scrollController1.position.minScrollExtent +
+                                       targetIndex * 56.0,
+                                   duration: const Duration(milliseconds: 500),
+                                   curve: Curves.easeInOut,
+                                 );
+                               }
+                               // performMultipleScrolls1(3);
+                             },
+                             icon: const Icon(Icons.arrow_forward_ios_outlined));
+                       }),
+                     ],
+                 )
+                  ],
                 )
               ],
             ),

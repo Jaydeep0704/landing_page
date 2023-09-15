@@ -37,13 +37,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Grobiz Landing Page',
+      title: 'Grobiz AI App Builder',
       debugShowCheckedModeBanner: false,
       scrollBehavior: MyCustomScrollBehavior(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home:  MyCarousel(),
       initialRoute: PageRoutes.initialRoute,
       routes: routesPage,
     );
@@ -54,14 +53,12 @@ class _MyAppState extends State<MyApp> {
     bool? isLogin = prefs.getBool('is_login');
     if (isLogin == true) {
       log("going to edit screen");
-      // return const EditWebLandingScreen();
       Get.off(() => const EditWebLandingScreen());
     } else {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Future.delayed(const Duration(seconds: 0), () {
           log("going to regular screen");
           Get.off(() => const WebLandingScreen());
-          // Get.off(()=>const CareersScreen());
         });
       });
     }
@@ -69,7 +66,6 @@ class _MyAppState extends State<MyApp> {
 
   Future<Position> getUserLocation() async {
     log("getUserLocation ----- 1");
-    // pricingScreenController.getPlansData(lat: "21.2378888", long: "72.863352");
     LocationPermission permission;
     log("getUserLocation ----- 2");
 

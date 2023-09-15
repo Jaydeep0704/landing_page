@@ -230,8 +230,8 @@ class _EditHowItWorksSectionState extends State<EditHowItWorksSection> {
                           // width: 350,
                           // height: 800,
                           // width: 400,
-                          height: Get.width > 800 ?  800 : 450,
-                          width: Get.width > 800 ?  800 : 450,
+                          height: Get.width > 800 ?  600 : 450,
+                          width: Get.width > 800 ?  600 : 450,
 
                           decoration:  editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString().isEmpty
                               ? const BoxDecoration()

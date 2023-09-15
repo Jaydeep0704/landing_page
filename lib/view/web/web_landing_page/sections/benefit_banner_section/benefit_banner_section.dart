@@ -112,9 +112,11 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                   ClipRRect(
                                     borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
-                                    child: SizedBox(
-                                        height: Get.width > 1000 ? 600 : 400,
-                                        width: Get.width > 1000 ? 415 : 275,
+                                    child: Container(
+
+                                        height: Get.width > 1000 ? 700 : 400,
+                                        // width: Get.width > 1000 ? 415 : 275,
+                                        width: Get.width > 1000 ? 700 : 400,
                                         child: buildMediaWidget()
                                     ),
                                   ),
@@ -246,117 +248,9 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                 ],
                               ),
                             ),
-                            // commonIconButtonSmall(
-                            //     margin: EdgeInsets.zero,
-                            //     padding: const EdgeInsets.symmetric(
-                            //         horizontal: 0, vertical: 5),
-                            //     fontSize: 12,
-                            //     icon: Icons.perm_phone_msg_sharp,
-                            //     title: "Chat to our expert",
-                            //     btnColor: Colors.blue.withOpacity(0.7),
-                            //     txtColor: Colors.white),
                           ],
                         ),
                         const SizedBox(height: 25),
-                        ///here need to change
-                        // Column(
-                        //   children: [
-                        //     Row(
-                        //       crossAxisAlignment: CrossAxisAlignment.start,
-                        //       mainAxisAlignment: MainAxisAlignment.start,
-                        //       children: [
-                        //         CircleAvatar(
-                        //             radius: 10,
-                        //             backgroundColor: AppColors.blueColor
-                        //                 .withOpacity(0.1),
-                        //             child: const Center(
-                        //                 child: Icon(
-                        //                   Icons.radio_button_checked_rounded,
-                        //                   size: 15,
-                        //                   opticalSize: 15,
-                        //                   color: AppColors.blueColor,
-                        //                 ))),
-                        //         const SizedBox(width: 12),
-                        //         SizedBox(
-                        //           width: Get.width * 0.25,
-                        //           child: Column(
-                        //             children: [
-                        //               Column(
-                        //                 crossAxisAlignment: CrossAxisAlignment
-                        //                     .start,
-                        //                 children: [
-                        //                   Text("Title Title Title",
-                        //                       style: AppTextStyle.regularBold
-                        //                           .copyWith(fontSize: 20)),
-                        //                   const SizedBox(height: 10),
-                        //                   Text(StaticString.content,
-                        //                       style: AppTextStyle.regular300
-                        //                           .copyWith(fontSize: 14))
-                        //                 ],
-                        //               ),
-                        //
-                        //             ],
-                        //           ),
-                        //         )
-                        //       ],
-                        //     ),
-                        //     SizedBox(height: Get.width * 0.02),
-                        //     const Divider(
-                        //       thickness: 0.8,
-                        //       color: AppColors.blackColor,
-                        //     ),
-                        //   ],
-                        // ),
-                        // const SizedBox(height: 25),
-                        // Column(
-                        //   children: [
-                        //     ///here is need to change...
-                        //     Row(
-                        //       crossAxisAlignment: CrossAxisAlignment.start,
-                        //       mainAxisAlignment: MainAxisAlignment.start,
-                        //       children: [
-                        //         CircleAvatar(
-                        //             radius: 10,
-                        //             backgroundColor: AppColors.blueColor
-                        //                 .withOpacity(0.1),
-                        //             child: const Center(
-                        //                 child: Icon(
-                        //                   Icons.radio_button_checked_rounded,
-                        //                   size: 15,
-                        //                   opticalSize: 15,
-                        //                   color: AppColors.blueColor,
-                        //                 ))),
-                        //         const SizedBox(width: 12),
-                        //         SizedBox(
-                        //           width: Get.width * 0.25,
-                        //           child: Column(
-                        //             children: [
-                        //               Column(
-                        //                 crossAxisAlignment: CrossAxisAlignment
-                        //                     .start,
-                        //                 children: [
-                        //                   Text("Title Title Title",
-                        //                       style: AppTextStyle.regularBold
-                        //                           .copyWith(fontSize: 20)),
-                        //                   const SizedBox(height: 10),
-                        //                   Text(StaticString.content,
-                        //                       style: AppTextStyle.regular300
-                        //                           .copyWith(fontSize: 14))
-                        //                 ],
-                        //               ),
-                        //
-                        //             ],
-                        //           ),
-                        //         )
-                        //       ],
-                        //     ),
-                        //     SizedBox(height: Get.width * 0.02),
-                        //     Divider(
-                        //       thickness: 0.8,
-                        //       color: AppColors.blackColor.withOpacity(0.5),
-                        //     ),
-                        //   ],
-                        // ),
                         Obx(() {
                           if (benefitBannerController.DataList.isNotEmpty) {
                             return
@@ -505,8 +399,9 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                   borderRadius:
                                   const BorderRadius.all(Radius.circular(10)),
                                   child: SizedBox(
-                                      height: Get.width > 1000 ? 600 : 400,
-                                      width: Get.width > 1000 ? 415 : 275,
+                                      height: Get.width > 1000 ? 700 : 400,
+                                      // width: Get.width > 1000 ? 415 : 275,
+                                      width: Get.width > 1000 ? 700 : 400,
                                       child: buildMediaWidget()
                                   ),
                                 ),
@@ -744,11 +639,7 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
         errorWidget: (context, url, error) =>
         const Icon(Icons.error),
       );
-      // return CachedNetworkImage(
-      //   imageUrl: widget.introBotFile,
-      //   placeholder: (context, url) => const CircularProgressIndicator(),
-      //   errorWidget: (context, url, error) => const Icon(Icons.error),
-      // );
+
     }
     else if (editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file_mediatype"].toString().toLowerCase() == "video") {
       return Obx(() {
@@ -761,16 +652,6 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
           // : const CircularProgressIndicator();
               : const Center(child: CircularProgressIndicator());});
     }
-    // else if (editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_file_mediatype"].toString().toLowerCase() == "video") {
-    //   return mixBannerController.isVideoInitialized.value
-    //       ? AspectRatio(
-    //     aspectRatio: mixBannerController.videoController!.value.aspectRatio,
-    //     // child: VideoPlayer(mixBannerController.videoController!),
-    //     child:  Chewie(controller: mixBannerController.videoControllerChewie!),
-    //   )
-    //   // : const CircularProgressIndicator();
-    //       : const Center(child: CircularProgressIndicator());
-    // }
     else if (editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file_mediatype"].toString().toLowerCase() == "gif") {
       if(editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file"].toString().toLowerCase().toString().endsWith(".mp4")){
         return benefitBannerController.isVideoInitialized.value

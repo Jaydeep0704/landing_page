@@ -9,23 +9,15 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:getwidget/getwidget.dart';
 import '../helpController.dart';
 
-
-
 class FaqScreen extends StatefulWidget {
-
   FaqScreen();
-
 
   @override
   State<FaqScreen> createState() => FaqScreenState();
 }
 
 class FaqScreenState extends State<FaqScreen> {
-
-
-
   FaqScreenState();
-
 
   final helpController = Get.find<HelpController>();
 
@@ -33,56 +25,45 @@ class FaqScreenState extends State<FaqScreen> {
   void initState() {
     super.initState();
     helpController.getFaqData();
-
   }
-
 
   void showAlert(BuildContext context) {
     showDialog(
         context: context,
-        builder: (context) => const Center(child: CircularProgressIndicator(),));
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar:   AppBar(
+      appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
-        title: Text("FAQ", style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
+        title: Text("FAQ",
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold)),
         leading: IconButton(
           onPressed: Navigator.of(context).pop,
-          icon: Icon(Icons.arrow_back, color:  Colors.black),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: Icon(
-              Icons.home,
-              color: Colors.black,
-            ),
-          ),
-        ],
       ),
-
-      body:Container(
+      body: Container(
         padding: Get.width > 1500
             ? const EdgeInsets.only(left: 100, right: 300)
             : Get.width > 1000
-            ? const EdgeInsets.only(left: 100, right: 150)
-            : Get.width > 500
-            ? const EdgeInsets.only(left: 10, right: 10)
-            : const EdgeInsets.only(left: 10, right: 10),
-        child:
-
-        FutureBuilder<bool>(
+                ? const EdgeInsets.only(left: 100, right: 150)
+                : Get.width > 500
+                    ? const EdgeInsets.only(left: 10, right: 10)
+                    : const EdgeInsets.only(left: 10, right: 10),
+        child: FutureBuilder<bool>(
           future: helpController.getAboutUs(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-
               return Container(
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
@@ -91,13 +72,10 @@ class FaqScreenState extends State<FaqScreen> {
                 ),
               );
             } else {
-
               if (snapshot.hasError) {
                 return Text('Error occurred while fetching data.');
               } else {
-
                 if (snapshot.data == true) {
-
                   return SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +87,6 @@ class FaqScreenState extends State<FaqScreen> {
                     ),
                   );
                 } else {
-
                   return Text('Error occurred while fetching data.');
                 }
               }
@@ -118,9 +95,5 @@ class FaqScreenState extends State<FaqScreen> {
         ),
       ),
     );
-
-
-
   }
-
 }
