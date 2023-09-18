@@ -788,7 +788,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                   const SizedBox(height: 40),
 
                   ///testimonial 2 starts
-                  ///inspired testimonial
+                    ///inspired testimonial
                   Align(
                     alignment: AlignmentDirectional.centerEnd,
                     child: FittedBox(
@@ -932,23 +932,14 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                 crossAxisAlignment:
                                 CrossAxisAlignment.start,
                                 children: [
-                                  /*  Get.width > 350
-                                              ? */Text(
+                                  Text(
                                     "${testimonialController
                                         .getTestimonal[webLandingPageController
                                         .aboveCardIndex.value]['Description']}",
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 17),
-                                  ) /*
-                                              : Text(
-                                                  "${clientsTestimonial[webLandingPageController.aboveCardIndex.value]["content"]}",
-                                                  maxLines: 13,
-                                                  style: const TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 17),
-                                                )*/,
-                                  // const SizedBox(height: 10),
+                                  ) ,
                                   const Spacer(),
                                   Row(
                                     mainAxisAlignment:
@@ -966,8 +957,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                     ],
                                   ),
                                   const SizedBox(height: 10),
-                                  /*Get.width > 350
-                                              ?*/
+
                                   Row(
                                     children: [
                                       Text(
@@ -992,33 +982,9 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                             fontSize: 17),
                                       ),
                                     ],
-                                  )
-                                  /*
-                                              : Column(
-                                                  children: [
-                                                    FittedBox(
-                                                        fit: BoxFit.scaleDown,
-                                                        child: Text(
-                                                          "${clientsTestimonial[webLandingPageController.aboveCardIndex.value]["name"]}",
-                                                          style: const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight.bold,
-                                                              fontSize: 10),
-                                                        )),
-                                                    const FittedBox(
-                                                        fit: BoxFit.scaleDown,
-                                                        child: Text(
-                                                          " - owner",
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight.w400,
-                                                              fontSize: 10),
-                                                        )),
-                                                  ],
-                                                )*/,
+                                  ),
                                   const SizedBox(height: 20),
-                                  /* Get.width > 350
-                                              ?*/
+
                                   Row(
                                     children: [
                                       InkWell(
@@ -1129,77 +1095,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                         ),
                                       ),
                                     ],
-                                  )
-                                  /*
-                                              : Row(children: [
-                                                  FittedBox(
-                                                      fit: BoxFit.scaleDown,
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          if (webLandingPageController.aboveCardIndex.value >
-                                                              0) {
-                                                            webLandingPageController.belowCardIndex.value =
-                                                                webLandingPageController.aboveCardIndex.value;
-                                                            webLandingPageController.aboveCardIndex.value--;
-                                                          } else {
-                                                            webLandingPageController.belowCardIndex.value = 0;
-                                                            webLandingPageController.aboveCardIndex.value =
-                                                                clientsTestimonial.length - 1;
-                                                          }
-                                                          setState(() {});
-                                                          _animationController
-                                                              .reset();
-                                                          Future.delayed(
-                                                              const Duration(
-                                                                  seconds: 0),
-                                                              () {
-                                                            _animationController.forward(from: 0).whenComplete(() {
-                                                              _animationController.reverse(from: 1);
-                                                              // stop = false;
-                                                            });
-                                                          });
-                                                        },
-                                                        child: const Icon(
-                                                          Icons.arrow_circle_left_outlined,
-                                                          size: 20,
-                                                        ),
-                                                      )),
-                                                  const SizedBox(width: 5),
-                                                  FittedBox(
-                                                      fit: BoxFit.scaleDown,
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          print(
-                                                              "1111111111111${webLandingPageController.aboveCardIndex.value}");
-                                                          if (webLandingPageController.aboveCardIndex.value < clientsTestimonial.length - 1) {
-                                                            webLandingPageController.belowCardIndex.value = webLandingPageController.aboveCardIndex.value;
-                                                            webLandingPageController.aboveCardIndex.value++;
-                                                          } else {
-                                                            webLandingPageController.belowCardIndex.value = clientsTestimonial.length - 1;
-                                                            webLandingPageController.aboveCardIndex.value = 0;
-                                                          }
-                                                          setState(() {});
-                                                          _animationController.reset();
-                                                          Future.delayed(
-                                                              const Duration(seconds: 0),
-                                                              () {
-                                                            _animationController
-                                                                .forward(from: 0)
-                                                                .whenComplete(() {
-                                                              _animationController
-                                                                  .reverse(
-                                                                from: 1,
-                                                              );
-                                                              // stop = false;
-                                                            });
-                                                          });
-                                                        },
-                                                        child: const Icon(
-                                                          Icons.arrow_circle_right_outlined,
-                                                          size: 20,
-                                                        ),
-                                                      )),
-                                                ])*/,
+                                  ),
                                 ],
                               ),
                             ),
@@ -1251,12 +1147,10 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                             : Get.width > 600
                                                             ? 250
                                                             : 200,
-                                                        decoration: const BoxDecoration(
+                                                        decoration: BoxDecoration(
                                                           // color: Colors.blue,
-                                                            borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    5))),
+                                                            border: Border.all(color: AppColors.blackColor,width: 1),
+                                                            borderRadius: BorderRadius.all(Radius.circular(20))),
                                                         child: buildMediaWidget(
                                                             testimonialController
                                                                 .getTestimonal[webLandingPageController
@@ -1268,61 +1162,9 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                                 .belowCardIndex
                                                                 .value]['banner']
                                                                 .toString())
-                                                      // ClipRRect(
-                                                      //       borderRadius:
-                                                      //       const BorderRadius.all(Radius.circular(20)),
-                                                      //
-                                                      //       child:  testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'] == "image" ||
-                                                      //           testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'] == "gif"?
-                                                      //       CachedNetworkImage(
-                                                      //         fit: BoxFit
-                                                      //             .cover,
-                                                      //         width: Get.width * 0.9,
-                                                      //         imageUrl:
-                                                      //         APIString.latestmediaBaseUrl +  testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString(),
-                                                      //         placeholder: (context, url) => Container(
-                                                      //           decoration: BoxDecoration(
-                                                      //             color: Color(int.parse(editController
-                                                      //                 .appDemoBgColor.value
-                                                      //                 .toString())),
-                                                      //           ),
-                                                      //         ),
-                                                      //         errorWidget: (context, url, error) =>
-                                                      //         const Icon(Icons.error),
-                                                      //
-                                                      //       )
-                                                      //           : displayUploadedVideo( testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString()),
-                                                      //     )
 
-                                                      // Image.asset("${featuredImage["image"]}"
-                                                      // )
                                                     ),
-                                                    // Container(
-                                                    //   height: Get.width > 1500
-                                                    //       ? 450
-                                                    //       : Get.width > 1000
-                                                    //       ? 400
-                                                    //       : 400,
-                                                    //   // width: Get.width > 1500 ? 285
-                                                    //   //     : Get.width > 1000 ? 250
-                                                    //   //         : Get.width > 600 ? 200 : 200,
-                                                    //   width: Get.width > 1500 ? 285
-                                                    //       : Get.width > 1000 ? 250
-                                                    //       : Get.width > 600 ? 250 : 200,
-                                                    //   decoration:
-                                                    //   BoxDecoration(
-                                                    //     color:
-                                                    //     Colors.blue,
-                                                    //     image: DecorationImage(
-                                                    //         image: AssetImage(clientsTestimonial[webLandingPageController.belowCardIndex.value]["clientImage"]),
-                                                    //         fit: BoxFit
-                                                    //             .cover),
-                                                    //     borderRadius:
-                                                    //     BorderRadius
-                                                    //         .circular(
-                                                    //         10),
-                                                    //   ),
-                                                    // ),
+
                                                   ),
                                                 );
                                               },
@@ -1350,9 +1192,6 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                             : Get.width > 1000
                                                             ? 400
                                                             : 400,
-                                                        // width: Get.width > 1500 ? 200
-                                                        //     : Get.width > 1000 ? 200
-                                                        //     : Get.width > 600 ? 200 : 200,
                                                         width: Get.width > 1500
                                                             ? 285
                                                             : Get.width > 1000
@@ -1360,12 +1199,10 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                             : Get.width > 600
                                                             ? 250
                                                             : 200,
-                                                        decoration: const BoxDecoration(
+                                                        decoration: BoxDecoration(
                                                           // color: Colors.blue,
-                                                            borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    5))),
+                                                            border: Border.all(color: AppColors.blackColor,width: 1),
+                                                            borderRadius: BorderRadius.all(Radius.circular(20))),
                                                         child:
                                                         ClipRRect(
                                                             borderRadius:
@@ -1455,12 +1292,10 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                         600
                                                         ? 200
                                                         : 200,
-                                                    decoration: const BoxDecoration(
-                                                      // color: Colors.blue,
-                                                        borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                5))),
+                                                  decoration: BoxDecoration(
+                                                    // color: Colors.blue,
+                                                      border: Border.all(color: AppColors.blackColor,width: 1),
+                                                      borderRadius: BorderRadius.all(Radius.circular(20))),
                                                     child: ClipRRect(
                                                         borderRadius:
                                                         const BorderRadius.all(
@@ -1516,12 +1351,10 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                         600
                                                         ? 200
                                                         : 200,
-                                                    decoration: const BoxDecoration(
-                                                      // color: Colors.blue,
-                                                        borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                5))),
+                                                  decoration: BoxDecoration(
+                                                    // color: Colors.blue,
+                                                      border: Border.all(color: AppColors.blackColor,width: 1),
+                                                      borderRadius: BorderRadius.all(Radius.circular(20))),
                                                     child: ClipRRect(
                                                         borderRadius:
                                                         const BorderRadius.all(
@@ -1685,7 +1518,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                   const SizedBox(height: 40),
 
                   ///testimonial 2 ends
-
+                  ///contact buttons
                   Wrap(
                     crossAxisAlignment: WrapCrossAlignment.start,
                     alignment: WrapAlignment.center,

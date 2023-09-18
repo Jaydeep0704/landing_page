@@ -276,8 +276,8 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                                         (Map<String, String> item) {
                                   return DropdownMenuItem<Map<String, String>>(
                                     value: item,
-                                    child: Text(
-                                        "${item['case_study_type']} - ${item['value']}"),
+                                    // child: Text("${item['case_study_type']} - ${item['value']}"),
+                                    child: Text("${item['case_study_type']}"),
                                   );
                                 }).toList(),
                               );

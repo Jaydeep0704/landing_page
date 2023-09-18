@@ -41,8 +41,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
   Animation<double>? _animation;
   final editIntroController = Get.find<EditIntroController>();
   final editController = Get.find<EditController>();
-  final testimonalcontroller = Get.find<EditTestimonalController>();
-  final blog_controller = Get.find<EditBlogController>();
+  final testimonialController = Get.find<EditTestimonalController>();
+  final blogController = Get.find<EditBlogController>();
 
 
 
@@ -182,7 +182,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                       child: Align(
                         alignment: Alignment.center,
                         child: Obx(() {
-                          return testimonalcontroller.appLogoListt.isEmpty
+                          return testimonialController.appLogoListt.isEmpty
                               ? const Center(child: Text("No Data"))
                               : GridView.builder(
                             padding: const EdgeInsets.all(25),
@@ -192,9 +192,9 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                 mainAxisExtent: 100,
                                 mainAxisSpacing: 10),
                             shrinkWrap: true,
-                            itemCount: testimonalcontroller.appLogoListt.length,
+                            itemCount: testimonialController.appLogoListt.length,
                             itemBuilder: (context, index) {
-                              var data = testimonalcontroller.appLogoListt[index];
+                              var data = testimonialController.appLogoListt[index];
                               return ClipRRect(
                                 borderRadius: BorderRadius.circular(5), // Adjust the radius to your preference
                                 child: Container(
@@ -329,7 +329,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                               : 0.90,
                           autoPlay: true,
                         ),
-                        items: testimonalcontroller.getTestimonal.map((featuredImage) {
+                        items: testimonialController.getTestimonal.map((featuredImage) {
                           return Container(
                             // height: 300,
                             width: Get.width > 700 ? 600 : 450,
@@ -376,7 +376,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       height: 30,
                                       width: 30,
                                       child: Center(
@@ -535,7 +535,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                     children: [
                       Obx(() {
                         return webLandingPageController.aboveCardIndex.value
-                            .toString().isEmpty || testimonalcontroller.getTestimonal.isEmpty
+                            .toString().isEmpty || testimonialController.getTestimonal.isEmpty
                             ? const SizedBox()
                             : Expanded(
                           child: Padding(
@@ -545,7 +545,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                               CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['Description']}",
+                                  "${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['Description']}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 17),
@@ -556,7 +556,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                   MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Company : ${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['company_name']}",
+                                      "Company : ${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['company_name']}",
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 17),
@@ -567,14 +567,14 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                 Row(
                                   children: [
                                     Text(
-                                      "Name : ${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['user_name']}",
+                                      "Name : ${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['user_name']}",
                                       style: const TextStyle(
                                           fontWeight:
                                           FontWeight.bold,
                                           fontSize: 17),
                                     ),
                                     Text(
-                                      " - ${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['Position']}",
+                                      " - ${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['Position']}",
                                       style: const TextStyle(
                                           fontWeight:
                                           FontWeight.w400,
@@ -608,7 +608,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                           webLandingPageController
                                               .aboveCardIndex
                                               .value =
-                                              testimonalcontroller.getTestimonal
+                                              testimonialController.getTestimonal
                                                   .length -
                                                   1;
                                         }
@@ -643,7 +643,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                         if (webLandingPageController
                                             .aboveCardIndex
                                             .value <
-                                            testimonalcontroller.getTestimonal
+                                            testimonialController.getTestimonal
                                                 .length -
                                                 1) {
                                           webLandingPageController
@@ -659,7 +659,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                           webLandingPageController
                                               .belowCardIndex
                                               .value =
-                                              testimonalcontroller.getTestimonal
+                                              testimonialController.getTestimonal
                                                   .length -
                                                   1;
                                           webLandingPageController
@@ -733,13 +733,13 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                                     width: Get.width > 1500 ? 285
                                                         : Get.width > 1000 ? 250
                                                         : Get.width > 600 ? 250 : 200,
-                                                    decoration: const BoxDecoration(
+                                                    decoration: BoxDecoration(
                                                       // color: Colors.blue,
-                                                        borderRadius:
-                                                        BorderRadius.all(Radius.circular(5))),
+                                                        border: Border.all(color: AppColors.blackColor,width: 1),
+                                                        borderRadius: BorderRadius.all(Radius.circular(20))),
                                                     child:buildMediaWidget(
-                                                        testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
-                                                        testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString())
+                                                        testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
+                                                        testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString())
 
                                                 ),
                                               ),
@@ -776,13 +776,13 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                                         : Get.width > 600
                                                         ? 250
                                                         : 200,
-                                                    decoration: const BoxDecoration(
+                                                    decoration: BoxDecoration(
                                                       // color: Colors.blue,
-                                                        borderRadius:
-                                                        BorderRadius.all(Radius.circular(5))),
+                                                        border: Border.all(color: AppColors.blackColor,width: 1),
+                                                        borderRadius: BorderRadius.all(Radius.circular(20))),
                                                     child: buildMediaWidget(
-                                                        testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
-                                                        testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString())
+                                                        testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
+                                                        testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString())
                                                   // ClipRRect(
                                                   //   borderRadius:
                                                   //   const BorderRadius.all(Radius.circular(20)),
@@ -958,8 +958,6 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                   return webLandingPageController.aboveCardIndex.value.toString().isEmpty
                       ? const SizedBox()
                       : Container(
-                    // height: 500,
-                    // width: Get.width>1500 ?800:Get.width>1000?600:Get.width>600 ?450:450,
                     decoration: BoxDecoration(
                         color: Colors.blue.withOpacity(0.2)),
                     padding: const EdgeInsets.all(25),
@@ -973,7 +971,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                             ClipRRect(
                               borderRadius: const BorderRadius.all(
                                   Radius.circular(10)),
-                              child: Container(
+                              child: SizedBox(
                                 height: 400,
                                 child: Stack(
                                   children: [
@@ -1003,13 +1001,13 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                                       600
                                                       ? 200
                                                       : 200,
-                                                  decoration: const BoxDecoration(
+                                                  decoration: BoxDecoration(
                                                     // color: Colors.blue,
-                                                      borderRadius:
-                                                      BorderRadius.all(Radius.circular(5))),
+                                                      border: Border.all(color: AppColors.blackColor,width: 1),
+                                                      borderRadius: BorderRadius.all(Radius.circular(20))),
                                                   child:buildMediaWidget(
-                                                      testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
-                                                      testimonalcontroller.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString())
+                                                      testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
+                                                      testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString())
                                               ),
                                             ),
                                           );
@@ -1046,69 +1044,17 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                                       600
                                                       ? 200
                                                       : 200,
-                                                  decoration: const BoxDecoration(
-                                                    // color: Colors.blue,
-                                                      borderRadius:
-                                                      BorderRadius.all(Radius.circular(5))),
+                                                  decoration: BoxDecoration(
+                                                      // color: Colors.blue,
+                                                      border: Border.all(color: AppColors.blackColor,width: 1),
+                                                      borderRadius: BorderRadius.all(Radius.circular(20))),
                                                   child: buildMediaWidget(
-                                                      testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
-                                                      testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString())
-                                                // ClipRRect(
-                                                //   borderRadius:
-                                                //   const BorderRadius.all(Radius.circular(20)),
-                                                //
-                                                //   child:  testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "image" ||
-                                                //       testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "gif"
-                                                //       ? CachedNetworkImage(
-                                                //     fit: BoxFit
-                                                //         .cover,
-                                                //     width: Get.width * 0.9,
-                                                //     imageUrl:
-                                                //     APIString.latestmediaBaseUrl +  testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString(),
-                                                //     placeholder: (context, url) => Container(
-                                                //       decoration: BoxDecoration(
-                                                //         color: Color(int.parse(editController
-                                                //             .appDemoBgColor.value
-                                                //             .toString())),
-                                                //       ),
-                                                //     ),
-                                                //     errorWidget: (context, url, error) =>
-                                                //     const Icon(Icons.error),
-                                                //
-                                                //   )
-                                                //       : displayUploadedVideo( testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString()),
-                                                // )
-                                                // Image.asset("${featuredImage["image"]}"
-                                                // )
+                                                      testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
+                                                      testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString())
+
                                               ),
 
-                                              // Container(
-                                              //   height: 350,
-                                              //   width: Get.width >
-                                              //       1500
-                                              //       ? 175
-                                              //       : Get.width > 1000
-                                              //       ? 175
-                                              //       : Get.width >
-                                              //       600
-                                              //       ? 200
-                                              //       : 200,
-                                              //   decoration: BoxDecoration(
-                                              //       color:
-                                              //       Colors.black,
-                                              //       image: DecorationImage(
-                                              //           image: AssetImage(clientsTestimonial[webLandingPageController
-                                              //               .aboveCardIndex
-                                              //               .value]
-                                              //           [
-                                              //           "clientImage"]),
-                                              //           fit: BoxFit
-                                              //               .cover),
-                                              //       borderRadius:
-                                              //       BorderRadius
-                                              //           .circular(
-                                              //           10)),
-                                              // ),
+
                                             );
                                           },
                                         ),
@@ -1123,7 +1069,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                         const SizedBox(height: 10),
                         Text(
                           // StaticString.loremIpsum,
-                          "${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['Description']}",
+                          "${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['Description']}",
                           maxLines: 13,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
@@ -1132,7 +1078,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                         const SizedBox(height: 10),
                         Text(
                           // "ABC & Co.",
-                          "${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]["company_name"]}",
+                          "${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]["company_name"]}",
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 17),
@@ -1142,13 +1088,13 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                           children:  [
                             Text(
                               // "Mr Gary",
-                              "${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['user_name']}",
+                              "${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['user_name']}",
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 17),
                             ),
                             Text(
-                              " - ${testimonalcontroller.getTestimonal[webLandingPageController.aboveCardIndex.value]['Position']}",
+                              " - ${testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['Position']}",
                               style: const TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 17),
@@ -1176,7 +1122,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                 // webLandingPageController.aboveCardIndex.value = clientsTestimonial.length - 1;
                                 // if(webLandingPageController
                                 //     .aboveCardIndex.value!=0){
-                                  webLandingPageController.aboveCardIndex.value = testimonalcontroller.getTestimonal.length - 1;
+                                  webLandingPageController.aboveCardIndex.value = testimonialController.getTestimonal.length - 1;
                                 // }
                               }
                               setState(() {});
@@ -1204,7 +1150,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                               print(
                                   "1111111111111${webLandingPageController.aboveCardIndex.value}");
                               // if (webLandingPageController.aboveCardIndex.value < clientsTestimonial.length - 1) {
-                              if (webLandingPageController.aboveCardIndex.value < testimonalcontroller.getTestimonal.length - 1) {
+                              if (webLandingPageController.aboveCardIndex.value < testimonialController.getTestimonal.length - 1) {
                                 webLandingPageController
                                     .belowCardIndex.value =
                                     webLandingPageController
@@ -1213,7 +1159,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                     .aboveCardIndex.value++;
                               } else {
                                 // webLandingPageController.belowCardIndex.value = clientsTestimonial.length - 1;
-                                webLandingPageController.belowCardIndex.value = testimonalcontroller.getTestimonal.length - 1;
+                                webLandingPageController.belowCardIndex.value = testimonialController.getTestimonal.length - 1;
                                 webLandingPageController.aboveCardIndex.value = 0;
                               }
                               setState(() {});
@@ -1240,11 +1186,12 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                     ),
                   );
                 }),
+
                 editController.allDataResponse[0]["testimonials_details"][0]["testimonial2_visible"] == "hide"
                     ? const SizedBox()
                     :const SizedBox(height: 40),
 
-
+                ///Contact buttons
                 Wrap(
                   crossAxisAlignment: WrapCrossAlignment.start,
                   alignment: WrapAlignment.center,
@@ -1495,7 +1442,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                               : 0.8,
                           autoPlay: true,
                         ),
-                        items: blog_controller.blogdata.map((featuredImage) {
+                        items: blogController.blogdata.map((featuredImage) {
 
                           return InkWell(
                             onTap: (){
@@ -1530,7 +1477,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                   // color: Colors.green,
                                   color: AppColors.whiteColor.withOpacity(0.8),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
+                                  const BorderRadius.all(Radius.circular(20))),
                               margin: const EdgeInsets.only(right: 5, left: 5),
                               padding: const EdgeInsets.all(8),
                               child: Column(
@@ -1569,7 +1516,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                     mainAxisAlignment: MainAxisAlignment
                                         .start,
                                     children: [
-                                      Container(
+                                      SizedBox(
                                         height: 30,
                                         width: 30,
                                         child: Center(

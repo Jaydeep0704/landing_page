@@ -775,8 +775,10 @@ class _PricingSectionState extends State<PricingSection> {
               ],
             ),
           ),
-          Align(
-            alignment: AlignmentDirectional.bottomCenter,
+          Positioned(
+            left: 0,right: 0,
+            bottom: 0,
+            // alignment: AlignmentDirectional.bottomCenter,
             child: data["plan_name"] == "Enterprise"
               ? GestureDetector(
             onTap: () {
@@ -785,7 +787,7 @@ class _PricingSectionState extends State<PricingSection> {
               Get.dialog(purchaseDialog(isPurchaseButton: false));
             },
             child: Container(
-              height: 80,
+              height: 40,
               width: double.infinity,
               alignment: Alignment.center,
               color: AppColors.lightBlueColor,
@@ -816,13 +818,13 @@ class _PricingSectionState extends State<PricingSection> {
                     fontSize: 14,
                     color: AppColors.whiteColor),),
             ),
-          ),
+           ),
           )
         ],
       ),
     );
   }
-
+//            alignment: AlignmentDirectional.bottomCenter,
   changeVisibility(int index) {
     setState(() {
       pricingScreenController.plansSHowHidBoolList[index] =
@@ -831,48 +833,48 @@ class _PricingSectionState extends State<PricingSection> {
     });
   }
 
-  AlertDialog purchaseDialog({bool? isPurchaseButton}) {
-    return AlertDialog(
-      content: Container(
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(25))),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Align(alignment: Alignment.topRight,
-                  child: IconButton(onPressed: () {
-                    Get.back();
-                  }, icon: const Icon(Icons.close))),
-              const SizedBox(height: 20,),
-              // isPurchaseButton == false ?const SizedBox():const Text("You can buy this Plan by installing our 'Grobiz' app and Login with same credentials"),
-              isPurchaseButton == false ? const SizedBox() : const Text(
-                  "You can buy this Plan by installing 'Grobiz' app and Login"),
-              isPurchaseButton == false ? const SizedBox() : const SizedBox(
-                height: 20,),
-              isPurchaseButton == false ? const SizedBox() : InkWell(
-                  onTap: () {
-                    html.window.open(AppString.playStoreAppLink, "_blank");
-                  },
-                  child: Text("Click here to get App",
-                    style: AppTextStyle.regular600.copyWith(
-                        color: AppColors.blueColor),)),
-              isPurchaseButton == false ? const SizedBox() : const SizedBox(
-                height: 20,),
-              isPurchaseButton == false ? const Text("Contact Us") : const Text(
-                  "For Inquiry"),
-              const SizedBox(height: 20,),
-              const Text("Email : support@grobiz.app"),
-              const SizedBox(height: 10),
-              const Text("Phone : +91 9730730128"),
-              const SizedBox(height: 20,),
-            ],
-          ),
+
+}
+AlertDialog purchaseDialog({bool? isPurchaseButton}) {
+  return AlertDialog(
+    content: Container(
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(25))),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Align(alignment: Alignment.topRight,
+                child: IconButton(onPressed: () {
+                  Get.back();
+                }, icon: const Icon(Icons.close))),
+            const SizedBox(height: 20,),
+            // isPurchaseButton == false ?const SizedBox():const Text("You can buy this Plan by installing our 'Grobiz' app and Login with same credentials"),
+            isPurchaseButton == false ? const SizedBox() : const Text(
+                "You can buy this Plan by installing 'Grobiz' app and Login"),
+            isPurchaseButton == false ? const SizedBox() : const SizedBox(
+              height: 20,),
+            isPurchaseButton == false ? const SizedBox() : InkWell(
+                onTap: () {
+                  html.window.open(AppString.playStoreAppLink, "_blank");
+                },
+                child: Text("Click here to get App",
+                  style: AppTextStyle.regular600.copyWith(
+                      color: AppColors.blueColor),)),
+            isPurchaseButton == false ? const SizedBox() : const SizedBox(
+              height: 20,),
+            isPurchaseButton == false ? const Text("Contact Us") : const Text(
+                "For Inquiry"),
+            const SizedBox(height: 20,),
+            const Text("Email : support@grobiz.app"),
+            const SizedBox(height: 10),
+            const Text("Phone : +91 9730730128"),
+            const SizedBox(height: 20,),
+          ],
         ),
       ),
-      // actions: [],
-    );
-  }
-
+    ),
+    // actions: [],
+  );
 }

@@ -6,6 +6,7 @@ import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/pricing_section_controller.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/pricing_section/pricing_section.dart';
 import 'package:grobiz_web_landing/widget/common_bg_color_pick.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
@@ -1416,6 +1417,7 @@ class _EditPricingSectionState extends State<EditPricingSection> {
     );
   }
 
+
   planCard({var data, int? i}) {
     return Container(
       height: Get.width > 800 ? 500 : 425,
@@ -1427,398 +1429,449 @@ class _EditPricingSectionState extends State<EditPricingSection> {
       padding: const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 24),
       margin: const EdgeInsets.all(20),
       // width: MediaQuery.of(context).size.width,
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 50,
-              padding: const EdgeInsets.only(left: 8, right: 8),
-              child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Text(data["plan_name"],
-                  style: AppTextStyle.regular600,),
-              ),
-            ),
-            Container(
-              height: 1,
-              width: double.infinity,
-              color: AppColors.greyBorderColor,
-              margin: const EdgeInsets.only(
-                  left: 8, right: 8, bottom: 24),
-            ),
-            data["per_month_price"] == '0' &&
-                data["price"] != '0' &&
-                data["plan_name"] != "Enterprise"
-                ? Container(
-              padding: const EdgeInsets.all(10),
-              // width: MediaQuery.of(context).size.width,
-              alignment: Alignment.center,
-              // margin: EdgeInsets.only(bottom: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  data["offer_percentage"] != '0' && data["price"] != '0'
-                      ? Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    child: Text(
-                      " ${data["currency"]} ${data["price"]}",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          decoration: TextDecoration.lineThrough),
-                    ),
-                  )
-                      : Container(),
-                  Container(
-                    // width: MediaQuery.of(context).size.width,
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        data["price"] != '0'
-                            ? Text(
-                          data["currency"],
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: 50,
+                  padding: const EdgeInsets.only(left: 8, right: 8),
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(data["plan_name"],
+                      style: AppTextStyle.regular600,),
+                  ),
+                ),
+                Container(
+                  height: 1,
+                  width: double.infinity,
+                  color: AppColors.greyBorderColor,
+                  margin: const EdgeInsets.only(
+                      left: 8, right: 8, bottom: 24),
+                ),
+                data["per_month_price"] == '0' &&
+                    data["price"] != '0' &&
+                    data["plan_name"] != "Enterprise"
+                    ? Container(
+                  padding: const EdgeInsets.all(10),
+                  // width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  // margin: EdgeInsets.only(bottom: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      data["offer_percentage"] != '0' && data["price"] != '0'
+                          ? Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        child: Text(
+                          " ${data["currency"]} ${data["price"]}",
                           style: const TextStyle(
                               color: Colors.black,
                               fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                        )
-                            : Container(),
-                        data["price"] != '0'
-                            ? Text(
-                          data["final_price"],
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 35,
-                              fontWeight: FontWeight.bold),
-                        )
-                            : Text(
-                          data["final_price"],
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 35,
-                              fontWeight: FontWeight.bold),
+                              decoration: TextDecoration.lineThrough),
                         ),
-                        data["offer_percentage"] != '0'
-                            ? Text(
-                          "(${data["offer_percentage"]}% OFF)",
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
-                        )
-                            : Container(),
-                      ],
-                    ),
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    height: 10,
-                  )
-                ],
-              ),
-            )
-                : Container(),
-            data["plan_name"] == "Enterprise"
-                ? Container(
-              padding: const EdgeInsets.all(10),
-              // width: MediaQuery.of(context).size.width,
-              alignment: Alignment.center,
-              // margin: EdgeInsets.only(bottom: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    child: const Text(
-                      "Pay per Feature",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
+                      )
+                          : Container(),
+                      Container(
+                        // width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            data["price"] != '0'
+                                ? Text(
+                              data["currency"],
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            )
+                                : Container(),
+                            data["price"] != '0'
+                                ? Text(
+                              data["final_price"],
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.bold),
+                            )
+                                : Text(
+                              data["final_price"],
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            data["offer_percentage"] != '0'
+                                ? Text(
+                              "(${data["offer_percentage"]}% OFF)",
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
+                            )
+                                : Container(),
+                          ],
+                        ),
                       ),
-                    ),
+                      const Divider(
+                        color: Colors.grey,
+                        height: 10,
+                      )
+                    ],
                   ),
-                  const Divider(
-                    color: Colors.grey,
-                    height: 10,
-                  )
-                ],
-              ),
-            )
-                : Container(),
-            data["per_month_price"] != '0'
-                ? Container(
-              padding: const EdgeInsets.all(10),
-              // width: MediaQuery.of(context).size.width,
-              alignment: Alignment.center,
-              // margin: EdgeInsets.only(bottom: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  data["offer_percentage"] != '0' && data["price"] != '0'
-                      ? Container(
-                    margin: const EdgeInsets.only(bottom: 5),
-                    child: Text(
-                      "${data["currency"]}" + "${data["per_month_price"]}",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          decoration: TextDecoration.lineThrough),
-                    ),
-                  )
-                      : Container(),
-                  Container(
-                    // width: MediaQuery.of(context).size.width,
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        //planModel.price!='0'?
-                        Text(
-                          data["currency"],
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          data["final_month_price"],
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const Text(
-                          " /month",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 12,
-                              fontWeight: FontWeight.normal),
-                        ),
-                        data["offer_percentage"] != '0'
-                            ? Text(
-                          "(${data["offer_percentage"]}% OFF)",
-                          // '${' (' +
-                          //     data["offer_percentage"]}% OFF)',
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
-                        )
-                            : Container(),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    // width: MediaQuery.of(context).size.width,
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const <Widget>[
-                        Text(
-                          'Billed annually  ',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    height: 10,
-                  )
-                ],
-              ),
-            )
-                : Container(),
-            data["price"] != '0' && data["plan_name"] != "Enterprise"
-                ? Container(
-              padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-              // width: MediaQuery.of(context).size.width,
-              alignment: Alignment.center,
-              //margin: EdgeInsets.only(bottom: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  const Text(
-                    "Validity",
-                    style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  data["validity_unit"] == "Lifetime"
-                      ? Text(
-                    data["validity_unit"],
-                    style: TextStyle(
-                        color: Colors.blue[400],
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold),
-                  )
-                      : Text(
-                    data["validity"] + ' ' + data["validity_unit"],
-                    style: TextStyle(
-                        color: Colors.blue[400],
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    height: 10,
-                  )
-                ],
-              ),
-            )
-                : Container(),
-            const Text(
-              'Features',
-              style: TextStyle(
-                  color: Colors.orangeAccent,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
-            ),
-            Container(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    itemCount: data["features"].length,
-                    itemBuilder: (context, index) =>
-                        Container(
-                          padding: const EdgeInsets.all(5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Icon(Icons.check_circle,
-                                  color: AppColors.darkPurpleColor, size: 18),
-                              const SizedBox(width: 6),
-                              Expanded(
-                                child: Text(
-                                  data["features"][index],
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ))),
-            const Divider(
-              color: Colors.grey,
-              // height: 10,
-            ),
-            pricingScreenController.plansSHowHidBoolList[i!] == false
-                ? GestureDetector(
-              onTap: () =>
-              {
-                changeVisibility(i),
-              },
-              child: Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(border: Border.all(
-                    color: AppColors.lightBlueColor, width: 2)),
-
-                margin: const EdgeInsets.only(
-                    left: 8, right: 8, top: 16, bottom: 12),
-                padding: const EdgeInsets.only(top: 8, bottom: 8),
-                child: Text("View Details",
-                  style: AppTextStyle.regular500.copyWith(
-                      fontSize: 14,
-                      color: AppColors.blackColor),),
-              ),
-            )
-                : Container(),
-
-            Visibility(
-              // visible: planModel.showDetails,
-              visible: pricingScreenController.plansSHowHidBoolList[i] == true
-                  ? true
-                  : false,
-              child: Container(
-                  padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                )
+                    : Container(),
+                data["plan_name"] == "Enterprise"
+                    ? Container(
+                  padding: const EdgeInsets.all(10),
+                  // width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  // margin: EdgeInsets.only(bottom: 10),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        child: const Text(
+                          "Pay per Feature",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        color: Colors.grey,
+                        height: 10,
+                      )
+                    ],
+                  ),
+                )
+                    : Container(),
+                data["per_month_price"] != '0'
+                    ? Container(
+                  padding: const EdgeInsets.all(10),
+                  // width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  // margin: EdgeInsets.only(bottom: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      data["offer_percentage"] != '0' && data["price"] != '0'
+                          ? Container(
+                        margin: const EdgeInsets.only(bottom: 5),
+                        child: Text(
+                          "${data["currency"]} ${data["per_month_price"]}",
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              decoration: TextDecoration.lineThrough),
+                        ),
+                      )
+                          : Container(),
+                      Container(
+                        // width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            //planModel.price!='0'?
+                            Text(
+                              data["currency"],
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              data["final_month_price"],
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const Text(
+                              " /month",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                            data["offer_percentage"] != '0'
+                                ? Text(
+                              "(${data["offer_percentage"]}% OFF)",
+                              // '${' (' +
+                              //     data["offer_percentage"]}% OFF)',
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
+                            )
+                                : Container(),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        // width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: const <Widget>[
+                            Text(
+                              'Billed annually  ',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ),
+                      const Divider(
+                        color: Colors.grey,
+                        height: 10,
+                      )
+                    ],
+                  ),
+                )
+                    : Container(),
+                data["price"] != '0' && data["plan_name"] != "Enterprise"
+                    ? Container(
+                  padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                  // width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  //margin: EdgeInsets.only(bottom: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       const Text(
-                        'Plan Description',
+                        "Validity",
                         style: TextStyle(
-                            color: Colors.orangeAccent,
-                            fontSize: 16,
+                            color: Colors.black54,
+                            fontSize: 13,
                             fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
-                      ListView.builder(
+                      data["validity_unit"] == "Lifetime"
+                          ? Text(
+                        data["validity_unit"],
+                        style: TextStyle(
+                            color: Colors.blue[400],
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                      )
+                          : Text(
+                        data["validity"] + ' ' + data["validity_unit"],
+                        style: TextStyle(
+                            color: Colors.blue[400],
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const Divider(
+                        color: Colors.grey,
+                        height: 10,
+                      )
+                    ],
+                  ),
+                )
+                    : Container(),
+                const Text(
+                  'Features',
+                  style: TextStyle(
+                      color: Colors.orangeAccent,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+                Container(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: ListView.builder(
                         shrinkWrap: true,
                         physics: const ClampingScrollPhysics(),
-                        itemCount: data["description"].length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: const EdgeInsets.all(5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const Icon(Icons.check_circle,
-                                    color: AppColors.darkPurpleColor, size: 18),
-                                const SizedBox(width: 6),
-                                Text(
-                                  data["description"][index],
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
+                        itemCount: data["features"].length,
+                        itemBuilder: (context, index) =>
+                            Container(
+                              padding: const EdgeInsets.all(5),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Icon(Icons.check_circle,
+                                      color: AppColors.darkPurpleColor, size: 18),
+                                  const SizedBox(width: 6),
+                                  Expanded(
+                                    child: Text(
+                                      data["features"][index],
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                      ),
+                                    ),
                                   ),
+                                ],
+                              ),
+                            ))),
+                const Divider(color: Colors.grey),
+                pricingScreenController.plansSHowHidBoolList[i!] == false
+                    ? GestureDetector(
+                  onTap: () =>
+                  {
+                    changeVisibility(i),
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(border: Border.all(
+                        color: AppColors.lightBlueColor, width: 2)),
+
+                    margin: const EdgeInsets.only(
+                        left: 8, right: 8, top: 16, bottom: 12),
+                    padding: const EdgeInsets.only(top: 8, bottom: 8),
+                    child: Text("View Details",
+                      style: AppTextStyle.regular500.copyWith(
+                          fontSize: 14,
+                          color: AppColors.blackColor),),
+                  ),
+                )
+                    : Container(),
+
+                Visibility(
+                  // visible: planModel.showDetails,
+                  visible: pricingScreenController.plansSHowHidBoolList[i] == true
+                      ? true
+                      : false,
+                  child: Container(
+                      padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                      child: Column(
+                        children: <Widget>[
+                          const Text(
+                            'Plan Description',
+                            style: TextStyle(
+                                color: Colors.orangeAccent,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemCount: data["description"].length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                padding: const EdgeInsets.all(5),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Icon(Icons.check_circle,
+                                        color: AppColors.darkPurpleColor, size: 18),
+                                    const SizedBox(width: 6),
+                                    Expanded(
+                                      child: Text(
+                                        data["description"][index],
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          );
-                        },),
-                    ],
-                  )),
+                              );
+                            },),
+                        ],
+                      )),
+                ),
+                pricingScreenController.plansSHowHidBoolList[i!] == true
+                    ? GestureDetector(
+                  onTap: () =>
+                  {
+                    changeVisibility(i),
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(border: Border.all(
+                        color: AppColors.lightBlueColor, width: 2)),
+                    // color: AppColors.greenColor,
+                    margin: const EdgeInsets.only(
+                        left: 8, right: 8, top: 16, bottom: 12),
+                    padding: const EdgeInsets.only(top: 8, bottom: 8),
+                    child: Text("Hide Details",
+                      style: AppTextStyle.regular500.copyWith(
+                          fontSize: 14,
+                          color: AppColors.blackColor),),
+                  ),
+                )
+                    : Container(),
+                const SizedBox(height: 40),
+
+                // data["plan_name"] == "Enterprise"
+                //     ? GestureDetector(
+                //   onTap: () {
+                //     print("here here...");
+                //     //openwhatsapp();
+                //     Get.dialog(purchaseDialog(isPurchaseButton: false));
+                //   },
+                //   child: Container(
+                //     width: double.infinity,
+                //     alignment: Alignment.center,
+                //     color: AppColors.lightBlueColor,
+                //     margin: const EdgeInsets.only(
+                //         left: 8, right: 8, top: 16),
+                //     padding: const EdgeInsets.only(top: 8, bottom: 8),
+                //     child: Text("CONNECT US",
+                //       style: AppTextStyle.regular500.copyWith(
+                //           fontSize: 14,
+                //           color: AppColors.whiteColor),),
+                //   ),
+                // )
+                //     : GestureDetector(
+                //   onTap: () {
+                //     // goToPuchasePlan(planModel);
+                //     Get.dialog(purchaseDialog(isPurchaseButton: true));
+                //   },
+                //   child: Container(
+                //     width: double.infinity,
+                //     alignment: Alignment.center,
+                //     color: AppColors.lightBlueColor,
+                //     margin: const EdgeInsets.only(
+                //         left: 8, right: 8, top: 16),
+                //     padding: const EdgeInsets.only(top: 8, bottom: 8),
+                //     child: Text("PURCHASE PLAN",
+                //       style: AppTextStyle.regular500.copyWith(
+                //           fontSize: 14,
+                //           color: AppColors.whiteColor),),
+                //   ),
+                // ),
+                // const SizedBox(height: 20),
+              ],
             ),
-            pricingScreenController.plansSHowHidBoolList[i!] == true
-                ? GestureDetector(
-              onTap: () =>
-              {
-                changeVisibility(i),
-              },
-              child: Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(border: Border.all(
-                    color: AppColors.lightBlueColor, width: 2)),
-                // color: AppColors.greenColor,
-                margin: const EdgeInsets.only(
-                    left: 8, right: 8, top: 16, bottom: 12),
-                padding: const EdgeInsets.only(top: 8, bottom: 8),
-                child: Text("Hide Details",
-                  style: AppTextStyle.regular500.copyWith(
-                      fontSize: 14,
-                      color: AppColors.blackColor),),
-              ),
-            )
-                : Container(),
-            data["plan_name"] == "Enterprise"
+          ),
+          Positioned(
+            left: 0,right: 0,
+            bottom: 0,
+            // alignment: AlignmentDirectional.bottomCenter,
+            child: data["plan_name"] == "Enterprise"
                 ? GestureDetector(
               onTap: () {
                 print("here here...");
                 //openwhatsapp();
+                Get.dialog(purchaseDialog(isPurchaseButton: false));
               },
               child: Container(
+                height: 40,
                 width: double.infinity,
                 alignment: Alignment.center,
                 color: AppColors.lightBlueColor,
@@ -1834,8 +1887,10 @@ class _EditPricingSectionState extends State<EditPricingSection> {
                 : GestureDetector(
               onTap: () {
                 // goToPuchasePlan(planModel);
+                Get.dialog(purchaseDialog(isPurchaseButton: true));
               },
               child: Container(
+                height: 40,
                 width: double.infinity,
                 alignment: Alignment.center,
                 color: AppColors.lightBlueColor,
@@ -1848,12 +1903,451 @@ class _EditPricingSectionState extends State<EditPricingSection> {
                       color: AppColors.whiteColor),),
               ),
             ),
-            const SizedBox(height: 20),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
+
+
+  // planCard({var data, int? i}) {
+  //   return Container(
+  //     height: Get.width > 800 ? 500 : 425,
+  //     width: Get.width > 800 ? 450 : 300,
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(10),
+  //       color: Colors.white,
+  //     ),
+  //     padding: const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 24),
+  //     margin: const EdgeInsets.all(20),
+  //     // width: MediaQuery.of(context).size.width,
+  //     child: SingleChildScrollView(
+  //       child: Column(
+  //         children: <Widget>[
+  //           Container(
+  //             height: 50,
+  //             padding: const EdgeInsets.only(left: 8, right: 8),
+  //             child: FittedBox(
+  //               fit: BoxFit.fitWidth,
+  //               child: Text(data["plan_name"],
+  //                 style: AppTextStyle.regular600,),
+  //             ),
+  //           ),
+  //           Container(
+  //             height: 1,
+  //             width: double.infinity,
+  //             color: AppColors.greyBorderColor,
+  //             margin: const EdgeInsets.only(
+  //                 left: 8, right: 8, bottom: 24),
+  //           ),
+  //           data["per_month_price"] == '0' &&
+  //               data["price"] != '0' &&
+  //               data["plan_name"] != "Enterprise"
+  //               ? Container(
+  //             padding: const EdgeInsets.all(10),
+  //             // width: MediaQuery.of(context).size.width,
+  //             alignment: Alignment.center,
+  //             // margin: EdgeInsets.only(bottom: 10),
+  //             child: Column(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               crossAxisAlignment: CrossAxisAlignment.center,
+  //               children: <Widget>[
+  //                 data["offer_percentage"] != '0' && data["price"] != '0'
+  //                     ? Container(
+  //                   margin: const EdgeInsets.only(bottom: 10),
+  //                   child: Text(
+  //                     " ${data["currency"]} ${data["price"]}",
+  //                     style: const TextStyle(
+  //                         color: Colors.black,
+  //                         fontSize: 15,
+  //                         decoration: TextDecoration.lineThrough),
+  //                   ),
+  //                 )
+  //                     : Container(),
+  //                 Container(
+  //                   // width: MediaQuery.of(context).size.width,
+  //                   alignment: Alignment.center,
+  //                   child: Row(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     crossAxisAlignment: CrossAxisAlignment.center,
+  //                     children: <Widget>[
+  //                       data["price"] != '0'
+  //                           ? Text(
+  //                         data["currency"],
+  //                         style: const TextStyle(
+  //                             color: Colors.black,
+  //                             fontSize: 15,
+  //                             fontWeight: FontWeight.bold),
+  //                       )
+  //                           : Container(),
+  //                       data["price"] != '0'
+  //                           ? Text(
+  //                         data["final_price"],
+  //                         style: const TextStyle(
+  //                             color: Colors.black,
+  //                             fontSize: 35,
+  //                             fontWeight: FontWeight.bold),
+  //                       )
+  //                           : Text(
+  //                         data["final_price"],
+  //                         style: const TextStyle(
+  //                             color: Colors.black,
+  //                             fontSize: 35,
+  //                             fontWeight: FontWeight.bold),
+  //                       ),
+  //                       data["offer_percentage"] != '0'
+  //                           ? Text(
+  //                         "(${data["offer_percentage"]}% OFF)",
+  //                         style: const TextStyle(
+  //                             color: Colors.black,
+  //                             fontSize: 14,
+  //                             fontWeight: FontWeight.bold),
+  //                       )
+  //                           : Container(),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 const Divider(
+  //                   color: Colors.grey,
+  //                   height: 10,
+  //                 )
+  //               ],
+  //             ),
+  //           )
+  //               : Container(),
+  //           data["plan_name"] == "Enterprise"
+  //               ? Container(
+  //             padding: const EdgeInsets.all(10),
+  //             // width: MediaQuery.of(context).size.width,
+  //             alignment: Alignment.center,
+  //             // margin: EdgeInsets.only(bottom: 10),
+  //             child: Column(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               crossAxisAlignment: CrossAxisAlignment.center,
+  //               children: <Widget>[
+  //                 Container(
+  //                   margin: const EdgeInsets.only(bottom: 10),
+  //                   child: const Text(
+  //                     "Pay per Feature",
+  //                     style: TextStyle(
+  //                       color: Colors.black,
+  //                       fontSize: 15,
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 const Divider(
+  //                   color: Colors.grey,
+  //                   height: 10,
+  //                 )
+  //               ],
+  //             ),
+  //           )
+  //               : Container(),
+  //           data["per_month_price"] != '0'
+  //               ? Container(
+  //             padding: const EdgeInsets.all(10),
+  //             // width: MediaQuery.of(context).size.width,
+  //             alignment: Alignment.center,
+  //             // margin: EdgeInsets.only(bottom: 10),
+  //             child: Column(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               crossAxisAlignment: CrossAxisAlignment.center,
+  //               children: <Widget>[
+  //                 data["offer_percentage"] != '0' && data["price"] != '0'
+  //                     ? Container(
+  //                   margin: const EdgeInsets.only(bottom: 5),
+  //                   child: Text(
+  //                     "${data["currency"]}" + "${data["per_month_price"]}",
+  //                     style: const TextStyle(
+  //                         color: Colors.black,
+  //                         fontSize: 15,
+  //                         decoration: TextDecoration.lineThrough),
+  //                   ),
+  //                 )
+  //                     : Container(),
+  //                 Container(
+  //                   // width: MediaQuery.of(context).size.width,
+  //                   alignment: Alignment.center,
+  //                   child: Row(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     crossAxisAlignment: CrossAxisAlignment.center,
+  //                     children: <Widget>[
+  //                       //planModel.price!='0'?
+  //                       Text(
+  //                         data["currency"],
+  //                         style: const TextStyle(
+  //                             color: Colors.black,
+  //                             fontSize: 14,
+  //                             fontWeight: FontWeight.bold),
+  //                       ),
+  //                       Text(
+  //                         data["final_month_price"],
+  //                         style: const TextStyle(
+  //                             color: Colors.black,
+  //                             fontSize: 40,
+  //                             fontWeight: FontWeight.bold),
+  //                       ),
+  //                       const Text(
+  //                         " /month",
+  //                         style: TextStyle(
+  //                             color: Colors.black,
+  //                             fontSize: 12,
+  //                             fontWeight: FontWeight.normal),
+  //                       ),
+  //                       data["offer_percentage"] != '0'
+  //                           ? Text(
+  //                         "(${data["offer_percentage"]}% OFF)",
+  //                         // '${' (' +
+  //                         //     data["offer_percentage"]}% OFF)',
+  //                         style: const TextStyle(
+  //                             color: Colors.black,
+  //                             fontSize: 14,
+  //                             fontWeight: FontWeight.bold),
+  //                       )
+  //                           : Container(),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 Container(
+  //                   margin: const EdgeInsets.only(top: 10),
+  //                   // width: MediaQuery.of(context).size.width,
+  //                   alignment: Alignment.center,
+  //                   child: Row(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     crossAxisAlignment: CrossAxisAlignment.center,
+  //                     children: const <Widget>[
+  //                       Text(
+  //                         'Billed annually  ',
+  //                         style: TextStyle(
+  //                             color: Colors.black,
+  //                             fontSize: 14,
+  //                             fontWeight: FontWeight.bold),
+  //                       )
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 const Divider(
+  //                   color: Colors.grey,
+  //                   height: 10,
+  //                 )
+  //               ],
+  //             ),
+  //           )
+  //               : Container(),
+  //           data["price"] != '0' && data["plan_name"] != "Enterprise"
+  //               ? Container(
+  //             padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+  //             // width: MediaQuery.of(context).size.width,
+  //             alignment: Alignment.center,
+  //             //margin: EdgeInsets.only(bottom: 10),
+  //             child: Column(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               crossAxisAlignment: CrossAxisAlignment.center,
+  //               children: <Widget>[
+  //                 const Text(
+  //                   "Validity",
+  //                   style: TextStyle(
+  //                       color: Colors.black54,
+  //                       fontSize: 13,
+  //                       fontWeight: FontWeight.bold),
+  //                 ),
+  //                 const SizedBox(
+  //                   height: 5,
+  //                 ),
+  //                 data["validity_unit"] == "Lifetime"
+  //                     ? Text(
+  //                   data["validity_unit"],
+  //                   style: TextStyle(
+  //                       color: Colors.blue[400],
+  //                       fontSize: 17,
+  //                       fontWeight: FontWeight.bold),
+  //                 )
+  //                     : Text(
+  //                   data["validity"] + ' ' + data["validity_unit"],
+  //                   style: TextStyle(
+  //                       color: Colors.blue[400],
+  //                       fontSize: 17,
+  //                       fontWeight: FontWeight.bold),
+  //                 ),
+  //                 const Divider(
+  //                   color: Colors.grey,
+  //                   height: 10,
+  //                 )
+  //               ],
+  //             ),
+  //           )
+  //               : Container(),
+  //           const Text(
+  //             'Features',
+  //             style: TextStyle(
+  //                 color: Colors.orangeAccent,
+  //                 fontSize: 16,
+  //                 fontWeight: FontWeight.bold),
+  //           ),
+  //           Container(
+  //               padding: const EdgeInsets.only(left: 10, right: 10),
+  //               child: ListView.builder(
+  //                   shrinkWrap: true,
+  //                   physics: const ClampingScrollPhysics(),
+  //                   itemCount: data["features"].length,
+  //                   itemBuilder: (context, index) =>
+  //                       Container(
+  //                         padding: const EdgeInsets.all(5),
+  //                         child: Row(
+  //                           mainAxisAlignment: MainAxisAlignment.start,
+  //                           children: [
+  //                             const Icon(Icons.check_circle,
+  //                                 color: AppColors.darkPurpleColor, size: 18),
+  //                             const SizedBox(width: 6),
+  //                             Expanded(
+  //                               child: Text(
+  //                                 data["features"][index],
+  //                                 style: const TextStyle(
+  //                                   color: Colors.black,
+  //                                   fontSize: 15,
+  //                                 ),
+  //                               ),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ))),
+  //           const Divider(
+  //             color: Colors.grey,
+  //             // height: 10,
+  //           ),
+  //           pricingScreenController.plansSHowHidBoolList[i!] == false
+  //               ? GestureDetector(
+  //             onTap: () =>
+  //             {
+  //               changeVisibility(i),
+  //             },
+  //             child: Container(
+  //               width: double.infinity,
+  //               alignment: Alignment.center,
+  //               decoration: BoxDecoration(border: Border.all(
+  //                   color: AppColors.lightBlueColor, width: 2)),
+  //
+  //               margin: const EdgeInsets.only(
+  //                   left: 8, right: 8, top: 16, bottom: 12),
+  //               padding: const EdgeInsets.only(top: 8, bottom: 8),
+  //               child: Text("View Details",
+  //                 style: AppTextStyle.regular500.copyWith(
+  //                     fontSize: 14,
+  //                     color: AppColors.blackColor),),
+  //             ),
+  //           )
+  //               : Container(),
+  //
+  //           Visibility(
+  //             // visible: planModel.showDetails,
+  //             visible: pricingScreenController.plansSHowHidBoolList[i] == true
+  //                 ? true
+  //                 : false,
+  //             child: Container(
+  //                 padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+  //                 child: Column(
+  //                   children: <Widget>[
+  //                     const Text(
+  //                       'Plan Description',
+  //                       style: TextStyle(
+  //                           color: Colors.orangeAccent,
+  //                           fontSize: 16,
+  //                           fontWeight: FontWeight.bold),
+  //                     ),
+  //                     const SizedBox(
+  //                       height: 10,
+  //                     ),
+  //                     ListView.builder(
+  //                       shrinkWrap: true,
+  //                       physics: const ClampingScrollPhysics(),
+  //                       itemCount: data["description"].length,
+  //                       itemBuilder: (context, index) {
+  //                         return Container(
+  //                           padding: const EdgeInsets.all(5),
+  //                           child: Row(
+  //                             mainAxisAlignment: MainAxisAlignment.start,
+  //                             children: [
+  //                               const Icon(Icons.check_circle,
+  //                                   color: AppColors.darkPurpleColor, size: 18),
+  //                               const SizedBox(width: 6),
+  //                               Text(
+  //                                 data["description"][index],
+  //                                 style: const TextStyle(
+  //                                   color: Colors.black,
+  //                                   fontSize: 15,
+  //                                 ),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                         );
+  //                       },),
+  //                   ],
+  //                 )),
+  //           ),
+  //           pricingScreenController.plansSHowHidBoolList[i!] == true
+  //               ? GestureDetector(
+  //             onTap: () =>
+  //             {
+  //               changeVisibility(i),
+  //             },
+  //             child: Container(
+  //               width: double.infinity,
+  //               alignment: Alignment.center,
+  //               decoration: BoxDecoration(border: Border.all(
+  //                   color: AppColors.lightBlueColor, width: 2)),
+  //               // color: AppColors.greenColor,
+  //               margin: const EdgeInsets.only(
+  //                   left: 8, right: 8, top: 16, bottom: 12),
+  //               padding: const EdgeInsets.only(top: 8, bottom: 8),
+  //               child: Text("Hide Details",
+  //                 style: AppTextStyle.regular500.copyWith(
+  //                     fontSize: 14,
+  //                     color: AppColors.blackColor),),
+  //             ),
+  //           )
+  //               : Container(),
+  //           data["plan_name"] == "Enterprise"
+  //               ? GestureDetector(
+  //             onTap: () {
+  //               print("here here...");
+  //               //openwhatsapp();
+  //             },
+  //             child: Container(
+  //               width: double.infinity,
+  //               alignment: Alignment.center,
+  //               color: AppColors.lightBlueColor,
+  //               margin: const EdgeInsets.only(
+  //                   left: 8, right: 8, top: 16),
+  //               padding: const EdgeInsets.only(top: 8, bottom: 8),
+  //               child: Text("CONNECT US",
+  //                 style: AppTextStyle.regular500.copyWith(
+  //                     fontSize: 14,
+  //                     color: AppColors.whiteColor),),
+  //             ),
+  //           )
+  //               : GestureDetector(
+  //             onTap: () {
+  //               // goToPuchasePlan(planModel);
+  //             },
+  //             child: Container(
+  //               width: double.infinity,
+  //               alignment: Alignment.center,
+  //               color: AppColors.lightBlueColor,
+  //               margin: const EdgeInsets.only(
+  //                   left: 8, right: 8, top: 16),
+  //               padding: const EdgeInsets.only(top: 8, bottom: 8),
+  //               child: Text("PURCHASE PLAN",
+  //                 style: AppTextStyle.regular500.copyWith(
+  //                     fontSize: 14,
+  //                     color: AppColors.whiteColor),),
+  //             ),
+  //           ),
+  //           const SizedBox(height: 20),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   changeVisibility(int index) {
     setState(() {

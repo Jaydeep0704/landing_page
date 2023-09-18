@@ -132,16 +132,16 @@ class _BlogsTypeCrudScreenState extends State<BlogsTypeCrudScreen> {
                                           style: AppTextStyle.regular300
                                               .copyWith(fontSize: 15)),
                                       const SizedBox(height: 20),
-                                      Text(
-                                        "Blog Type Name :",
-                                        style: AppTextStyle.regular600
-                                            .copyWith(fontSize: 18),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text("${data["value"]}",
-                                          style: AppTextStyle.regular300
-                                              .copyWith(fontSize: 15)),
-                                      const SizedBox(height: 20),
+                                      // Text(
+                                      //   "Blog Type Name :",
+                                      //   style: AppTextStyle.regular600
+                                      //       .copyWith(fontSize: 18),
+                                      // ),
+                                      // const SizedBox(height: 10),
+                                      // Text("${data["value"]}",
+                                      //     style: AppTextStyle.regular300
+                                      //         .copyWith(fontSize: 15)),
+                                      // const SizedBox(height: 20),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
@@ -267,32 +267,32 @@ class CategoryBox extends StatelessWidget {
                   )),
             ),
             const SizedBox(height: 20),
-            Text(
-              "Blog Type Name:",
-              style: AppTextStyle.regular600.copyWith(fontSize: 18),
-            ),
-            const SizedBox(height: 10),
-            TextFormField(
-              controller: blogCategoriesController.valueController,
-              decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: const EdgeInsets.all(10),
-                  hintText: "Enter User Name",
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey, width: 1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.red, width: 1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.black, width: 1),
-                    borderRadius: BorderRadius.circular(10),
-                  )),
-            ),
-            const SizedBox(height: 20),
+            // Text(
+            //   "Blog Type Name:",
+            //   style: AppTextStyle.regular600.copyWith(fontSize: 18),
+            // ),
+            // const SizedBox(height: 10),
+            // TextFormField(
+            //   controller: blogCategoriesController.valueController,
+            //   decoration: InputDecoration(
+            //       filled: true,
+            //       fillColor: Colors.white,
+            //       contentPadding: const EdgeInsets.all(10),
+            //       hintText: "Enter User Name",
+            //       focusedBorder: OutlineInputBorder(
+            //         borderSide: const BorderSide(color: Colors.grey, width: 1),
+            //         borderRadius: BorderRadius.circular(10),
+            //       ),
+            //       errorBorder: OutlineInputBorder(
+            //         borderSide: const BorderSide(color: Colors.red, width: 1),
+            //         borderRadius: BorderRadius.circular(10),
+            //       ),
+            //       enabledBorder: OutlineInputBorder(
+            //         borderSide: const BorderSide(color: Colors.black, width: 1),
+            //         borderRadius: BorderRadius.circular(10),
+            //       )),
+            // ),
+            // const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -302,9 +302,8 @@ class CategoryBox extends StatelessWidget {
                         ? blogCategoriesController
                             .editBlogCategory(
                                 blog_type_id: blog_type_id,
-                                value: blogCategoriesController
-                                    .valueController.text,
-                                // value: blogCategoriesController.blogType.text,
+                                // value: blogCategoriesController.valueController.text,
+                                value: blogCategoriesController.blogType.text,
                                 blog_type:
                                     blogCategoriesController.blogType.text)
                             .whenComplete(() {
@@ -314,9 +313,8 @@ class CategoryBox extends StatelessWidget {
                           })
                         : blogCategoriesController
                             .addBlogCategory(
-                                value: blogCategoriesController
-                                    .valueController.text,
-                                // value: blogCategoriesController.blogType.text,
+                                // value: blogCategoriesController.valueController.text,
+                                value: blogCategoriesController.blogType.text,
                                 blog_type:
                                     blogCategoriesController.blogType.text)
                             .whenComplete(() {

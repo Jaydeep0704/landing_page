@@ -131,16 +131,16 @@ class _CSTypeCategoryScreenState extends State<CSTypeCategoryScreen> {
                                           style: AppTextStyle.regular300
                                               .copyWith(fontSize: 15)),
                                       const SizedBox(height: 20),
-                                      Text(
-                                        "Case Study Type Name :",
-                                        style: AppTextStyle.regular600
-                                            .copyWith(fontSize: 18),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text("${data["value"]}",
-                                          style: AppTextStyle.regular300
-                                              .copyWith(fontSize: 15)),
-                                      const SizedBox(height: 20),
+                                      // Text(
+                                      //   "Case Study Type Name :",
+                                      //   style: AppTextStyle.regular600
+                                      //       .copyWith(fontSize: 18),
+                                      // ),
+                                      // const SizedBox(height: 10),
+                                      // Text("${data["value"]}",
+                                      //     style: AppTextStyle.regular300
+                                      //         .copyWith(fontSize: 15)),
+                                      // const SizedBox(height: 20),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
@@ -267,32 +267,32 @@ class CSCategoryBox extends StatelessWidget {
                   )),
             ),
             const SizedBox(height: 20),
-            Text(
-              "Case Study Type Name:",
-              style: AppTextStyle.regular600.copyWith(fontSize: 18),
-            ),
-            const SizedBox(height: 10),
-            TextFormField(
-              controller: csCategoriesController.valueController,
-              decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: const EdgeInsets.all(10),
-                  hintText: "Enter Value",
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.grey, width: 1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.red, width: 1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.black, width: 1),
-                    borderRadius: BorderRadius.circular(10),
-                  )),
-            ),
-            const SizedBox(height: 20),
+            // Text(
+            //   "Case Study Type Name:",
+            //   style: AppTextStyle.regular600.copyWith(fontSize: 18),
+            // ),
+            // const SizedBox(height: 10),
+            // TextFormField(
+            //   controller: csCategoriesController.valueController,
+            //   decoration: InputDecoration(
+            //       filled: true,
+            //       fillColor: Colors.white,
+            //       contentPadding: const EdgeInsets.all(10),
+            //       hintText: "Enter Value",
+            //       focusedBorder: OutlineInputBorder(
+            //         borderSide: const BorderSide(color: Colors.grey, width: 1),
+            //         borderRadius: BorderRadius.circular(10),
+            //       ),
+            //       errorBorder: OutlineInputBorder(
+            //         borderSide: const BorderSide(color: Colors.red, width: 1),
+            //         borderRadius: BorderRadius.circular(10),
+            //       ),
+            //       enabledBorder: OutlineInputBorder(
+            //         borderSide: const BorderSide(color: Colors.black, width: 1),
+            //         borderRadius: BorderRadius.circular(10),
+            //       )),
+            // ),
+            // const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -302,8 +302,8 @@ class CSCategoryBox extends StatelessWidget {
                         ? csCategoriesController
                             .editCSCategory(
                             case_study_type_id: case_study_type_id,
-                            value: csCategoriesController.valueController.text,
-                            // value: csCategoriesController.csType.text,
+                            // value: csCategoriesController.valueController.text,
+                            value: csCategoriesController.csType.text,
                             case_study_type: csCategoriesController.csType.text,
                           )
                             .whenComplete(() {
@@ -313,8 +313,8 @@ class CSCategoryBox extends StatelessWidget {
                           })
                         : csCategoriesController
                             .addCSCategory(
-                            value: csCategoriesController.valueController.text,
-                            // value: csCategoriesController.csType.text,
+                            // value: csCategoriesController.valueController.text,
+                            value: csCategoriesController.csType.text,
                             case_study_type: csCategoriesController.csType.text,
                           )
                             .whenComplete(() {

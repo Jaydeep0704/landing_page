@@ -281,8 +281,8 @@ class _EditBlogState extends State<EditBlog> {
                                     return DropdownMenuItem<
                                         Map<String, String>>(
                                       value: item,
-                                      child: Text(
-                                          "${item['blog_type']} - ${item['value']}"),
+                                      // child: Text("${item['blog_type']} - ${item['value']}"),
+                                      child: Text("${item['blog_type']}"),
                                     );
                                   }).toList(),
                                 );
