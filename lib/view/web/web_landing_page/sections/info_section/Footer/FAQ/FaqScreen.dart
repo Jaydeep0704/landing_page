@@ -24,7 +24,12 @@ class FaqScreenState extends State<FaqScreen> {
   @override
   void initState() {
     super.initState();
+    getData();
+  }
+
+  getData() {
     helpController.getFaqData();
+    setState(() {});
   }
 
   void showAlert(BuildContext context) {
@@ -42,14 +47,14 @@ class FaqScreenState extends State<FaqScreen> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
-        title: Text("FAQ",
+        title: const Text("FAQ",
             style: TextStyle(
                 color: Colors.black,
                 fontSize: 18,
                 fontWeight: FontWeight.bold)),
         leading: IconButton(
           onPressed: Navigator.of(context).pop,
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
         ),
       ),
       body: Container(
@@ -73,21 +78,19 @@ class FaqScreenState extends State<FaqScreen> {
               );
             } else {
               if (snapshot.hasError) {
-                return Text('Error occurred while fetching data.');
+                return const Text('Error occurred while fetching data.');
               } else {
                 if (snapshot.data == true) {
                   return SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          child: Html(data: helpController.faq),
-                        ),
+                        Html(data: helpController.faq),
                       ],
                     ),
                   );
                 } else {
-                  return Text('Error occurred while fetching data.');
+                  return const Text('Error occurred while fetching data.');
                 }
               }
             }

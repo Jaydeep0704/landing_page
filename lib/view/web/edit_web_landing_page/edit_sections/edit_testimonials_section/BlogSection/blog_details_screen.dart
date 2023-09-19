@@ -116,39 +116,14 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
-                    /* Get.width > 1000
-                        ? Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                flex: 2,
-                                child: blogData(),
-                              ),
-                              const SizedBox(width: 13),
-                              const VerticalDivider(
-                                color: AppColors.greyBorderColor,
-                                thickness: 0.5,
-                              ),
-                              const SizedBox(width: 13),
-                              Flexible(
-                                flex: 1,
-                                child: relatedBlogs(),
-                              )
-                            ],
-                          )
-                        : */
-                    Column(
-                      children: [
-                        blogData(),
-                        const SizedBox(width: 13),
-                        const Divider(
-                          color: AppColors.greyBorderColor,
-                          thickness: 0.5,
-                        ),
-                        const SizedBox(width: 13),
-                        relatedBlogs(),
-                      ],
+                    blogData(),
+                    const SizedBox(width: 13),
+                    const Divider(
+                      color: AppColors.greyBorderColor,
+                      thickness: 0.5,
                     ),
+                    const SizedBox(width: 13),
+                    relatedBlogs(),
                   ],
                 ),
               ),

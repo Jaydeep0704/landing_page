@@ -8,6 +8,7 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_info_section/edit_info_logo_screen.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/login_page.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/FAQs/detail_faqs.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/AboutUs/AboutScreen.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/ContactUs/ContactUsScreen.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/FAQ/FaqScreen.dart';
@@ -18,8 +19,6 @@ import 'package:grobiz_web_landing/widget/common_bg_color_pick.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
-
 class EditInfoSection extends StatefulWidget {
   const EditInfoSection({Key? key}) : super(key: key);
 
@@ -28,11 +27,9 @@ class EditInfoSection extends StatefulWidget {
 }
 
 class _EditInfoSectionState extends State<EditInfoSection> {
-
   final editInfoController = Get.find<EditInfoController>();
   final editController = Get.find<EditController>();
   final webLandingPageController = Get.find<WebLandingPageController>();
-
 
   @override
   void initState() {
@@ -45,188 +42,206 @@ class _EditInfoSectionState extends State<EditInfoSection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return editController.homeComponentList.isEmpty && editController.allDataResponse.isEmpty
+          return editController.homeComponentList.isEmpty &&
+                  editController.allDataResponse.isEmpty
               ? const SizedBox()
               : Container(
-               width: Get.width,
-              decoration: editController
-                .allDataResponse[0]["info_details"][0]["info_bg_color_switch"]
-                .toString() == "1" &&
-                editController
-                    .allDataResponse[0]["info_details"][0]["info_bg_image_switch"]
-                    .toString() == "0"
-                ? BoxDecoration(
-              color: editController
-                  .allDataResponse[0]["info_details"][0]["info_bg_color"]
-                  .toString()
-                  .isEmpty
-                  ? Color(int.parse(
-                  editController.introBgColor.value.toString()))
-                  : Color(int.parse(editController
-                  .allDataResponse[0]["info_details"][0]["info_bg_color"]
-                  .toString())),
-            )
-                : BoxDecoration(
-                image: DecorationImage(image: CachedNetworkImageProvider(
-                  APIString.mediaBaseUrl + editController
-                      .allDataResponse[0]["info_details"][0]["info_bg_image"]
-                      .toString(),
-                  errorListener: () => const Icon(Icons.error),),
-                    fit: BoxFit.cover)
-            ),
-            // decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
-            child: Column(
-              children: [
-                Align(
-                    alignment: Alignment.topRight,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Switch(
-                              value: editController.footerSection
-                                  .value,
-                              onChanged: (value) {
-                                setState(() {
-                                  editController.footerSection.value = value;
-                                  print("value ---- $value");
-                                  editController.showHideComponent(
-                                      value: value == false
-                                          ? "No"
-                                          : "Yes",
-                                      componentName: "footer_section");
-                                });
-                              },
-                            ),
-                            const SizedBox(width: 10,),
-                            InkWell(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      content: SingleChildScrollView(
-                                          child: Column(
-                                            children: [
-                                              Align(
-                                                alignment:
-                                                Alignment.topRight,
-                                                child: IconButton(
-                                                    onPressed: () =>
-                                                        Get.back(),
-                                                    icon: const Icon(
-                                                        Icons.close)),
-                                              ),
-                                              ElevatedButton(
-                                                  onPressed: () {
-                                                    Get.dialog(ColorPickDialog(
-                                                      // containerColor: Color(int.parse(editController.showcaseAppsBgColor.value.toString())),
-                                                      // containerColor: Color(int.parse(editController.showcaseAppsBgColor.value.toString())),
-                                                      containerColor: Color(
-                                                          int.parse(editController
-                                                              .allDataResponse[0][
-                                                          "info_details"][0]["info_bg_color"]
-                                                              .toString())),
-                                                      keyNameClr: "info_bg_color",
-                                                      clrSwitchValue: "1",
-                                                      imgSwitchValue: "0",
-                                                      switchKeyNameImg: "info_bg_image_switch",
-                                                      switchKeyNameClr: "info_bg_color_switch",
-                                                    ));
-                                                  },
-                                                  child: const Text(
-                                                      "Color Picker")),
-                                              const SizedBox(height: 20),
-                                              ElevatedButton(
-                                                  onPressed: () {
-                                                    Get.dialog(ImgPickDialog(
-                                                      keyNameImg:
-                                                      "info_bg_image",
-                                                      switchKeyNameImg:
-                                                      "info_bg_image_switch",
-                                                      switchKeyNameClr:
-                                                      "info_bg_color_switch",
-                                                    ));
-                                                  },
-                                                  child: const Text(
-                                                      "Image Picker"))
-                                            ],
-                                          )),
-                                    );
-                                    // return ColorPickDialog(
-                                    //   // containerColor: Color(int.parse(editController.showcaseAppsBgColor.value.toString())),
-                                    //   // containerColor: Color(int.parse(editController.showcaseAppsBgColor.value.toString())),
-                                    //   containerColor: Color(int.parse(
-                                    //       editController
-                                    //           .allDataResponse[0]
-                                    //               ["intro_details"][0]
-                                    //               ["intro_bg_color"]
-                                    //           .toString())),
-                                    //   keyNameClr: "intro_bg_color",
-                                    //   clrSwitchValue: "1",
-                                    //   imgSwitchValue: "0",
-                                    //   switchKeyNameImg:
-                                    //       "intro_bg_image_switch",
-                                    //   switchKeyNameClr:
-                                    //       "intro_bg_color_switch",
-                                    // );
-                                  },
-                                );
-                              },
-                              child: Icon(Icons.colorize, color: editController
-                                  .allDataResponse[0]["info_details"][0]["info_bg_color"]
-                                  .toString() != "4294967295"
-                                  ? AppColors.whiteColor : AppColors.blackColor),),
-                          ],
-                        ),
-                        // SizedBox(height: 20),
-                        // Align(
-                        //   alignment: Alignment.topRight,
-                        //   child: GestureDetector(
-                        //     onTap: () {
-                        //       Navigator.push(context, MaterialPageRoute(
-                        //           builder: (context) => const EditInfoLogoScreen()))
-                        //           .whenComplete(() {
-                        //         editInfoController.getImages();
-                        //       });
-                        //     },
-                        //     child: FittedBox(
-                        //       fit: BoxFit.scaleDown,
-                        //       child: Container(
-                        //         padding: const EdgeInsets.all(5),
-                        //         margin: const EdgeInsets.only(right: 10),
-                        //         decoration: BoxDecoration(
-                        //             color: AppColors.greyColor.withOpacity(0.5),
-                        //             borderRadius:
-                        //             const BorderRadius.all(Radius.circular(5))),
-                        //         child: Row(
-                        //           children: const [
-                        //             Icon(Icons.edit),
-                        //             SizedBox(width: 3),
-                        //             Text("Edit Images")
-                        //           ],
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
-                    )),
-                SizedBox(height: Get.width > 700 ? 80 : 30),
-                Get.width > 700 ? horizontalInfo() : verticalInfo(),
-                SizedBox(height: Get.width > 700 ? 80 : 30),
-              ],
-            ),
-          );
+                  width: Get.width,
+                  decoration: editController.allDataResponse[0]["info_details"]
+                                      [0]["info_bg_color_switch"]
+                                  .toString() ==
+                              "1" &&
+                          editController.allDataResponse[0]["info_details"][0]
+                                      ["info_bg_image_switch"]
+                                  .toString() ==
+                              "0"
+                      ? BoxDecoration(
+                          color: editController.allDataResponse[0]
+                                      ["info_details"][0]["info_bg_color"]
+                                  .toString()
+                                  .isEmpty
+                              ? Color(int.parse(
+                                  editController.introBgColor.value.toString()))
+                              : Color(int.parse(editController
+                                  .allDataResponse[0]["info_details"][0]
+                                      ["info_bg_color"]
+                                  .toString())),
+                        )
+                      : BoxDecoration(
+                          image: DecorationImage(
+                              image: CachedNetworkImageProvider(
+                                APIString.mediaBaseUrl +
+                                    editController.allDataResponse[0]
+                                            ["info_details"][0]["info_bg_image"]
+                                        .toString(),
+                                errorListener: () => const Icon(Icons.error),
+                              ),
+                              fit: BoxFit.cover)),
+                  // decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)),
+                  child: Column(
+                    children: [
+                      Align(
+                          alignment: Alignment.topRight,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Switch(
+                                    value: editController.footerSection.value,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        editController.footerSection.value =
+                                            value;
+                                        print("value ---- $value");
+                                        editController.showHideComponent(
+                                            value:
+                                                value == false ? "No" : "Yes",
+                                            componentName: "footer_section");
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            content: SingleChildScrollView(
+                                                child: Column(
+                                              children: [
+                                                Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: IconButton(
+                                                      onPressed: () =>
+                                                          Get.back(),
+                                                      icon: const Icon(
+                                                          Icons.close)),
+                                                ),
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      Get.dialog(
+                                                          ColorPickDialog(
+                                                        // containerColor: Color(int.parse(editController.showcaseAppsBgColor.value.toString())),
+                                                        // containerColor: Color(int.parse(editController.showcaseAppsBgColor.value.toString())),
+                                                        containerColor: Color(int
+                                                            .parse(editController
+                                                                .allDataResponse[
+                                                                    0][
+                                                                    "info_details"]
+                                                                    [0][
+                                                                    "info_bg_color"]
+                                                                .toString())),
+                                                        keyNameClr:
+                                                            "info_bg_color",
+                                                        clrSwitchValue: "1",
+                                                        imgSwitchValue: "0",
+                                                        switchKeyNameImg:
+                                                            "info_bg_image_switch",
+                                                        switchKeyNameClr:
+                                                            "info_bg_color_switch",
+                                                      ));
+                                                    },
+                                                    child: const Text(
+                                                        "Color Picker")),
+                                                const SizedBox(height: 20),
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      Get.dialog(ImgPickDialog(
+                                                        keyNameImg:
+                                                            "info_bg_image",
+                                                        switchKeyNameImg:
+                                                            "info_bg_image_switch",
+                                                        switchKeyNameClr:
+                                                            "info_bg_color_switch",
+                                                      ));
+                                                    },
+                                                    child: const Text(
+                                                        "Image Picker"))
+                                              ],
+                                            )),
+                                          );
+                                          // return ColorPickDialog(
+                                          //   // containerColor: Color(int.parse(editController.showcaseAppsBgColor.value.toString())),
+                                          //   // containerColor: Color(int.parse(editController.showcaseAppsBgColor.value.toString())),
+                                          //   containerColor: Color(int.parse(
+                                          //       editController
+                                          //           .allDataResponse[0]
+                                          //               ["intro_details"][0]
+                                          //               ["intro_bg_color"]
+                                          //           .toString())),
+                                          //   keyNameClr: "intro_bg_color",
+                                          //   clrSwitchValue: "1",
+                                          //   imgSwitchValue: "0",
+                                          //   switchKeyNameImg:
+                                          //       "intro_bg_image_switch",
+                                          //   switchKeyNameClr:
+                                          //       "intro_bg_color_switch",
+                                          // );
+                                        },
+                                      );
+                                    },
+                                    child: Icon(Icons.colorize,
+                                        color: editController.allDataResponse[0]
+                                                        ["info_details"][0]
+                                                        ["info_bg_color"]
+                                                    .toString() !=
+                                                "4294967295"
+                                            ? AppColors.whiteColor
+                                            : AppColors.blackColor),
+                                  ),
+                                ],
+                              ),
+                              // SizedBox(height: 20),
+                              // Align(
+                              //   alignment: Alignment.topRight,
+                              //   child: GestureDetector(
+                              //     onTap: () {
+                              //       Navigator.push(context, MaterialPageRoute(
+                              //           builder: (context) => const EditInfoLogoScreen()))
+                              //           .whenComplete(() {
+                              //         editInfoController.getImages();
+                              //       });
+                              //     },
+                              //     child: FittedBox(
+                              //       fit: BoxFit.scaleDown,
+                              //       child: Container(
+                              //         padding: const EdgeInsets.all(5),
+                              //         margin: const EdgeInsets.only(right: 10),
+                              //         decoration: BoxDecoration(
+                              //             color: AppColors.greyColor.withOpacity(0.5),
+                              //             borderRadius:
+                              //             const BorderRadius.all(Radius.circular(5))),
+                              //         child: Row(
+                              //           children: const [
+                              //             Icon(Icons.edit),
+                              //             SizedBox(width: 3),
+                              //             Text("Edit Images")
+                              //           ],
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                            ],
+                          )),
+                      SizedBox(height: Get.width > 700 ? 80 : 30),
+                      Get.width > 700 ? horizontalInfo() : verticalInfo(),
+                      SizedBox(height: Get.width > 700 ? 80 : 30),
+                    ],
+                  ),
+                );
         });
       },
     );
   }
 
   ///info section - vertical
-    verticalInfo() {
+  verticalInfo() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,16 +252,15 @@ class _EditInfoSectionState extends State<EditInfoSection> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
               const Text(
                 "GroBiz ",
-                style: TextStyle(fontSize: 20,
+                style: TextStyle(
+                    fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
-
               InkWell(
                 onTap: () {
                   const facebookUrl = 'https://www.facebook.com';
@@ -257,9 +271,10 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                     Icon(
                       Icons.facebook,
                       size: 18,
-
                     ),
-                    SizedBox(width: 10,),
+                    SizedBox(
+                      width: 10,
+                    ),
                     Text(
                       "Facebook",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -268,7 +283,6 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                   ],
                 ),
               ),
-
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
@@ -282,7 +296,9 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                       width: 18,
                       height: 18,
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     const Text(
                       "Twitter",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -291,8 +307,6 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                   ],
                 ),
               ),
-
-
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
@@ -306,7 +320,9 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                       width: 18,
                       height: 18,
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     const Text(
                       "YouTube",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -328,7 +344,9 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                       width: 18,
                       height: 18,
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     const Text(
                       "Linkedin",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -349,7 +367,9 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                       width: 18,
                       height: 18,
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     const Text(
                       "Instagram",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -358,7 +378,6 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                   ],
                 ),
               ),
-
             ],
           ),
         ),
@@ -386,14 +405,13 @@ class _EditInfoSectionState extends State<EditInfoSection> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
               const Text(
                 "Company ",
-                style: TextStyle(fontSize: 20,
+                style: TextStyle(
+                    fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
-
               ),
               const SizedBox(height: 10),
 
@@ -405,7 +423,10 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               // SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => AboutUs())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => AboutUs())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "About Us",
@@ -416,7 +437,10 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => TnCScreen())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => TnCScreen())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text("T&C",
                     style: TextStyle(fontSize: 18, color: Colors.black),
@@ -425,7 +449,10 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => PrivacyPolicy())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => PrivacyPolicy())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text("Privacy",
                     style: TextStyle(fontSize: 18, color: Colors.black),
@@ -434,7 +461,11 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => FaqScreen())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  // Get.to(() => FaqScreen())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => DetailFAQs())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text("Faq",
                     style: TextStyle(fontSize: 18, color: Colors.black),
@@ -459,7 +490,10 @@ class _EditInfoSectionState extends State<EditInfoSection> {
 
               InkWell(
                 onTap: () {
-                  Get.to(()=>const CareersScreen())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => const CareersScreen())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "Career",
@@ -477,7 +511,6 @@ class _EditInfoSectionState extends State<EditInfoSection> {
             ],
           ),
         ),
-
 
         // SizedBox(
         //   height: 250,
@@ -506,16 +539,19 @@ class _EditInfoSectionState extends State<EditInfoSection> {
             children: [
               const Text(
                 "Reach Us ",
-                style: TextStyle(fontSize: 20,
+                style: TextStyle(
+                    fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
-
               ),
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => Contactus())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => Contactus())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "Contact Us",
@@ -523,7 +559,6 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                   textAlign: TextAlign.center,
                 ),
               ),
-
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
@@ -853,14 +888,13 @@ class _EditInfoSectionState extends State<EditInfoSection> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
               const Text(
                 "GroBiz ",
-                style: TextStyle(fontSize: 20,
+                style: TextStyle(
+                    fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
-
               ),
               const SizedBox(height: 10),
 
@@ -874,9 +908,10 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                     Icon(
                       Icons.facebook,
                       size: 18,
-
                     ),
-                    SizedBox(width: 10,),
+                    SizedBox(
+                      width: 10,
+                    ),
                     Text(
                       "Facebook",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -899,7 +934,9 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                       width: 18,
                       height: 18,
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     const Text(
                       "Twitter",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -908,7 +945,6 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                   ],
                 ),
               ),
-
 
               const SizedBox(height: 10),
               InkWell(
@@ -923,7 +959,9 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                       width: 18,
                       height: 18,
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     const Text(
                       "YouTube",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -945,7 +983,9 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                       width: 18,
                       height: 18,
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     const Text(
                       "Linkedin",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -966,7 +1006,9 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                       width: 18,
                       height: 18,
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     const Text(
                       "Instagram",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -986,7 +1028,6 @@ class _EditInfoSectionState extends State<EditInfoSection> {
             ],
           ),
         ),
-
         SizedBox(
           height: 250,
           child: VerticalDivider(
@@ -997,21 +1038,19 @@ class _EditInfoSectionState extends State<EditInfoSection> {
             endIndent: 10,
           ),
         ),
-
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
               const Text(
                 "Company ",
-                style: TextStyle(fontSize: 20,
+                style: TextStyle(
+                    fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
-
               ),
               const SizedBox(height: 10),
 
@@ -1023,7 +1062,10 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               // SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => AboutUs())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => AboutUs())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "About Us",
@@ -1034,7 +1076,10 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => TnCScreen())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => TnCScreen())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text("T&C",
                     style: TextStyle(fontSize: 18, color: Colors.black),
@@ -1043,7 +1088,10 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => PrivacyPolicy())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => PrivacyPolicy())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text("Privacy",
                     style: TextStyle(fontSize: 18, color: Colors.black),
@@ -1052,7 +1100,11 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => FaqScreen())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  // Get.to(() => FaqScreen())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => DetailFAQs())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text("Faq",
                     style: TextStyle(fontSize: 18, color: Colors.black),
@@ -1076,7 +1128,10 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               // SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(()=>const CareersScreen())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => const CareersScreen())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "Career",
@@ -1094,8 +1149,6 @@ class _EditInfoSectionState extends State<EditInfoSection> {
             ],
           ),
         ),
-
-
         SizedBox(
           height: 250,
           child: VerticalDivider(
@@ -1106,7 +1159,6 @@ class _EditInfoSectionState extends State<EditInfoSection> {
             endIndent: 10,
           ),
         ),
-
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -1115,16 +1167,19 @@ class _EditInfoSectionState extends State<EditInfoSection> {
             children: [
               const Text(
                 "Reach Us ",
-                style: TextStyle(fontSize: 20,
+                style: TextStyle(
+                    fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
-
               ),
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => Contactus())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => Contactus())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "Contact Us",
@@ -1132,7 +1187,6 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                   textAlign: TextAlign.center,
                 ),
               ),
-
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
@@ -1153,7 +1207,8 @@ class _EditInfoSectionState extends State<EditInfoSection> {
 
   launchInstagram() async {
     const instagramUrl = 'https://www.instagram.com';
-    const instagramAppUrl = 'instagram://user?username=USERNAME'; // Replace 'USERNAME' with the desired Instagram username
+    const instagramAppUrl =
+        'instagram://user?username=USERNAME'; // Replace 'USERNAME' with the desired Instagram username
 
     if (await canLaunch(instagramAppUrl)) {
       await launch(instagramAppUrl);
@@ -1161,5 +1216,4 @@ class _EditInfoSectionState extends State<EditInfoSection> {
       await launch(instagramUrl);
     }
   }
-
 }

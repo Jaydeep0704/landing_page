@@ -17,6 +17,7 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_numbers_banner_section/number_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/login_page.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/FAQs/detail_faqs.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/AboutUs/AboutScreen.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/ContactUs/ContactUsScreen.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/FAQ/FaqScreen.dart';
@@ -24,7 +25,6 @@ import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_secti
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/TandC/termsCondition.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/career/careers_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 
 class InfoSection extends StatefulWidget {
   const InfoSection({Key? key}) : super(key: key);
@@ -34,7 +34,6 @@ class InfoSection extends StatefulWidget {
 }
 
 class _InfoSectionState extends State<InfoSection> {
-
   final editController = Get.find<EditController>();
   final editInfoController = Get.find<EditInfoController>();
   final webLandingPageController = Get.find<WebLandingPageController>();
@@ -60,36 +59,49 @@ class _InfoSectionState extends State<InfoSection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return editController.footerSection.value == false ||  editController.allDataResponse.isEmpty
+          return editController.footerSection.value == false ||
+                  editController.allDataResponse.isEmpty
               ? const SizedBox()
               : Container(
-            width: Get.width,
-            decoration:  editController.allDataResponse[0]["info_details"][0]["info_bg_color_switch"].toString() == "1" &&
-                editController.allDataResponse[0]["info_details"][0]["info_bg_image_switch"].toString() =="0"
-                ? BoxDecoration(
-              color: editController.allDataResponse[0]["info_details"][0]["info_bg_color"]
-                  .toString()
-                  .isEmpty
-                  ? Color(int.parse(
-                  editController.introBgColor.value.toString()))
-                  : Color(int.parse(editController.allDataResponse[0]["info_details"][0]["info_bg_color"]
-                  .toString())),
-            )
-                : BoxDecoration(
-                image: DecorationImage(image: CachedNetworkImageProvider(
-                  APIString.mediaBaseUrl +
-                      editController.allDataResponse[0]["info_details"][0]["info_bg_image"]
-                          .toString(),
-                  errorListener: () =>  const Icon(Icons.error),),fit: BoxFit.cover)
-            ),
-            child: Column(
-              children: [
-                SizedBox(height: Get.width > 700 ? 80 : 30),
-                Get.width > 700 ? horizontalInfo() : verticalInfo(),
-                SizedBox(height: Get.width > 700 ? 80 : 30),
-              ],
-            ),
-          );
+                  width: Get.width,
+                  decoration: editController.allDataResponse[0]["info_details"]
+                                      [0]["info_bg_color_switch"]
+                                  .toString() ==
+                              "1" &&
+                          editController.allDataResponse[0]["info_details"][0]
+                                      ["info_bg_image_switch"]
+                                  .toString() ==
+                              "0"
+                      ? BoxDecoration(
+                          color: editController.allDataResponse[0]
+                                      ["info_details"][0]["info_bg_color"]
+                                  .toString()
+                                  .isEmpty
+                              ? Color(int.parse(
+                                  editController.introBgColor.value.toString()))
+                              : Color(int.parse(editController
+                                  .allDataResponse[0]["info_details"][0]
+                                      ["info_bg_color"]
+                                  .toString())),
+                        )
+                      : BoxDecoration(
+                          image: DecorationImage(
+                              image: CachedNetworkImageProvider(
+                                APIString.mediaBaseUrl +
+                                    editController.allDataResponse[0]
+                                            ["info_details"][0]["info_bg_image"]
+                                        .toString(),
+                                errorListener: () => const Icon(Icons.error),
+                              ),
+                              fit: BoxFit.cover)),
+                  child: Column(
+                    children: [
+                      SizedBox(height: Get.width > 700 ? 80 : 30),
+                      Get.width > 700 ? horizontalInfo() : verticalInfo(),
+                      SizedBox(height: Get.width > 700 ? 80 : 30),
+                    ],
+                  ),
+                );
         });
       },
     );
@@ -108,14 +120,13 @@ class _InfoSectionState extends State<InfoSection> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
               const Text(
                 "GroBiz ",
-                style: TextStyle(fontSize: 20,
+                style: TextStyle(
+                    fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
-
               ),
               const SizedBox(height: 10),
 
@@ -123,16 +134,17 @@ class _InfoSectionState extends State<InfoSection> {
                 onTap: () {
                   // const facebookUrl = 'https://www.facebook.com';
                   // launch(facebookUrl);
-                  html.window.open(AppString.fbLink,"_blank");
+                  html.window.open(AppString.fbLink, "_blank");
                 },
                 child: Row(
                   children: const [
                     Icon(
                       Icons.facebook,
                       size: 18,
-
                     ),
-                    SizedBox(width: 10,),
+                    SizedBox(
+                      width: 10,
+                    ),
                     Text(
                       "Facebook",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -147,7 +159,7 @@ class _InfoSectionState extends State<InfoSection> {
                 onTap: () {
                   //const twitterUrl = 'https://twitter.com';
                   // launch(twitterUrl);
-                  html.window.open(AppString.twitterLink,"_blank");
+                  html.window.open(AppString.twitterLink, "_blank");
                 },
                 child: Row(
                   children: [
@@ -156,7 +168,9 @@ class _InfoSectionState extends State<InfoSection> {
                       width: 18,
                       height: 18,
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     const Text(
                       "Twitter",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -166,13 +180,12 @@ class _InfoSectionState extends State<InfoSection> {
                 ),
               ),
 
-
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
                   // const youtubeUrl = 'https://www.youtube.com';
                   // launch(youtubeUrl);
-                  html.window.open(AppString.ytLink,"_blank");
+                  html.window.open(AppString.ytLink, "_blank");
                 },
                 child: Row(
                   children: [
@@ -181,7 +194,9 @@ class _InfoSectionState extends State<InfoSection> {
                       width: 18,
                       height: 18,
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     const Text(
                       "YouTube",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -195,8 +210,7 @@ class _InfoSectionState extends State<InfoSection> {
                 onTap: () {
                   // const linkedinUrl = 'https://www.linkedin.com';
                   // launch(linkedinUrl);
-                  html.window.open(AppString.linkedInLink,"_blank");
-
+                  html.window.open(AppString.linkedInLink, "_blank");
                 },
                 child: Row(
                   children: [
@@ -205,7 +219,9 @@ class _InfoSectionState extends State<InfoSection> {
                       width: 18,
                       height: 18,
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     const Text(
                       "Linkedin",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -218,8 +234,7 @@ class _InfoSectionState extends State<InfoSection> {
               InkWell(
                 onTap: () {
                   // launchInstagram();
-                  html.window.open(AppString.instaLink,"_blank");
-
+                  html.window.open(AppString.instaLink, "_blank");
                 },
                 child: Row(
                   children: [
@@ -228,7 +243,9 @@ class _InfoSectionState extends State<InfoSection> {
                       width: 18,
                       height: 18,
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     const Text(
                       "Instagram",
                       style: TextStyle(fontSize: 18, color: Colors.black),
@@ -248,7 +265,6 @@ class _InfoSectionState extends State<InfoSection> {
             ],
           ),
         ),
-
         SizedBox(
           height: 250,
           child: VerticalDivider(
@@ -259,21 +275,19 @@ class _InfoSectionState extends State<InfoSection> {
             endIndent: 10,
           ),
         ),
-
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
               const Text(
                 "Company ",
-                style: TextStyle(fontSize: 20,
+                style: TextStyle(
+                    fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
-
               ),
               const SizedBox(height: 10),
 
@@ -285,7 +299,10 @@ class _InfoSectionState extends State<InfoSection> {
               // SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => AboutUs())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => AboutUs())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "About Us",
@@ -296,7 +313,10 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => TnCScreen())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => TnCScreen())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text("T&C",
                     style: TextStyle(fontSize: 18, color: Colors.black),
@@ -305,7 +325,10 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => PrivacyPolicy())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => PrivacyPolicy())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text("Privacy",
                     style: TextStyle(fontSize: 18, color: Colors.black),
@@ -314,7 +337,11 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => FaqScreen())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  // Get.to(() => FaqScreen())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => DetailFAQs())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text("FAQs",
                     style: TextStyle(fontSize: 18, color: Colors.black),
@@ -338,7 +365,10 @@ class _InfoSectionState extends State<InfoSection> {
               // SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(()=>const CareersScreen())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => const CareersScreen())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "Career",
@@ -356,8 +386,6 @@ class _InfoSectionState extends State<InfoSection> {
             ],
           ),
         ),
-
-
         SizedBox(
           height: 250,
           child: VerticalDivider(
@@ -368,7 +396,6 @@ class _InfoSectionState extends State<InfoSection> {
             endIndent: 10,
           ),
         ),
-
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -377,16 +404,19 @@ class _InfoSectionState extends State<InfoSection> {
             children: [
               const Text(
                 "Reach Us ",
-                style: TextStyle(fontSize: 20,
+                style: TextStyle(
+                    fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
-
               ),
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => Contactus())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => Contactus())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "Contact Us",
@@ -394,12 +424,14 @@ class _InfoSectionState extends State<InfoSection> {
                   textAlign: TextAlign.center,
                 ),
               ),
-
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
                   Get.find<EditHiwController>().botController.pause();
-                  Get.to(() => const LoginPage())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => const LoginPage())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "Admin Login",
@@ -413,7 +445,6 @@ class _InfoSectionState extends State<InfoSection> {
       ],
     );
   }
-
 
   ///info section - horizontal
   verticalInfo() {
@@ -432,11 +463,11 @@ class _InfoSectionState extends State<InfoSection> {
                 children: [
                   const Text(
                     "GroBiz ",
-                    style: TextStyle(fontSize: 20,
+                    style: TextStyle(
+                        fontSize: 20,
                         color: Colors.black,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
-
                   ),
                   const SizedBox(height: 5),
                   SizedBox(
@@ -454,8 +485,7 @@ class _InfoSectionState extends State<InfoSection> {
                     onTap: () {
                       // const facebookUrl = 'https://www.facebook.com';
                       // launch(facebookUrl);
-                      html.window.open(AppString.fbLink,"_blank");
-
+                      html.window.open(AppString.fbLink, "_blank");
                     },
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
@@ -465,9 +495,10 @@ class _InfoSectionState extends State<InfoSection> {
                           Icon(
                             Icons.facebook,
                             size: 18,
-
                           ),
-                          SizedBox(width: 10,),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Text(
                             "Facebook",
                             style: TextStyle(fontSize: 18, color: Colors.black),
@@ -482,8 +513,7 @@ class _InfoSectionState extends State<InfoSection> {
                     onTap: () {
                       // const twitterUrl = 'https://twitter.com';
                       // launch(twitterUrl);
-                      html.window.open(AppString.twitterLink,"_blank");
-
+                      html.window.open(AppString.twitterLink, "_blank");
                     },
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
@@ -495,7 +525,9 @@ class _InfoSectionState extends State<InfoSection> {
                             width: 18,
                             height: 18,
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           const Text(
                             "Twitter",
                             style: TextStyle(fontSize: 18, color: Colors.black),
@@ -510,8 +542,7 @@ class _InfoSectionState extends State<InfoSection> {
                     onTap: () {
                       // const youtubeUrl = 'https://www.youtube.com';
                       // launch(youtubeUrl);
-                      html.window.open(AppString.ytLink,"_blank");
-
+                      html.window.open(AppString.ytLink, "_blank");
                     },
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
@@ -523,7 +554,9 @@ class _InfoSectionState extends State<InfoSection> {
                             width: 18,
                             height: 18,
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           const Text(
                             "YouTube",
                             style: TextStyle(fontSize: 18, color: Colors.black),
@@ -538,8 +571,7 @@ class _InfoSectionState extends State<InfoSection> {
                     onTap: () {
                       // const linkedinUrl = 'https://www.linkedin.com';
                       // launch(linkedinUrl);
-                      html.window.open(AppString.linkedInLink,"_blank");
-
+                      html.window.open(AppString.linkedInLink, "_blank");
                     },
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
@@ -551,7 +583,9 @@ class _InfoSectionState extends State<InfoSection> {
                             width: 18,
                             height: 18,
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           const Text(
                             "Linkedin",
                             style: TextStyle(fontSize: 18, color: Colors.black),
@@ -565,8 +599,7 @@ class _InfoSectionState extends State<InfoSection> {
                   InkWell(
                     onTap: () {
                       // launchInstagram();
-                      html.window.open(AppString.instaLink,"_blank");
-
+                      html.window.open(AppString.instaLink, "_blank");
                     },
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
@@ -578,7 +611,9 @@ class _InfoSectionState extends State<InfoSection> {
                             width: 18,
                             height: 18,
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           const Text(
                             "Instagram",
                             style: TextStyle(fontSize: 18, color: Colors.black),
@@ -594,7 +629,7 @@ class _InfoSectionState extends State<InfoSection> {
           ),
         ),
         SizedBox(
-          width: Get.width*0.7,
+          width: Get.width * 0.7,
           child: Divider(
             color: Colors.grey.withOpacity(0.8),
             // width: 10,
@@ -609,14 +644,13 @@ class _InfoSectionState extends State<InfoSection> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-
               const Text(
                 "Company ",
-                style: TextStyle(fontSize: 20,
+                style: TextStyle(
+                    fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
-
               ),
               const SizedBox(height: 5),
               SizedBox(
@@ -639,7 +673,10 @@ class _InfoSectionState extends State<InfoSection> {
               // SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => AboutUs())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => AboutUs())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "About Us",
@@ -650,7 +687,10 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => TnCScreen())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => TnCScreen())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text("T&C",
                     style: TextStyle(fontSize: 18, color: Colors.black),
@@ -659,7 +699,10 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => PrivacyPolicy())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => PrivacyPolicy())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text("Privacy",
                     style: TextStyle(fontSize: 18, color: Colors.black),
@@ -668,7 +711,11 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => FaqScreen())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  // Get.to(() => FaqScreen())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => DetailFAQs())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text("FAQs",
                     style: TextStyle(fontSize: 18, color: Colors.black),
@@ -692,7 +739,10 @@ class _InfoSectionState extends State<InfoSection> {
               // SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(()=>const CareersScreen())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => const CareersScreen())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "Career",
@@ -711,7 +761,7 @@ class _InfoSectionState extends State<InfoSection> {
           ),
         ),
         SizedBox(
-          width: Get.width*0.7,
+          width: Get.width * 0.7,
           child: Divider(
             color: Colors.grey.withOpacity(0.8),
             // width: 10,
@@ -728,11 +778,11 @@ class _InfoSectionState extends State<InfoSection> {
             children: [
               const Text(
                 "Reach Us ",
-                style: TextStyle(fontSize: 20,
+                style: TextStyle(
+                    fontSize: 20,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
-
               ),
               const SizedBox(height: 5),
               SizedBox(
@@ -748,7 +798,10 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 5),
               InkWell(
                 onTap: () {
-                  Get.to(() => Contactus())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => Contactus())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "Contact Us",
@@ -756,13 +809,15 @@ class _InfoSectionState extends State<InfoSection> {
                   textAlign: TextAlign.center,
                 ),
               ),
-
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
                   // Get.find<EditHiwController>().botController.pause();
                   // disposeAllController();
-                  Get.to(() => const LoginPage())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+                  Get.to(() => const LoginPage())!
+                      .whenComplete(() => Future.delayed(Duration.zero, () {
+                            webLandingPageController.getUserCount();
+                          }));
                 },
                 child: const Text(
                   "Admin Login",
@@ -775,13 +830,12 @@ class _InfoSectionState extends State<InfoSection> {
         ),
       ],
     );
-
   }
-
 
   launchInstagram() async {
     const instagramUrl = 'https://www.instagram.com';
-    const instagramAppUrl = 'instagram://user?username=USERNAME'; // Replace 'USERNAME' with the desired Instagram username
+    const instagramAppUrl =
+        'instagram://user?username=USERNAME'; // Replace 'USERNAME' with the desired Instagram username
 
     if (await canLaunch(instagramAppUrl)) {
       await launch(instagramAppUrl);
@@ -790,74 +844,80 @@ class _InfoSectionState extends State<InfoSection> {
     }
   }
 
-
-  disposeAllController(){
+  disposeAllController() {
     if (editController.allDataResponse.isNotEmpty) {
       log("dispose called when list isNotEmpty");
       if (editController.allDataResponse[0]["intro_details"][0]
-      ["intro_bot_file_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["intro_bot_file_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         editIntroController.introBotController.pause();
         editIntroController.introBotController.dispose();
         // editIntroController.introBotControllerChewie!.dispose();
       }
       if (editController.allDataResponse[0]["intro_details"][0]
-      ["intro_gif1_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["intro_gif1_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         editIntroController.introGif1Controller.pause();
         editIntroController.introGif1Controller.dispose();
       }
-      if (editController.allDataResponse[0]["intro_details"][0]["intro_gif2_mediatype"].toString().toLowerCase() == 'video') {
+      if (editController.allDataResponse[0]["intro_details"][0]
+                  ["intro_gif2_mediatype"]
+              .toString()
+              .toLowerCase() ==
+          'video') {
         editIntroController.introGif2Controller.pause();
         editIntroController.introGif2Controller.dispose();
       }
       //----------how it works
-      if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == 'video') {
+      if (editController.allDataResponse[0]["how_it_works_details"][0]
+                  ["hiw_gif_mediatype"]
+              .toString()
+              .toLowerCase() ==
+          'video') {
         editHiwController.botController.pause();
         editHiwController.botController.dispose();
         editHiwController.botChewieController.dispose();
       }
       //----------mix banner
       if (editController.allDataResponse[0]["mix_banner_details"][0]
-      ["mix_banner_file_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["mix_banner_file_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         mixBannerController.videoController.pause();
         mixBannerController.videoController.dispose();
       }
       //----------NUMBER BANNER
       if (editController.allDataResponse[0]["numbers_banner_details"][0]
-      ["numbers_banner_file1_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["numbers_banner_file1_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         numberBannerController.media1Controller.pause();
         numberBannerController.media1Controller.dispose();
       }
       //--------------
       if (editController.allDataResponse[0]["numbers_banner_details"][0]
-      ["numbers_banner_file2_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["numbers_banner_file2_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         numberBannerController.media2Controller.pause();
         numberBannerController.media2Controller.dispose();
       }
       //--------------
       if (editController.allDataResponse[0]["numbers_banner_details"][0]
-      ["numbers_banner_file3_mediatype"]
-          .toString()
-          .toLowerCase() ==
+                  ["numbers_banner_file3_mediatype"]
+              .toString()
+              .toLowerCase() ==
           'video') {
         numberBannerController.media3Controller.pause();
         numberBannerController.media3Controller.dispose();
       }
     }
   }
-
 }

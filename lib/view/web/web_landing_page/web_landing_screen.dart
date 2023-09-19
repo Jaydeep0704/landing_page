@@ -22,6 +22,7 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/blog_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/FAQs/faqs_section.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/address_section/Address.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/checkout_info_section/CheckOutInfoControllers.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/info_section.dart';
@@ -762,6 +763,9 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                               ///Don't open
                               ///Fifteenth part from here - shopify/checkout - payment method overview --- how app works
                               // FifteenthSection(),
+
+                              ///FAQs section ---> - builder.ai
+                              const FAQsSection(),
 
                               ///info section ---> Note : get this data from backend --- info
                               const InfoSection(),

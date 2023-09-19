@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:grobiz_web_landing/config/app_colors.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_address_section/address_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_how_it_works_section/edit_hiw_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_intro_section/edit_intro_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_mix_banner_section/edit_mix_banner_controller.dart';
@@ -162,6 +163,13 @@ class EditController extends GetxController {
                       "show"
                   ? true
                   : false;
+
+          Get.find<AddressController>().showAddress.value = allDataResponse[0]
+                      ["address_details"][0]["address_details_show_hide"] ==
+                  "show"
+              ? true
+              : false;
+
           functionToGetAllVideos();
 
           // showSnackbar(title: "Success", message: "${response['body']['msg']}");

@@ -1,15 +1,17 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_address_section/address_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_info_section/edit_info_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_info_section/edit_info_logo_screen.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/PrivacyPolicy/PrivacyPolicy.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/TandC/termsCondition.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 
 class EditAddressSection extends StatefulWidget {
   const EditAddressSection({Key? key}) : super(key: key);
@@ -19,11 +21,11 @@ class EditAddressSection extends StatefulWidget {
 }
 
 class _EditAddressSectionState extends State<EditAddressSection> {
-
   // final getbanner = Get.find<banner_controller>();
   final editController = Get.find<EditController>();
   final editInfoController = Get.find<EditInfoController>();
   final webLandingPageController = Get.find<WebLandingPageController>();
+  final addressController = Get.find<AddressController>();
 
   @override
   void initState() {
@@ -39,37 +41,37 @@ class _EditAddressSectionState extends State<EditAddressSection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return editController.homeComponentList.isEmpty ?const SizedBox():Container(
-            width: Get.width,
-            decoration:
-            BoxDecoration(color: Colors.grey[200]),
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Switch(
-                    value: editController.addressSection
-                        .value,
-                    onChanged: (value) {
-                      setState(() {
-                        editController.addressSection.value = value;
-                        print("value ---- $value");
-                        editController.showHideComponent(
-                            value: value == false
-                                ? "No"
-                                : "Yes",
-                            componentName: "footer_section");
-                      });
-                    },
+          return editController.homeComponentList.isEmpty
+              ? const SizedBox()
+              : Container(
+                  width: Get.width,
+                  decoration: BoxDecoration(color: Colors.grey[200]),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Switch(
+                          value: editController.addressSection.value,
+                          onChanged: (value) {
+                            setState(() {
+                              editController.addressSection.value = value;
+                              print("value ---- $value");
+                              editController.showHideComponent(
+                                  value: value == false ? "No" : "Yes",
+                                  componentName: "footer_section");
+                            });
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      SizedBox(height: Get.width > 1000 ? 60 : 30),
+                      Get.width > 1000 ? horizontalInfo() : verticalInfo(),
+                      SizedBox(height: Get.width > 1000 ? 60 : 30),
+                    ],
                   ),
-                ),
-                const SizedBox(width: 10,),
-                SizedBox(height: Get.width > 1000 ? 60 : 30),
-                Get.width > 1000 ? horizontalInfo() : verticalInfo(),
-                SizedBox(height: Get.width > 1000 ? 60 : 30),
-              ],
-            ),
-          );
+                );
         });
       },
     );
@@ -108,60 +110,63 @@ class _EditAddressSectionState extends State<EditAddressSection> {
                           ),
                         ),
                         const TextSpan(
-                          text: ' 2nd Floor, Sr No 135/6, Kalamkar Premises, Near Rasta Cafe, Baner, Balewadi Phata, Pune Pune MH 411045 IN ',
+                          text:
+                              ' 2nd Floor, Sr No 135/6, Kalamkar Premises, Near Rasta Cafe, Baner, Balewadi Phata, Pune Pune MH 411045 IN ',
                         ),
                         const TextSpan(
-                          text: 'Copyright © 2020-2023 Geobull Innovation. All rights reserved.',
+                          text:
+                              'Copyright © 2020-2023 Geobull Innovations llp. All rights reserved.',
                         ),
                       ],
                     ),
-
                   ),
                 ),
                 Row(
-
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.to(() => TnCScreen())!.whenComplete(() =>
-                            Future.delayed(Duration.zero, () {
-                              webLandingPageController.getUserCount();
-                            }));
+                        Get.to(() => TnCScreen())!.whenComplete(
+                            () => Future.delayed(Duration.zero, () {
+                                  webLandingPageController.getUserCount();
+                                }));
                       },
                       child: const Text(
                         'T&C',
-                        style: TextStyle(fontSize: 18, color: Colors.black,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
                           decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
-
-
-                    const SizedBox(width: 10,),
-
+                    const SizedBox(
+                      width: 10,
+                    ),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 8),
                       height: 20,
                       width: 1.5,
                       color: Colors.black,
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     InkWell(
                       onTap: () {
-                        Get.to(() => PrivacyPolicy())!.whenComplete(() =>
-                            Future.delayed(Duration.zero, () {
-                              webLandingPageController.getUserCount();
-                            }));
+                        Get.to(() => PrivacyPolicy())!.whenComplete(
+                            () => Future.delayed(Duration.zero, () {
+                                  webLandingPageController.getUserCount();
+                                }));
                       },
                       child: const Text(
                         'Privacy',
-                        style: TextStyle(fontSize: 18, color: Colors.black,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
                           decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
-
-
                   ],
                 ),
               ],
@@ -169,32 +174,28 @@ class _EditAddressSectionState extends State<EditAddressSection> {
           ),
           Obx(() {
             if (editInfoController.imagesList.isNotEmpty) {
-              return
-                Container(
-                    height: 90,
-                    padding: const EdgeInsets.only(top: 5),
-                    margin: const EdgeInsets.only(
-                        left: 15, right: 15, bottom: 5),
-                    child:
-                    ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: editInfoController.imagesList.length,
-                      itemBuilder: (context, index) {
-                        var data = editInfoController.imagesList[index];
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CachedNetworkImage(
-                            imageUrl: APIString.latestmediaBaseUrl +
-                                data["images"].toString(),
-                            placeholder: (context, url) => Container(),
-                            errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                            fit: BoxFit.fill,
-                          ),
-                        );
-                      },
-                    )
-                );
+              return Container(
+                  height: 90,
+                  padding: const EdgeInsets.only(top: 5),
+                  margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: editInfoController.imagesList.length,
+                    itemBuilder: (context, index) {
+                      var data = editInfoController.imagesList[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CachedNetworkImage(
+                          imageUrl: APIString.latestmediaBaseUrl +
+                              data["images"].toString(),
+                          placeholder: (context, url) => Container(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                          fit: BoxFit.fill,
+                        ),
+                      );
+                    },
+                  ));
             } else {
               return const Padding(
                 padding: EdgeInsets.all(10.0),
@@ -217,27 +218,22 @@ class _EditAddressSectionState extends State<EditAddressSection> {
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: ElevatedButton.icon(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(
-                          builder: (context) => const EditInfoLogoScreen()))
+                  Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const EditInfoLogoScreen()))
                       .whenComplete(() {
                     editInfoController.getImages();
                   });
                 },
-                icon: const Icon(
-                    Icons.edit,
-                    size: 15,
-                    color: Colors.black
-                ),
+                icon: const Icon(Icons.edit, size: 15, color: Colors.black),
                 //icon data for elevated button
                 label: const Text(
                   "Edit Logos",
                   style: TextStyle(fontSize: 18, color: Colors.black),
                 ),
                 //label text
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey
-                ),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
               ),
             ),
           ),
@@ -263,14 +259,23 @@ class _EditAddressSectionState extends State<EditAddressSection> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-
+                    Switch(
+                      value: addressController.showAddress.value,
+                      onChanged: (value) {
+                        setState(() {
+                          addressController.showAddress.value = value;
+                          editController.showHideMedia(
+                              value: value == false ? "hide" : "show",
+                              keyName: "address_details_show_hide");
+                        });
+                      },
+                    ),
                     Container(
                       width: 450,
-                      child:
-                      RichText(
+                      child: RichText(
                         text: TextSpan(
-                          style: const TextStyle(fontSize: 18, color: Colors.black),
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.black),
                           children: [
                             const TextSpan(
                               text: 'GroBiz',
@@ -284,7 +289,8 @@ class _EditAddressSectionState extends State<EditAddressSection> {
                                 offset: const Offset(0, -8),
                                 child: const Text(
                                   '®',
-                                  style: TextStyle(fontSize: 12,
+                                  style: TextStyle(
+                                      fontSize: 12,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -295,77 +301,58 @@ class _EditAddressSectionState extends State<EditAddressSection> {
                             // ),
                             const TextSpan(
                               text:
-                              ' ,2nd Floor, Sr No 135/6, Kalamkar Premises, Near Rasta Cafe, Baner, Balewadi Phata,  Pune MH 411045 IN.',
+                                  ' ,2nd Floor, Sr No 135/6, Kalamkar Premises, Near Rasta Cafe, Baner, Balewadi Phata,  Pune MH 411045 IN.',
                             ),
-
                           ],
                         ),
                       ),
                     ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children:  [
-                    //     Row(
-                    //       mainAxisAlignment: MainAxisAlignment.start,
-                    //       crossAxisAlignment: CrossAxisAlignment.start,
-                    //       children: [   const Text(
-                    //         'GroBiz',
-                    //         style: TextStyle(
-                    //           fontWeight: FontWeight.bold,
-                    //           decoration: TextDecoration.underline,
-                    //         ),
-                    //       ),
-                    //         const Text(
-                    //           '®',
-                    //           style: TextStyle(fontWeight: FontWeight.bold,fontSize: 10),
-                    //         ),],
-                    //     ),
-                    //
-                    //     const Expanded(
-                    //       child: Text(
-                    //         ' ,2nd Floor, Sr No 135/6, Kalamkar Premises, Near Rasta Cafe, Baner, Balewadi Phata,  Pune MH 411045 IN.',
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                     const Text(
-                      "Copyright © 2020-2023 Geobull Innovation. All rights reserved.",
-                      style: TextStyle(fontSize: 18, color: Colors.black),),
+                      "Copyright © 2020-2023 Geobull Innovations llp. All rights reserved.",
+                      style: TextStyle(fontSize: 18, color: Colors.black),
+                    ),
                     Row(
                       children: [
                         InkWell(
                           onTap: () {
-                            Get.to(() => TnCScreen())!.whenComplete(() =>
-                                Future.delayed(Duration.zero, () {
-                                  webLandingPageController.getUserCount();
-                                }));
+                            Get.to(() => TnCScreen())!.whenComplete(
+                                () => Future.delayed(Duration.zero, () {
+                                      webLandingPageController.getUserCount();
+                                    }));
                           },
                           child: const Text(
                             'T&C',
-                            style: TextStyle(fontSize: 18, color: Colors.black,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
                               decoration: TextDecoration.underline,
                             ),
                           ),
                         ),
-                        const SizedBox(width: 10,),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         Container(
                           margin: const EdgeInsets.symmetric(vertical: 8),
                           height: 20,
                           width: 1.5,
                           color: Colors.black,
                         ),
-                        const SizedBox(width: 10,),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         InkWell(
                           onTap: () {
-                            Get.to(() => PrivacyPolicy())!.whenComplete(() =>
-                                Future.delayed(Duration.zero, () {
-                                  webLandingPageController.getUserCount();
-                                }));
+                            Get.to(() => PrivacyPolicy())!.whenComplete(
+                                () => Future.delayed(Duration.zero, () {
+                                      webLandingPageController.getUserCount();
+                                    }));
                           },
                           child: const Text(
                             'Privacy',
-                            style: TextStyle(fontSize: 18, color: Colors.black,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
                               decoration: TextDecoration.underline,
                             ),
                           ),
@@ -378,35 +365,32 @@ class _EditAddressSectionState extends State<EditAddressSection> {
             ),
             Obx(() {
               if (editInfoController.imagesList.isNotEmpty) {
-                return
-                  Container(
-                      alignment: Alignment.centerRight,
-                      height: 130,
-                      width: 735,
-                      padding: const EdgeInsets.only(top: 5),
-                      margin: const EdgeInsets.only(
-                          left: 15, right: 15, bottom: 5),
-                      child:
-                      ListView.builder(
-                        // physics: NeverScrollableScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: editInfoController.imagesList.length,
-                        itemBuilder: (context, index) {
-                          var data = editInfoController.imagesList[index];
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CachedNetworkImage(
-                              imageUrl: APIString.latestmediaBaseUrl +
-                                  data["images"].toString(),
-                              placeholder: (context, url) => Container(),
-                              errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                              fit: BoxFit.fill,
-                            ),
-                          );
-                        },
-                      )
-                  );
+                return Container(
+                    alignment: Alignment.centerRight,
+                    height: 130,
+                    width: 735,
+                    padding: const EdgeInsets.only(top: 5),
+                    margin:
+                        const EdgeInsets.only(left: 15, right: 15, bottom: 5),
+                    child: ListView.builder(
+                      // physics: NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: editInfoController.imagesList.length,
+                      itemBuilder: (context, index) {
+                        var data = editInfoController.imagesList[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CachedNetworkImage(
+                            imageUrl: APIString.latestmediaBaseUrl +
+                                data["images"].toString(),
+                            placeholder: (context, url) => Container(),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                            fit: BoxFit.fill,
+                          ),
+                        );
+                      },
+                    ));
               } else {
                 return const Padding(
                   padding: EdgeInsets.all(10.0),
@@ -431,31 +415,25 @@ class _EditAddressSectionState extends State<EditAddressSection> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: ElevatedButton.icon(
               onPressed: () {
-                Navigator.push(context,
+                Navigator.push(
+                    context,
                     MaterialPageRoute(
                         builder: (context) => const EditInfoLogoScreen()));
               },
-              icon: const Icon(
-                  Icons.edit,
-                  size: 15,
-                  color: Colors.black
-              ),
+              icon: const Icon(Icons.edit, size: 15, color: Colors.black),
               //icon data for elevated button
               label: const Text(
                 "Edit Logos",
                 style: TextStyle(fontSize: 18, color: Colors.black),
               ),
               //label text
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
             ),
           ),
         ),
       ],
     );
   }
-
 
   launchInstagram() async {
     const instagramUrl = 'https://www.instagram.com';
@@ -467,5 +445,4 @@ class _EditAddressSectionState extends State<EditAddressSection> {
       await launch(instagramUrl);
     }
   }
-
 }

@@ -20,6 +20,7 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_checkout_info_section/edit_checkout_info_section.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_checkout_section/edit_checkoutController.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_checkout_section/edit_checkout_section.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_faqs/edit_faqs_section.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_help_banner_section/edit_help_banner_section.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_how_it_works_section/edit_hiw_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_how_it_works_section/edit_how_it_works_section.dart';
@@ -778,40 +779,40 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
             ),
             backgroundColor: Colors.white,
             body: SizedBox(
-                width: Get.width,
-                child: Obx(() {
-                  return editController.allDataResponse.isEmpty &&
-                          editController.homeComponentList.isEmpty
-                      ? const SizedBox()
-                      : ReorderableListView.builder(
-                          cacheExtent: 5000,
-                          itemCount: editController.homeComponentList.length,
-                          onReorder: reorderData,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              key: ValueKey(
-                                  editController.homeComponentList[index]),
-                              child: getComponentUi(
-                                  editController.homeComponentList[index]),
-                            );
-                          });
-                })
-                // child: SingleChildScrollView(
-                //   physics: const AlwaysScrollableScrollPhysics(),
-                //   child: ReorderableListView(
-                //     shrinkWrap: true,
-                //     onReorder: reorderData,
-                //     children: <Widget>[
-                //       for (final items in listOfScreens)
-                //         Card(
-                //           key: ValueKey(items),
-                //           elevation: 2,
-                //           child: items,
-                //         ),
-                //     ],
-                //   ),
-                // ),
+              width: Get.width,
+              // child: Obx(() {
+              //   return editController.allDataResponse.isEmpty &&
+              //           editController.homeComponentList.isEmpty
+              //       ? const SizedBox()
+              //       : ReorderableListView.builder(
+              //           cacheExtent: 5000,
+              //           itemCount: editController.homeComponentList.length,
+              //           onReorder: reorderData,
+              //           itemBuilder: (context, index) {
+              //             return Container(
+              //               key: ValueKey(
+              //                   editController.homeComponentList[index]),
+              //               child: getComponentUi(
+              //                   editController.homeComponentList[index]),
+              //             );
+              //           });
+              // })
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: ReorderableListView(
+                  shrinkWrap: true,
+                  onReorder: reorderData,
+                  children: <Widget>[
+                    for (final items in listOfScreens)
+                      Card(
+                        key: ValueKey(items),
+                        elevation: 2,
+                        child: items,
+                      ),
+                  ],
                 ),
+              ),
+            ),
           ),
         );
       },
@@ -888,6 +889,9 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
     ///Fifteenth part from here - shopify/checkout - payment method overview
     // const FifteenthSection(),
 
+    ///EditFAQs section ---> builder.ai
+    const EditFAQsSection(),
+
     ///info section ---> Note : get this data from backend
     const EditInfoSection(),
 
@@ -924,7 +928,11 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
       return const EditCheckoutSection();
     } else if (homeComponent["component_name"].toString() == "apps_demo") {
       return const EditAppsDemoSection();
-    } else if (homeComponent["component_name"].toString() == "footer_section") {
+    }
+    // else if (homeComponent["component_name"].toString() == "faqs_section") {
+    //   return const EditFAQsSection();
+    // }
+    else if (homeComponent["component_name"].toString() == "footer_section") {
       return const EditInfoSection();
     } else if (homeComponent["component_name"].toString() ==
         "address_section") {
