@@ -31,9 +31,6 @@ class _EditAddressSectionState extends State<EditAddressSection> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_){
-    //   editInfoController.getImages();
-    // });
   }
 
   @override
@@ -58,7 +55,7 @@ class _EditAddressSectionState extends State<EditAddressSection> {
                               print("value ---- $value");
                               editController.showHideComponent(
                                   value: value == false ? "No" : "Yes",
-                                  componentName: "footer_section");
+                                  componentName: "address_section");
                             });
                           },
                         ),
@@ -88,6 +85,17 @@ class _EditAddressSectionState extends State<EditAddressSection> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Switch(
+                  value: addressController.showAddress.value,
+                  onChanged: (value) {
+                    setState(() {
+                      addressController.showAddress.value = value;
+                      editController.showHideMedia(
+                          value: value == false ? "hide" : "show",
+                          keyName: "address_details_show_hide");
+                    });
+                  },
+                ),
                 SizedBox(
                   width: 450,
                   child: RichText(

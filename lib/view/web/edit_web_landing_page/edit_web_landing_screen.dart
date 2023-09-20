@@ -11,7 +11,7 @@ import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/login_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/pricing_section_controller.dart';
-import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_address_section/EditAddress.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_address_section/edit_address_section.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_apps_demo_section/add_latest_project/add_Project_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_apps_demo_section/edit_apps_demo_section.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_benefit_banner_section/edit_banner_controller.dart';
@@ -20,7 +20,7 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_checkout_info_section/edit_checkout_info_section.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_checkout_section/edit_checkoutController.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_checkout_section/edit_checkout_section.dart';
-import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_faqs/edit_faqs_section.dart';
+import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_faqs_section/edit_faqs_section.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_help_banner_section/edit_help_banner_section.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_how_it_works_section/edit_hiw_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_how_it_works_section/edit_how_it_works_section.dart';
@@ -797,6 +797,7 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
               //             );
               //           });
               // })
+
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: ReorderableListView(
@@ -928,11 +929,9 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
       return const EditCheckoutSection();
     } else if (homeComponent["component_name"].toString() == "apps_demo") {
       return const EditAppsDemoSection();
-    }
-    // else if (homeComponent["component_name"].toString() == "faqs_section") {
-    //   return const EditFAQsSection();
-    // }
-    else if (homeComponent["component_name"].toString() == "footer_section") {
+    } else if (homeComponent["component_name"].toString() == "faq_details") {
+      return const EditFAQsSection();
+    } else if (homeComponent["component_name"].toString() == "footer_section") {
       return const EditInfoSection();
     } else if (homeComponent["component_name"].toString() ==
         "address_section") {

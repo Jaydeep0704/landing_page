@@ -67,7 +67,7 @@ class _AddressSectionState extends State<AddressSection> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Obx(() {
-                  return editController.allDataResponse[0]["address_details"][0]
+                  return editController.allDataResponse[0]["address_section"][0]
                                   ["address_details_show_hide"]
                               .toString() ==
                           "hide"
@@ -217,7 +217,7 @@ class _AddressSectionState extends State<AddressSection> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Obx(() {
-                  return editController.allDataResponse[0]["address_details"][0]
+                  return editController.allDataResponse[0]["address_section"][0]
                                   ["address_details_show_hide"]
                               .toString() ==
                           "hide"

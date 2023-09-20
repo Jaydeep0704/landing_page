@@ -49,6 +49,7 @@ class EditController extends GetxController {
   RxBool appsDemo = false.obs;
   RxBool footerSection = false.obs;
   RxBool addressSection = false.obs;
+  RxBool faqSection = false.obs;
 
   RxList allDataResponse = [].obs;
   RxList introDataList = [].obs;
@@ -164,12 +165,12 @@ class EditController extends GetxController {
                   ? true
                   : false;
 
+          ///show hide address
           Get.find<AddressController>().showAddress.value = allDataResponse[0]
-                      ["address_details"][0]["address_details_show_hide"] ==
+                      ["address_section"][0]["address_details_show_hide"] ==
                   "show"
               ? true
               : false;
-
           functionToGetAllVideos();
 
           // showSnackbar(title: "Success", message: "${response['body']['msg']}");
@@ -241,6 +242,7 @@ class EditController extends GetxController {
   ///to update text ,text color , text font
   editText({
     required BuildContext context,
+    required bool? textEdit,
     required Color? color,
     required String? colorKeyName,
     required String? fontFamilyKeyName,
@@ -251,16 +253,25 @@ class EditController extends GetxController {
     try {
       showLoadingDialog();
       Get.focusScope!.unfocus();
-      // log("color!.value  ======================:: ${color!.value.toString()}");
+
       if (text!.isNotEmpty) {
+        Map<String, dynamic>? data;
+        if (textEdit == true) {
+          data = {
+            "user_auto_id": APIString.userAutoId,
+            textKeyName.toString(): text.toString(),
+          };
+        } else {
+          data = {
+            "user_auto_id": APIString.userAutoId,
+            textKeyName.toString(): text.toString(),
+            colorKeyName.toString(): color!.value.toString(),
+            fontFamilyKeyName.toString(): fontFamily.toString()
+          };
+        }
+
         var response = await HttpHandler.postHttpMethod(
-            url: APIString.update_web_landing_page_data,
-            data: {
-              "user_auto_id": APIString.userAutoId,
-              textKeyName.toString(): text.toString(),
-              colorKeyName.toString(): color!.value.toString(),
-              fontFamilyKeyName.toString(): fontFamily.toString()
-            });
+            url: APIString.update_web_landing_page_data, data: data);
 
         hideLoadingDialog();
         if (response['error'] == null) {
@@ -502,6 +513,8 @@ class EditController extends GetxController {
               homeComponentList[14]["visible"] == "Yes" ? true : false;
           addressSection.value =
               homeComponentList[15]["visible"] == "Yes" ? true : false;
+          faqSection.value =
+              homeComponentList[16]["visible"] == "Yes" ? true : false;
         }
       } else {
         log("geComponents step --------  +++  77 Error");

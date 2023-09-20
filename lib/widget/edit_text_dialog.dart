@@ -10,7 +10,6 @@ import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/intro_section_controller.dart';
 
-
 class TextEditModule extends StatefulWidget {
   String? textValue;
   String? textKeyName;
@@ -21,10 +20,20 @@ class TextEditModule extends StatefulWidget {
   // var currentColor;
   Color? textColor;
   bool? showTextField;
+  bool? textEdit;
 
-  TextEditModule({Key? key,this.textValue,this.textKeyName,this.showTextField = true,this.colorKeyName,
+  TextEditModule({
+    Key? key,
+    this.textValue,
+    this.textKeyName,
+    this.textEdit = false,
+    this.showTextField = true,
+    this.colorKeyName,
     this.textColor,
-    /*this.currentColor,*/this.fontFamily = "Roboto",this.fontFamilyKeyName,this.fontSize,}) : super(key: key);
+    /*this.currentColor,*/ this.fontFamily = "Roboto",
+    this.fontFamilyKeyName,
+    this.fontSize,
+  }) : super(key: key);
 
   @override
   State<TextEditModule> createState() => _TextEditModuleState();
@@ -93,8 +102,6 @@ class _TextEditModuleState extends State<TextEditModule> {
     "Zilla Slab",
   ];
 
-
-
   void changeColor(Color color) {
     log("color is ---------- $color");
     setState(() {
@@ -112,11 +119,12 @@ class _TextEditModuleState extends State<TextEditModule> {
   void initState() {
     super.initState();
     log("-==-=-=-=-=-=------ : ${widget.textValue.toString()}");
-    if(widget.textValue.toString() != null){
+    if (widget.textValue.toString() != null) {
       txtController.text = widget.textValue!;
     }
     // pickerColor = widget.currentColor;
   }
+
   @override
   Widget build(BuildContext context) {
     // debugPrint("widget.currentColor   ${widget.currentColor}");
@@ -124,7 +132,8 @@ class _TextEditModuleState extends State<TextEditModule> {
       title: Text(
         "Update Text Dialog",
         textAlign: TextAlign.center,
-        style: AppTextStyle.regularBold.copyWith(color: Colors.black,fontSize: 25),
+        style: AppTextStyle.regularBold
+            .copyWith(color: Colors.black, fontSize: 25),
       ),
       content: SingleChildScrollView(
         child: Column(
@@ -133,44 +142,52 @@ class _TextEditModuleState extends State<TextEditModule> {
           children: [
             Text(
               "Update String",
-              style: AppTextStyle.regularBold.copyWith(color: Colors.black,fontSize: 20),
+              style: AppTextStyle.regularBold
+                  .copyWith(color: Colors.black, fontSize: 20),
             ),
             const SizedBox(height: 15),
-            if(widget.showTextField == true)TextFormField(
-              controller: txtController,
-              maxLines: 5,
-            ),
-            const SizedBox(height: 20),
-            Text(
-              "Font Color Styling",
-              style: AppTextStyle.regularBold.copyWith(color: Colors.black,fontSize: 20),
-            ),
-            const SizedBox(height: 15),
-            ColorPicker(
-              // hexInputBar: true,
-              // hexInputController: hexInputController,
-              // pickerColor: pickerColor,
-              pickerColor:  widget.textColor ??const Color(0xff000000),
-              onColorChanged: changeColor,
-              showLabel: true,
-              pickerAreaHeightPercent: 0.8,
-            ),
-            const SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text("Font Type styling",
-                style: AppTextStyle.regularBold.copyWith(color: Colors.black,fontSize: 20),
+            if (widget.showTextField == true)
+              TextFormField(
+                controller: txtController,
+                maxLines: 5,
               ),
-            ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              child: const Text('Select Font'),
-              onPressed: () => fontDialog(),
-            ),
+            if (widget.textEdit == false)
+              Text(
+                "Font Color Styling",
+                style: AppTextStyle.regularBold
+                    .copyWith(color: Colors.black, fontSize: 20),
+              ),
+            if (widget.textEdit == false) const SizedBox(height: 15),
+            if (widget.textEdit == false)
+              ColorPicker(
+                // hexInputBar: true,
+                // hexInputController: hexInputController,
+                // pickerColor: pickerColor,
+                pickerColor: widget.textColor ?? const Color(0xff000000),
+                onColorChanged: changeColor,
+                showLabel: true,
+                pickerAreaHeightPercent: 0.8,
+              ),
+            if (widget.textEdit == false) const SizedBox(height: 20),
+            if (widget.textEdit == false)
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Font Type styling",
+                  style: AppTextStyle.regularBold
+                      .copyWith(color: Colors.black, fontSize: 20),
+                ),
+              ),
+            if (widget.textEdit == false) const SizedBox(height: 20),
+            if (widget.textEdit == false)
+              ElevatedButton(
+                child: const Text('Select Font'),
+                onPressed: () => fontDialog(),
+              ),
           ],
         ),
       ),
-
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       actions: [
         ElevatedButton(
@@ -178,32 +195,31 @@ class _TextEditModuleState extends State<TextEditModule> {
           onPressed: () {
             editController.editText(
               context: context,
+              textEdit: widget.textEdit,
               color: widget.textColor,
               colorKeyName: widget.colorKeyName,
-             text:txtController.text.isNotEmpty ?txtController.text : "",
-             textKeyName: widget.textKeyName.toString().isNotEmpty ?widget.textKeyName:"",
+              text: txtController.text.isNotEmpty ? txtController.text : "",
+              textKeyName: widget.textKeyName.toString().isNotEmpty
+                  ? widget.textKeyName
+                  : "",
               fontFamily: widget.fontFamily,
               fontFamilyKeyName: widget.fontFamilyKeyName,
             );
-            // setState(() {
-            //   // widget.currentColor = pickerColor;
-            //   log("pickerColor ------------>   $pickerColor");
-            //   // introSecController.introMainTitleColor.value = pickerColor;
-            //   introSecController.introMainTitle.value = txtController.text ;
-            // });
-            // fontDialog();
             Get.back();
             txtController.clear();
           },
         ),
         ElevatedButton(
           child: const Text('Cancel'),
-          onPressed: () {Get.back();
-          txtController.clear();},
+          onPressed: () {
+            Get.back();
+            txtController.clear();
+          },
         ),
       ],
     );
   }
+
   fontDialog() {
     return showDialog(
       context: context,
@@ -221,7 +237,8 @@ class _TextEditModuleState extends State<TextEditModule> {
                     widget.fontFamily = font.fontFamily;
                     selectedFontTextStyle = font.toTextStyle();
                   });
-                  debugPrint("${font.fontFamily} with font weight ${font.fontWeight} and font style ${font.fontStyle}. FontSpec: ${font.toFontSpec()}",
+                  debugPrint(
+                    "${font.fontFamily} with font weight ${font.fontWeight} and font style ${font.fontStyle}. FontSpec: ${font.toFontSpec()}",
                   );
                 },
                 googleFonts: myGoogleFonts,
@@ -232,7 +249,6 @@ class _TextEditModuleState extends State<TextEditModule> {
       },
     );
   }
-
 }
 
 String selectedFont = "Roboto";
