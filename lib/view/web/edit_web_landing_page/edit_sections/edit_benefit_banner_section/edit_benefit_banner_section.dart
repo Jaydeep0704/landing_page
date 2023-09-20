@@ -158,83 +158,6 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Align(
-                      //     alignment: Alignment.topRight,
-                      //     child: Row(
-                      //       mainAxisSize: MainAxisSize.min,
-                      //       mainAxisAlignment: MainAxisAlignment.end,
-                      //       children: [
-                      //         Switch(
-                      //           value: editController.benefitBanner
-                      //               .value,
-                      //           onChanged: (value) {
-                      //             setState(() {
-                      //               editController.benefitBanner.value = value;
-                      //               print("value ---- $value");
-                      //               editController.showHideComponent(
-                      //                   value: value == false
-                      //                       ? "No"
-                      //                       : "Yes",
-                      //                   componentName: "benefit_banner");
-                      //             });
-                      //           },
-                      //         ),
-                      //         const SizedBox(width: 10,),
-                      //         InkWell(
-                      //           onTap: () {
-                      //             showDialog(
-                      //               context: context,
-                      //               builder: (BuildContext context) {
-                      //                 return AlertDialog(
-                      //                   content: SingleChildScrollView(
-                      //                       child: Column(
-                      //                         children: [
-                      //                           Align(
-                      //                             alignment: Alignment.topRight,
-                      //                             child: IconButton(onPressed: () => Get.back(),
-                      //                                 icon: const Icon(Icons.close)),
-                      //                           ),
-                      //                           ElevatedButton(
-                      //                               onPressed: (){
-                      //                                 Get.dialog( ColorPickDialog(
-                      //                                   containerColor: Color(int.parse(editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_bg_color"].toString())),
-                      //                                   keyNameClr: "benefit_banner_bg_color",
-                      //                                   clrSwitchValue: "1",
-                      //                                   imgSwitchValue: "0",
-                      //                                   switchKeyNameImg: "benefit_banner_bg_image_switch",
-                      //                                   switchKeyNameClr: "benefit_banner_bg_color_switch",
-                      //                                 ));
-                      //                               },
-                      //                               child: const Text("Color Picker")),
-                      //                           const SizedBox(height: 20),
-                      //                           ElevatedButton(onPressed: (){
-                      //                             Get.dialog( ImgPickDialog(
-                      //                               keyNameImg: "benefit_banner_bg_image",
-                      //                               switchKeyNameImg: "benefit_banner_bg_image_switch",
-                      //                               switchKeyNameClr: "benefit_banner_bg_color_switch",
-                      //                             ));
-                      //                           }, child: const Text("Image Picker"))
-                      //                         ],
-                      //                       )
-                      //                   ),
-                      //
-                      //                 );
-                      //                 // return ColorPickDialog(
-                      //                 //   containerColor: Color(int.parse(editController.allDataResponse[0]["intro_details"][0]["mix_banner_bg_color"].toString())),
-                      //                 //   keyNameClr: "mix_banner_bg_color",
-                      //                 //   clrSwitchValue: "1",
-                      //                 //   imgSwitchValue: "0",
-                      //                 //   switchKeyNameImg: "mix_banner_bg_image_switch",
-                      //                 //   switchKeyNameClr: "mix_banner_bg_color_switch",
-                      //                 // );
-                      //               },
-                      //             );
-                      //           },
-                      //           child: Icon(Icons.colorize,color: editController.allDataResponse[0]["benefit_banner_details"][0]["mix_banner_bg_color"].toString()  != "4294967295"
-                      //               ?AppColors.whiteColor:AppColors.blackColor),),
-                      //       ],
-                      //     )
-                      // ),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -467,10 +390,12 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                               if (benefitBannerController.DataList.isNotEmpty) {
                                 return
                                   Container(
-                                      height: 450,
+                                      // height: 450,
+                                      height: benefitBannerController.DataList.length <3?450:600,
                                       child:
                                       ListView.builder(
                                         scrollDirection: Axis.vertical,
+                                        reverse: false,
                                         itemCount: benefitBannerController.DataList.length,
                                         itemBuilder: (context, index) {
                                           var data = benefitBannerController.DataList[index];
@@ -528,8 +453,8 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                                     style: AppTextStyle.regular300.copyWith(color: AppColors.blueColor),),
                                                 ),
                                               ),
-                                              SizedBox(height: Get.width * 0.02),
-                                              Divider(
+                                              // SizedBox(height: Get.width * 0.02),
+                                              SizedBox(height: 10),Divider(
                                                 thickness: 0.8,
                                                 color: AppColors.blackColor.withOpacity(0.5),
                                               ),
@@ -841,101 +766,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                   ),
                   const SizedBox(height: 25),
                   ///here need to change
-                  // Column(
-                  //   children: [
-                  //     Row(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       mainAxisAlignment: MainAxisAlignment.start,
-                  //       children: [
-                  //         CircleAvatar(
-                  //             radius: 10,
-                  //             backgroundColor: AppColors.blueColor.withOpacity(
-                  //                 0.1),
-                  //             child: const Center(
-                  //                 child: Icon(
-                  //                   Icons.add_circle_outline,
-                  //                   size: 15,
-                  //                   opticalSize: 15,
-                  //                   color: AppColors.blueColor,
-                  //                 ))),
-                  //         const SizedBox(width: 12),
-                  //         SizedBox(
-                  //           width: Get.width * 0.7,
-                  //           child: Column(
-                  //             children: [
-                  //               Column(
-                  //                 crossAxisAlignment: CrossAxisAlignment.start,
-                  //                 children: [
-                  //                   Text("Title Title Title",
-                  //                       style: AppTextStyle.regularBold
-                  //                           .copyWith(fontSize: 20)),
-                  //                   const SizedBox(height: 10),
-                  //                   Text(StaticString.content,
-                  //                       style: AppTextStyle.regular300
-                  //                           .copyWith(fontSize: 14))
-                  //                 ],
-                  //               ),
-                  //
-                  //             ],
-                  //           ),
-                  //         )
-                  //       ],
-                  //     ),
-                  //     SizedBox(height: Get.width * 0.02),
-                  //     const Divider(
-                  //       thickness: 0.8,
-                  //       color: AppColors.blackColor,
-                  //     ),
-                  //   ],
-                  // ),
-                  // const SizedBox(height: 25),
-                  // Column(
-                  //   children: [
-                  //     Row(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       mainAxisAlignment: MainAxisAlignment.start,
-                  //       children: [
-                  //         CircleAvatar(
-                  //             radius: 10,
-                  //             backgroundColor: AppColors.blueColor.withOpacity(
-                  //                 0.1),
-                  //             child: const Center(
-                  //                 child: Icon(
-                  //                   Icons.add_circle_outline,
-                  //                   size: 15,
-                  //                   opticalSize: 15,
-                  //                   color: AppColors.blueColor,
-                  //                 ))),
-                  //         const SizedBox(width: 12),
-                  //         SizedBox(
-                  //           width: Get.width * 0.7,
-                  //           child: Column(
-                  //             children: [
-                  //               Column(
-                  //                 crossAxisAlignment: CrossAxisAlignment.start,
-                  //                 children: [
-                  //                   Text("Title Title Title",
-                  //                       style: AppTextStyle.regularBold
-                  //                           .copyWith(fontSize: 20)),
-                  //                   const SizedBox(height: 10),
-                  //                   Text(StaticString.content,
-                  //                       style: AppTextStyle.regular300
-                  //                           .copyWith(fontSize: 14))
-                  //                 ],
-                  //               ),
-                  //
-                  //             ],
-                  //           ),
-                  //         )
-                  //       ],
-                  //     ),
-                  //     SizedBox(height: Get.width * 0.02),
-                  //     Divider(
-                  //       thickness: 0.8,
-                  //       color: AppColors.blackColor.withOpacity(0.5),
-                  //     ),
-                  //   ],
-                  // )
+
                   Align(
                     alignment: Alignment.topRight,
                     child: InkWell(
@@ -968,10 +799,11 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                     if (benefitBannerController.DataList.isNotEmpty) {
                       return
                         Container(
-                            height: 300,
+                            height: benefitBannerController.DataList.length <3? 300:500,
                             child:
                             ListView.builder(
                               scrollDirection: Axis.vertical,
+                              reverse: false,
                               itemCount: benefitBannerController.DataList.length,
                               itemBuilder: (context, index) {
                                 var data = benefitBannerController.DataList[index];
@@ -1025,8 +857,8 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                           style: AppTextStyle.regular300.copyWith(color: AppColors.blueColor),),
                                       ),
                                     ),
-                                    SizedBox(height: Get.width * 0.02),
-                                    Divider(
+                                    // SizedBox(height: Get.width * 0.02),
+                                    SizedBox(height: 10),Divider(
                                       thickness: 0.8,
                                       color: AppColors.blackColor.withOpacity(0.5),
                                     ),

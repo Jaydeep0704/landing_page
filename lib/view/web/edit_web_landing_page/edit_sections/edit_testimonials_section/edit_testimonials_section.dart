@@ -940,7 +940,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                         fontWeight: FontWeight.bold,
                                         fontSize: 17),
                                   ) ,
-                                  const Spacer(),
+                                  // const Spacer(),
+                                  const SizedBox(height: 100),
                                   Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.start,
@@ -1150,7 +1151,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                         decoration: BoxDecoration(
                                                           // color: Colors.blue,
                                                             border: Border.all(color: AppColors.blackColor,width: 1),
-                                                            borderRadius: BorderRadius.all(Radius.circular(20))),
+                                                            borderRadius: const BorderRadius.all(Radius.circular(20))),
                                                         child: buildMediaWidget(
                                                             testimonialController
                                                                 .getTestimonal[webLandingPageController
@@ -1202,7 +1203,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                         decoration: BoxDecoration(
                                                           // color: Colors.blue,
                                                             border: Border.all(color: AppColors.blackColor,width: 1),
-                                                            borderRadius: BorderRadius.all(Radius.circular(20))),
+                                                            borderRadius: const BorderRadius.all(Radius.circular(20))),
                                                         child:
                                                         ClipRRect(
                                                             borderRadius:
@@ -1295,7 +1296,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                   decoration: BoxDecoration(
                                                     // color: Colors.blue,
                                                       border: Border.all(color: AppColors.blackColor,width: 1),
-                                                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                                                      borderRadius: const BorderRadius.all(Radius.circular(20))),
                                                     child: ClipRRect(
                                                         borderRadius:
                                                         const BorderRadius.all(
@@ -1354,7 +1355,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                   decoration: BoxDecoration(
                                                     // color: Colors.blue,
                                                       border: Border.all(color: AppColors.blackColor,width: 1),
-                                                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                                                      borderRadius: const BorderRadius.all(Radius.circular(20))),
                                                     child: ClipRRect(
                                                         borderRadius:
                                                         const BorderRadius.all(

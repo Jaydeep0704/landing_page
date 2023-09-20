@@ -32,7 +32,9 @@ class PrivacyPolicyState extends State<PrivacyPolicy> {
   void initState() {
     super.initState();
 
-    helpController.getprivacyData();
+    if (helpController.privacyData.isEmpty) {
+      helpController.getprivacyData();
+    }
   }
 
   void showAlert(BuildContext context) {
@@ -54,12 +56,12 @@ class PrivacyPolicyState extends State<PrivacyPolicy> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
           ),
         ),
-        title: Text(
+        title: const Text(
           "Privacy Policy",
           style: TextStyle(
             color: Colors.black,
@@ -68,10 +70,6 @@ class PrivacyPolicyState extends State<PrivacyPolicy> {
           ),
         ),
       ),
-
-      // Image.asset(
-      //   'assets/favicon.png',
-      // ),
       body: Container(
         padding: Get.width > 1500
             ? const EdgeInsets.only(left: 100, right: 300)
@@ -80,39 +78,55 @@ class PrivacyPolicyState extends State<PrivacyPolicy> {
                 : Get.width > 500
                     ? const EdgeInsets.only(left: 10, right: 10)
                     : const EdgeInsets.only(left: 10, right: 10),
-        child: FutureBuilder<bool>(
-          future: helpController.getAboutUs(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Container(
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                child: const GFLoader(
-                  type: GFLoaderType.circle,
-                ),
-              );
-            } else {
-              if (snapshot.hasError) {
-                return Text('Error occurred while fetching data.');
-              } else {
-                if (snapshot.data == true) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          child: Html(data: helpController.privacy),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Text('Error occurred while fetching data.');
-                }
-              }
-            }
-          },
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Obx(() {
+                return helpController.privacyData.isEmpty
+                    ? SizedBox()
+                    : Container(
+                        // child: Html(data: helpController.privacy),
+                        child: Html(
+                            data: helpController.privacyData[0]["privacy"]),
+                      );
+              }),
+            ],
+          ),
         ),
+        // child: FutureBuilder<bool>(
+        //   future: helpController.getAboutUs(),
+        //   builder: (context, snapshot) {
+        //     if (snapshot.connectionState == ConnectionState.waiting) {
+        //       return Container(
+        //         alignment: Alignment.center,
+        //         width: MediaQuery.of(context).size.width,
+        //         child: const GFLoader(
+        //           type: GFLoaderType.circle,
+        //         ),
+        //       );
+        //     } else {
+        //       if (snapshot.hasError) {
+        //         return const Text('Error occurred while fetching data.');
+        //       } else {
+        //         if (snapshot.data == true) {
+        //           return SingleChildScrollView(
+        //             child: Column(
+        //               crossAxisAlignment: CrossAxisAlignment.start,
+        //               children: [
+        //                 Container(
+        //                   child: Html(data: helpController.privacy),
+        //                 ),
+        //               ],
+        //             ),
+        //           );
+        //         } else {
+        //           return const Text('Error occurred while fetching data.');
+        //         }
+        //       }
+        //     }
+        //   },
+        // ),
       ),
     );
   }

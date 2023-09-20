@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
+import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/pricing_section_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_apps_demo_section/add_latest_project/add_Project_controller.dart';
@@ -694,7 +695,11 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                     //             key: ValueKey(editController.homeComponentList[index]),
                     //             child: getComponentUi(editController.homeComponentList[index]["component_name"],keyScroll: PricingSection.pricingSectionKey),
                     //           ));
-                    : Scrollbar(
+                    : RawScrollbar(
+                        // : Scrollbar(
+                        radius: Radius.circular(20),
+                        // thumbColor: AppColors.blueColor,
+                        thumbColor: Colors.blue,
                         controller: _scrollController,
                         trackVisibility: true,
                         thickness: 15,

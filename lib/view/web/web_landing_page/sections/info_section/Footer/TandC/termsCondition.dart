@@ -24,14 +24,23 @@ class TnCScreen extends StatefulWidget {
 
 class TnCScreenState extends State<TnCScreen> {
   TnCScreenState();
+
   final helpController = Get.find<HelpController>();
 
   @override
   void initState() {
     super.initState();
 
-    helpController.getTfcData();
-    helpController.getRefundpolicy();
+    getData();
+  }
+
+  getData() {
+    if (helpController.allTerms.isEmpty) {
+      helpController.getTfcData();
+    }
+    if (helpController.allRefundPolicy.isEmpty) {
+      helpController.getRefundpolicy();
+    }
   }
 
   void showAlert(BuildContext context) {
@@ -72,101 +81,187 @@ class TnCScreenState extends State<TnCScreen> {
       //   'assets/favicon.png',
       // ),
       body: Container(
-        child: FutureBuilder<bool>(
-          future: helpController.getAboutUs(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Container(
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                child: const GFLoader(
-                  type: GFLoaderType.circle,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: Get.width > 1500
+                ? const EdgeInsets.only(left: 100, right: 100)
+                : Get.width > 1000
+                    ? const EdgeInsets.only(left: 50, right: 50)
+                    : Get.width > 500
+                        ? const EdgeInsets.only(left: 20, right: 20)
+                        : const EdgeInsets.only(left: 10, right: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 20,
                 ),
-              );
-            } else {
-              if (snapshot.hasError) {
-                return const Text('Error occurred while fetching data.');
-              } else {
-                if (snapshot.data == true) {
-                  return SingleChildScrollView(
-                    child: Padding(
-                      padding: Get.width > 1500
-                          ? const EdgeInsets.only(left: 100, right: 100)
-                          : Get.width > 1000
-                              ? const EdgeInsets.only(left: 50, right: 50)
-                              : Get.width > 500
-                                  ? const EdgeInsets.only(left: 20, right: 20)
-                                  : const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Icon(Icons.circle,
-                                  size: 15, color: Colors.black),
-                              const SizedBox(width: 8),
-                              const Text(
-                                'TERM & CONDITION',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  //decoration: TextDecoration.underline
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            child: Html(
-                              data: helpController.terms,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Icon(Icons.circle,
-                                  size: 15, color: Colors.black),
-                              const SizedBox(width: 8),
-                              const Text(
-                                'REFUND POLICY',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  //decoration: TextDecoration.underline
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            child: Html(
-                              data: helpController.refund,
-                            ),
-                          ),
-                        ],
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Icon(Icons.circle, size: 15, color: Colors.black),
+                    SizedBox(width: 8),
+                    Text(
+                      'TERM & CONDITION',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        //decoration: TextDecoration.underline
                       ),
                     ),
-                  );
-                } else {
-                  return const Text('Error occurred while fetching data.');
-                }
-              }
-            }
-          },
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Obx(() {
+                  return helpController.allTerms.isEmpty
+                      ? const SizedBox()
+                      : Container(
+                          child: Html(
+                            // data: helpController.terms,
+                            data: helpController.allTerms[0]["term"],
+                          ),
+                        );
+                }),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Icon(Icons.circle, size: 15, color: Colors.black),
+                    SizedBox(width: 8),
+                    Text(
+                      'REFUND POLICY',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        //decoration: TextDecoration.underline
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                // Container(
+                //   child: Html(
+                //     data: helpController.refund,
+                //   ),
+                // ),
+                Obx(() {
+                  return helpController.allRefundPolicy.isEmpty
+                      ? const SizedBox()
+                      : Container(
+                          child: Html(
+                            // data: helpController.terms,
+                            data: helpController.allRefundPolicy[0]
+                                ["refund_policy"],
+                          ),
+                        );
+                }),
+              ],
+            ),
+          ),
         ),
+        // child: FutureBuilder<bool>(
+        //   future: helpController.getAboutUs(),
+        //   builder: (context, snapshot) {
+        //     if (snapshot.connectionState == ConnectionState.waiting) {
+        //       return Container(
+        //         alignment: Alignment.center,
+        //         width: MediaQuery.of(context).size.width,
+        //         child: const GFLoader(
+        //           type: GFLoaderType.circle,
+        //         ),
+        //       );
+        //     } else {
+        //       if (snapshot.hasError) {
+        //         return const Text('Error occurred while fetching data.');
+        //       } else {
+        //         if (snapshot.data == true) {
+        //           return SingleChildScrollView(
+        //             child: Padding(
+        //               padding: Get.width > 1500
+        //                   ? const EdgeInsets.only(left: 100, right: 100)
+        //                   : Get.width > 1000
+        //                       ? const EdgeInsets.only(left: 50, right: 50)
+        //                       : Get.width > 500
+        //                           ? const EdgeInsets.only(left: 20, right: 20)
+        //                           : const EdgeInsets.only(left: 10, right: 10),
+        //               child: Column(
+        //                 crossAxisAlignment: CrossAxisAlignment.start,
+        //                 children: [
+        //                   const SizedBox(
+        //                     height: 20,
+        //                   ),
+        //                   Row(
+        //                     crossAxisAlignment: CrossAxisAlignment.start,
+        //                     children: [
+        //                       const Icon(Icons.circle,
+        //                           size: 15, color: Colors.black),
+        //                       const SizedBox(width: 8),
+        //                       const Text(
+        //                         'TERM & CONDITION',
+        //                         style: TextStyle(
+        //                           fontSize: 18,
+        //                           color: Colors.black,
+        //                           fontWeight: FontWeight.bold,
+        //                           //decoration: TextDecoration.underline
+        //                         ),
+        //                       ),
+        //                     ],
+        //                   ),
+        //                   const SizedBox(
+        //                     height: 10,
+        //                   ),
+        //                   Container(
+        //                     child: Html(
+        //                       data: helpController.terms,
+        //                     ),
+        //                   ),
+        //                   const SizedBox(
+        //                     height: 20,
+        //                   ),
+        //                   Row(
+        //                     crossAxisAlignment: CrossAxisAlignment.start,
+        //                     children: [
+        //                       const Icon(Icons.circle,
+        //                           size: 15, color: Colors.black),
+        //                       const SizedBox(width: 8),
+        //                       const Text(
+        //                         'REFUND POLICY',
+        //                         style: TextStyle(
+        //                           fontSize: 18,
+        //                           color: Colors.black,
+        //                           fontWeight: FontWeight.bold,
+        //                           //decoration: TextDecoration.underline
+        //                         ),
+        //                       ),
+        //                     ],
+        //                   ),
+        //                   const SizedBox(
+        //                     height: 10,
+        //                   ),
+        //                   Container(
+        //                     child: Html(
+        //                       data: helpController.refund,
+        //                     ),
+        //                   ),
+        //                 ],
+        //               ),
+        //             ),
+        //           );
+        //         } else {
+        //           return const Text('Error occurred while fetching data.');
+        //         }
+        //       }
+        //     }
+        //   },
+        // ),
       ),
     );
   }

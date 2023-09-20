@@ -255,10 +255,12 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                           if (benefitBannerController.DataList.isNotEmpty) {
                             return
                               SizedBox(
-                                  height: 600,
+                                  // height: 600,
+                                  height: benefitBannerController.DataList.length <3?450:600,
                                   child:
                                   ListView.builder(
                                     scrollDirection: Axis.vertical,
+                                    reverse: false,
                                     itemCount: benefitBannerController.DataList.length,
                                     itemBuilder: (context, index) {
                                       var data = benefitBannerController.DataList[index];
@@ -319,8 +321,8 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                                 style: AppTextStyle.regular300.copyWith(color: AppColors.blueColor),),
                                             ),
                                           ),
-                                          SizedBox(height: Get.width * 0.02),
-                                          Divider(
+                                          // SizedBox(height: Get.width * 0.02),
+                                          SizedBox(height: 10), Divider(
                                             thickness: 0.8,
                                             color: AppColors.blackColor.withOpacity(0.5),
                                           ),
@@ -527,12 +529,14 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                     if (benefitBannerController.DataList.isNotEmpty) {
                       return
                         SizedBox(
-                            height: 400,
+                            // height: 400,
+                            height: benefitBannerController.DataList.length < 3? 300:500,
                             width: Get.width > 650 ? 600: Get.width,
                             child:
                             ListView.builder(
                               scrollDirection: Axis.vertical,
                               itemCount: benefitBannerController.DataList.length,
+                              reverse: false,
                               itemBuilder: (context, index) {
                                 var data = benefitBannerController.DataList[index];
                                 var boolValue = benefitBannerController.bannerInfoReadMore[index];
@@ -590,7 +594,8 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                             style: AppTextStyle.regular300.copyWith(color: AppColors.blueColor),),
                                         ),
                                       ),
-                                      SizedBox(height: Get.width * 0.02),
+                                      // SizedBox(height: Get.width * 0.02),
+                                      SizedBox(height: 10),
                                       Divider(
                                         thickness: 0.8,
                                         color: AppColors.blackColor.withOpacity(0.5),

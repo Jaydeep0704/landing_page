@@ -67,104 +67,140 @@ class _FAQsSectionState extends State<FAQsSection> {
                                 errorListener: () => const Icon(Icons.error),
                               ),
                               fit: BoxFit.cover)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  ///image with Text
+                  // child: Get.width > 800 ? Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: [
+                  //     SizedBox(
+                  //     child:  Image.asset("assets/faq_bg_image/faq_txt_crop.png"),
+                  //     ),
+                  //     contentColumn(),
+                  //     // SizedBox(
+                  //     //   child:  Image.asset(),
+                  //     // ),
+                  //   ],
+                  // )
+                  //        :Column(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: [
+                  //     const SizedBox(height: 80),
+                  //     SizedBox(
+                  //       child:  Image.asset("assets/faq_bg_image/faq_txt_crop.png"),
+                  //     ),
+                  //     contentColumn(),
+                  //     // SizedBox(
+                  //     //   child:  Image.asset(),
+                  //     // ),
+                  //   ],
+                  // ),
+                     ///image without Text
+                   child: Get.width > 800 ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 80),
-                      // const Text(
-                      //   "Got questions?",
-                      //   style: TextStyle(
-                      //       color: AppColors.whiteColor,
-                      //       fontSize: 40,
-                      //       fontWeight: FontWeight.bold),
-                      // ),
-
-                      Text(
-                        editController.allDataResponse[0]["faq_details"][0]["title"]
-                            .toString(),
-                        style: GoogleFonts.getFont(editController.allDataResponse[0]["faq_details"][0]["title_font"].toString()).copyWith(
-                            fontSize: editController.allDataResponse[0]["faq_details"][0]["title_size"] != null ||
-                            editController.allDataResponse[0]["faq_details"][0]["title_size"].toString() !=""
-                                ? double.parse(editController.allDataResponse[0]["faq_details"][0]["title_size"].toString())
-                                : 40,
-                            fontWeight: FontWeight.bold,
-                            color: Color(int.parse(editController.allDataResponse[0]["faq_details"][0]["title_color"].toString()))),
-                        textAlign: TextAlign.center,
-
+                      contentColumn(),
+                      SizedBox(
+                        child:  Image.asset("assets/faq_bg_image/faq_question_crop.png"),
                       ),
-                      const SizedBox(height: 50),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Get.width > 1500
-                                ? 70
-                                : Get.width > 1000
-                                    ? 50
-                                    : 15),
-                         child:  Text(
-                    editController.allDataResponse[0]["faq_details"][0]["subtitle"]
-                        .toString(),
-                    style: GoogleFonts.getFont(editController.allDataResponse[0]["faq_details"][0]["subtitle_font"].toString()).copyWith(
-                        fontSize: editController.allDataResponse[0]["faq_details"][0]["subtitle_size"] != null ||
-                        editController.allDataResponse[0]["faq_details"][0]["subtitle_size"].toString() !=""
-                            ? double.parse(editController.allDataResponse[0]["faq_details"][0]["subtitle_size"].toString())
-                            : 25,
-                        fontWeight: FontWeight.w400,
-                        color: Color(int.parse(editController.allDataResponse[0]["faq_details"][0]["subtitle_color"].toString()))),
-                    textAlign: TextAlign.center,
-
-                  ),
-                      ),
-                      const SizedBox(height: 50),
-                      // commonIconButton(
-                      //     onTap: () async {
-                      //       Get.to(() => const DetailFAQs())!.whenComplete(
-                      //           () => Future.delayed(Duration.zero, () {
-                      //                 webLandingPageController.getUserCount();
-                      //               }));
-                      //     },
-                      //     hideIcon: true,
-                      //     title: "Read FAQs",
-                      //     btnColor: Colors.redAccent.withOpacity(0.7),
-                      //     txtColor: Colors.white),
-                       InkWell(
-                         onTap: () async {
-                           Get.to(() => const DetailFAQs())!.whenComplete(
-                                   () => Future.delayed(Duration.zero, () {
-                                 webLandingPageController.getUserCount();
-                               }));
-                         },
-                         child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                            decoration: BoxDecoration(
-                              color: Colors.redAccent.withOpacity(0.7),
-                              borderRadius: const BorderRadius.all(Radius.circular(10)),
-                            ),
-                            child: Center(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                        editController.allDataResponse[0]["faq_details"][0]["btn_text"].toString(),
-                                        style: AppTextStyle.regular500.copyWith(
-                                            color: AppColors.whiteColor,
-                                            fontSize: 20
-                                        )
-                                    ),
-                                  ],
-                                )),
+                    ],
+                  )
+                         :Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                          const SizedBox(height: 80),
+                          SizedBox(
+                            child:  Image.asset("assets/faq_bg_image/faq_question_crop.png"),
                           ),
-                      ),
-                       ),
-                      const SizedBox(height: 80),
+                          contentColumn(),
                     ],
                   ),
+
                 );
         });
       },
     );
+  }
+
+  Column contentColumn() {
+    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 80),
+
+                        Text(
+                          editController.allDataResponse[0]["faq_details"][0]["title"]
+                              .toString(),
+                          style: GoogleFonts.getFont(editController.allDataResponse[0]["faq_details"][0]["title_font"].toString()).copyWith(
+                              fontSize: editController.allDataResponse[0]["faq_details"][0]["title_size"] != null ||
+                              editController.allDataResponse[0]["faq_details"][0]["title_size"].toString() !=""
+                                  ? double.parse(editController.allDataResponse[0]["faq_details"][0]["title_size"].toString())
+                                  : 40,
+                              fontWeight: FontWeight.bold,
+                              color: Color(int.parse(editController.allDataResponse[0]["faq_details"][0]["title_color"].toString()))),
+                          textAlign: TextAlign.center,
+
+                        ),
+                        const SizedBox(height: 50),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Get.width > 1500
+                                  ? 70
+                                  : Get.width > 1000
+                                      ? 50
+                                      : 15),
+                           child:  Text(
+                      editController.allDataResponse[0]["faq_details"][0]["subtitle"]
+                          .toString(),
+                      style: GoogleFonts.getFont(editController.allDataResponse[0]["faq_details"][0]["subtitle_font"].toString()).copyWith(
+                          fontSize: editController.allDataResponse[0]["faq_details"][0]["subtitle_size"] != null ||
+                          editController.allDataResponse[0]["faq_details"][0]["subtitle_size"].toString() !=""
+                              ? double.parse(editController.allDataResponse[0]["faq_details"][0]["subtitle_size"].toString())
+                              : 25,
+                          fontWeight: FontWeight.w400,
+                          color: Color(int.parse(editController.allDataResponse[0]["faq_details"][0]["subtitle_color"].toString()))),
+                      textAlign: TextAlign.center,
+
+                    ),
+                        ),
+                        const SizedBox(height: 50),
+                         InkWell(
+                           onTap: () async {
+                             Get.to(() => const DetailFAQs())!.whenComplete(
+                                     () => Future.delayed(Duration.zero, () {
+                                   webLandingPageController.getUserCount();
+                                 }));
+                           },
+                           child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Container(
+                              // margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.redAccent.withOpacity(0.7),
+                                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                              ),
+                              child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                          editController.allDataResponse[0]["faq_details"][0]["btn_text"].toString(),
+                                          style: AppTextStyle.regular500.copyWith(
+                                              color: AppColors.whiteColor,
+                                              fontSize: 20
+                                          )
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                        ),
+                         ),
+                        const SizedBox(height: 80),
+                      ],
+                    );
   }
 }

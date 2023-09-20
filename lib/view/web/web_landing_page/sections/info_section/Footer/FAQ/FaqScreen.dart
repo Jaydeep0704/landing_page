@@ -66,7 +66,7 @@ class FaqScreenState extends State<FaqScreen> {
                     ? const EdgeInsets.only(left: 10, right: 10)
                     : const EdgeInsets.only(left: 10, right: 10),
         child: FutureBuilder<bool>(
-          future: helpController.getAboutUs(),
+          // future: helpController.getAboutUs(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Container(

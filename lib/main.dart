@@ -37,7 +37,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Grobiz AI App Builder',
+      // title: 'Grobiz AI App Builder',
+      title: 'Grobiz',
       debugShowCheckedModeBanner: false,
       scrollBehavior: MyCustomScrollBehavior(),
       theme: ThemeData(

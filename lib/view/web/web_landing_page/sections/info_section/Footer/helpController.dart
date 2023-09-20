@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 
 import 'package:flutter/material.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
+import 'package:grobiz_web_landing/utils/http_handler/network_http.dart';
+import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -24,12 +26,12 @@ class HelpController extends GetxController {
   late AboutUsModel aboutusModel;
 
   ///for Contact Us
-  late ContactUsModel contactUs_Model;
-  late String contact_id = '',
-      contact_address = '',
-      contact_email = '',
-      contact_india = '',
-      contact_us = '';
+  // late ContactUsModel contactUs_Model;
+  // late String contact_id = '',
+  //     contact_address = '',
+  //     contact_email = '',
+  //     contact_india = '',
+  //     contact_us = '';
 
   ///for get TFC
   late String terms = '';
@@ -47,145 +49,100 @@ class HelpController extends GetxController {
   late String refund = '';
   late RefundPolicyModel refundPolicyModel;
 
+  RxList contactUs = [].obs;
+  RxList aboutUs = [].obs;
+  RxList privacyData = [].obs;
+  RxList allTerms = [].obs;
+  RxList allRefundPolicy = [].obs;
+
   ///for get about Us
-  Future<bool> getAboutUs() async {
-    isApiCallProcessing.value = true;
-
-    var url = APIString.grobizBaseUrl + APIString.AboutUs;
-    Uri uri = Uri.parse(url);
-
-    final response = await http.get(uri);
-    print(response.toString());
-
-    if (response.statusCode == 200) {
-      final resp = jsonDecode(response.body);
-      int status = resp['status'];
-      print("status=>$status");
-
-      if (status == 1) {
-        isApiCallProcessing.value = false;
-        aboutusModel = AboutUsModel.fromJson(json.decode(response.body));
-        var mainList = aboutusModel.allabouts;
-        about_id = mainList[0].id;
-        aboutus = mainList[0].about;
-        log('Data available');
-        return true;
+  Future getAboutUs() async {
+    try {
+      showLoadingDialog();
+      var response = await HttpHandler.getHttpMethod(
+        url: APIString.AboutUs,
+      );
+      hideLoadingDialog();
+      if (response['error'] == null) {
+        if (response['body']['status'].toString() == "1") {
+          aboutUs.value = response['body']["allabouts"];
+        }
       } else {
-        isApiCallProcessing.value = false;
-        return false;
+        log("geComponents step --------  +++  77 Error");
+        //error
       }
-    } else if (response.statusCode == 500) {
-      isApiCallProcessing.value = false;
-      return false;
+    } catch (e, s) {
+      hideLoadingDialog();
+      debugPrint("geComponents Error -- $e  $s");
     }
-
-    return false;
   }
 
   ///for get Contact Us
-  Future<bool> getContactUs() async {
-    isApiCallProcessing.value = true;
-
-    var url = APIString.grobizBaseUrl + APIString.showContactDetails;
-    Uri uri = Uri.parse(url);
-
-    final response = await http.get(uri);
-    print(response.toString());
-
-    if (response.statusCode == 200) {
-      final resp = jsonDecode(response.body);
-      int status = resp['status'];
-      print("status=>$status");
-
-      if (status == 1) {
-        isApiCallProcessing.value = false;
-        contactUs_Model = ContactUsModel.fromJson(json.decode(response.body));
-        var mainList = contactUs_Model.contactDetails;
-        contact_id = mainList[0].id;
-        contact_india = mainList[0].contactIndia;
-        contact_us = mainList[0].contactUs;
-        contact_email = mainList[0].email;
-        contact_address = mainList[0].address;
-        log('Data available');
-        return true;
+  Future getContactUs() async {
+    try {
+      showLoadingDialog();
+      var response = await HttpHandler.getHttpMethod(
+        url: APIString.showContactDetails,
+      );
+      hideLoadingDialog();
+      if (response['error'] == null) {
+        if (response['body']['status'].toString() == "1") {
+          contactUs.value = response['body']["contact_details"];
+        }
       } else {
-        isApiCallProcessing.value = false;
-        return false;
+        log("geComponents step --------  +++  77 Error");
+        //error
       }
-    } else if (response.statusCode == 500) {
-      isApiCallProcessing.value = false;
-      return false;
+    } catch (e, s) {
+      hideLoadingDialog();
+      debugPrint("geComponents Error -- $e  $s");
     }
-
-    return false;
   }
 
   ///for get TFC
-  Future<bool> getTfcData() async {
-    isApiCallProcessing.value = true;
 
-    var url = APIString.grobizBaseUrl + APIString.TandC;
-    Uri uri = Uri.parse(url);
-
-    final response = await http.get(uri);
-    print(response.toString());
-
-    if (response.statusCode == 200) {
-      final resp = jsonDecode(response.body);
-      int status = resp['status'];
-      print("status=>$status");
-
-      if (status == 1) {
-        isApiCallProcessing.value = false;
-        termsandcondition = TFCModel.fromJson(json.decode(response.body));
-        var mainList = termsandcondition.allterms;
-        terms = mainList[0].term;
-        log('Data available');
-        return true;
+  Future getTfcData() async {
+    try {
+      showLoadingDialog();
+      var response = await HttpHandler.getHttpMethod(
+        url: APIString.TandC,
+      );
+      hideLoadingDialog();
+      if (response['error'] == null) {
+        if (response['body']['status'].toString() == "1") {
+          allTerms.value = response['body']["allterms"];
+        }
       } else {
-        isApiCallProcessing.value = false;
-        return false;
+        log("geComponents step --------  +++  77 Error");
+        //error
       }
-    } else if (response.statusCode == 500) {
-      isApiCallProcessing.value = false;
-      return false;
+    } catch (e, s) {
+      hideLoadingDialog();
+      debugPrint("geComponents Error -- $e  $s");
     }
-
-    return false;
   }
 
   ///for get Privacy
-  Future<bool> getprivacyData() async {
-    isApiCallProcessing.value = true;
 
-    var url = APIString.grobizBaseUrl + APIString.showPrivacy;
-    Uri uri = Uri.parse(url);
-
-    final response = await http.get(uri);
-    print(response.toString());
-
-    if (response.statusCode == 200) {
-      final resp = jsonDecode(response.body);
-      int status = resp['status'];
-      print("status=>$status");
-
-      if (status.toString() == "1") {
-        isApiCallProcessing.value = false;
-        privacydata = PolicyPrivacy.fromJson(json.decode(response.body));
-        var mainList = privacydata.allprivacy;
-        privacy = mainList[0].privacy;
-        log('Data available');
-        return true;
+  Future getprivacyData() async {
+    try {
+      showLoadingDialog();
+      var response = await HttpHandler.getHttpMethod(
+        url: APIString.showPrivacy,
+      );
+      hideLoadingDialog();
+      if (response['error'] == null) {
+        if (response['body']['status'].toString() == "1") {
+          privacyData.value = response['body']["allprivacy"];
+        }
       } else {
-        isApiCallProcessing.value = false;
-        return false;
+        log("geComponents step --------  +++  77 Error");
+        //error
       }
-    } else if (response.statusCode == 500) {
-      isApiCallProcessing.value = false;
-      return false;
+    } catch (e, s) {
+      hideLoadingDialog();
+      debugPrint("geComponents Error -- $e  $s");
     }
-
-    return false;
   }
 
   ///for get Faq
@@ -223,37 +180,25 @@ class HelpController extends GetxController {
   }
 
   ///for get Refund Policy
-  Future<bool> getRefundpolicy() async {
-    isApiCallProcessing.value = true;
 
-    var url = APIString.grobizBaseUrl + APIString.showRefundPolicy;
-    Uri uri = Uri.parse(url);
-
-    final response = await http.get(uri);
-    print(response.toString());
-
-    if (response.statusCode == 200) {
-      final resp = jsonDecode(response.body);
-      int status = resp['status'];
-      print("status=>$status");
-
-      if (status == 1) {
-        isApiCallProcessing.value = false;
-        refundPolicyModel =
-            RefundPolicyModel.fromJson(json.decode(response.body));
-        var mainList = refundPolicyModel.allrefundpolicy;
-        refund = mainList[0].refundPolicy;
-        log('Data available');
-        return true;
+  Future getRefundpolicy() async {
+    try {
+      showLoadingDialog();
+      var response = await HttpHandler.getHttpMethod(
+        url: APIString.showRefundPolicy,
+      );
+      hideLoadingDialog();
+      if (response['error'] == null) {
+        if (response['body']['status'].toString() == "1") {
+          allRefundPolicy.value = response['body']["allrefundpolicy"];
+        }
       } else {
-        isApiCallProcessing.value = false;
-        return false;
+        log("geComponents step --------  +++  77 Error");
+        //error
       }
-    } else if (response.statusCode == 500) {
-      isApiCallProcessing.value = false;
-      return false;
+    } catch (e, s) {
+      hideLoadingDialog();
+      debugPrint("geComponents Error -- $e  $s");
     }
-
-    return false;
   }
 }

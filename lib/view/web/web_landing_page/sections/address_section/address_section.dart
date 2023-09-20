@@ -66,48 +66,58 @@ class _AddressSectionState extends State<AddressSection> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Obx(() {
-                  return editController.allDataResponse[0]["address_section"][0]
-                                  ["address_details_show_hide"]
-                              .toString() ==
-                          "hide"
-                      ? SizedBox()
-                      : SizedBox(
-                          width: 450,
-                          child: RichText(
-                            text: TextSpan(
-                              style: const TextStyle(
-                                  fontSize: 18, color: Colors.black),
-                              children: [
-                                const TextSpan(
-                                  // text: 'GroBiz\u00AE',
-                                  text: 'GroBiz',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                WidgetSpan(
-                                  child: Transform.translate(
-                                    offset: const Offset(0, -8),
-                                    child: const Text(
-                                      '®',
+                Column(
+                  children: [
+                    Obx(() {
+                      return editController.allDataResponse[0]
+                                      ["address_section"][0]
+                                      ["address_details_show_hide"]
+                                  .toString() ==
+                              "hide"
+                          ? SizedBox()
+                          : SizedBox(
+                              width: 450,
+                              child: RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                      fontSize: 18, color: Colors.black),
+                                  children: [
+                                    const TextSpan(
+                                      // text: 'GroBiz\u00AE',
+                                      text: 'GroBiz',
                                       style: TextStyle(
-                                          fontSize: 12,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                  ),
+                                    WidgetSpan(
+                                      child: Transform.translate(
+                                        offset: const Offset(0, -8),
+                                        child: const Text(
+                                          '®',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                    const TextSpan(
+                                      text:
+                                          ' 2nd Floor, Sr No 135/6, Kalamkar Premises, Near Rasta Cafe, Baner, Balewadi Phata, Pune Pune MH 411045 IN ',
+                                    ),
+                                    // const TextSpan(
+                                    //   text:
+                                    //       'Copyright © 2020-2023 Geobull Innovations llp. All rights reserved.',
+                                    // ),
+                                  ],
                                 ),
-                                const TextSpan(
-                                  text:
-                                      ' 2nd Floor, Sr No 135/6, Kalamkar Premises, Near Rasta Cafe, Baner, Balewadi Phata, Pune Pune MH 411045 IN ',
-                                ),
-                                const TextSpan(
-                                  text:
-                                      'Copyright © 2020-2023 Geobull Innovations llp. All rights reserved.',
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                }),
+                              ),
+                            );
+                    }),
+                    const Text(
+                      "Copyright © 2020-2023 Geobull Innovations llp. All rights reserved.",
+                      style: TextStyle(fontSize: 18, color: Colors.black),
+                    ),
+                  ],
+                ),
                 Row(
                   children: [
                     InkWell(

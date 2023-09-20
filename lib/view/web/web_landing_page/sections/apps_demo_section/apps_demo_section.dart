@@ -120,8 +120,7 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                 const SizedBox(height: 40),
                 SizedBox(
                   ///here need to change
-                  // height: 630,
-                  height: 725,
+                  height: Get.width > 725 ?725: Get.width < 725 && Get.width > 600 ?500 : 750,
                   width: Get.width,
                   child:
                   Stack(
@@ -131,7 +130,6 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                         carouselController: landingPageController.appDetailsController,
                         options: CarouselOptions(
                           initialPage: _currentIndex,
-                          // autoPlayInterval: const Duration(seconds: 10),
                           onPageChanged: (index, reason) {
                             getLatestProject.isVideoPlaying.value == false;
                             setState(() {
@@ -139,10 +137,11 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                             });
                           },
                           viewportFraction: Get.width > 1500
-                              ? 0.2
+                              // ? 0.2
+                              ? 0.23
                               : Get.width > 1000
                               ? 0.23
-                              : Get.width > 500
+                              : Get.width > 600
                               ? 0.26
                               : 0.5,
                           height: 725,
@@ -254,6 +253,7 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                                   fit: BoxFit.scaleDown,
                                     child: Container(
                                       width: 250,
+                                      // width: 300,
                                       // height: 550,
                                       height: 450,
                                       // decoration: BoxDecoration(color: AppColors.whiteColor),
@@ -375,7 +375,8 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
     VideoPlayerController controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+videoUrl);
     controller.initialize().then((value) {
       controller.setLooping(true);
-      if(isCurrent == true)controller.play();
+      // if(isCurrent == true)
+        controller.play();
     });
 
     return  InkWell(
@@ -389,7 +390,7 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
         }
       },
       child: FutureBuilder(
-        future: controller.initialize(),
+        future: controller.initialize().whenComplete(() => controller.play()),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return FittedBox(
@@ -397,13 +398,17 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 child: Container(
-                    height:Get.width >1000 ?500:450,
-                    width: 250,
+                    // height:Get.width >1000 ?500:450,
+                    height:500,
+                    // width: 250,
+                    // width: 300,
                     decoration: const BoxDecoration(color: AppColors.whiteColor),
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-                        VideoPlayer(controller),
+                        AspectRatio(
+                            aspectRatio: 250 / 450,
+                            child: VideoPlayer(controller)),
                         // isVideoPlaying == false
                        Positioned(
                          bottom: 25,right: 25,

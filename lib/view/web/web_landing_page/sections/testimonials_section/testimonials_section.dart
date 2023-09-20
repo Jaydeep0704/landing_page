@@ -550,7 +550,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                       fontWeight: FontWeight.bold,
                                       fontSize: 17),
                                 ),
-                                const Spacer(),
+                                // const Spacer(),
+                                SizedBox(height: 100),
                                 Row(
                                   mainAxisAlignment:
                                   MainAxisAlignment.start,

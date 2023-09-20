@@ -20,7 +20,9 @@ class _AboutUsState extends State<AboutUs> {
   @override
   void initState() {
     super.initState();
-    helpController.getAboutUs();
+    if (helpController.aboutUs.isEmpty) {
+      helpController.getAboutUs();
+    }
   }
 
   void showAlert(BuildContext context) {
@@ -38,14 +40,14 @@ class _AboutUsState extends State<AboutUs> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
-        title: Text("Aobut Us",
+        title: const Text("About Us",
             style: TextStyle(
                 color: Colors.black,
                 fontSize: 18,
                 fontWeight: FontWeight.bold)),
         leading: IconButton(
           onPressed: Navigator.of(context).pop,
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
         ),
       ),
       body: Container(
@@ -56,39 +58,54 @@ class _AboutUsState extends State<AboutUs> {
                 : Get.width > 500
                     ? const EdgeInsets.only(left: 10, right: 10)
                     : const EdgeInsets.only(left: 10, right: 10),
-        child: FutureBuilder<bool>(
-          future: helpController.getAboutUs(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Container(
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                child: const GFLoader(
-                  type: GFLoaderType.circle,
-                ),
-              );
-            } else {
-              if (snapshot.hasError) {
-                return Text('Error occurred while fetching data.');
-              } else {
-                if (snapshot.data == true) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          child: Html(data: helpController.aboutus),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Text('Error occurred while fetching data.');
-                }
-              }
-            }
-          },
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Obx(() {
+                return helpController.aboutUs.isEmpty
+                    ? SizedBox()
+                    : Container(
+                        // child: Html(data: helpController.aboutus),
+                        child: Html(data: helpController.aboutUs[0]["about"]),
+                      );
+              }),
+            ],
+          ),
         ),
+        // child: FutureBuilder<bool>(
+        //   future: helpController.getAboutUs(),
+        //   builder: (context, snapshot) {
+        //     if (snapshot.connectionState == ConnectionState.waiting) {
+        //       return Container(
+        //         alignment: Alignment.center,
+        //         width: MediaQuery.of(context).size.width,
+        //         child: const GFLoader(
+        //           type: GFLoaderType.circle,
+        //         ),
+        //       );
+        //     } else {
+        //       if (snapshot.hasError) {
+        //         return const Text('Error occurred while fetching data.');
+        //       } else {
+        //         if (snapshot.data == true) {
+        //           return SingleChildScrollView(
+        //             child: Column(
+        //               crossAxisAlignment: CrossAxisAlignment.start,
+        //               children: [
+        //                 Container(
+        //                   child: Html(data: helpController.aboutus),
+        //                 ),
+        //               ],
+        //             ),
+        //           );
+        //         } else {
+        //           return const Text('Error occurred while fetching data.');
+        //         }
+        //       }
+        //     }
+        //   },
+        // ),
       ),
     );
   }
