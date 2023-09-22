@@ -711,72 +711,78 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Column(
+                                children: const [
+                                  IntroSection(),
+                                ],
+                              ),
+
                               ///first part starts from here ----  intro
-                              const IntroSection(),
-
-                              ///second part starts from here ---- showcase_apps
-                              const ShowcaseAppsSection(),
-
-                              ///third part starts here --- how_it_works
-                              const HowItWorksSection(),
-
-                              ///fourth part starts from here --- testimonials
-                              //Phase2
-                              TestimonialsSection(
-                                scrollToPricingSection: _scrollToPricingSection,
-                              ),
-
-                              ///fifth part starts from here --- text_banner
-                              //Phase2
-                              const TextBannerSection(),
-
-                              ///sixth part starts from here --- mix_banner
-                              const MixBannerSection(),
-
-                              ///seventh part from here --- benefit_banner
-                              //Phase2
-                              const BenefitBannerSection(),
-
-                              ///eighth part from here - shopify checkout view --- numbers_banner
-                              const NumbersBannerSection(),
-
-                              ///ninth part from here - Builder.ai help select plan --- help_banner
-                              //Phase2
-                              HelpBannerSection(
-                                scrollToPricingSection: _scrollToPricingSection,
-                              ),
-
-                              ///tenth part from here - Builder.ai/pricing case study --- case_study
-                              //Phase2
-                              const CaseStudySection(),
-
-                              ///Eleven part from here - shopify/checkout - info section of checkout for every apps --- checkout_info
-                              //Phase2
-                              const CheckoutInfoSection(),
-
-                              ///twelfth part from here - Builder.ai/pricing platform vise price --- pricing
-                              PricingSection(
-                                  key: PricingSection.pricingSectionKey),
-
-                              ///Thirteen part from here - shopify - info displaying how fast it is --- checkout
-                              //Phase2
-                              const CheckoutSection(),
-
-                              ///Fourteen part from here - builder.ai/pricing - carousel showing different apps images --- apps_demo
-                              const AppsDemoSection(),
-
-                              ///Don't open
-                              ///Fifteenth part from here - shopify/checkout - payment method overview --- how app works
-                              // FifteenthSection(),
-
-                              ///FAQs section ---> - builder.ai
-                              const FAQsSection(),
-
-                              ///info section ---> Note : get this data from backend --- info
-                              const InfoSection(),
-
-                              ///Address Section ---> Note : Static data--- Address
-                              const AddressSection(),
+                              // const IntroSection(),
+                              //
+                              // ///second part starts from here ---- showcase_apps
+                              // const ShowcaseAppsSection(),
+                              //
+                              // ///third part starts here --- how_it_works
+                              // const HowItWorksSection(),
+                              //
+                              // ///fourth part starts from here --- testimonials
+                              // //Phase2
+                              // TestimonialsSection(
+                              //   scrollToPricingSection: _scrollToPricingSection,
+                              // ),
+                              //
+                              // ///fifth part starts from here --- text_banner
+                              // //Phase2
+                              // const TextBannerSection(),
+                              //
+                              // ///sixth part starts from here --- mix_banner
+                              // const MixBannerSection(),
+                              //
+                              // ///seventh part from here --- benefit_banner
+                              // //Phase2
+                              // const BenefitBannerSection(),
+                              //
+                              // ///eighth part from here - shopify checkout view --- numbers_banner
+                              // const NumbersBannerSection(),
+                              //
+                              // ///ninth part from here - Builder.ai help select plan --- help_banner
+                              // //Phase2
+                              // HelpBannerSection(
+                              //   scrollToPricingSection: _scrollToPricingSection,
+                              // ),
+                              //
+                              // ///tenth part from here - Builder.ai/pricing case study --- case_study
+                              // //Phase2
+                              // const CaseStudySection(),
+                              //
+                              // ///Eleven part from here - shopify/checkout - info section of checkout for every apps --- checkout_info
+                              // //Phase2
+                              // const CheckoutInfoSection(),
+                              //
+                              // ///twelfth part from here - Builder.ai/pricing platform vise price --- pricing
+                              // PricingSection(
+                              //     key: PricingSection.pricingSectionKey),
+                              //
+                              // ///Thirteen part from here - shopify - info displaying how fast it is --- checkout
+                              // //Phase2
+                              // const CheckoutSection(),
+                              //
+                              // ///Fourteen part from here - builder.ai/pricing - carousel showing different apps images --- apps_demo
+                              // const AppsDemoSection(),
+                              //
+                              // ///Don't open
+                              // ///Fifteenth part from here - shopify/checkout - payment method overview --- how app works
+                              // // FifteenthSection(),
+                              //
+                              // ///FAQs section ---> - builder.ai
+                              // const FAQsSection(),
+                              //
+                              // ///info section ---> Note : get this data from backend --- info
+                              // const InfoSection(),
+                              //
+                              // ///Address Section ---> Note : Static data--- Address
+                              // const AddressSection(),
                             ],
                           ),
                         ),
