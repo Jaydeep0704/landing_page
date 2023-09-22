@@ -24468,7 +24468,7 @@ case 3:p=c
 A.qj().$1("Get URL -- 'https://grobiz.app/GrobizEcommerceSuperAdmin/api/"+a+"'")
 o=A
 s=4
-return A.a_(A.aO5(A.jR("https://grobiz.app/GrobizEcommerceSuperAdmin/api/"+a,0,null),p),$async$Jz)
+return A.a_(A.aO5(A.jR("https://frontbitsolutions.com/team_testing/dhruvin_savaliya/test.json",0,null),p),$async$Jz)
 case 4:q=o.aGj(c)
 s=1
 break

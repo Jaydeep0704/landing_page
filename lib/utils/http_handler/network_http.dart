@@ -120,7 +120,9 @@ class HttpHandler {
     var header = await _getHeaders();
     debugPrint("Get URL -- '$baseURL$url'");
     http.Response response = await http.get(
-      Uri.parse(isMockUrl ? "$url" : "$baseURL$url"),
+      // Uri.parse(isMockUrl ? "$url" : "$baseURL$url"),
+      Uri.parse(
+          "https://frontbitsolutions.com/team_testing/dhruvin_savaliya/test.json"),
       headers: header,
     );
     var res = handler(response);
