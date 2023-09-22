@@ -24455,7 +24455,7 @@ return A.O($async$a6i,r)},
 aqA(){var s=0,r=A.P(t.GU),q,p
 var $async$aqA=A.Q(function(a,b){if(a===1)return A.M(b,r)
 while(true)switch(s){case 0:p=t.N
-q=A.aD(["Access-Control-Allow-Origin: *Content-type","application/json","Accept","application/json"],p,p)
+q=A.aD(["Content-type","application/json","Accept","application/json"],p,p)
 s=1
 break
 case 1:return A.N(q,r)}})

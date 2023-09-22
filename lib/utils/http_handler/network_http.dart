@@ -17,8 +17,7 @@ class HttpHandler {
 
   static Future<Map<String, String>> _getHeaders() async {
     return {
-      "Access-Control-Allow-Origin: *"
-          'Content-type': 'application/json',
+      'Content-type': 'application/json',
       'Accept': 'application/json',
       // if (token != null) 'Authorization': "Bearer $token",
       // if (id != null) "id": id,
