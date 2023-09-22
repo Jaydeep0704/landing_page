@@ -16,9 +16,9 @@ class HttpHandler {
   static String baseURL = APIString.grobizBaseUrl;
 
   static Future<Map<String, String>> _getHeaders() async {
-
     return {
-      'Content-type': 'application/json',
+      "Access-Control-Allow-Origin: *"
+          'Content-type': 'application/json',
       'Accept': 'application/json',
       // if (token != null) 'Authorization': "Bearer $token",
       // if (id != null) "id": id,
