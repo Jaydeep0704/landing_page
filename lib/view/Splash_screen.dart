@@ -16,10 +16,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   final editController = Get.find<EditController>();
   final webLandingPageController = Get.find<WebLandingPageController>();
-
 
   @override
   void initState() {
@@ -27,31 +25,31 @@ class _SplashScreenState extends State<SplashScreen> {
     getPage();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(backgroundColor: AppColors.whiteColor);
+    return Scaffold(
+      backgroundColor: AppColors.redColor,
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        color: Colors.red,
+      ),
+    );
   }
 
   getPage() async {
-    SharedPreferences prefs= await SharedPreferences.getInstance();
-    bool? isLogin =prefs.getBool('is_login');
-    if(isLogin==true)
-    {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? isLogin = prefs.getBool('is_login');
+    if (isLogin == true) {
       // Get.off(()=>const EditWebLandingScreen());
       Get.offNamed(PageRoutes.editWebLandingPage);
-
-    }else
-    {
+    } else {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Future.delayed(const Duration(seconds: 0), () {
           // Get.off(()=>const WebLandingScreen());
           Get.offNamed(PageRoutes.webLandingPage);
         });
-
       });
     }
   }
-
 }

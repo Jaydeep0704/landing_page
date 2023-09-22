@@ -68,6 +68,7 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
   final pricingScreenController = Get.find<PricingScreenController>();
   final editCheckOutController = Get.find<EditCheckOutController>();
   final benefitBannerController = Get.find<BenefitBannerController>();
+  final ScrollController _scrollController = ScrollController();
 
   ///for dynamic with edit functionality
   String fontSize = "";
@@ -780,6 +781,8 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
             backgroundColor: Colors.white,
             body: SizedBox(
               width: Get.width,
+
+              ///with reorder api
               // child: Obx(() {
               //   return editController.allDataResponse.isEmpty &&
               //           editController.homeComponentList.isEmpty
@@ -797,20 +800,111 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
               //             );
               //           });
               // })
+              ///basic reorder
+              // child: RawScrollbar(
+              //   radius: Radius.circular(20),
+              //   // thumbColor: AppColors.blueColor,
+              //   thumbColor: Colors.blue,
+              //   controller: _scrollController,
+              //   trackVisibility: true,
+              //   thickness: 15,
+              //   interactive: true,
+              //   thumbVisibility: true,
+              //   child: SingleChildScrollView(
+              //     // controller: _scrollController,
+              //     physics: const AlwaysScrollableScrollPhysics(),
+              //     child: ReorderableListView(
+              //       scrollController: _scrollController,
+              //       shrinkWrap: true,
+              //       onReorder: reorderData,
+              //       children: <Widget>[
+              //         for (final items in listOfScreens)
+              //           Card(
+              //             key: ValueKey(items),
+              //             elevation: 2,
+              //             child: items,
+              //           ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              ///normal single child scroll
+              child: RawScrollbar(
+                radius: Radius.circular(20),
+                // thumbColor: AppColors.blueColor,
+                thumbColor: Colors.blue,
+                controller: _scrollController,
+                trackVisibility: true,
+                thickness: 15,
+                interactive: true,
+                thumbVisibility: true,
+                child: SingleChildScrollView(
+                  controller: _scrollController,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        ///first part starts from here
+                        EditIntroSection(),
 
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: ReorderableListView(
-                  shrinkWrap: true,
-                  onReorder: reorderData,
-                  children: <Widget>[
-                    for (final items in listOfScreens)
-                      Card(
-                        key: ValueKey(items),
-                        elevation: 2,
-                        child: items,
-                      ),
-                  ],
+                        ///second part starts from here
+                        EditShowcaseAppsSection(),
+
+                        ///third part starts here
+                        EditHowItWorksSection(),
+
+                        ///fourth part starts from here
+                        //Phase2
+                        EditTestimonialsSection(),
+
+                        ///fifth part starts from here
+                        //Phase2
+                        EditTextBannerSection(),
+
+                        ///sixth part starts from here
+                        EditMixBannerSection(),
+
+                        ///seventh part from here
+                        //Phase2
+                        EditBenefitBannerSection(),
+
+                        ///eighth part from here - shopify checkout view
+                        EditNumbersBannerSection(),
+
+                        ///ninth part from here - Builder.ai help select plan
+                        EditHelpBannerSection(),
+
+                        ///tenth part from here - Builder.ai/pricing case study
+                        //Phase2
+                        EditCaseStudySection(),
+
+                        ///Eleven part from here - shopify/checkout - info section of checkout for every apps
+                        //Phase2
+                        EditCheckoutInfoSection(),
+
+                        ///Twelve part from here - Builder.ai/pricing platform vise price
+                        EditPricingSection(),
+
+                        ///Thirteen part from here - shopify - info displaying how fast it is
+                        //Phase2
+                        EditCheckoutSection(),
+
+                        ///Fourteen part from here - builder.ai/pricing - carousel showing different apps images
+                        EditAppsDemoSection(),
+
+                        ///Don't open
+                        ///Fifteenth part from here - shopify/checkout - payment method overview
+                        // const FifteenthSection(),
+
+                        ///EditFAQs section ---> builder.ai
+                        EditFAQsSection(),
+
+                        ///info section ---> Note : get this data from backend
+                        EditInfoSection(),
+
+                        ///info section ---> Note : Static
+                        EditAddressSection(),
+                      ]),
                 ),
               ),
             ),

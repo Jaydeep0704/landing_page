@@ -35,7 +35,7 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
   // bool isVideoInitialized = false;
   // Timer? _timer;
   int _currentIndex = 0;
-
+bool isScrolling = true;
 
   @override
   void initState() {
@@ -300,12 +300,6 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                               color: AppColors.yellowColor,
                               borderRadius: BorderRadius.all(Radius.circular(5))
                           ),
-                          // child: Text(
-                          //   "Grobiz Plus",
-                          //   textAlign: TextAlign.center,
-                          //   style: AppTextStyle.regular300
-                          //       .copyWith(fontSize: 14),
-                          // ),
                           child: Text(
                             editController
                                 .allDataResponse[0]["checkout_info_details"][0]["checkout_info_tag"]
@@ -376,7 +370,6 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                         const SizedBox(
                           height: 30,
                         ),
-
                         ///here need to change....
                         Obx(() {
                           return checkoutInfocontroller.CheckInfoDataList
@@ -406,41 +399,49 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          height: 60,
-                                          width: 2,
-                                          margin: const EdgeInsets.only(
-                                              right: 16),
-                                          decoration: BoxDecoration(
-                                            color: _currentIndex == index
-                                                ? AppColors.blueColor
-                                                : Colors.grey,
-                                            borderRadius: BorderRadius.circular(
-                                                10),
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          _currentIndex = index;
+                                          isScrolling = false;
+                                        });
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 60,
+                                            width: 2,
+                                            margin: const EdgeInsets.only(
+                                                right: 16),
+                                            decoration: BoxDecoration(
+                                              color: _currentIndex == index
+                                                  ? AppColors.blueColor
+                                                  : Colors.grey,
+                                              borderRadius: BorderRadius.circular(
+                                                  10),
+                                            ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment
-                                                .start,
-                                            children: [
-                                              Text(
-                                                data["title"].toString(),
-                                                style: AppTextStyle.regular700
-                                                    .copyWith(fontSize: 22),
-                                              ),
-                                              const SizedBox(height: 10),
-                                              Text(
-                                                data["description"].toString(),
-                                                style: AppTextStyle.regular400
-                                                    .copyWith(fontSize: 14),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment
+                                                  .start,
+                                              children: [
+                                                Text(
+                                                  data["title"].toString(),
+                                                  style: AppTextStyle.regular700
+                                                      .copyWith(fontSize: 22),
+                                                ),
+                                                const SizedBox(height: 10),
+                                                Text(
+                                                  data["description"].toString(),
+                                                  style: AppTextStyle.regular400
+                                                      .copyWith(fontSize: 14),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                     const SizedBox(height: 16),
                                   ],
@@ -453,7 +454,6 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                     ),
                   ),
                   SizedBox(width: Get.width * 0.075),
-
                   ///slider code
                   Expanded(
                     child: Obx(() {
@@ -470,7 +470,8 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                                 _currentIndex = index;
                               });
                             },
-                            autoPlay: true,
+                            // autoPlay: true,
+                            autoPlay: isScrolling,
                             autoPlayInterval: const Duration(seconds: 5),
                             viewportFraction: 1.0,
                             // Set viewportFraction to 1.0
@@ -559,7 +560,8 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                           _currentIndex = index;
                         });
                       },
-                      autoPlay: true,
+                      // autoPlay: true,
+                      autoPlay: isScrolling,
                       autoPlayInterval: const Duration(seconds: 5),
                       viewportFraction: 1.0,
                       // Set viewportFraction to 1.0
