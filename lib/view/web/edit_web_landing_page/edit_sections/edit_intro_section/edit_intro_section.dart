@@ -1,4 +1,5 @@
-import 'dart:html' as html;
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -15,6 +16,7 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controlle
 import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:grobiz_web_landing/widget/update_media_component.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import '../../../web_landing_page/controller/landing_page_controller.dart';
 import '../../../../../widget/edit_text_dialog.dart';
@@ -925,16 +927,14 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                             children: [
                               commonIconButton(
                                   onTap: () async {
-                                    html.window.open(
-                                        AppString.playStoreAppLink, "_blank");
-                                    // const url =
-                                    //     'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
-                                    // if (await canLaunch(url)) {
-                                    //   await launch(url);
-                                    // } else {
-                                    //   throw 'Could not launch $url';
-                                    // }
+                                    const url = AppString.playStoreAppLink;
+                                    if (await canLaunchUrl(Uri.parse(url))) {
+                                      await launchUrl(Uri.parse(url));
+                                    } else {
+                                      throw 'Could not launch $url';
+                                    }
                                   },
+
                                   icon: Icons.phone_android,
                                   title: "Create Your App",
                                   btnColor: Colors.redAccent
@@ -1123,9 +1123,13 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                             CrossAxisAlignment.center,
                             children: [
                               commonIconButton(
-                                  onTap: () {
-                                    html.window.open(
-                                        AppString.websiteLink, "_blank");
+                                  onTap: () async {
+                                    const url = AppString.websiteLink;
+                                    if (await canLaunchUrl(Uri.parse(url))) {
+                                      await launchUrl(Uri.parse(url));
+                                    } else {
+                                      throw 'Could not launch $url';
+                                    }
                                   },
                                   icon: Icons.language,
                                   title: "Create Your Website",

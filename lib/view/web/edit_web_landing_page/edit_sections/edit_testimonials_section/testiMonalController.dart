@@ -22,12 +22,9 @@ class EditTestimonialController extends GetxController {
   RxBool testimonial1Switch = false.obs;
   RxBool testimonial2Switch = false.obs;
 
-
-
   GetAppLogoes() async {
     log("step --------  +++ 1 ");
-    showLoadingDialog();
-    // hideLoadingDialog();
+    // showLoadingDialog();
     try {
       log("step --------  +++  2 ");
       appLogoList.clear();
@@ -37,7 +34,7 @@ class EditTestimonialController extends GetxController {
         url: APIString.get_app_logo_list,
       );
       log("step --------  +++ 3 ");
-      hideLoadingDialog();
+      // hideLoadingDialog();
       if (response['error'] == null) {
         log("step --------  +++  4");
 
@@ -56,8 +53,7 @@ class EditTestimonialController extends GetxController {
 
   Future GetTestimonal() async {
     log("step --------  +++ 1 ");
-    showLoadingDialog();
-    // hideLoadingDialog();
+    // showLoadingDialog();
     try {
       log("step --------  +++  2 ");
       getTestimonial.clear();
@@ -67,7 +63,7 @@ class EditTestimonialController extends GetxController {
         url: APIString.get_testimonials,
       );
       log("step --------  +++ 3 ");
-      hideLoadingDialog();
+      // hideLoadingDialog();
       if (response['error'] == null) {
         log("step --------  +++  4");
 
@@ -85,12 +81,11 @@ class EditTestimonialController extends GetxController {
   }
 
   ///delete CheckOut Info
-  Future<void> deleteTestiMonalApi({String? id})  async {
-
+  Future<void> deleteTestiMonalApi({String? id}) async {
     var url = APIString.grobizBaseUrl + APIString.delete_testimonials;
 //userlist_auto_id
     final body = {
-      'testimonial_auto_id':id,
+      'testimonial_auto_id': id,
     };
 
     Uri uri = Uri.parse(url);
@@ -101,9 +96,8 @@ class EditTestimonialController extends GetxController {
       int status = resp['status'];
       log('USer Id: $status');
       if (status == 1) {
-
         Fluttertoast.showToast(
-          msg:  'successfully Deleted' ,
+          msg: 'successfully Deleted',
           backgroundColor: Colors.grey,
         );
         // Get.back();
@@ -118,7 +112,6 @@ class EditTestimonialController extends GetxController {
         );
       }
     } else if (response.statusCode == 500) {
-
       Fluttertoast.showToast(
         msg: 'Server error',
         backgroundColor: Colors.grey,

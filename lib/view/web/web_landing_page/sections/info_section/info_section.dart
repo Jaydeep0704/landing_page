@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'dart:developer';
-import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,6 @@ import 'package:grobiz_web_landing/view/web/web_landing_page/login_page.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/faqs_section/detail_faqs.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/AboutUs/AboutScreen.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/ContactUs/ContactUsScreen.dart';
-import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/FAQ/FaqScreen.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/PrivacyPolicy/PrivacyPolicy.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/TandC/termsCondition.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/career/careers_screen.dart';
@@ -131,11 +131,19 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
 
               InkWell(
-                onTap: () {
-                  // const facebookUrl = 'https://www.facebook.com';
-                  // launch(facebookUrl);
-                  html.window.open(AppString.fbLink, "_blank");
+                onTap: () async {
+                  const url = AppString.fbLink;
+                  if (await canLaunchUrl(Uri.parse(url))) {
+                    await launchUrl(Uri.parse(url));
+                  } else {
+                    throw 'Could not launch $url';
+                  }
                 },
+                // onTap: () {
+                //   // const facebookUrl = 'https://www.facebook.com';
+                //   // launch(facebookUrl);
+                //   html.window.open(AppString.fbLink, "_blank");
+                // },
                 child: Row(
                   children: const [
                     Icon(
@@ -156,11 +164,19 @@ class _InfoSectionState extends State<InfoSection> {
 
               const SizedBox(height: 10),
               InkWell(
-                onTap: () {
-                  //const twitterUrl = 'https://twitter.com';
-                  // launch(twitterUrl);
-                  html.window.open(AppString.twitterLink, "_blank");
+                onTap: () async {
+                  const url = AppString.twitterLink;
+                  if (await canLaunchUrl(Uri.parse(url))) {
+                    await launchUrl(Uri.parse(url));
+                  } else {
+                    throw 'Could not launch $url';
+                  }
                 },
+                // onTap: () {
+                //   //const twitterUrl = 'https://twitter.com';
+                //   // launch(twitterUrl);
+                //   html.window.open(AppString.twitterLink, "_blank");
+                // },
                 child: Row(
                   children: [
                     Image.asset(
@@ -182,11 +198,19 @@ class _InfoSectionState extends State<InfoSection> {
 
               const SizedBox(height: 10),
               InkWell(
-                onTap: () {
-                  // const youtubeUrl = 'https://www.youtube.com';
-                  // launch(youtubeUrl);
-                  html.window.open(AppString.ytLink, "_blank");
+                onTap: () async {
+                  const url = AppString.ytLink;
+                  if (await canLaunchUrl(Uri.parse(url))) {
+                    await launchUrl(Uri.parse(url));
+                  } else {
+                    throw 'Could not launch $url';
+                  }
                 },
+                // onTap: () {
+                //   // const youtubeUrl = 'https://www.youtube.com';
+                //   // launch(youtubeUrl);
+                //   html.window.open(AppString.ytLink, "_blank");
+                // },
                 child: Row(
                   children: [
                     Image.asset(
@@ -207,11 +231,19 @@ class _InfoSectionState extends State<InfoSection> {
               ),
               const SizedBox(height: 10),
               InkWell(
-                onTap: () {
-                  // const linkedinUrl = 'https://www.linkedin.com';
-                  // launch(linkedinUrl);
-                  html.window.open(AppString.linkedInLink, "_blank");
+                onTap: () async {
+                  const url = AppString.linkedInLink;
+                  if (await canLaunchUrl(Uri.parse(url))) {
+                    await launchUrl(Uri.parse(url));
+                  } else {
+                    throw 'Could not launch $url';
+                  }
                 },
+                // onTap: () {
+                //   // const linkedinUrl = 'https://www.linkedin.com';
+                //   // launch(linkedinUrl);
+                //   html.window.open(AppString.linkedInLink, "_blank");
+                // },
                 child: Row(
                   children: [
                     Image.asset(
@@ -232,10 +264,18 @@ class _InfoSectionState extends State<InfoSection> {
               ),
               const SizedBox(height: 10),
               InkWell(
-                onTap: () {
-                  // launchInstagram();
-                  html.window.open(AppString.instaLink, "_blank");
+                onTap: () async {
+                  const url = AppString.instaLink;
+                  if (await canLaunchUrl(Uri.parse(url))) {
+                    await launchUrl(Uri.parse(url));
+                  } else {
+                    throw 'Could not launch $url';
+                  }
                 },
+                // onTap: () {
+                //   // launchInstagram();
+                //   html.window.open(AppString.instaLink, "_blank");
+                // },
                 child: Row(
                   children: [
                     Image.asset(
@@ -299,7 +339,7 @@ class _InfoSectionState extends State<InfoSection> {
               // SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => AboutUs())!
+                  Get.to(() => const AboutUs())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));
@@ -313,7 +353,7 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => TnCScreen())!
+                  Get.to(() => const TnCScreen())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));
@@ -325,7 +365,7 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => PrivacyPolicy())!
+                  Get.to(() => const PrivacyPolicy())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));
@@ -338,7 +378,7 @@ class _InfoSectionState extends State<InfoSection> {
               InkWell(
                 onTap: () {
                   // Get.to(() => FaqScreen())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
-                  Get.to(() => DetailFAQs())!
+                  Get.to(() => const DetailFAQs())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));
@@ -413,7 +453,7 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => Contactus())!
+                  Get.to(() => const Contactus())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));
@@ -482,11 +522,19 @@ class _InfoSectionState extends State<InfoSection> {
                   ),
                   const SizedBox(height: 5),
                   InkWell(
-                    onTap: () {
-                      // const facebookUrl = 'https://www.facebook.com';
-                      // launch(facebookUrl);
-                      html.window.open(AppString.fbLink, "_blank");
+                    onTap: () async {
+                      const url = AppString.fbLink;
+                      if (await canLaunchUrl(Uri.parse(url))) {
+                        await launchUrl(Uri.parse(url));
+                      } else {
+                        throw 'Could not launch $url';
+                      }
                     },
+                    // onTap: () {
+                    //   // const facebookUrl = 'https://www.facebook.com';
+                    //   // launch(facebookUrl);
+                    //   html.window.open(AppString.fbLink, "_blank");
+                    // },
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Row(
@@ -510,11 +558,19 @@ class _InfoSectionState extends State<InfoSection> {
                   ),
                   const SizedBox(height: 10),
                   InkWell(
-                    onTap: () {
-                      // const twitterUrl = 'https://twitter.com';
-                      // launch(twitterUrl);
-                      html.window.open(AppString.twitterLink, "_blank");
+                    onTap: () async {
+                      const url = AppString.twitterLink;
+                      if (await canLaunchUrl(Uri.parse(url))) {
+                        await launchUrl(Uri.parse(url));
+                      } else {
+                        throw 'Could not launch $url';
+                      }
                     },
+                    // onTap: () {
+                    //   // const twitterUrl = 'https://twitter.com';
+                    //   // launch(twitterUrl);
+                    //   html.window.open(AppString.twitterLink, "_blank");
+                    // },
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Row(
@@ -539,11 +595,19 @@ class _InfoSectionState extends State<InfoSection> {
                   ),
                   const SizedBox(height: 10),
                   InkWell(
-                    onTap: () {
-                      // const youtubeUrl = 'https://www.youtube.com';
-                      // launch(youtubeUrl);
-                      html.window.open(AppString.ytLink, "_blank");
+                    onTap: () async {
+                      const url = AppString.ytLink;
+                      if (await canLaunchUrl(Uri.parse(url))) {
+                        await launchUrl(Uri.parse(url));
+                      } else {
+                        throw 'Could not launch $url';
+                      }
                     },
+                    // onTap: () {
+                    //   // const youtubeUrl = 'https://www.youtube.com';
+                    //   // launch(youtubeUrl);
+                    //   html.window.open(AppString.ytLink, "_blank");
+                    // },
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Row(
@@ -568,11 +632,19 @@ class _InfoSectionState extends State<InfoSection> {
                   ),
                   const SizedBox(height: 10),
                   InkWell(
-                    onTap: () {
-                      // const linkedinUrl = 'https://www.linkedin.com';
-                      // launch(linkedinUrl);
-                      html.window.open(AppString.linkedInLink, "_blank");
+                    onTap: () async {
+                      const url = AppString.linkedInLink;
+                      if (await canLaunchUrl(Uri.parse(url))) {
+                        await launchUrl(Uri.parse(url));
+                      } else {
+                        throw 'Could not launch $url';
+                      }
                     },
+                    // onTap: () {
+                    //   // const linkedinUrl = 'https://www.linkedin.com';
+                    //   // launch(linkedinUrl);
+                    //   html.window.open(AppString.linkedInLink, "_blank");
+                    // },
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Row(
@@ -597,10 +669,18 @@ class _InfoSectionState extends State<InfoSection> {
                   ),
                   const SizedBox(height: 10),
                   InkWell(
-                    onTap: () {
-                      // launchInstagram();
-                      html.window.open(AppString.instaLink, "_blank");
+                    onTap: () async {
+                      const url = AppString.instaLink;
+                      if (await canLaunchUrl(Uri.parse(url))) {
+                        await launchUrl(Uri.parse(url));
+                      } else {
+                        throw 'Could not launch $url';
+                      }
                     },
+                    // onTap: () {
+                    //   // launchInstagram();
+                    //   html.window.open(AppString.instaLink, "_blank");
+                    // },
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Row(
@@ -673,7 +753,7 @@ class _InfoSectionState extends State<InfoSection> {
               // SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => AboutUs())!
+                  Get.to(() => const AboutUs())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));
@@ -687,7 +767,7 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => TnCScreen())!
+                  Get.to(() => const TnCScreen())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));
@@ -699,7 +779,7 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() => PrivacyPolicy())!
+                  Get.to(() => const PrivacyPolicy())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));
@@ -712,7 +792,7 @@ class _InfoSectionState extends State<InfoSection> {
               InkWell(
                 onTap: () {
                   // Get.to(() => FaqScreen())!.whenComplete(() =>     Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
-                  Get.to(() => DetailFAQs())!
+                  Get.to(() => const DetailFAQs())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));
@@ -798,7 +878,7 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 5),
               InkWell(
                 onTap: () {
-                  Get.to(() => Contactus())!
+                  Get.to(() => const Contactus())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));
@@ -830,18 +910,6 @@ class _InfoSectionState extends State<InfoSection> {
         ),
       ],
     );
-  }
-
-  launchInstagram() async {
-    const instagramUrl = 'https://www.instagram.com';
-    const instagramAppUrl =
-        'instagram://user?username=USERNAME'; // Replace 'USERNAME' with the desired Instagram username
-
-    if (await canLaunch(instagramAppUrl)) {
-      await launch(instagramAppUrl);
-    } else {
-      await launch(instagramUrl);
-    }
   }
 
   disposeAllController() {

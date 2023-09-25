@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports, depend_on_referenced_packages, avoid_web_libraries_in_flutter, prefer_typing_uninitialized_variables, non_constant_identifier_names, file_names
+
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/foundation.dart';
@@ -20,7 +22,7 @@ import '../../../../../widget/loading_dialog.dart';
 import 'CheckOutInfoControllers.dart';
 
 class AddCheckInfo extends StatefulWidget {
-  AddCheckInfo({Key? key}) : super(key: key);
+  const AddCheckInfo({Key? key}) : super(key: key);
   @override
   State<AddCheckInfo> createState() => _AddCheckInfoState();
 }
@@ -84,7 +86,7 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
             child: SingleChildScrollView(
               child: Row(children: [
                 const Expanded(child: SizedBox()),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: const [
@@ -94,7 +96,7 @@ class _AddCheckInfoState extends State<AddCheckInfo> {
                     )),
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 SizedBox(
                   width: Get.width > 800 ? 700 : 400,
                   child: Column(

@@ -30,10 +30,12 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
   final getLatestProject = Get.find<AddProjectController>();
   int _currentIndex = 0;
   CarouselController carouselController = CarouselController();
+
   void nextImage() {
     // carouselController.nextPage();
     landingPageController.appDetailsController.nextPage();
   }
+
   void previousImage() {
     // carouselController.previousPage();
     landingPageController.appDetailsController.previousPage();
@@ -43,9 +45,8 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
   void initState() {
     log("inside ---- AppsDemoSection   init");
 
-  // getLatestProject.getProjectData();
+    // getLatestProject.getProjectData();
     super.initState();
-
   }
 
 
@@ -54,12 +55,17 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
     return LayoutBuilder(
       builder: (p0, p1) {
         return Obx(() {
-          return editController.appsDemo.value == false ||  editController.allDataResponse.isEmpty ? const SizedBox()
+          return editController.appsDemo.value == false ||
+              editController.allDataResponse.isEmpty ? const SizedBox()
               : Container(
             // height: 600,
             width: Get.width,
-            decoration: editController.allDataResponse[0]["apps_demo_details"][0]["apps_demo_bg_color_switch"].toString() == "1" &&
-                editController.allDataResponse[0]["apps_demo_details"][0]["apps_demo_bg_image_switch"].toString() == "0"
+            decoration: editController
+                .allDataResponse[0]["apps_demo_details"][0]["apps_demo_bg_color_switch"]
+                .toString() == "1" &&
+                editController
+                    .allDataResponse[0]["apps_demo_details"][0]["apps_demo_bg_image_switch"]
+                    .toString() == "0"
                 ? BoxDecoration(
               color: editController
                   .allDataResponse[0]["apps_demo_details"][0]["apps_demo_bg_color"]
@@ -117,242 +123,321 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                 ),
                 const SizedBox(height: 40),
                 SizedBox(
+
                   ///here need to change
-                  height: Get.width > 725 ?725: Get.width < 725 && Get.width > 600 ?500 : 750,
+                  height: Get.width > 725 ? 725 : Get.width < 725 &&
+                      Get.width > 600 ? 500 : 750,
                   width: Get.width,
                   child:
                   Stack(
                     children: [
 
-                      CarouselSlider.builder(
-                        carouselController: landingPageController.appDetailsController,
-                        options: CarouselOptions(
-                          initialPage: _currentIndex,
-                          onPageChanged: (index, reason) {
-                            getLatestProject.isVideoPlaying.value == false;
-                            setState(() {
-                              _currentIndex = index;
-                            });
-                          },
-                          viewportFraction: Get.width > 1500
-                              // ? 0.2
-                              ? 0.23
-                              : Get.width > 1000
-                              ? 0.23
-                              : Get.width > 600
-                              ? 0.26
-                              : 0.5,
-                          height: 725,
-                          // autoPlay: true,
-                        ),
-                        itemCount: getLatestProject.getProjectList.length,
-                        itemBuilder: (context, itemIndex, realIndex) {
-                          var a = getLatestProject.getProjectList[itemIndex];
-                          return SizedBox(
-                            width: Get.width > 500
-                                ? Get.width * 0.5
-                                : Get.width > 350
-                                ? Get.width * 0.7
-                                : Get.width * 0.7,
-                            // color: AppColors.blackColor,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                _currentIndex != itemIndex
-                                    ? Text("",
-                                  style: AppTextStyle.regularBold.copyWith(color: AppColors.whiteColor, fontSize: 40),
-                                )
-                                    : AnimatedTextKit(
-                                  onTap: () {
-                                    log("tapped on edit font property ............");
-                                    Get.dialog(
-                                        TextEditModule(
-                                          textValue: "",
-                                          textKeyName: "",
-                                          showTextField: false,
-                                          colorKeyName: "selected_app_name_color",
-                                          fontFamilyKeyName: "selected_app_name_font",
-                                          fontFamily: editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_name_font"].toString(),
-                                          fontSize: editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_name_size"].toString(),
-                                          textColor: Color(int.parse(editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_name_color"].toString())),
-                                        ));
-                                  },
-                                  animatedTexts: [
-                                    TypewriterAnimatedText(
-                                      "${a.appName}",
-                                      textAlign: TextAlign.center,
+                      Obx(() {
+                        return getLatestProject.getProjectList.isEmpty ?const SizedBox(): CarouselSlider.builder(
+                          carouselController: landingPageController
+                              .appDetailsController,
+                          options: CarouselOptions(
+                            initialPage: _currentIndex,
+                            onPageChanged: (index, reason) {
+                              getLatestProject.isVideoPlaying.value == false;
+                              setState(() {
+                                _currentIndex = index;
+                              });
+                            },
+                            viewportFraction: Get.width > 1500
+                            // ? 0.2
+                                ? 0.23
+                                : Get.width > 1000
+                                ? 0.23
+                                : Get.width > 600
+                                ? 0.26
+                                : 0.5,
+                            height: 725,
+                            // autoPlay: true,
+                          ),
+                          itemCount: getLatestProject.getProjectList.length,
+                          itemBuilder: (context, itemIndex, realIndex) {
+                            var a = getLatestProject.getProjectList[itemIndex];
+                            return SizedBox(
+                              width: Get.width > 500
+                                  ? Get.width * 0.5
+                                  : Get.width > 350
+                                  ? Get.width * 0.7
+                                  : Get.width * 0.7,
+                              // color: AppColors.blackColor,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  _currentIndex != itemIndex
+                                      ? Text("",
+                                    style: AppTextStyle.regularBold.copyWith(
+                                        color: AppColors.whiteColor,
+                                        fontSize: 40),
+                                  )
+                                      : AnimatedTextKit(
+                                    onTap: () {
+                                      log(
+                                          "tapped on edit font property ............");
+                                      Get.dialog(
+                                          TextEditModule(
+                                            textValue: "",
+                                            textKeyName: "",
+                                            showTextField: false,
+                                            colorKeyName: "selected_app_name_color",
+                                            fontFamilyKeyName: "selected_app_name_font",
+                                            fontFamily: editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_name_font"]
+                                                .toString(),
+                                            fontSize: editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_name_size"]
+                                                .toString(),
+                                            textColor: Color(
+                                                int.parse(editController
+                                                    .allDataResponse[0]["apps_demo_details"][0]["selected_app_name_color"]
+                                                    .toString())),
+                                          ));
+                                    },
+                                    animatedTexts: [
+                                      TypewriterAnimatedText(
+                                        a.appName,
+                                        textAlign: TextAlign.center,
 
-                                      textStyle: GoogleFonts.getFont(editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_name_font"].toString()).copyWith(
-                                          fontSize: editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_name_size"].toString() !=""
-                                              ? double.parse(editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_name_size"].toString())
-                                              : 30,
-                                          fontWeight: FontWeight.bold,
-                                          color: editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_name_color"].toString().isEmpty
-                                              ?AppColors.blackColor
-                                              :Color(int.parse(editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_name_color"].toString()))),
+                                        textStyle: GoogleFonts.getFont(
+                                            editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_name_font"]
+                                                .toString()).copyWith(
+                                            fontSize: editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_name_size"]
+                                                .toString() != ""
+                                                ? double.parse(editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_name_size"]
+                                                .toString())
+                                                : 30,
+                                            fontWeight: FontWeight.bold,
+                                            color: editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_name_color"]
+                                                .toString()
+                                                .isEmpty
+                                                ? AppColors.blackColor
+                                                : Color(int.parse(editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_name_color"]
+                                                .toString()))),
 
-                                      speed: const Duration(
-                                          milliseconds: 3),
-                                    ),
-                                  ],
-                                  totalRepeatCount: 1,
-                                  pause: const Duration(milliseconds: 0),
-                                  // displayFullTextOnTap: true,
-                                  // stopPauseOnTap: true,
-                                ),
-                                const SizedBox(height: 25),
-                                // const SizedBox(height: 15),
-                                _currentIndex != itemIndex
-                                    ? const Text("")
-                                    : AnimatedTextKit(
-                                  onTap: () {
-                                    log("tapped on edit font property ............");
-                                    Get.dialog(
-                                        TextEditModule(
-                                          textValue: "",
-                                          textKeyName: "",
-                                          showTextField: false,
-                                          colorKeyName: "selected_app_short_description_color",
-                                          fontFamilyKeyName: "selected_app_short_description_font",
-                                          fontFamily: editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_font"].toString(),
-                                          fontSize: editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_size"].toString(),
-                                          textColor: Color(int.parse(editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_color"].toString())),
-                                        ));
-                                  },
+                                        speed: const Duration(
+                                            milliseconds: 3),
+                                      ),
+                                    ],
+                                    totalRepeatCount: 1,
+                                    pause: const Duration(milliseconds: 0),
+                                    // displayFullTextOnTap: true,
+                                    // stopPauseOnTap: true,
+                                  ),
+                                  const SizedBox(height: 25),
+                                  // const SizedBox(height: 15),
+                                  _currentIndex != itemIndex
+                                      ? const Text("")
+                                      : AnimatedTextKit(
+                                    onTap: () {
+                                      log(
+                                          "tapped on edit font property ............");
+                                      Get.dialog(
+                                          TextEditModule(
+                                            textValue: "",
+                                            textKeyName: "",
+                                            showTextField: false,
+                                            colorKeyName: "selected_app_short_description_color",
+                                            fontFamilyKeyName: "selected_app_short_description_font",
+                                            fontFamily: editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_font"]
+                                                .toString(),
+                                            fontSize: editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_size"]
+                                                .toString(),
+                                            textColor: Color(
+                                                int.parse(editController
+                                                    .allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_color"]
+                                                    .toString())),
+                                          ));
+                                    },
 
-                                  repeatForever: false,
-                                  animatedTexts: [
-                                    TypewriterAnimatedText(
-                                      "${a.appShortDescription}",
-                                      textAlign: TextAlign.center,
-                                      // textStyle: AppTextStyle.regular300.copyWith(color: AppColors.whiteColor, fontSize: 14),
-                                      textStyle: GoogleFonts.getFont(editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_font"].toString()).copyWith(
-                                          fontSize: editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_size"].toString() !=""
-                                              ? double.parse(editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_size"].toString())
-                                              : 14,
-                                          fontWeight: FontWeight.w300,
-                                          color: editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_color"].toString().isEmpty
-                                              ?AppColors.blackColor
-                                              :Color(int.parse(editController.allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_color"].toString()))),
-                                      speed: const Duration(
-                                          microseconds: 20),
-                                    ),
-                                  ],
-                                  totalRepeatCount: 1,
-                                  pause:
-                                  const Duration(milliseconds: 0),
-                                  // displayFullTextOnTap: true,
-                                  // stopPauseOnTap: true,
-                                ),
-                                const SizedBox(height: 40),
-                                // const SizedBox(height: 10),
-                                _currentIndex == itemIndex
-                                    ? FittedBox(
-                                  fit: BoxFit.scaleDown,
+                                    repeatForever: false,
+                                    animatedTexts: [
+                                      TypewriterAnimatedText(
+                                        a.appShortDescription,
+                                        textAlign: TextAlign.center,
+                                        // textStyle: AppTextStyle.regular300.copyWith(color: AppColors.whiteColor, fontSize: 14),
+                                        textStyle: GoogleFonts.getFont(
+                                            editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_font"]
+                                                .toString()).copyWith(
+                                            fontSize: editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_size"]
+                                                .toString() != ""
+                                                ? double.parse(editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_size"]
+                                                .toString())
+                                                : 14,
+                                            fontWeight: FontWeight.w300,
+                                            color: editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_color"]
+                                                .toString()
+                                                .isEmpty
+                                                ? AppColors.blackColor
+                                                : Color(int.parse(editController
+                                                .allDataResponse[0]["apps_demo_details"][0]["selected_app_short_description_color"]
+                                                .toString()))),
+                                        speed: const Duration(
+                                            microseconds: 20),
+                                      ),
+                                    ],
+                                    totalRepeatCount: 1,
+                                    pause:
+                                    const Duration(milliseconds: 0),
+                                    // displayFullTextOnTap: true,
+                                    // stopPauseOnTap: true,
+                                  ),
+                                  const SizedBox(height: 40),
+                                  // const SizedBox(height: 10),
+                                  _currentIndex == itemIndex
+                                      ? FittedBox(
+                                    fit: BoxFit.scaleDown,
                                     child: Container(
                                       width: 250,
                                       // width: 300,
                                       // height: 550,
                                       height: 450,
                                       // decoration: BoxDecoration(color: AppColors.whiteColor),
-                                      margin: const EdgeInsets.only(left: 5,right: 5,top: 70),
+                                      margin: const EdgeInsets.only(
+                                          left: 5, right: 5, top: 70),
                                       child: Center(
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: ClipRRect(
                                             borderRadius:
-                                            const BorderRadius.all(Radius.circular(20)),
-                                            child: a.appMediaFileType == "image" ||
+                                            const BorderRadius.all(
+                                                Radius.circular(20)),
+                                            child: a.appMediaFileType ==
+                                                "image" ||
                                                 a.appMediaFileType == "gif"
                                                 ? CachedNetworkImage(
                                               // height: 550,
                                               // width: Get.width * 0.4,
                                               width: 250,
                                               // width: Get.width * 0.9,
-                                              imageUrl: APIString.latestmediaBaseUrl + a.appMediaFile,
-                                              placeholder: (context, url) => Container(
-                                                decoration: BoxDecoration(color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                                ),
-                                              ),
-                                              errorWidget: (context, url, error) => const Icon(Icons.error),
+                                              imageUrl: APIString
+                                                  .latestmediaBaseUrl +
+                                                  a.appMediaFile,
+                                              placeholder: (context, url) =>
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Color(int.parse(
+                                                          editController
+                                                              .appDemoBgColor
+                                                              .value
+                                                              .toString())),
+                                                    ),
+                                                  ),
+                                              errorWidget: (context, url,
+                                                  error) =>
+                                              const Icon(Icons.error),
                                               fit: BoxFit.fill,
                                             )
-                                                : displayUploadedVideo(a.appMediaFile,isCurrent: _currentIndex == itemIndex),
+                                                : displayUploadedVideo(
+                                                a.appMediaFile,
+                                                isCurrent: _currentIndex ==
+                                                    itemIndex),
                                           ),
                                         ),
                                       ),
                                     ),
-                                )
-                                    : FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Container(
-                                    height: 450,
-                                    width: 250,
-                                    child: Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                          const BorderRadius.all(Radius.circular(20)),
-                                          child: a.appMediaFileType == "image" ||
-                                              a.appMediaFileType == "gif"
-                                              ? CachedNetworkImage(
-                                            // width: Get.width * 0.4,
-                                            width: 250,
-                                            height: 450,
-                                            imageUrl:
-                                            APIString.latestmediaBaseUrl + a.appMediaFile,
-                                            placeholder: (context, url) => Container(
-                                              decoration: BoxDecoration(
-                                                color: Color(int.parse(editController
-                                                    .appDemoBgColor.value
-                                                    .toString())),
-                                              ),
+                                  )
+                                      : FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: SizedBox(
+                                      height: 450,
+                                      width: 250,
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                            const BorderRadius.all(
+                                                Radius.circular(20)),
+                                            child: a.appMediaFileType ==
+                                                "image" ||
+                                                a.appMediaFileType == "gif"
+                                                ? CachedNetworkImage(
+                                              // width: Get.width * 0.4,
+                                              width: 250,
+                                              height: 450,
+                                              imageUrl:
+                                              APIString.latestmediaBaseUrl +
+                                                  a.appMediaFile,
+                                              placeholder: (context, url) =>
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Color(int.parse(
+                                                          editController
+                                                              .appDemoBgColor
+                                                              .value
+                                                              .toString())),
+                                                    ),
+                                                  ),
+                                              errorWidget: (context, url,
+                                                  error) =>
+                                              const Icon(Icons.error),
+                                              fit: BoxFit.fill,
+                                            )
+                                            // : displayUploadedVideo(a.appMediaFile,isCurrent: _currentIndex == itemIndex),
+                                                : CachedNetworkImage(
+                                              // width: Get.width * 0.4,
+                                              width: 250,
+                                              height: 450,
+                                              imageUrl:
+                                              APIString.latestmediaBaseUrl +
+                                                  a.videoThumbnail,
+                                              placeholder: (context, url) =>
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Color(int.parse(
+                                                          editController
+                                                              .appDemoBgColor
+                                                              .value
+                                                              .toString())),
+                                                    ),
+                                                  ),
+                                              errorWidget: (context, url,
+                                                  error) =>
+                                              const Icon(Icons.error),
+                                              fit: BoxFit.fill,
                                             ),
-                                            errorWidget: (context, url, error) => const Icon(Icons.error),
-                                            fit: BoxFit.fill,
-                                          )
-                                              // : displayUploadedVideo(a.appMediaFile,isCurrent: _currentIndex == itemIndex),
-                                              :  CachedNetworkImage(
-                                            // width: Get.width * 0.4,
-                                            width: 250,
-                                            height: 450,
-                                            imageUrl:
-                                            APIString.latestmediaBaseUrl + a.videoThumbnail,
-                                            placeholder: (context, url) => Container(
-                                              decoration: BoxDecoration(
-                                                color: Color(int.parse(editController
-                                                    .appDemoBgColor.value
-                                                    .toString())),
-                                              ),
-                                            ),
-                                            errorWidget: (context, url, error) => const Icon(Icons.error),
-                                            fit: BoxFit.fill,
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      }),
+                      Positioned(
+                        left: 50,
+                        top: 0, bottom: 0,
+                        child: GestureDetector(
+                            onTap: previousImage,
+                            child: const CircleAvatar(radius: 15,
+                              child: Icon(Icons.arrow_back_rounded),)),
                       ),
-                        Positioned(
-                          left: 50,
-                          top: 0,bottom: 0,
-                          child: GestureDetector(
-                        onTap: previousImage,
-                              child: const CircleAvatar(radius:15,child: Icon(Icons.arrow_back_rounded),)),
-                        ),
-                        Positioned(
-                          right:50,
-                          top: 0,bottom: 0,
-                          child: GestureDetector(
+                      Positioned(
+                        right: 50,
+                        top: 0, bottom: 0,
+                        child: GestureDetector(
                             onTap: nextImage,
-                              child: const CircleAvatar(radius:15,child: Icon(Icons.arrow_forward_rounded),)),
-                        ),
+                            child: const CircleAvatar(radius: 15,
+                              child: Icon(Icons.arrow_forward_rounded),)),
+                      ),
                     ],
                   ),
                 ),
@@ -367,17 +452,17 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
   }
 
 
-
-  Widget displayUploadedVideo(String videoUrl,{bool? isCurrent}) {
-    log("url : ---- > ${APIString.latestmediaBaseUrl+videoUrl}");
-    VideoPlayerController controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+videoUrl);
+  Widget displayUploadedVideo(String videoUrl, {bool? isCurrent}) {
+    log("url : ---- > ${APIString.latestmediaBaseUrl + videoUrl}");
+    VideoPlayerController controller = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.latestmediaBaseUrl + videoUrl));
     controller.initialize().then((value) {
       controller.setLooping(true);
       // if(isCurrent == true)
-        controller.play();
+      controller.play();
     });
 
-    return  InkWell(
+    return InkWell(
       onTap: () {
         if (controller.value.isPlaying) {
           getLatestProject.isVideoPlaying.value = false;
@@ -396,11 +481,12 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 child: Container(
-                    // height:Get.width >1000 ?500:450,
-                    height:500,
+                  // height:Get.width >1000 ?500:450,
+                    height: 500,
                     // width: 250,
                     // width: 300,
-                    decoration: const BoxDecoration(color: AppColors.whiteColor),
+                    decoration: const BoxDecoration(
+                        color: AppColors.whiteColor),
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
@@ -408,25 +494,25 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                             aspectRatio: 250 / 450,
                             child: VideoPlayer(controller)),
                         // isVideoPlaying == false
-                       Positioned(
-                         bottom: 25,right: 25,
-                         child: Obx(() =>  getLatestProject.isVideoPlaying.value == false
-                             ?const Icon(
-                           Icons.play_circle_fill,
-                           size: 30,
-                           color: Colors.black,
-                         )
-                             :const Icon(
-                           Icons.pause,
-                           size: 30,
-                           color: Colors.black,)),
-                       ),
+                        Positioned(
+                          bottom: 25, right: 25,
+                          child: Obx(() =>
+                          getLatestProject.isVideoPlaying.value == false
+                              ? const Icon(
+                            Icons.play_circle_fill,
+                            size: 30,
+                            color: Colors.black,
+                          )
+                              : const Icon(
+                            Icons.pause,
+                            size: 30,
+                            color: Colors.black,)),
+                        ),
                       ],
                     )
                 ),
               ),
             );
-
           } else {
             return const Center(
               child: CircularProgressIndicator(

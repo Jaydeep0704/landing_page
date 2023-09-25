@@ -135,7 +135,7 @@ class _EditAddressSectionState extends State<EditAddressSection> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.to(() => TnCScreen())!.whenComplete(
+                        Get.to(() => const TnCScreen())!.whenComplete(
                             () => Future.delayed(Duration.zero, () {
                                   webLandingPageController.getUserCount();
                                 }));
@@ -325,7 +325,7 @@ class _EditAddressSectionState extends State<EditAddressSection> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Get.to(() => TnCScreen())!.whenComplete(
+                            Get.to(() => const TnCScreen())!.whenComplete(
                                 () => Future.delayed(Duration.zero, () {
                                       webLandingPageController.getUserCount();
                                     }));

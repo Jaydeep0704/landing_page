@@ -1,4 +1,4 @@
-// ignore_for_file: implementation_imports, depend_on_referenced_packages, avoid_web_libraries_in_flutter, prefer_typing_uninitialized_variables, non_constant_identifier_names
+// ignore_for_file: implementation_imports, depend_on_referenced_packages, avoid_web_libraries_in_flutter, prefer_typing_uninitialized_variables, non_constant_identifier_names, file_names
 
 import 'dart:convert';
 import 'dart:developer';

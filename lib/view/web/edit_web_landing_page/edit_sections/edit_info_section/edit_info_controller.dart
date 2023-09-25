@@ -12,12 +12,10 @@ class EditInfoController extends GetxController {
   RxList imagesList = [].obs;
   RxString msg = "".obs;
 
-
   getImages() async {
     log("step --------  +++ 1 ");
-    // hideLoadingDialog();
     try {
-      showLoadingDialog();
+      // showLoadingDialog();
       log("step --------  +++  2 ");
       imagesList.clear();
 
@@ -26,7 +24,7 @@ class EditInfoController extends GetxController {
         url: APIString.get_footer_banner,
       );
       log("step --------  +++ 3 ");
-      hideLoadingDialog();
+      // hideLoadingDialog();
       if (response['error'] == null) {
         log("step --------  +++  4");
 

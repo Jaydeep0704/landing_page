@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
@@ -375,37 +373,33 @@ class _BlogListScreenState extends State<BlogListScreen> {
   }
 
   Widget displayUploadedVideo(String videoUrl) {
-    VideoPlayerController _controller =
-        VideoPlayerController.network(APIString.latestmediaBaseUrl + videoUrl);
+    VideoPlayerController controller = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.latestmediaBaseUrl + videoUrl));
     bool isVideoPlaying = false;
-
-    final double
-        videoAspectRatio = /*_controller.value.aspectRatio > 0 ? _controller.value.aspectRatio :*/
-        16 / 9;
 
     return InkWell(
       onTap: () {
-        if (_controller.value.isPlaying) {
+        if (controller.value.isPlaying) {
           isVideoPlaying = false;
-          _controller.pause();
+          controller.pause();
         } else {
-          _controller.play();
+          controller.play();
           isVideoPlaying = true;
         }
         // isVideoPlaying = !isVideoPlaying;
       },
       child: FutureBuilder(
-        future: _controller.initialize(),
+        future: controller.initialize(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
+                aspectRatio: controller.value.aspectRatio,
                 //aspectRatio: 16/9,
                 // aspectRatio: 1 / 6,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    VideoPlayer(_controller),
+                    VideoPlayer(controller),
                     if (!isVideoPlaying)
                       Icon(
                         Icons.play_circle_fill,

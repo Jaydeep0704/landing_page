@@ -11,27 +11,19 @@ import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 
-import 'AboutUs/AboutUsModel.dart';
 import 'FAQ/FaqModel.dart';
-import 'PrivacyPolicy/PrivacyPolicyModel.dart';
-import 'RefundPolicy/RefundPolicyModel.dart';
-import 'TandC/TFCModel.dart';
 
 class HelpController extends GetxController {
   ///for  about Us
   RxBool isApiCallProcessing = false.obs;
   late String aboutus = '', about_id = '';
-  late AboutUsModel aboutusModel;
-
-
 
   ///for get TFC
   late String terms = '';
-  late TFCModel termsandcondition;
 
   ///for get TFC
   late String privacy = '';
-  late PolicyPrivacy privacydata;
+  // late PolicyPrivacy privacydata;
 
   ///for get FAQ
   late String faq = '';
@@ -39,11 +31,11 @@ class HelpController extends GetxController {
 
   ///for get Refund Policy
   late String refund = '';
-  late RefundPolicyModel refundPolicyModel;
 
   RxList contactUs = [].obs;
   RxList aboutUs = [].obs;
   RxList privacyData = [].obs;
+  RxList allFAQs = [].obs;
   RxList allTerms = [].obs;
   RxList allRefundPolicy = [].obs;
 
@@ -138,35 +130,56 @@ class HelpController extends GetxController {
   }
 
   ///for get Faq
-  Future<bool> getFaqData() async {
-    isApiCallProcessing.value = true;
+  // Future<bool> getFaqData() async {
+  //   isApiCallProcessing.value = true;
+  //
+  //   var url = APIString.grobizBaseUrl + APIString.showFaqs;
+  //   Uri uri = Uri.parse(url);
+  //
+  //   final response = await http.get(uri);
+  //
+  //   if (response.statusCode == 200) {
+  //     final resp = jsonDecode(response.body);
+  //     int status = resp['status'];
+  //
+  //     if (status == 1) {
+  //       isApiCallProcessing.value = false;
+  //       faqModel = FaqModel.fromJson(json.decode(response.body));
+  //       var mainList = faqModel.allfaqs;
+  //       faq = mainList[0].faq;
+  //       log('Data available');
+  //       return true;
+  //     } else {
+  //       isApiCallProcessing.value = false;
+  //       return false;
+  //     }
+  //   } else if (response.statusCode == 500) {
+  //     isApiCallProcessing.value = false;
+  //     return false;
+  //   }
+  //
+  //   return false;
+  // }
 
-    var url = APIString.grobizBaseUrl + APIString.showFaqs;
-    Uri uri = Uri.parse(url);
-
-    final response = await http.get(uri);
-
-    if (response.statusCode == 200) {
-      final resp = jsonDecode(response.body);
-      int status = resp['status'];
-
-      if (status == 1) {
-        isApiCallProcessing.value = false;
-        faqModel = FaqModel.fromJson(json.decode(response.body));
-        var mainList = faqModel.allfaqs;
-        faq = mainList[0].faq;
-        log('Data available');
-        return true;
+  Future getFaqData() async {
+    try {
+      showLoadingDialog();
+      var response = await HttpHandler.getHttpMethod(
+        url: APIString.showFaqs,
+      );
+      hideLoadingDialog();
+      if (response['error'] == null) {
+        if (response['body']['status'].toString() == "1") {
+          allFAQs.value = response['body']["allfaqs"];
+        }
       } else {
-        isApiCallProcessing.value = false;
-        return false;
+        log("geComponents step --------  +++  77 Error");
+        //error
       }
-    } else if (response.statusCode == 500) {
-      isApiCallProcessing.value = false;
-      return false;
+    } catch (e, s) {
+      hideLoadingDialog();
+      debugPrint("geComponents Error -- $e  $s");
     }
-
-    return false;
   }
 
   ///for get Refund Policy

@@ -27,8 +27,7 @@ class BenefitBannerController extends GetxController {
   ///get Baner text
   Future getDataApi() async {
     log("step --------  +++ 1 ");
-    showLoadingDialog();
-    // hideLoadingDialog();
+    // showLoadingDialog();
     try {
       log("step --------  +++  2 ");
       dataList.clear();
@@ -38,7 +37,7 @@ class BenefitBannerController extends GetxController {
         url: APIString.get_benefit_list,
       );
       log("step --------  +++ 3 ");
-      hideLoadingDialog();
+      // hideLoadingDialog();
       if (response['error'] == null) {
         log("step --------  +++  4");
 

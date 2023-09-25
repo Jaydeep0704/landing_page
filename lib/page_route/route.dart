@@ -15,9 +15,9 @@ class PageRoutes {
 
 Map<String, Widget Function(BuildContext)> routesPage = {
   PageRoutes.initialRoute: (context) => const SplashScreen(),
-  // PageRoutes.webLandingPage: (context) => const WebLandingScreen(),
-  PageRoutes.webLandingPage: (context) => TestScreen(),
-  // PageRoutes.editWebLandingPage: (context) => const EditWebLandingScreen(),
-  PageRoutes.editWebLandingPage: (context) => TestScreen(),
+  PageRoutes.webLandingPage: (context) => const WebLandingScreen(),
+  PageRoutes.editWebLandingPage: (context) => const EditWebLandingScreen(),
+  // PageRoutes.webLandingPage: (context) => const TestScreen(),
+  // PageRoutes.editWebLandingPage: (context) => const TestScreen(),
   PageRoutes.login: (context) => const LoginPage(),
 };

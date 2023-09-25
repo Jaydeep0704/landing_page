@@ -28,15 +28,13 @@ class EditCaseStudyController extends GetxController {
   RxString msg = "".obs;
 
   Future<void> getCaseStudy() async {
-    showLoadingDialog();
-    // hideLoadingDialog();
+    // showLoadingDialog();
     try {
       caseStudyList.clear();
-      // Get.focusScope!.unfocus();
       var response = await HttpHandler.getHttpMethod(
         url: APIString.getCaseStudy,
       );
-      hideLoadingDialog();
+      // hideLoadingDialog();
       if (response['error'] == null) {
         if (response['body']['status'].toString() == "1") {
           log(" status------------->  ${response['body']['status']}");

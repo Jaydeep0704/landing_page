@@ -119,7 +119,7 @@ class _TextEditModuleState extends State<TextEditModule> {
   void initState() {
     super.initState();
     log("-==-=-=-=-=-=------ : ${widget.textValue.toString()}");
-    if (widget.textValue.toString() != null) {
+    if (widget.textValue.toString().isNotEmpty) {
       txtController.text = widget.textValue!;
     }
     // pickerColor = widget.currentColor;

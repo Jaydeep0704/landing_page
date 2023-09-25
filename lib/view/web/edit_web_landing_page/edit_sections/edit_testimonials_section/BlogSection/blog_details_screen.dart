@@ -54,7 +54,6 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("come inttt     ---- ");
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       editBlogController.getBlogDetailsData(id: widget.id);
@@ -492,7 +491,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
-                                          Container(
+                                          SizedBox(
                                             height: 30,
                                             width: 30,
                                             child: Center(

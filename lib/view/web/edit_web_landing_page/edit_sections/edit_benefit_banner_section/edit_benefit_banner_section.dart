@@ -266,12 +266,13 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                       commonIconButtonSmall(
                                           onTap: () async {
                                             const url = AppString.playStoreAppLink;
-                                            if (await canLaunch(url)) {
-                                              await launch(url);
+                                            if (await canLaunchUrl(Uri.parse(url))) {
+                                              await launchUrl(Uri.parse(url));
                                             } else {
                                               throw 'Could not launch $url';
                                             }
                                           },
+
                                           icon: Icons.phone_android,
                                           margin: EdgeInsets.zero,
                                           padding: const EdgeInsets.symmetric(
@@ -316,6 +317,14 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       commonIconButtonSmall(
+                                          onTap: () async {
+                                            const url = AppString.websiteLink;
+                                            if (await canLaunchUrl(Uri.parse(url))) {
+                                              await launchUrl(Uri.parse(url));
+                                            } else {
+                                              throw 'Could not launch $url';
+                                            }
+                                          },
                                           margin: EdgeInsets.zero,
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 0, vertical: 5),
@@ -663,12 +672,13 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                 commonIconButtonSmall(
                                     onTap: () async {
                                       const url = AppString.playStoreAppLink;
-                                      if (await canLaunch(url)) {
-                                        await launch(url);
+                                      if (await canLaunchUrl(Uri.parse(url))) {
+                                        await launchUrl(Uri.parse(url));
                                       } else {
                                         throw 'Could not launch $url';
                                       }
                                     },
+
                                     icon: Icons.phone_android,
                                     margin: EdgeInsets.zero,
                                     padding: const EdgeInsets.symmetric(
@@ -713,6 +723,14 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 commonIconButtonSmall(
+                                    onTap: () async {
+                                      const url = AppString.websiteLink;
+                                      if (await canLaunchUrl(Uri.parse(url))) {
+                                        await launchUrl(Uri.parse(url));
+                                      } else {
+                                        throw 'Could not launch $url';
+                                      }
+                                    },
                                     margin: EdgeInsets.zero,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 0, vertical: 5),

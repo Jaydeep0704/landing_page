@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, no_leading_underscores_for_local_identifiers
+
 class FaqModel {
   FaqModel({
     required this.status,
@@ -6,15 +8,16 @@ class FaqModel {
   late final int status;
   late final List<Allfaqs> allfaqs;
 
-  FaqModel.fromJson(Map<String, dynamic> json){
+  FaqModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    allfaqs = List.from(json['allfaqs']).map((e)=>Allfaqs.fromJson(e)).toList();
+    allfaqs =
+        List.from(json['allfaqs']).map((e) => Allfaqs.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['status'] = status;
-    _data['allfaqs'] = allfaqs.map((e)=>e.toJson()).toList();
+    _data['allfaqs'] = allfaqs.map((e) => e.toJson()).toList();
     return _data;
   }
 }
@@ -31,7 +34,7 @@ class Allfaqs {
   late final String updatedAt;
   late final String createdAt;
 
-  Allfaqs.fromJson(Map<String, dynamic> json){
+  Allfaqs.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
     faq = json['faq'];
     updatedAt = json['updated_at'];

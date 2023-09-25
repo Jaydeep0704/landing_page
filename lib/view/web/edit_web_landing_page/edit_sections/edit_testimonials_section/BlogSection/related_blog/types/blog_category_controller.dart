@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
 
-import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +27,7 @@ class BlogCategoriesController extends GetxController {
       if (response['error'] == null) {
         if (response['body']['status'].toString() == "1") {
           relatedBlogs.value = response['body']['data'];
-          print("relatedBlogs    ${relatedBlogs.value}");
+          print("relatedBlogs    $relatedBlogs");
         }
       } else if (response['error'] != null) {
         hideLoadingDialog();
@@ -137,8 +136,8 @@ class BlogCategoriesController extends GetxController {
       var response =
           await HttpHandler.postHttpMethod(url: APIString.blog_type_get);
       hideLoadingDialog();
-      print("response  ${response}");
-      print("responseerror    ${response["error"]}");
+      print("response  $response");
+      print("response error    ${response["error"]}");
       if (response['error'] == null) {
         // hideLoadingDialog();
         print("response['body']['status']   ${response['body']['status']}");
@@ -148,7 +147,7 @@ class BlogCategoriesController extends GetxController {
           // blogsCategories.value = response['body']['blog_types'];
           blogsCategories.value =
               blogConvertToMapList(response['body']['blog_types']);
-          print(" blogsCategories.value    ${blogsCategories.value}");
+          print(" blogsCategories.value    $blogsCategories");
         }
       } else if (response['error'] != null) {
         // hideLoadingDialog();

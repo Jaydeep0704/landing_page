@@ -1,4 +1,6 @@
-import 'dart:html' as html;
+// ignore_for_file: avoid_web_libraries_in_flutter
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +45,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
   late AnimationController _animationController;
   late Animation<double> _rotationAnimation;
   late Animation<double> _rotationAnimation1;
-  Animation<double>? _animation;
+  // Animation<double>? _animation;
   final introSecController = Get.find<IntroSectionController>();
   final editController = Get.find<EditController>();
   final editIntroController = Get.find<EditIntroController>();
@@ -156,7 +158,6 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                             onChanged: (value) {
                               setState(() {
                                 editController.testimonials.value = value;
-                                print("value ---- $value");
                                 editController.showHideComponent(
                                     value: value == false
                                         ? "No"
@@ -257,7 +258,6 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                 setState(() {
                                   testimonialController
                                       .testimonial_title_1_Switch.value = value;
-                                  print("value ---- $value");
                                   editController.showHideMedia(
                                       value: value == false
                                           ? "hide"
@@ -450,7 +450,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                             children: const [
                               Icon(Icons.edit),
                               SizedBox(width: 3),
-                              Text("Edit Testimonals")
+                              Text("Edit Testimonials")
                             ],
                           ),
                         ),
@@ -486,7 +486,6 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                 setState(() {
                                   testimonialController.testimonial1Switch
                                       .value = value;
-                                  print("value ---- $value");
                                   editController.showHideMedia(
                                       value: value == false
                                           ? "hide"
@@ -682,7 +681,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Container(
+                                      SizedBox(
                                         height: 30,
                                         width: 30,
                                         child: Center(
@@ -813,7 +812,6 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                 setState(() {
                                   testimonialController.testimonial2Switch
                                       .value = value;
-                                  print("value ---- $value");
                                   editController.showHideMedia(
                                       value: value == false
                                           ? "hide"
@@ -1039,9 +1037,6 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                       const SizedBox(width: 15),
                                       InkWell(
                                         onTap: () {
-                                          print(
-                                              "1111111111111${webLandingPageController
-                                                  .aboveCardIndex.value}");
                                           if (webLandingPageController
                                               .aboveCardIndex
                                               .value <
@@ -1261,7 +1256,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                               ClipRRect(
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(10)),
-                                child: Container(
+                                child: SizedBox(
                                   height: 400,
                                   child: Stack(
                                     children: [
@@ -1467,7 +1462,6 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                             const SizedBox(width: 15),
                             InkWell(
                               onTap: () {
-                                print("1111111111111${webLandingPageController.aboveCardIndex.value}");
                                 if (webLandingPageController
                                     .aboveCardIndex.value <
                                     testimonialController.getTestimonial.length -
@@ -1522,7 +1516,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                     crossAxisAlignment: WrapCrossAlignment.start,
                     alignment: WrapAlignment.center,
                     // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
 
 
                       // commonIconButton(
@@ -1543,9 +1537,14 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                         children: [
                           commonIconButton(
                               onTap: () async {
-                                html.window.open(
-                                    AppString.playStoreAppLink, "_blank");
+                                const url = AppString.playStoreAppLink;
+                                if (await canLaunchUrl(Uri.parse(url))) {
+                                  await launchUrl(Uri.parse(url));
+                                } else {
+                                  throw 'Could not launch $url';
+                                }
                               },
+
                               icon: Icons.phone_android,
                               title: "Create Your App",
                               btnColor:
@@ -1623,9 +1622,13 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                         children: [
                           FittedBox(fit: BoxFit.scaleDown,
                             child: commonIconButton(
-                                onTap: () {
-                                  html.window.open(
-                                      AppString.websiteLink, "_blank");
+                                onTap: () async {
+                                  const url = AppString.websiteLink;
+                                  if (await canLaunchUrl(Uri.parse(url))) {
+                                    await launchUrl(Uri.parse(url));
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
                                 },
                                 icon: Icons.language,
                                 title: "Create Your Website",
@@ -1945,7 +1948,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                       mainAxisAlignment: MainAxisAlignment
                                           .start,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           height: 30,
                                           width: 30,
                                           child: Center(
@@ -2144,26 +2147,23 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
   }
 
   Widget displayUploadedVideo(String videoUrl) {
-    VideoPlayerController _controller = VideoPlayerController.network(
-        APIString.latestmediaBaseUrl + videoUrl);
+    VideoPlayerController controller = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.latestmediaBaseUrl + videoUrl));
     bool isVideoPlaying = false;
-
-    final double videoAspectRatio = /*_controller.value.aspectRatio > 0 ? _controller.value.aspectRatio :*/ 16 /
-        9;
 
     return InkWell(
       onTap: () {
-        if (_controller.value.isPlaying) {
+        if (controller.value.isPlaying) {
           isVideoPlaying = false;
-          _controller.pause();
+          controller.pause();
         } else {
-          _controller.play();
+          controller.play();
           isVideoPlaying = true;
         }
         // isVideoPlaying = !isVideoPlaying;
       },
       child: FutureBuilder(
-        future: _controller.initialize(),
+        future: controller.initialize(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return AspectRatio(
@@ -2173,7 +2173,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    VideoPlayer(_controller),
+                    VideoPlayer(controller),
                     if (!isVideoPlaying)
                       Icon(
                         Icons.play_circle_fill,
@@ -2196,7 +2196,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
   }
 
   Widget displayYoutubeVideo(String videoUrl,) {
-    final YoutubePlayerController _controller = YoutubePlayerController(
+    final YoutubePlayerController controller = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(videoUrl)!,
       flags: const YoutubePlayerFlags(
         loop: true,
@@ -2207,7 +2207,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
 
     return YoutubePlayerBuilder(
       player: YoutubePlayer(
-        controller: _controller,
+        controller: controller,
         showVideoProgressIndicator: true,
         width: 160,
 
@@ -2296,7 +2296,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
           ),
         );
       } else {
-        return ytvideo(bannerMedia);
+        return ytVideo(bannerMedia);
       }
     } else if (mediaType == 'youthtube') {
       return displayYoutubeVideo(youthtube);
@@ -2305,25 +2305,25 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
     }
   }
 
-  Widget ytvideo(String videoUrl, {double width = 200}) {
-    VideoPlayerController _controller = VideoPlayerController.network(
-        APIString.latestmediaBaseUrl + videoUrl);
+  Widget ytVideo(String videoUrl, {double width = 200}) {
+    VideoPlayerController controller = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.latestmediaBaseUrl + videoUrl));
     bool isVideoPlaying = false;
 
-    final double videoAspectRatio = 16 / 9;
+    const double videoAspectRatio = 16 / 9;
 
     return InkWell(
       onTap: () {
-        if (_controller.value.isPlaying) {
+        if (controller.value.isPlaying) {
           isVideoPlaying = false;
-          _controller.pause();
+          controller.pause();
         } else {
-          _controller.play();
+          controller.play();
           isVideoPlaying = true;
         }
       },
       child: FutureBuilder(
-        future: _controller.initialize(),
+        future: controller.initialize(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             final double height = width / videoAspectRatio;
@@ -2333,7 +2333,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  VideoPlayer(_controller),
+                  VideoPlayer(controller),
                   if (!isVideoPlaying)
                     Icon(
                       Icons.play_circle_fill,

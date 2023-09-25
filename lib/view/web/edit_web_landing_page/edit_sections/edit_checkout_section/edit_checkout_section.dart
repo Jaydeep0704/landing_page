@@ -28,7 +28,7 @@ class EditCheckoutSection extends StatefulWidget {
 class _EditCheckoutSectionState extends State<EditCheckoutSection> {
 
   final editController = Get.find<EditController>();
-  final EditCheckOut = Get.find<EditCheckOutController>();
+  final editCheckOut = Get.find<EditCheckOutController>();
   WebLandingPageController webLandingPageController = Get.find<WebLandingPageController>();
   @override
   Widget build(BuildContext context) {
@@ -335,14 +335,15 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                                 FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: commonIconButton(
-                                      onTap:() async {
+                                      onTap: () async {
                                         const url = AppString.playStoreAppLink;
-                                        if (await canLaunch(url)) {
-                                          await launch(url);
+                                        if (await canLaunchUrl(Uri.parse(url))) {
+                                          await launchUrl(Uri.parse(url));
                                         } else {
                                           throw 'Could not launch $url';
                                         }
                                       },
+
                                       icon: Icons.phone_android,
                                       title: "Create Your App",
                                       btnColor:
@@ -372,6 +373,14 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                                 FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: commonIconButton(
+                                      onTap: () async {
+                                        const url = AppString.websiteLink;
+                                        if (await canLaunchUrl(Uri.parse(url))) {
+                                          await launchUrl(Uri.parse(url));
+                                        } else {
+                                          throw 'Could not launch $url';
+                                        }
+                                      },
                                       icon: Icons.language,
                                       title: "Create Your Website",
                                       btnColor: Colors.green.withOpacity(0.7),
@@ -569,14 +578,15 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: commonIconButton(
-                                onTap:() async {
+                                onTap: () async {
                                   const url = AppString.playStoreAppLink;
-                                  if (await canLaunch(url)) {
-                                    await launch(url);
+                                  if (await canLaunchUrl(Uri.parse(url))) {
+                                    await launchUrl(Uri.parse(url));
                                   } else {
                                     throw 'Could not launch $url';
                                   }
                                 },
+
                                 icon: Icons.phone_android,
                                 title: "Create Your App",
                                 btnColor:
@@ -606,6 +616,14 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: commonIconButton(
+                                onTap: () async {
+                                  const url = AppString.websiteLink;
+                                  if (await canLaunchUrl(Uri.parse(url))) {
+                                    await launchUrl(Uri.parse(url));
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                                },
                                 icon: Icons.language,
                                 title: "Create Your Website",
                                 btnColor: Colors.green.withOpacity(0.7),
@@ -657,10 +675,10 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
     else if (editController.allDataResponse[0]["checkout_details"][0]["checkout_file_mediatype"].toString().toLowerCase() == "video") {
       return Obx(() {
         return
-          EditCheckOut.isCheckVideoInitialized.value
+          editCheckOut.isCheckVideoInitialized.value
               ? AspectRatio(
-            aspectRatio: EditCheckOut.checkVideoController.value.aspectRatio,
-            child: VideoPlayer(EditCheckOut.checkVideoController),
+            aspectRatio: editCheckOut.checkVideoController.value.aspectRatio,
+            child: VideoPlayer(editCheckOut.checkVideoController),
           )
           // : const CircularProgressIndicator();
               : const Center(child: CircularProgressIndicator());});
@@ -677,10 +695,10 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
     // }
     else if (editController.allDataResponse[0]["checkout_details"][0]["checkout_file_mediatype"].toString().toLowerCase() == "gif") {
       if(editController.allDataResponse[0]["checkout_details"][0]["checkout_file"].toString().toLowerCase().toString().endsWith(".mp4")){
-        return EditCheckOut.isCheckVideoInitialized.value
+        return editCheckOut.isCheckVideoInitialized.value
             ? AspectRatio(
-          aspectRatio: EditCheckOut.checkVideoController.value.aspectRatio,
-          child: VideoPlayer(EditCheckOut.checkVideoController),
+          aspectRatio: editCheckOut.checkVideoController.value.aspectRatio,
+          child: VideoPlayer(editCheckOut.checkVideoController),
           // child:  Chewie(controller: mixBannerController.videoControllerChewie!),
         )
         // : const CircularProgressIndicator();
@@ -812,15 +830,14 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
 //                                 FittedBox(
 //                                   fit: BoxFit.scaleDown,
 //                                   child: commonIconButton(
-//                                       onTap:() async {
-//                                         html.window.open(AppString.playStoreAppLink,"_blank");
-//                                         // const url = 'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
-//                                         // if (await canLaunch(url)) {
-//                                         //   await launch(url);
-//                                         // } else {
-//                                         //   throw 'Could not launch $url';
-//                                         // }
-//                                       },
+//                                                        onTap: () async {
+//                     const url = AppString.playStoreAppLink;
+//                     if (await canLaunchUrl(Uri.parse(url))) {
+//                       await launchUrl(Uri.parse(url));
+//                     } else {
+//                       throw 'Could not launch $url';
+//                     }
+//                   },
 //                                       icon: Icons.phone_android,
 //                                       title: "Create Your App",
 //                                       btnColor:
@@ -850,9 +867,14 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
 //                                 FittedBox(
 //                                   fit: BoxFit.scaleDown,
 //                                   child: commonIconButton(
-//                                       onTap: () {
-//                                         html.window.open(AppString.websiteLink,"_blank");
-//                                       },
+//                                       onTap: () async {
+//                     const url = AppString.websiteLink;
+//                     if (await canLaunchUrl(Uri.parse(url))) {
+//                       await launchUrl(Uri.parse(url));
+//                     } else {
+//                       throw 'Could not launch $url';
+//                     }
+//                   },
 //                                       icon: Icons.language,
 //                                       title: "Create Your Website",
 //                                       btnColor: Colors.green.withOpacity(0.7),
@@ -936,15 +958,14 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
 //                           FittedBox(
 //                             fit: BoxFit.scaleDown,
 //                             child: commonIconButton(
-//                                 onTap:() async {
-//                                   html.window.open(AppString.playStoreAppLink,"_blank");
-//                                   // const url = 'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
-//                                   // if (await canLaunch(url)) {
-//                                   //   await launch(url);
-//                                   // } else {
-//                                   //   throw 'Could not launch $url';
-//                                   // }
-//                                 },
+//                                                  onTap: () async {
+//                     const url = AppString.playStoreAppLink;
+//                     if (await canLaunchUrl(Uri.parse(url))) {
+//                       await launchUrl(Uri.parse(url));
+//                     } else {
+//                       throw 'Could not launch $url';
+//                     }
+//                   },
 //                                 icon: Icons.phone_android,
 //                                 title: "Create Your App",
 //                                 btnColor:
@@ -974,9 +995,14 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
 //                           FittedBox(
 //                             fit: BoxFit.scaleDown,
 //                             child: commonIconButton(
-//                                 onTap: () {
-//                                   html.window.open(AppString.websiteLink,"_blank");
-//                                 },
+//                                 onTap: () async {
+//                     const url = AppString.websiteLink;
+//                     if (await canLaunchUrl(Uri.parse(url))) {
+//                       await launchUrl(Uri.parse(url));
+//                     } else {
+//                       throw 'Could not launch $url';
+//                     }
+//                   },
 //                                 icon: Icons.language,
 //                                 title: "Create Your Website",
 //                                 btnColor: Colors.green.withOpacity(0.7),

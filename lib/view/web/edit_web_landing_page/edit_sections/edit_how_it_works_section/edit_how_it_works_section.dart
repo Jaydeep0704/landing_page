@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'dart:developer';
-import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
@@ -378,14 +379,14 @@ class _EditHowItWorksSectionState extends State<EditHowItWorksSection> {
                       children: [
                         commonIconButton(
                             onTap: () async {
-                              html.window.open(AppString.playStoreAppLink,"_blank");
-                              // const url = 'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
-                              // if (await canLaunch(url)) {
-                              //   await launch(url);
-                              // } else {
-                              //   throw 'Could not launch $url';
-                              // }
+                              const url = AppString.playStoreAppLink;
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(Uri.parse(url));
+                              } else {
+                                throw 'Could not launch $url';
+                              }
                             },
+
                             icon: Icons.phone_android,
                             title: "Create Your App",
                             btnColor:
@@ -455,8 +456,13 @@ class _EditHowItWorksSectionState extends State<EditHowItWorksSection> {
                       children: [
                         FittedBox(fit: BoxFit.scaleDown,
                           child: commonIconButton(
-                              onTap: () {
-                                html.window.open(AppString.websiteLink,"_blank");
+                              onTap: () async {
+                                const url = AppString.websiteLink;
+                                if (await canLaunchUrl(Uri.parse(url))) {
+                                  await launchUrl(Uri.parse(url));
+                                } else {
+                                  throw 'Could not launch $url';
+                                }
                               },
                               icon: Icons.language,
                               title: "Create Your Website",
@@ -642,18 +648,16 @@ class _EditHowItWorksSectionState extends State<EditHowItWorksSection> {
           setState(() {
             isEditVisible = visibilityInfo.visibleFraction > 0.0;
             if (isEditVisible) {
-              print("is visible  ---------   true");
               // editHIWController.editBotChewieController.play();
               // editHIWController.editBotController.play();
               setState(() {});
             } else {
-              print("is visible  ---------   pause");
-              if(editHIWController.editBotChewieController.isPlaying)
-              editHIWController.editBotChewieController.pause();
+              if(editHIWController.editBotChewieController.isPlaying) {
+                editHIWController.editBotChewieController.pause();
+              }
 
               // editHIWController.editBotController.pause();
               setState(() {});
-              print("is visible  ---------   pause2");
             }
           });
         },

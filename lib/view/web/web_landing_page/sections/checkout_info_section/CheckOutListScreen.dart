@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +68,7 @@ class _CheckOutListState extends State<CheckOutList> {
                         Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AddCheckInfo()))
+                                    builder: (context) => const AddCheckInfo()))
                             .whenComplete(
                                 () => checkoutInfocontroller.getCheckOutApi());
                       },

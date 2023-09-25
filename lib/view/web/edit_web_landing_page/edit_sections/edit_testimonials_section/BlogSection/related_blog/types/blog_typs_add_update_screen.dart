@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,18 +20,14 @@ class _BlogsTypeCrudScreenState extends State<BlogsTypeCrudScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("ghgfmjhiuyrtyghjfgrdhuytjhgjkj");
     getData();
-    print("^^^^^^^^s");
   }
 
   getData() {
     Future.delayed(
       const Duration(microseconds: 50),
       () {
-        blogCategoriesController
-            .geBlogCategory()
-            .whenComplete(() => print("data loaded   "));
+        blogCategoriesController.geBlogCategory();
       },
     );
   }

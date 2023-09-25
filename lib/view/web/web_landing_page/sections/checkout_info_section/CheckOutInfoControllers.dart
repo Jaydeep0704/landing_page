@@ -12,12 +12,10 @@ import '../../../../../config/api_string.dart';
 import '../../../../../utils/http_handler/network_http.dart';
 import '../../../../../widget/loading_dialog.dart';
 
-class CheckOutInfoController extends GetxController{
-
+class CheckOutInfoController extends GetxController {
   late VideoPlayerController videoController;
 
   RxBool isVideoInitialized = false.obs;
-
 
   ///Edit Banner Text
 
@@ -29,8 +27,7 @@ class CheckOutInfoController extends GetxController{
   ///get Baner text
   Future getCheckOutApi() async {
     log("step --------  +++ 1 ");
-    showLoadingDialog();
-    // hideLoadingDialog();
+    // showLoadingDialog();
     try {
       log("step --------  +++  2 ");
       checkInfoDataList.clear();
@@ -40,7 +37,7 @@ class CheckOutInfoController extends GetxController{
         url: APIString.get_checkout,
       );
       log("step --------  +++ 3 ");
-      hideLoadingDialog();
+      // hideLoadingDialog();
       if (response['error'] == null) {
         log("step --------  +++  4");
 
@@ -51,7 +48,8 @@ class CheckOutInfoController extends GetxController{
           msg.value = response['body']["msg"];
           for (int i = 0; i < checkInfoDataList.length; i++) {
             if (checkInfoDataList[i]["file_media_type"] == "video") {
-              debugPrint("FileType ==> ${checkInfoDataList[i]["file_media_type"]}");
+              debugPrint(
+                  "FileType ==> ${checkInfoDataList[i]["file_media_type"]}");
               videoList.add(checkInfoDataList[i]);
             }
           }
@@ -67,26 +65,27 @@ class CheckOutInfoController extends GetxController{
 
   void initializeVideo() async {
     for (int i = 0; i < videoList.length; i++) {
-      videoController = VideoPlayerController.networkUrl(Uri.parse(APIString.mediaBaseUrl + videoList[0]["files"].toString()));
+      videoController = VideoPlayerController.networkUrl(
+          Uri.parse(APIString.mediaBaseUrl + videoList[0]["files"].toString()));
       String videoTitle = videoList[i]["title"];
       debugPrint("VideoTitle: $videoTitle");
     }
-     //videoController = VideoPlayerController.networkUrl(Uri.parse("https://grobiz.app/GrobizEcommerceSuperAdminTest/images/Web/campaign1.mp4"));
+    //videoController = VideoPlayerController.networkUrl(Uri.parse("https://grobiz.app/GrobizEcommerceSuperAdminTest/images/Web/campaign1.mp4"));
     await videoController.initialize().whenComplete(() {
       videoController.setLooping(true);
       videoController.setVolume(0);
       isVideoInitialized.value = true;
       videoController.play();
-
     });
   }
+
   ///delete CheckOut Info
-  Future<void> deleteCheckOutDataApi({String? id})  async {
-    isApiCallProcessing.value=false;
+  Future<void> deleteCheckOutDataApi({String? id}) async {
+    isApiCallProcessing.value = false;
     var url = APIString.grobizBaseUrl + APIString.delete_checkout;
 //checkout_auto_id
     final body = {
-      'checkout_auto_id':id,
+      'checkout_auto_id': id,
     };
 
     Uri uri = Uri.parse(url);
@@ -97,32 +96,27 @@ class CheckOutInfoController extends GetxController{
       int status = resp['status'];
       log('USer Id: $status');
       if (status == 1) {
-        isApiCallProcessing.value=true;
+        isApiCallProcessing.value = true;
         Fluttertoast.showToast(
-          msg:  'successfully Deleted' ,
+          msg: 'successfully Deleted',
           backgroundColor: Colors.grey,
         );
         // Get.back();
         getCheckOutApi();
       } else {
         String msg = resp['msg'];
-        isApiCallProcessing.value=false;
+        isApiCallProcessing.value = false;
         Fluttertoast.showToast(
           msg: msg,
           backgroundColor: Colors.grey,
         );
       }
     } else if (response.statusCode == 500) {
-      isApiCallProcessing.value=false;
+      isApiCallProcessing.value = false;
       Fluttertoast.showToast(
         msg: 'Server error',
         backgroundColor: Colors.grey,
       );
     }
   }
-
-
-
-
-
 }

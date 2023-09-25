@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
-import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +11,7 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controlle
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_mix_banner_section/edit_mix_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/widget/common_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 class MixBannerSection extends StatefulWidget {
@@ -149,14 +149,14 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                                   fit: BoxFit.scaleDown,
                                   child: commonIconButton(
                                       onTap: () async {
-                                        html.window.open(AppString.playStoreAppLink,"_blank");
-                                        // const url = 'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
-                                        // if (await canLaunch(url)) {
-                                        //   await launch(url);
-                                        // } else {
-                                        //   throw 'Could not launch $url';
-                                        // }
+                                        const url = AppString.playStoreAppLink;
+                                        if (await canLaunchUrl(Uri.parse(url))) {
+                                          await launchUrl(Uri.parse(url));
+                                        } else {
+                                          throw 'Could not launch $url';
+                                        }
                                       },
+
                                       margin: EdgeInsets.zero,
                                       width: Get.width > 1500
                                           ? 250
@@ -220,8 +220,13 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               commonIconButton(
-                                  onTap: () {
-                                    html.window.open(AppString.websiteLink,"_blank");
+                                  onTap: () async {
+                                    const url = AppString.websiteLink;
+                                    if (await canLaunchUrl(Uri.parse(url))) {
+                                      await launchUrl(Uri.parse(url));
+                                    } else {
+                                      throw 'Could not launch $url';
+                                    }
                                   },
                                   margin: EdgeInsets.zero,
                                   icon: Icons.language,
@@ -352,14 +357,14 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                           fit: BoxFit.scaleDown,
                           child: commonIconButton(
                               onTap: () async {
-                                html.window.open(AppString.playStoreAppLink,"_blank");
-                                // const url = 'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
-                                // if (await canLaunch(url)) {
-                                //   await launch(url);
-                                // } else {
-                                //   throw 'Could not launch $url';
-                                // }
+                                const url = AppString.playStoreAppLink;
+                                if (await canLaunchUrl(Uri.parse(url))) {
+                                  await launchUrl(Uri.parse(url));
+                                } else {
+                                  throw 'Could not launch $url';
+                                }
                               },
+
                               icon: Icons.phone_android,
                               title: "Create Your App",
                               btnColor: Colors.redAccent.withOpacity(0.7),
@@ -416,8 +421,13 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                         FittedBox(
                           fit: BoxFit.scaleDown,
                           child: commonIconButton(
-                              onTap: () {
-                                html.window.open(AppString.websiteLink,"_blank");
+                              onTap: () async {
+                                const url = AppString.websiteLink;
+                                if (await canLaunchUrl(Uri.parse(url))) {
+                                  await launchUrl(Uri.parse(url));
+                                } else {
+                                  throw 'Could not launch $url';
+                                }
                               },
                               icon: Icons.language,
                               title: "Create Your Website",

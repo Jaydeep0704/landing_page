@@ -1,136 +1,8 @@
-// import 'dart:developer';
-//
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:grobiz_web_landing/config/api_string.dart';
-// import 'package:grobiz_web_landing/config/local_storage.dart';
-// import 'package:grobiz_web_landing/utils/http_handler/network_http.dart';
-// import 'package:grobiz_web_landing/utils/shared_preference/shared_preference_services.dart';
-// import 'package:grobiz_web_landing/widget/common_snackbar.dart';
-// import 'package:grobiz_web_landing/widget/loading_dialog.dart';
-//
-// class ShowCaseAppController extends GetxController{
-//
-//   RxString couponCode = "".obs;
-//   RxString couponUserId = "".obs;
-//   RxString couponRegisterDate = "".obs;
-//   RxString couponRegisterTime = "".obs;
-//   RxString couponUpdatedAt = "".obs;
-//   RxString couponCreatedAt = "".obs;
-//   RxString couponId = "".obs;
-//
-//   RxList getCouponList = [].obs;
-//
-//
-//   Future generateCoupon() async {
-//     log("inside getCouponData ---------1");
-//     try {
-//       log("inside getCouponData ---------2");
-//
-//       showLoadingDialog();
-//       // Get.focusScope!.unfocus();
-//       var response = await HttpHandler.postHttpMethod(
-//           url: APIString.generate_coupon_code,
-//           // data: {},
-//       );
-//       if (response['error'] == null) {
-//         log("inside getCouponData ---------3");
-//
-//         if (response['body']['status'].toString() == "1") {
-//
-//           log("response[data]  ---- ${response['body']["data"]}");
-//
-//           // couponCode.value = response['body']["data"]["coupon_code"];
-//           // couponUserId.value = response['body']["data"]["user_id"];
-//           // couponRegisterDate.value = response['body']["data"]["register_date"];
-//           // couponRegisterTime.value = response['body']["data"]["register_time"];
-//           // couponUpdatedAt.value = response['body']["data"]["updated_at"];
-//           // couponCreatedAt.value = response['body']["data"]["created_at"];
-//           // couponId.value = response['body']["data"]["_id"];
-//
-//           var data = response['body']["data"];
-//           setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponCode, stringData: data["coupon_code"]);
-//           setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponUserId, stringData: data["user_id"]);
-//           setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponRegisterDate, stringData: data["register_date"]);
-//           setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponRegisterTime, stringData: data["register_time"]);
-//           setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponUpdatedAt, stringData: data["updated_at"]);
-//           setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponCreatedAt, stringData: data["created_at"]);
-//           setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponId, stringData: data["_id"]);
-//
-//           showSnackbar(title: "Success", message: "Coupon Generated");
-//           hideLoadingDialog();
-//
-//         }
-//       }
-//       else if (response['error'] != null) {
-//         log("inside getCouponData ---------4");
-//
-//         showSnackbar(title: "Warning",message: "Error");
-//         hideLoadingDialog();
-//
-//       }
-//     } catch (e, s) {
-//       log("inside getCouponData ---------5");
-//       debugPrint("getCouponData Error -- $e  $s");
-//       hideLoadingDialog();
-//
-//     }
-//   }
-//
-//
-//   Future getWebCouponCodeList() async {
-//     getCouponList.clear();
-//     log("inside getCouponData ---------1");
-//     try {
-//       log("inside getCouponData ---------2");
-//
-//       showLoadingDialog();
-//       // Get.focusScope!.unfocus();
-//       var response = await HttpHandler.postHttpMethod(
-//           url: APIString.get_web_coupon_code_list,
-//           data: {
-//             "user_id":couponUserId.value,
-//           },
-//       );
-//       if (response['error'] == null) {
-//         log("inside getCouponData ---------3");
-//
-//         if (response['body']['status'].toString() == "1") {
-//
-//           log("response[data]  ---- ${response['body']["data"]}");
-//
-//           // getCouponList.value =  response['body']["data"];
-//           getCouponList.add(response['body']["data"]);
-//
-//
-//           showSnackbar(title: "Success", message: "Coupon Generated");
-//           hideLoadingDialog();
-//
-//         }
-//       }
-//       else if (response['error'] != null) {
-//         log("inside getCouponData ---------4");
-//
-//         showSnackbar(title: "Warning",message: "Error");
-//         hideLoadingDialog();
-//
-//       }
-//     } catch (e, s) {
-//       log("inside getCouponData ---------5");
-//       debugPrint("getCouponData Error -- $e  $s");
-//       hideLoadingDialog();
-//
-//     }
-//   }
-//
-//
-// }
-
+// ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -143,15 +15,12 @@ import '../../../../../config/api_string.dart';
 import '../../../../../utils/http_handler/network_http.dart';
 import '../../../../../widget/loading_dialog.dart';
 
-class ShowCaseAppsController extends GetxController{
-
+class ShowCaseAppsController extends GetxController {
   late VideoPlayerController videoController;
 
   RxBool isVideoInitialized = false.obs;
   RxBool titleSwitch = false.obs;
   RxBool carouselSwitch = false.obs;
-
-
 
   RxString couponCode = "".obs;
   RxString couponUserId = "".obs;
@@ -162,7 +31,6 @@ class ShowCaseAppsController extends GetxController{
   RxString couponId = "".obs;
 
   RxList getCouponList = [].obs;
-
 
   Future generateCoupon() async {
     log("inside getCouponData ---------1");
@@ -179,7 +47,6 @@ class ShowCaseAppsController extends GetxController{
         log("inside getCouponData ---------3");
 
         if (response['body']['status'].toString() == "1") {
-
           log("response[data]  ---- ${response['body']["data"]}");
 
           // couponCode.value = response['body']["data"]["coupon_code"];
@@ -191,34 +58,50 @@ class ShowCaseAppsController extends GetxController{
           // couponId.value = response['body']["data"]["_id"];
 
           var data = response['body']["data"];
-          setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponCode, stringData: data["coupon_code"]);
-          setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponUserId, stringData: data["user_id"]);
-          setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponRegisterDate, stringData: data["register_date"]);
-          setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponRegisterTime, stringData: data["register_time"]);
-          setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponUpdatedAt, stringData: data["updated_at"]);
-          setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponCreatedAt, stringData: data["created_at"]);
-          setDataToLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponId, stringData: data["_id"]);
+          setDataToLocalStorage(
+              dataType: LocalStorage.stringType,
+              prefKey: LocalStorage.couponCode,
+              stringData: data["coupon_code"]);
+          setDataToLocalStorage(
+              dataType: LocalStorage.stringType,
+              prefKey: LocalStorage.couponUserId,
+              stringData: data["user_id"]);
+          setDataToLocalStorage(
+              dataType: LocalStorage.stringType,
+              prefKey: LocalStorage.couponRegisterDate,
+              stringData: data["register_date"]);
+          setDataToLocalStorage(
+              dataType: LocalStorage.stringType,
+              prefKey: LocalStorage.couponRegisterTime,
+              stringData: data["register_time"]);
+          setDataToLocalStorage(
+              dataType: LocalStorage.stringType,
+              prefKey: LocalStorage.couponUpdatedAt,
+              stringData: data["updated_at"]);
+          setDataToLocalStorage(
+              dataType: LocalStorage.stringType,
+              prefKey: LocalStorage.couponCreatedAt,
+              stringData: data["created_at"]);
+          setDataToLocalStorage(
+              dataType: LocalStorage.stringType,
+              prefKey: LocalStorage.couponId,
+              stringData: data["_id"]);
 
           showSnackbar(title: "Success", message: "Coupon Generated");
           hideLoadingDialog();
-
         }
-      }
-      else if (response['error'] != null) {
+      } else if (response['error'] != null) {
         log("inside getCouponData ---------4");
 
-        showSnackbar(title: "Warning",message: "Error");
+        showSnackbar(title: "Warning", message: "Error");
         hideLoadingDialog();
-
       }
     } catch (e, s) {
       log("inside getCouponData ---------5");
       debugPrint("getCouponData Error -- $e  $s");
       hideLoadingDialog();
-
     }
   }
-
 
   Future getWebCouponCodeList() async {
     getCouponList.clear();
@@ -231,40 +114,33 @@ class ShowCaseAppsController extends GetxController{
       var response = await HttpHandler.postHttpMethod(
         url: APIString.get_web_coupon_code_list,
         data: {
-          "user_id":couponUserId.value,
+          "user_id": couponUserId.value,
         },
       );
       if (response['error'] == null) {
         log("inside getCouponData ---------3");
 
         if (response['body']['status'].toString() == "1") {
-
           log("response[data]  ---- ${response['body']["data"]}");
 
           // getCouponList.value =  response['body']["data"];
           getCouponList.add(response['body']["data"]);
 
-
           showSnackbar(title: "Success", message: "Coupon Generated");
           hideLoadingDialog();
-
         }
-      }
-      else if (response['error'] != null) {
+      } else if (response['error'] != null) {
         log("inside getCouponData ---------4");
 
-        showSnackbar(title: "Warning",message: "Error");
+        showSnackbar(title: "Warning", message: "Error");
         hideLoadingDialog();
-
       }
     } catch (e, s) {
       log("inside getCouponData ---------5");
       debugPrint("getCouponData Error -- $e  $s");
       hideLoadingDialog();
-
     }
   }
-
 
   ///Edit Banner Text
 
@@ -276,8 +152,7 @@ class ShowCaseAppsController extends GetxController{
   ///get Baner text
   getShowCaseApi() async {
     log("step --------  +++ 1 ");
-    showLoadingDialog();
-    // hideLoadingDialog();
+    // showLoadingDialog();
     try {
       log("step --------  +++  2 ");
       ShowcaseData.clear();
@@ -287,14 +162,13 @@ class ShowCaseAppsController extends GetxController{
         url: APIString.get_userlist,
       );
       log("step --------  +++ 3 ");
-      hideLoadingDialog();
+      // hideLoadingDialog();
       if (response['error'] == null) {
         log("step --------  +++  4");
 
         if (response['body']['status'].toString() == "1") {
           ShowcaseData.value = response['body']["data"];
           msg.value = response['body']["msg"];
-
         }
       } else {
         log("step --------  +++  77 Error");
@@ -305,14 +179,13 @@ class ShowCaseAppsController extends GetxController{
     }
   }
 
-
   ///delete CheckOut Info
-  Future<void> deleteShowCaseApi({String? id})  async {
-    isApiCallProcessing.value=false;
+  Future<void> deleteShowCaseApi({String? id}) async {
+    isApiCallProcessing.value = false;
     var url = APIString.grobizBaseUrl + APIString.delete_userlist;
 //userlist_auto_id
     final body = {
-      'userlist_auto_id':id,
+      'userlist_auto_id': id,
     };
 
     Uri uri = Uri.parse(url);
@@ -321,35 +194,29 @@ class ShowCaseAppsController extends GetxController{
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
       int status = resp['status'];
-      log('USer Id: ' + status.toString());
+      log('USer Id: $status');
       if (status == 1) {
-        isApiCallProcessing.value=true;
+        isApiCallProcessing.value = true;
         Fluttertoast.showToast(
-          msg:  'successfully Deleted' ,
+          msg: 'successfully Deleted',
           backgroundColor: Colors.grey,
         );
         // Get.back();
         getShowCaseApi();
-        print("Deleted");
       } else {
         String msg = resp['msg'];
-        isApiCallProcessing.value=false;
+        isApiCallProcessing.value = false;
         Fluttertoast.showToast(
           msg: msg,
           backgroundColor: Colors.grey,
         );
       }
     } else if (response.statusCode == 500) {
-      isApiCallProcessing.value=false;
+      isApiCallProcessing.value = false;
       Fluttertoast.showToast(
         msg: 'Server error',
         backgroundColor: Colors.grey,
       );
     }
   }
-
-
-
-
-
 }

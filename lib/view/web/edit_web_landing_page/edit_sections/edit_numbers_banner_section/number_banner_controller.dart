@@ -26,13 +26,13 @@ class NumberBannerController extends GetxController {
   RxString msg = "".obs;
 
   getPartnerLogo() async {
-    showLoadingDialog();
+    // showLoadingDialog();
     try {
       partnerBannerLogos.clear();
       var response = await HttpHandler.getHttpMethod(
         url: APIString.get_number_banner,
       );
-      hideLoadingDialog();
+      // hideLoadingDialog();
       if (response['error'] == null) {
         if (response['body']['status'].toString() == "1") {
           partnerBannerLogos.value = response['body']["data"];

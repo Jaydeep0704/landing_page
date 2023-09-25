@@ -1,21 +1,15 @@
-// ignore_for_file: implementation_imports
-
-import 'dart:convert';
+// ignore_for_file: implementation_imports, prefer_typing_uninitialized_variables
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/career/careers_controller.dart';
 import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:grobiz_web_landing/widget/common_textfield.dart';
-import 'package:http_parser/src/media_type.dart';
 import 'dart:developer';
-import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
@@ -28,9 +22,7 @@ class CareersScreen extends StatefulWidget {
 }
 
 class _CareersScreenState extends State<CareersScreen> {
-
   final careersController = Get.find<CareersController>();
-
 
   List<PlatformFile>? _paths;
   var pathsFile;
@@ -43,18 +35,27 @@ class _CareersScreenState extends State<CareersScreen> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: AppColors.whiteColor,
-          leading: const BackButton(color: AppColors.blackColor,),
-          title: Text("Careers", style: AppTextStyle.regularBold.copyWith(
-              color: AppColors.blackColor, fontSize: 18)),
+          leading: const BackButton(
+            color: AppColors.blackColor,
+          ),
+          title: Text("Careers",
+              style: AppTextStyle.regularBold
+                  .copyWith(color: AppColors.blackColor, fontSize: 18)),
           centerTitle: true,
         ),
         body: Row(
           children: [
-            Get.width > 501 ?   const Expanded(child: SizedBox()) : const SizedBox(),
+            Get.width > 501
+                ? const Expanded(child: SizedBox())
+                : const SizedBox(),
             Container(
-
-              padding: const EdgeInsets.only(right: 25,left: 25,bottom: 25,top: 25),
-              width: Get.width > 800 ? 700 : Get.width > 501 ? 400 : Get.width,
+              padding: const EdgeInsets.only(
+                  right: 25, left: 25, bottom: 25, top: 25),
+              width: Get.width > 800
+                  ? 700
+                  : Get.width > 501
+                      ? 400
+                      : Get.width,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,27 +67,36 @@ class _CareersScreenState extends State<CareersScreen> {
                         children: [
                           // const SizedBox(height: 25),
                           Text("Please submit below Details",
-                              style: AppTextStyle.regularBold.copyWith(fontSize: 25)),
+                              style: AppTextStyle.regularBold
+                                  .copyWith(fontSize: 25)),
                           const SizedBox(height: 20),
                           const Text("Email"),
-                          const SizedBox(height: 10,),
-                          CommonTextField(controller: careersController.emailController,boxShadow: false,hintText: "Email",),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CommonTextField(
+                            controller: careersController.emailController,
+                            boxShadow: false,
+                            hintText: "Email",
+                          ),
                           const SizedBox(height: 20),
                           const Text("Designation"),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Obx(() {
                             return DropdownButtonFormField<String>(
                               decoration: InputDecoration(
                                 filled: true,
-                                fillColor:  AppColors.whiteColor,
+                                fillColor: AppColors.whiteColor,
                                 hintStyle: AppTextStyle.regular400.copyWith(
-                                    color:  AppColors.blackColor, fontSize: 15),
+                                    color: AppColors.blackColor, fontSize: 15),
                                 contentPadding: const EdgeInsets.only(
-                                        top: 8, bottom: 16, right: 20, left: 20),
+                                    top: 8, bottom: 16, right: 20, left: 20),
                                 border: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: AppColors.borderColor),
-                                    borderRadius: BorderRadius.circular( 10)),
+                                    borderRadius: BorderRadius.circular(10)),
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: AppColors.borderColor),
@@ -94,31 +104,35 @@ class _CareersScreenState extends State<CareersScreen> {
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: AppColors.borderColor),
-                                    borderRadius: BorderRadius.circular( 10)),
+                                    borderRadius: BorderRadius.circular(10)),
                                 errorBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: AppColors.borderColor),
                                     borderRadius: BorderRadius.circular(10)),
                               ),
 
-                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
                               isExpanded: true,
                               value: careersController.selectedOption.value,
                               icon: const Icon(Icons.arrow_drop_down),
                               iconSize: 24,
                               elevation: 16,
-                              style: const TextStyle(color: Colors.black, fontSize: 18),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 18),
                               // underline: Container(
                               //   height: 2,
                               //   color: Colors.blue,
                               // ),
                               onChanged: (String? newValue) {
                                 // setState(() {
-                                  careersController.selectedOption.value = newValue!;
+                                careersController.selectedOption.value =
+                                    newValue!;
                                 // });
                               },
-                              items: careersController.dropdownOptions.map<DropdownMenuItem<String>>((
-                                  String value) {
+                              items: careersController.dropdownOptions
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value),
@@ -128,11 +142,22 @@ class _CareersScreenState extends State<CareersScreen> {
                           }),
                           const SizedBox(height: 20),
                           const Text("Description"),
-                          const SizedBox(height: 10,),
-                          CommonTextField(controller: careersController.descController,boxShadow: false,hintText: "Description",maxLine: 10,),
-                          const SizedBox(height: 25,),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CommonTextField(
+                            controller: careersController.descController,
+                            boxShadow: false,
+                            hintText: "Description",
+                            maxLine: 10,
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          ),
                           const Text("Upload Resume"),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 10,
+                          ),
 
                           DottedBorder(
                             color: AppColors.greyBorderColor,
@@ -144,81 +169,123 @@ class _CareersScreenState extends State<CareersScreen> {
                             // strokeCap: StrokeCap.butt,
                             // borderPadding:
                             //     EdgeInsets.only(top: 8),
-                            child: _paths == null ? InkWell(
-                              onTap: () {
-                                pickFiles();
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.circular(8),
-                                ),
-                                padding: const EdgeInsets.all(10),
-
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    const Icon(Icons.file_upload_outlined),
-                                    // const SizedBox(height: 25),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children:  [
-                                        Text("Upload Resume  ",style: AppTextStyle.regular800.copyWith(fontSize: 14),),
-                                        Text("(pdf file only)",style: AppTextStyle.regular300,),
+                            child: _paths == null
+                                ? InkWell(
+                                    onTap: () {
+                                      pickFiles();
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      padding: const EdgeInsets.all(10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          const Icon(
+                                              Icons.file_upload_outlined),
+                                          // const SizedBox(height: 25),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "Upload Resume  ",
+                                                style: AppTextStyle.regular800
+                                                    .copyWith(fontSize: 14),
+                                              ),
+                                              Text(
+                                                "(pdf file only)",
+                                                style: AppTextStyle.regular300,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding: const EdgeInsets.all(10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Icon(Icons.picture_as_pdf),
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                        Expanded(
+                                            child: Text(
+                                          "${pathsFileName.toString()} ",
+                                          style: AppTextStyle.regular800
+                                              .copyWith(fontSize: 14),
+                                        )),
+                                        const SizedBox(
+                                          width: 15,
+                                        ),
+                                        Align(
+                                          alignment: Alignment.topRight,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                _paths = null;
+                                                setState(() {});
+                                              },
+                                              icon: const Icon(Icons.close)),
+                                        ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            )
-                             : Container(
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.circular(8),
-                              ),
-                              padding: const EdgeInsets.all(10),
-
-                              child:  Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Icon(Icons.picture_as_pdf),
-                                  const SizedBox(width: 20,),
-                                  Expanded(child: Text("${pathsFileName.toString()} ",style: AppTextStyle.regular800.copyWith(fontSize: 14),)),
-                                  const SizedBox(width: 15,),
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: IconButton(onPressed: (){
-                                      _paths = null;
-                                      setState((){});
-                                    }, icon: const Icon(Icons.close)),
                                   ),
-                                ],
-                              ),
-                            ),
                           ),
-                          const SizedBox(height: 25,),
+                          const SizedBox(
+                            height: 25,
+                          ),
                           commonButton(
-                            onTap: () {
-                              if(careersController.emailController.text.isEmpty){showSnackbar(title: "", message: "Enter Email");}
-                              else if(careersController.descController.text.isEmpty){showSnackbar(title: "", message: "Enter Description");}
-                              else if(careersController.selectedOption.value.toString() == "Select Designations"){showSnackbar(title: "", message: "Select Designation");}
-                              else if(_paths == null){showSnackbar(title: "", message: "Select Resume");}
-                              else{
-                                log("selectedOption${careersController.selectedOption.value}");
-                                careersController.submitForm(pathsFile: pathsFile,pathsFileName: pathsFileName,
-                                email: careersController.emailController.text,
-                                description: careersController.selectedOption.value,
-                                designation: careersController.descController.text).whenComplete(() {});
-                              }
-                            },
-                          title: "Submit",fontSize: 20,
-                          width: Get.width,
+                              onTap: () {
+                                if (careersController
+                                    .emailController.text.isEmpty) {
+                                  showSnackbar(
+                                      title: "", message: "Enter Email");
+                                } else if (careersController
+                                    .descController.text.isEmpty) {
+                                  showSnackbar(
+                                      title: "", message: "Enter Description");
+                                } else if (careersController
+                                        .selectedOption.value
+                                        .toString() ==
+                                    "Select Designations") {
+                                  showSnackbar(
+                                      title: "", message: "Select Designation");
+                                } else if (_paths == null) {
+                                  showSnackbar(
+                                      title: "", message: "Select Resume");
+                                } else {
+                                  log("selectedOption${careersController.selectedOption.value}");
+                                  careersController
+                                      .submitForm(
+                                          pathsFile: pathsFile,
+                                          pathsFileName: pathsFileName,
+                                          email: careersController
+                                              .emailController.text,
+                                          description: careersController
+                                              .selectedOption.value,
+                                          designation: careersController
+                                              .descController.text)
+                                      .whenComplete(() {});
+                                }
+                              },
+                              title: "Submit",
+                              fontSize: 20,
+                              width: Get.width,
                               height: 40,
-                          margin: const EdgeInsets.symmetric(horizontal: 0))
-
-
+                              margin: const EdgeInsets.symmetric(horizontal: 0))
                         ],
                       ),
                     ),
@@ -226,24 +293,24 @@ class _CareersScreenState extends State<CareersScreen> {
                 ),
               ),
             ),
-            Get.width > 501 ?   const Expanded(child: SizedBox()) : const SizedBox(),
+            Get.width > 501
+                ? const Expanded(child: SizedBox())
+                : const SizedBox(),
           ],
         ),
       );
     });
   }
 
-
   void pickFiles({bool addImage = false, String? numberBannerAutoId}) async {
     // Navigator.of(context).pop(false);
-    showLoadingDialog(loader: false,loadingText: true,delay: true);
+    showLoadingDialog(loader: false, loadingText: true, delay: true);
 
     try {
       _paths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['pdf'],
       ))
           ?.files;
@@ -252,9 +319,7 @@ class _CareersScreenState extends State<CareersScreen> {
       pathsFile = _paths!.first.bytes!;
       pathsFileName = _paths!.first.name.removeAllWhitespace;
       // });
-      setState(() {
-
-      });
+      setState(() {});
       log("_paths!.first.bytes  $pathsFile --  ${_paths!.first.bytes!}");
       log("_paths!.first.name  $pathsFileName --  ${_paths!.first.name}");
       log("selected image is ----------> $_paths");
@@ -271,8 +336,6 @@ class _CareersScreenState extends State<CareersScreen> {
       });
     }
   }
-
-
 
   // Future submitForm() async {
   //   showLoadingDialog();
@@ -365,6 +428,4 @@ class _CareersScreenState extends State<CareersScreen> {
   //     }
   //   }
   // }
-
-
 }

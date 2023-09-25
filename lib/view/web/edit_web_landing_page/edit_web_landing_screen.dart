@@ -166,11 +166,8 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
             const Duration(seconds: 5),
             () {
               initializeVideo();
-              print("inside timer ---- 10");
               initializeVideoHIW();
-              print("inside timer ---- 15");
               initializeVideoMixBanner();
-              print("inside timer ---- 20");
               initializeVideoNumberBanner();
             },
           );

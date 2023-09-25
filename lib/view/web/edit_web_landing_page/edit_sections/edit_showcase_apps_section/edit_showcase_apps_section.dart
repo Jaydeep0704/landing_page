@@ -1,4 +1,5 @@
-import 'dart:html' as html;
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -23,6 +24,7 @@ import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
 import 'package:grobiz_web_landing/widget/glassmorphic_container.dart';
 import 'package:video_player/video_player.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EditShowcaseAppsSection extends StatefulWidget {
   const EditShowcaseAppsSection({Key? key}) : super(key: key);
@@ -604,15 +606,14 @@ class _EditShowcaseAppsSectionState extends State<EditShowcaseAppsSection> {
                            children: [
                              commonIconButton(
                                  onTap: () async {
-                                   html.window.open(AppString.playStoreAppLink,"_blank");
-                                   // const url =
-                                   //     'https://play.google.com/store/apps/details?id=com.efunhub.grobizz';
-                                   // if (await canLaunch(url)) {
-                                   //   await launch(url);
-                                   // } else {
-                                   //   throw 'Could not launch $url';
-                                   // }
+                                   const url = AppString.playStoreAppLink;
+                                   if (await canLaunchUrl(Uri.parse(url))) {
+                                     await launchUrl(Uri.parse(url));
+                                   } else {
+                                     throw 'Could not launch $url';
+                                   }
                                  },
+
                                  icon: Icons.phone_android,
                                  title: "Create Your App",
                                  btnColor: Colors.redAccent.withOpacity(0.7),
@@ -684,8 +685,13 @@ class _EditShowcaseAppsSectionState extends State<EditShowcaseAppsSection> {
                            crossAxisAlignment: CrossAxisAlignment.center,
                            children: [
                              commonIconButton(
-                                 onTap: () {
-                                   html.window.open(AppString.websiteLink,"_blank");
+                                 onTap: () async {
+                                   const url = AppString.websiteLink;
+                                   if (await canLaunchUrl(Uri.parse(url))) {
+                                     await launchUrl(Uri.parse(url));
+                                   } else {
+                                     throw 'Could not launch $url';
+                                   }
                                  },
                                  icon: Icons.language,
                                  title: "Create Your Website",
@@ -917,24 +923,24 @@ class _EditShowcaseAppsSectionState extends State<EditShowcaseAppsSection> {
   }
 
   Widget displayUploadedVideo(String videoUrl) {
-    VideoPlayerController _controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+videoUrl));
+    VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+videoUrl));
     bool isVideoPlaying = false;
 
     // final double videoAspectRatio = /*_controller.value.aspectRatio > 0 ? _controller.value.aspectRatio :*/ 16 / 9;
 
     return InkWell(
       onTap: () {
-        if (_controller.value.isPlaying) {
+        if (controller.value.isPlaying) {
           isVideoPlaying=false;
-          _controller.pause();
+          controller.pause();
         } else {
-          _controller.play();
+          controller.play();
           isVideoPlaying=true;
         }
         // isVideoPlaying = !isVideoPlaying;
       },
       child: FutureBuilder(
-        future: _controller.initialize(),
+        future: controller.initialize(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return /*AspectRatio(
@@ -944,7 +950,7 @@ class _EditShowcaseAppsSectionState extends State<EditShowcaseAppsSection> {
               child:*/ Stack(
               alignment: Alignment.center,
               children: [
-                VideoPlayer(_controller),
+                VideoPlayer(controller),
                 if (!isVideoPlaying)
                   Icon(
                     Icons.play_circle_fill,

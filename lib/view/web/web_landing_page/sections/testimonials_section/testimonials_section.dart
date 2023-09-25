@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
+import 'package:url_launcher/url_launcher.dart';
 
-import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
   late AnimationController _animationController;
   late Animation<double> _rotationAnimation;
   late Animation<double> _rotationAnimation1;
-  Animation<double>? _animation;
+  // Animation<double>? _animation;
   final editIntroController = Get.find<EditIntroController>();
   final editController = Get.find<EditController>();
   final testimonialController = Get.find<EditTestimonialController>();
@@ -1199,8 +1199,14 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                       children: [
                         commonIconButton(
                             onTap: () async {
-                              html.window.open(AppString.playStoreAppLink,"_blank");
+                              const url = AppString.playStoreAppLink;
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(Uri.parse(url));
+                              } else {
+                                throw 'Could not launch $url';
+                              }
                             },
+
                             icon: Icons.phone_android,
                             title: "Create Your App",
                             btnColor:
@@ -1255,8 +1261,13 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                       children: [
                         FittedBox(fit: BoxFit.scaleDown,
                           child: commonIconButton(
-                              onTap: () {
-                                html.window.open(AppString.websiteLink,"_blank");
+                              onTap: () async {
+                                const url = AppString.websiteLink;
+                                if (await canLaunchUrl(Uri.parse(url))) {
+                                  await launchUrl(Uri.parse(url));
+                                } else {
+                                  throw 'Could not launch $url';
+                                }
                               },
                               icon: Icons.language,
                               title: "Create Your Website",
@@ -1722,15 +1733,15 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
           ),
         );
       } else {
-        return ytvideo(bannerMedia);
+        return ytVideo(bannerMedia);
       }
     } else if (mediaType == 'youthtube') {
-      return displayyouthtubeVideo(youthtube);
+      return displayYoutubeVideo(youthtube);
     } else {
       return Container();
     }
   }
-  Widget ytvideo(String videoUrl, {double width = 200}) {
+  Widget ytVideo(String videoUrl, {double width = 200}) {
     VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl + videoUrl));
     bool isVideoPlaying = false;
 
@@ -1778,7 +1789,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
       ),
     );
   }
-  Widget displayyouthtubeVideo(String videoUrl, ) {
+  Widget displayYoutubeVideo(String videoUrl, ) {
     final YoutubePlayerController controller = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(videoUrl)!,
       flags: const YoutubePlayerFlags(

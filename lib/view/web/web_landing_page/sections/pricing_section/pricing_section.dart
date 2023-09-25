@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
-import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +10,7 @@ import 'package:grobiz_web_landing/config/app_string.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../edit_web_landing_page/edit_controller/pricing_section_controller.dart';
 
@@ -857,8 +857,13 @@ AlertDialog purchaseDialog({bool? isPurchaseButton}) {
             isPurchaseButton == false ? const SizedBox() : const SizedBox(
               height: 20,),
             isPurchaseButton == false ? const SizedBox() : InkWell(
-                onTap: () {
-                  html.window.open(AppString.playStoreAppLink, "_blank");
+                onTap: () async {
+                  const url = AppString.playStoreAppLink;
+                  if (await canLaunchUrl(Uri.parse(url))) {
+                    await launchUrl(Uri.parse(url));
+                  } else {
+                    throw 'Could not launch $url';
+                  }
                 },
                 child: Text("Click here to get App",
                   style: AppTextStyle.regular600.copyWith(

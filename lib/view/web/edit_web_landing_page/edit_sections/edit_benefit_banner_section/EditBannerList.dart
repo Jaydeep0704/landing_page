@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +17,6 @@ class EditBanerList extends StatefulWidget {
 
 class _EditBanerListState extends State<EditBanerList> {
   final benefitBannerController = Get.find<BenefitBannerController>();
-
 
   @override
   void initState() {
@@ -59,10 +60,10 @@ class _EditBanerListState extends State<EditBanerList> {
                     alignment: Alignment.topRight,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) =>
-                                const AddBanerScreen()));
-
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AddBanerScreen()));
                       },
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
@@ -86,7 +87,12 @@ class _EditBanerListState extends State<EditBanerList> {
                   ),
                   Align(
                       alignment: Alignment.centerRight,
-                      child: Text("Note : Please add only 3 data for better view",style: AppTextStyle.regularBold.copyWith(fontSize: 14,color: AppColors.redColor),textAlign: TextAlign.end,)),
+                      child: Text(
+                        "Note : Please add only 3 data for better view",
+                        style: AppTextStyle.regularBold
+                            .copyWith(fontSize: 14, color: AppColors.redColor),
+                        textAlign: TextAlign.end,
+                      )),
                   const SizedBox(height: 25),
                   Expanded(
                     child: Obx(() {
@@ -102,16 +108,19 @@ class _EditBanerListState extends State<EditBanerList> {
                                     benefitBannerController.dataList[index];
                                 return Padding(
                                   padding: const EdgeInsets.all(10.0),
-                                  child:
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Flexible(
-                                            child: Text(data["title"].toString(),
-                                              style: AppTextStyle.regularBold.copyWith(fontSize: 20),
+                                            child: Text(
+                                              data["title"].toString(),
+                                              style: AppTextStyle.regularBold
+                                                  .copyWith(fontSize: 20),
                                             ),
                                           ),
                                           IconButton(
@@ -119,10 +128,14 @@ class _EditBanerListState extends State<EditBanerList> {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) => EditBanerScreen(
+                                                  builder: (context) =>
+                                                      EditBanerScreen(
                                                     id: data["_id"].toString(),
-                                                    title: data["title"].toString(),
-                                                    description: data["description"].toString(),
+                                                    title: data["title"]
+                                                        .toString(),
+                                                    description:
+                                                        data["description"]
+                                                            .toString(),
                                                   ),
                                                 ),
                                               );
@@ -132,28 +145,35 @@ class _EditBanerListState extends State<EditBanerList> {
                                         ],
                                       ),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Flexible(
-                                            child: Text(data["description"].toString(),
-                                              style: AppTextStyle.regular300.copyWith(fontSize: 14),
+                                            child: Text(
+                                              data["description"].toString(),
+                                              style: AppTextStyle.regular300
+                                                  .copyWith(fontSize: 14),
                                             ),
                                           ),
                                           IconButton(
                                             onPressed: () {
-                                              benefitBannerController.deleteDataApi(id: data["_id"].toString());
+                                              benefitBannerController
+                                                  .deleteDataApi(
+                                                      id: data["_id"]
+                                                          .toString());
                                             },
-                                            icon: const Icon(Icons.delete_forever),
+                                            icon: const Icon(
+                                                Icons.delete_forever),
                                           ),
                                         ],
                                       ),
                                       Divider(
                                         thickness: 0.8,
-                                        color: AppColors.blackColor.withOpacity(0.5),
+                                        color: AppColors.blackColor
+                                            .withOpacity(0.5),
                                       ),
                                     ],
                                   ),
-
                                 );
                               },
                             ));
@@ -182,5 +202,4 @@ class _EditBanerListState extends State<EditBanerList> {
       );
     });
   }
-
 }

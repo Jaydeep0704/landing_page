@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
+import 'package:grobiz_web_landing/config/image_path.dart';
 import 'package:lottie/lottie.dart';
 
 void showLoadingDialog(
@@ -30,15 +31,19 @@ void showLoadingDialog(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // Padding(
-                        //   padding: const EdgeInsets.all(20),
-                        //   child: Image.asset(ImagePath.appLogo,height: 100,width: 100,),
-                        // ),
-                        loader == false
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Image.asset(
+                            ImagePath.appLogo,
+                            height: 100,
+                            width: 100,
+                          ),
+                        ),
+                        /* loader == false
                             ? const SizedBox()
                             : Center(
                                 child: Lottie.asset('assets/loader_lottie.json',
-                                    height: 100, width: 100)),
+                                    height: 100, width: 100,)),*/
                         // loader == false ?const SizedBox(): const CircularProgressIndicator(),
                         loadingText == false
                             ? const SizedBox()

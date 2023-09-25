@@ -86,7 +86,6 @@ class EditBlogController extends GetxController {
         );
         // Get.back();
         getBlogData();
-        print("Deleted");
       } else {
         String msg = resp['msg'];
 
@@ -251,7 +250,6 @@ class EditBlogController extends GetxController {
         );
         // Get.back();
         getBlogDetailsData(id: id);
-        print("Deleted");
       } else {
         String msg = resp['msg'];
 

@@ -431,7 +431,7 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() =>  TnCScreen())!
+                  Get.to(() => const TnCScreen())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));
@@ -542,7 +542,7 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() =>  Contactus())!
+                  Get.to(() => const Contactus())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));
@@ -771,7 +771,7 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() =>  TnCScreen())!
+                  Get.to(() => const TnCScreen())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));
@@ -871,7 +871,7 @@ class _EditInfoSectionState extends State<EditInfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.to(() =>  Contactus())!
+                  Get.to(() => const Contactus())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
                           }));

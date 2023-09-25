@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
-import 'dart:html' as html;
+import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -66,11 +66,6 @@ class _TextBannerSectionState extends State<TextBannerSection> {
               children: [
 
                 const SizedBox(height: 80),
-                // const Text(
-                //   "Main Heading",
-                //   style: TextStyle(
-                //       fontSize: 40, fontWeight: FontWeight.bold),
-                // ),
                 Text(
                   editController.allDataResponse[0]["text_banner_details"][0]["text_banner_heading"]
                       .toString(),
@@ -91,14 +86,7 @@ class _TextBannerSectionState extends State<TextBannerSection> {
                           : Get.width > 1000
                           ? 50
                           : 15),
-                  child: /*const Text(
-                    "Sub Heading  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),*/
+                  child:
                   Text(
                     editController.allDataResponse[0]["text_banner_details"][0]["text_banner_description"]
                         .toString(),
@@ -124,10 +112,14 @@ class _TextBannerSectionState extends State<TextBannerSection> {
                       children: [
                         commonIconButton(
                             onTap: () async {
-                              html.window.open(
-                                  AppString.playStoreAppLink, "_blank");
-
+                              const url = AppString.playStoreAppLink;
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(Uri.parse(url));
+                              } else {
+                                throw 'Could not launch $url';
+                              }
                             },
+
                             icon: Icons.phone_android,
                             title: "Create Your App",
                             btnColor:
@@ -156,8 +148,13 @@ class _TextBannerSectionState extends State<TextBannerSection> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         commonIconButton(
-                            onTap: () {
-                              html.window.open(AppString.websiteLink, "_blank");
+                            onTap: () async {
+                              const url = AppString.websiteLink;
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(Uri.parse(url));
+                              } else {
+                                throw 'Could not launch $url';
+                              }
                             },
                             icon: Icons.language,
                             title: "Create Your Website",

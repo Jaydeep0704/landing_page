@@ -752,12 +752,12 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                                                 a["files"].toString(),
                                             placeholder: (context, url) =>
                                                 Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Color(int.parse(
-                                                        editController
-                                                            .appDemoBgColor
-                                                            .value.toString())),
-                                                  ),
+                                                  // decoration: BoxDecoration(
+                                                    // color: Color(int.parse(
+                                                    //     editController
+                                                    //         .appDemoBgColor
+                                                    //         .value.toString())),
+                                                  // ),
                                                 ),
                                             errorWidget: (context, url,
                                                 error) =>
@@ -832,11 +832,11 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                                           a["files"].toString(),
                                       placeholder: (context, url) =>
                                           Container(
-                                            decoration: BoxDecoration(
-                                              color: Color(int.parse(
-                                                  editController.appDemoBgColor
-                                                      .value.toString())),
-                                            ),
+                                            // decoration: BoxDecoration(
+                                            //   color: Color(int.parse(
+                                            //       editController.appDemoBgColor
+                                            //           .value.toString())),
+                                            // ),
                                           ),
                                       errorWidget: (context, url,
                                           error) => const Icon(Icons.error),
