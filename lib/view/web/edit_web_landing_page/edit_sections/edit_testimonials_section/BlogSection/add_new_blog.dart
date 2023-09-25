@@ -1,15 +1,10 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names, deprecated_member_use, prefer_typing_uninitialized_variables, avoid_web_libraries_in_flutter, implementation_imports, depend_on_referenced_packages
 
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
-import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/related_blog/types/blog_category_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
-import 'package:grobiz_web_landing/widget/common_drop_down.dart';
-
 import 'package:http_parser/src/media_type.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -67,7 +62,7 @@ class _AddBlogState extends State<AddBlog> {
   TextEditingController blogType_controller = TextEditingController();
   TextEditingController blogBg_controller = TextEditingController();
 
-  final testimonalcontroller = Get.find<EditTestimonalController>();
+  final testimonalcontroller = Get.find<EditTestimonialController>();
   bool isApiProcessing = false;
   String VideoImg = "";
   bool isvideo = false;
@@ -84,10 +79,9 @@ class _AddBlogState extends State<AddBlog> {
 
   getData() {
     Future.delayed(
-      Duration(microseconds: 50),
+      const Duration(microseconds: 50),
       () => blogCategoriesController
           .geBlogCategory()
-          .whenComplete(() => print("-=-=-=-=")),
     );
   }
 
@@ -174,7 +168,7 @@ class _AddBlogState extends State<AddBlog> {
                         Obx(() {
                           return blogCategoriesController
                                   .blogsCategories.isEmpty
-                              ? Text("Please Wait while Categories Load")
+                              ? const Text("Please Wait while Categories Load")
                               : DropdownButtonFormField<Map<String, String>>(
                                   decoration: const InputDecoration(
                                     // labelText: 'Select an item',
@@ -425,8 +419,6 @@ class _AddBlogState extends State<AddBlog> {
                                   onChanged: (value) {
                                     setState(() {
                                       VideoImg = value as String;
-                                      print(value);
-                                      print(VideoImg);
                                       if (VideoImg == 'image') {
                                         isImage = true;
                                         isvideo = false;
@@ -453,9 +445,6 @@ class _AddBlogState extends State<AddBlog> {
                                   onChanged: (value) {
                                     setState(() {
                                       VideoImg = value as String;
-                                      print("Img_video==");
-                                      print(value);
-                                      print(VideoImg);
                                       if (VideoImg == 'video') {
                                         isvideo = true;
                                         isImage = false;
@@ -482,9 +471,6 @@ class _AddBlogState extends State<AddBlog> {
                                   onChanged: (value) {
                                     setState(() {
                                       VideoImg = value as String;
-                                      print("Img_gif==");
-                                      print(value);
-                                      print(VideoImg);
                                       if (VideoImg == 'gif') {
                                         isGif = true;
                                         isImage = false;
@@ -706,7 +692,6 @@ class _AddBlogState extends State<AddBlog> {
       request.fields['userImage'] = '';
     } catch (exception) {
       request.fields['userImage'] = '';
-      print('pic not selected');
     }
 
     ///for video file
@@ -730,7 +715,6 @@ class _AddBlogState extends State<AddBlog> {
         request.fields['media'] = '';
       } catch (exception) {
         request.fields['media'] = '';
-        print('pic not selected');
       }
     }
 
@@ -755,7 +739,6 @@ class _AddBlogState extends State<AddBlog> {
         request.fields['media'] = '';
       } catch (exception) {
         request.fields['media'] = '';
-        print('pic not selected');
       }
     }
 
@@ -781,7 +764,6 @@ class _AddBlogState extends State<AddBlog> {
         request.fields['media'] = '';
       } catch (exception) {
         request.fields['media'] = '';
-        print('pic not selected');
       }
     }
     //title,content,blogTypeKey,media,media_type,userImage,userName,blogs_section_color
@@ -792,8 +774,6 @@ class _AddBlogState extends State<AddBlog> {
 
     ///use it as a value of blog category -> blogs_section_color
     ///use it as a blog_type of blog category -> blogTypeKey
-    print("selectedValue!['blog_type']!   ${selectedValue!['blog_type']!}");
-    print("selectedValue!['value']!   ${selectedValue!['value']!}");
     //selectedValue!['case_study_type']!;
     // request.fields["blogs_section_color"] = blogBg_controller.text;
     request.fields["blogs_section_color"] = selectedValue!['value']!;
@@ -808,7 +788,6 @@ class _AddBlogState extends State<AddBlog> {
 
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
-      print(resp.toString());
       //String message=resp['msg'];
       int status = resp['status'];
       if (status == 1) {
@@ -838,7 +817,7 @@ class _AddBlogState extends State<AddBlog> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))
           ?.files;
@@ -869,7 +848,7 @@ class _AddBlogState extends State<AddBlog> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))
           ?.files;
@@ -900,7 +879,7 @@ class _AddBlogState extends State<AddBlog> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['gif'],
       ))
           ?.files;
@@ -939,7 +918,7 @@ class _AddBlogState extends State<AddBlog> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['mp4', 'mov', 'avi'],
       ))
           ?.files;

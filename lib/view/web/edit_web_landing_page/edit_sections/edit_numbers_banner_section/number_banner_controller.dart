@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:grobiz_web_landing/utils/http_handler/network_http.dart';
 import 'package:get/get.dart';
@@ -6,11 +5,7 @@ import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:video_player/video_player.dart';
 
-  class NumberBannerController extends GetxController{
-
-  // VideoPlayerController? media1Controller;
-  // VideoPlayerController? media2Controller;
-  // VideoPlayerController? media3Controller;
+class NumberBannerController extends GetxController {
   late VideoPlayerController media1Controller;
   late VideoPlayerController media2Controller;
   late VideoPlayerController media3Controller;
@@ -21,30 +16,24 @@ import 'package:video_player/video_player.dart';
   RxBool isMedia2Initialized = false.obs;
   RxBool isMedia3Initialized = false.obs;
 
-
   RxBool file1Switch = false.obs;
   RxBool file2Switch = false.obs;
   RxBool file3Switch = false.obs;
-
 
   ///Partner Banner Logos
 
   RxList partnerBannerLogos = [].obs;
   RxString msg = "".obs;
 
-
   getPartnerLogo() async {
     showLoadingDialog();
-    // hideLoadingDialog();
     try {
       partnerBannerLogos.clear();
-      // Get.focusScope!.unfocus();
       var response = await HttpHandler.getHttpMethod(
         url: APIString.get_number_banner,
       );
       hideLoadingDialog();
       if (response['error'] == null) {
-
         if (response['body']['status'].toString() == "1") {
           partnerBannerLogos.value = response['body']["data"];
           msg.value = response['body']["msg"];

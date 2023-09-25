@@ -1,7 +1,7 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, deprecated_member_use, avoid_web_libraries_in_flutter, implementation_imports, depend_on_referenced_packages, non_constant_identifier_names, avoid_print
+
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
@@ -9,7 +9,6 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controlle
 import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:http_parser/src/media_type.dart';
-import 'package:chewie/chewie.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:file_picker/file_picker.dart';
@@ -157,8 +156,6 @@ class _EditProjectsState extends State<EditProjects> {
                                   onChanged: (value) {
                                     setState(() {
                                       VideoImg = value as String;
-                                      print(value);
-                                      print(VideoImg);
                                       if (VideoImg == 'image') {
                                         isImage = true;
                                         isvideo = false;
@@ -185,9 +182,6 @@ class _EditProjectsState extends State<EditProjects> {
                                   onChanged: (value) {
                                     setState(() {
                                       VideoImg = value as String;
-                                      print("Img_video==");
-                                      print(value);
-                                      print(VideoImg);
                                       if (VideoImg == 'video') {
                                         isvideo = true;
                                         isImage = false;
@@ -214,9 +208,6 @@ class _EditProjectsState extends State<EditProjects> {
                                   onChanged: (value) {
                                     setState(() {
                                       VideoImg = value as String;
-                                      print("Img_gif==");
-                                      print(value);
-                                      print(VideoImg);
                                       if (VideoImg == 'gif') {
                                         isGif = true;
                                         isImage = false;
@@ -630,21 +621,21 @@ class _EditProjectsState extends State<EditProjects> {
   }
 
   Widget displayUploadedVideo() {
-    VideoPlayerController _controller = VideoPlayerController.network(
+    VideoPlayerController controller = VideoPlayerController.network(
         APIString.latestmediaBaseUrl + widget.data.appMediaFile);
     bool isVideoPlaying = false;
 
     return GestureDetector(
       onTap: () {
-        if (_controller.value.isPlaying) {
-          _controller.pause();
+        if (controller.value.isPlaying) {
+          controller.pause();
         } else {
-          _controller.play();
+          controller.play();
         }
         isVideoPlaying = !isVideoPlaying;
       },
       child: FutureBuilder(
-        future: _controller.initialize(),
+        future: controller.initialize(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return AspectRatio(
@@ -653,7 +644,7 @@ class _EditProjectsState extends State<EditProjects> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  VideoPlayer(_controller),
+                  VideoPlayer(controller),
                   if (!isVideoPlaying)
                     Icon(
                       Icons.play_circle_fill,
@@ -703,7 +694,6 @@ class _EditProjectsState extends State<EditProjects> {
         request.fields['app_media_file'] = '';
       } catch (exception) {
         request.fields['app_media_file'] = '';
-        print('pic not selected');
       }
 
       try {
@@ -725,7 +715,6 @@ class _EditProjectsState extends State<EditProjects> {
         request.fields['video_thumbnail'] = '';
       } catch (exception) {
         request.fields['video_thumbnail'] = '';
-        print('pic not selected');
       }
     }
 
@@ -750,7 +739,6 @@ class _EditProjectsState extends State<EditProjects> {
         request.fields['app_media_file'] = '';
       } catch (exception) {
         request.fields['app_media_file'] = '';
-        print('pic not selected');
       }
     }
 
@@ -776,7 +764,6 @@ class _EditProjectsState extends State<EditProjects> {
         request.fields['app_media_file'] = '';
       } catch (exception) {
         request.fields['app_media_file'] = '';
-        print('pic not selected');
       }
     }
     // app_created_auto_id,app_name,app_short_description,app_media_file, app_media_file_type
@@ -791,7 +778,6 @@ class _EditProjectsState extends State<EditProjects> {
 
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
-      print(resp.toString());
       //String message=resp['msg'];
       int status = resp['status'];
       if (status == 1) {

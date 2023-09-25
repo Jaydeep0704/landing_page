@@ -1,13 +1,12 @@
 
+// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables, use_build_context_synchronously, implementation_imports, depend_on_referenced_packages, avoid_web_libraries_in_flutter
+
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'package:http_parser/src/media_type.dart';
-import 'package:chewie/chewie.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:file_picker/file_picker.dart';
@@ -25,7 +24,7 @@ import '../../../../../widget/loading_dialog.dart';
 import '../../../edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'edit_testimonalScreen.dart';
 
-class UpdateTestiMonal extends StatefulWidget {
+class UpdateTestimonial extends StatefulWidget {
   final String id;
   final String name;
   final String companyName;
@@ -36,15 +35,15 @@ class UpdateTestiMonal extends StatefulWidget {
   final String bannerfile;
   final String profilimg;
   final String bannerfiletype;
-  UpdateTestiMonal({Key? key,required this.id,required this.name,required this.description,required this.position,
+  const UpdateTestimonial({Key? key,required this.id,required this.name,required this.description,required this.position,
   required this.companyName,required this.medialink,required this.mediatype,required this.profilimg
     ,required this.bannerfiletype,required this.bannerfile}) : super(key: key);
   // EditCheckOutInfo({Key? key,required this.data}) : super(key: key);
   @override
-  State<UpdateTestiMonal> createState() => _UpdateTestiMonalState();
+  State<UpdateTestimonial> createState() => _UpdateTestimonialState();
 }
 
-class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
+class _UpdateTestimonialState extends State<UpdateTestimonial> {
 
   ///for Profile image file
   List<PlatformFile>? Profilepaths;
@@ -79,7 +78,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
   TextEditingController companyname_controller = TextEditingController();
   TextEditingController Description_controller = TextEditingController();
   TextEditingController position_controller = TextEditingController();
-  final testimonalcontroller = Get.find<EditTestimonalController>();
+  final testimonalcontroller = Get.find<EditTestimonialController>();
   final editController = Get.find<EditController>();
   bool isApiProcessing = false;
   String VideoImg="";
@@ -150,14 +149,14 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            title: Text("Update Testimonal",
+            title: const Text("Update Testimonal",
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold)),
             leading: IconButton(
               onPressed: () => {Navigator.of(context).pop()},
-              icon: Icon(Icons.arrow_back, color: Colors.black),
+              icon: const Icon(Icons.arrow_back, color: Colors.black),
             ),
           ),
           body: Padding(
@@ -165,7 +164,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
             child: SingleChildScrollView(
               child: Row(
                   children:[
-                    Expanded(
+                    const Expanded(
                         child:
                         SizedBox()
                     ),
@@ -174,8 +173,8 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Center(child: Text("Select Profile Image",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
-                            SizedBox(height: 20,),
+                            const Center(child: Text("Select Profile Image",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
+                            const SizedBox(height: 20,),
                             Center(
                               child: InkWell(
                                 onTap: (){
@@ -226,7 +225,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                               height: MediaQuery.of(context).size.height * 0.02,
                             ),
                             const Text("Enter User Name",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             TextFormField(
                               controller: username_controller,
@@ -257,20 +256,20 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                   )
                               ),
                             ),
-                            SizedBox(height: 10,),
-                            Divider(
+                            const SizedBox(height: 10,),
+                            const Divider(
                               color: Colors.grey,
                               thickness: 0.3,
                             ),
                             const Text("Enter Media Type",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             Row(
                               children: <Widget>[
                                 Expanded(
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text(
+                                    title: const Text(
                                       'YouthTube',
                                       style: TextStyle(fontSize: 16),
                                     ),
@@ -281,8 +280,8 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                       onChanged: (value) {
                                         setState(() {
                                           mediatype = value as String;
-                                          print(value);
-                                          print(mediatype);
+                                          log(value);
+                                          log(mediatype);
                                           if (mediatype == 'youthtube') {
                                             youthubetype=true;
                                             banertype=false;
@@ -298,7 +297,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                 Expanded(
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text(
+                                    title: const Text(
                                       'Normal',
                                       style: TextStyle(fontSize: 16),
                                     ),
@@ -309,9 +308,9 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                       onChanged: (value) {
                                         setState(() {
                                           mediatype = value as String;
-                                          print("Img_video==");
-                                          print(value);
-                                          print(mediatype);
+                                          log("Img_video==");
+                                          log(value);
+                                          log(mediatype);
                                           if (mediatype == 'normal') {
                                             banertype=true;
                                             youthubetype=false;
@@ -328,12 +327,12 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
 
                               ],
                             ),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             Visibility(
                                 visible:youthubetype == true ? true : false,
                                 child: const Text("Enter Media Link",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             Visibility(
                               visible:youthubetype == true ? true : false,
@@ -367,13 +366,13 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10,),
-                            Divider(
+                            const SizedBox(height: 10,),
+                            const Divider(
                               color: Colors.grey,
                               thickness: 0.3,
                             ),
                             const Text("Enter Company Name",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             TextFormField(
                               controller: companyname_controller,
@@ -404,13 +403,13 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                   )
                               ),
                             ),
-                            SizedBox(height: 10,),
-                            Divider(
+                            const SizedBox(height: 10,),
+                            const Divider(
                               color: Colors.grey,
                               thickness: 0.3,
                             ),
                             const Text("Enter Description",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             TextFormField(
                               controller: Description_controller,
@@ -442,13 +441,13 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                   )
                               ),
                             ),
-                            SizedBox(height: 10,),
-                            Divider(
+                            const SizedBox(height: 10,),
+                            const Divider(
                               color: Colors.grey,
                               thickness: 0.3,
                             ),
                             const Text("Enter Job Position",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             TextFormField(
                               controller: position_controller,
@@ -479,14 +478,14 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                   )
                               ),
                             ),
-                            SizedBox(height: 10,),
-                            Divider(
+                            const SizedBox(height: 10,),
+                            const Divider(
                               color: Colors.grey,
                               thickness: 0.3,
                             ),
                             Visibility(
                                 visible:banertype == true ? true : false,
-                                child: Center(child: Text("Select Banner Media type",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),))),
+                                child: const Center(child: Text("Select Banner Media type",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),))),
 
                             Visibility(
                               visible:banertype == true ? true : false,
@@ -495,7 +494,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                   Expanded(
                                     child: ListTile(
                                       contentPadding: EdgeInsets.zero,
-                                      title: Text(
+                                      title: const Text(
                                         'Image',
                                         style: TextStyle(fontSize: 16),
                                       ),
@@ -506,8 +505,8 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                         onChanged: (value) {
                                           setState(() {
                                             VideoImg = value as String;
-                                            print(value);
-                                            print(VideoImg);
+                                            log(value);
+                                            log(VideoImg);
                                             if (VideoImg == 'image') {
                                               isImage = true;
                                               isvideo = false;
@@ -523,7 +522,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                   Expanded(
                                     child: ListTile(
                                       contentPadding: EdgeInsets.zero,
-                                      title: Text(
+                                      title: const Text(
                                         'Video',
                                         style: TextStyle(fontSize: 16),
                                       ),
@@ -534,9 +533,9 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                         onChanged: (value) {
                                           setState(() {
                                             VideoImg = value as String;
-                                            print("Img_video==");
-                                            print(value);
-                                            print(VideoImg);
+                                            log("Img_video==");
+                                            log(value);
+                                            log(VideoImg);
                                             if (VideoImg == 'video') {
                                               isvideo = true;
                                               isImage = false;
@@ -552,7 +551,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                   Expanded(
                                     child: ListTile(
                                       contentPadding: EdgeInsets.zero,
-                                      title: Text(
+                                      title: const Text(
                                         'GIF',
                                         style: TextStyle(fontSize: 16),
                                       ),
@@ -563,9 +562,9 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                         onChanged: (value) {
                                           setState(() {
                                             VideoImg = value as String;
-                                            print("Img_gif==");
-                                            print(value);
-                                            print(VideoImg);
+                                            log("Img_gif==");
+                                            log(value);
+                                            log(VideoImg);
                                             if (VideoImg == 'gif') {
                                               isGif = true;
                                               isImage = false;
@@ -581,7 +580,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             Visibility(
                                 visible:isImage == true ? true : false,
                                 child:
@@ -742,7 +741,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                             ),
 
 
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
 
 
 
@@ -750,7 +749,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
 
 
                             Container(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               color: Colors.white,
                               child: isApiProcessing == true
                                   ? Container(
@@ -771,7 +770,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                                     color: Colors.blueAccent,
                                   ),
                                   height: 40,
-                                  padding: EdgeInsets.all(4),
+                                  padding: const EdgeInsets.all(4),
                                   alignment: Alignment.center,
                                   child: const Text(
                                     "Update",
@@ -786,7 +785,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
                           ]
                       ),
                     ),
-                    Expanded(
+                    const Expanded(
                         child:
                         SizedBox()
                     ),
@@ -816,7 +815,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
   Future<void> _createVideo(Uint8List bytes) async {
     final blob = html.Blob([bytes]);
     final url = html.Url.createObjectUrlFromBlob(blob);
-    _controller = VideoPlayerController.network(url);
+    _controller = VideoPlayerController.networkUrl(Uri.parse(url));
     await _controller?.initialize();
     setState(() {});
   }
@@ -831,7 +830,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['mp4', 'mov', 'avi'],
       ))?.files;
       videopathsFile = videopaths!.first.bytes!;
@@ -856,20 +855,20 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
   }
 
   Widget displayUploadedVideo() {
-    VideoPlayerController _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+widget.bannerfile);
+    VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+widget.bannerfile));
     bool isVideoPlaying = false;
 
     return GestureDetector(
       onTap: () {
-        if (_controller.value.isPlaying) {
-          _controller.pause();
+        if (controller.value.isPlaying) {
+          controller.pause();
         } else {
-          _controller.play();
+          controller.play();
         }
         isVideoPlaying = !isVideoPlaying;
       },
       child: FutureBuilder(
-        future: _controller.initialize(),
+        future: controller.initialize(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return AspectRatio(
@@ -878,7 +877,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  VideoPlayer(_controller),
+                  VideoPlayer(controller),
                   if (!isVideoPlaying)
                     Icon(
                       Icons.play_circle_fill,
@@ -929,7 +928,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
       request.fields['user_image'] = '';
     } catch (exception) {
       request.fields['user_image'] = '';
-      print('pic not selected');
+      log('pic not selected');
     }
 
     ///for video file
@@ -955,7 +954,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
         request.fields['banner'] = '';
       } catch (exception) {
         request.fields['banner'] = '';
-        print('pic not selected');
+        log('pic not selected');
       }
 
     }
@@ -981,7 +980,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
         request.fields['banner'] = '';
       } catch (exception) {
         request.fields['banner'] = '';
-        print('pic not selected');
+        log('pic not selected');
       }
 
     }
@@ -1009,7 +1008,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
         request.fields['banner'] = '';
       } catch (exception) {
         request.fields['banner'] = '';
-        print('pic not selected');
+        log('pic not selected');
       }
     }
     // testimonial_auto_id,user_image,user_name,media_link,media_type,
@@ -1028,13 +1027,13 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
     if (response.statusCode == 200) {
 
       final resp=jsonDecode(response.body);
-      print(resp.toString());
+      log(resp.toString());
       //String message=resp['msg'];
       int status=resp['status'];
       if(status==1){
         Fluttertoast.showToast(msg: " successfully updated", backgroundColor: Colors.grey,);
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => EditTestimonalScreenList()));
+            MaterialPageRoute(builder: (context) => const EditTestimonalScreenList()));
 
       }
       else{
@@ -1054,7 +1053,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))?.files;
 
@@ -1086,7 +1085,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['gif'],
       ))?.files;
 
@@ -1182,7 +1181,7 @@ class _UpdateTestiMonalState extends State<UpdateTestiMonal> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))?.files;
 

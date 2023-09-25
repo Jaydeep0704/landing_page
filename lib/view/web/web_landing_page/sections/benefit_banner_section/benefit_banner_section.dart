@@ -251,18 +251,18 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                         ),
                         const SizedBox(height: 25),
                         Obx(() {
-                          if (benefitBannerController.DataList.isNotEmpty) {
+                          if (benefitBannerController.dataList.isNotEmpty) {
                             return
                               SizedBox(
                                   // height: 600,
-                                  height: benefitBannerController.DataList.length <3?450:600,
+                                  height: benefitBannerController.dataList.length <3?450:600,
                                   child:
                                   ListView.builder(
                                     scrollDirection: Axis.vertical,
                                     reverse: false,
-                                    itemCount: benefitBannerController.DataList.length,
+                                    itemCount: benefitBannerController.dataList.length,
                                     itemBuilder: (context, index) {
-                                      var data = benefitBannerController.DataList[index];
+                                      var data = benefitBannerController.dataList[index];
                                       var boolValue = benefitBannerController.bannerInfoReadMore[index];
                                       return Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -525,19 +525,19 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                   const SizedBox(height: 25),
                   ///here need to change
                   Obx(() {
-                    if (benefitBannerController.DataList.isNotEmpty) {
+                    if (benefitBannerController.dataList.isNotEmpty) {
                       return
                         SizedBox(
                             // height: 400,
-                            height: benefitBannerController.DataList.length < 3? 300:500,
+                            height: benefitBannerController.dataList.length < 3? 300:500,
                             width: Get.width > 650 ? 600: Get.width,
                             child:
                             ListView.builder(
                               scrollDirection: Axis.vertical,
-                              itemCount: benefitBannerController.DataList.length,
+                              itemCount: benefitBannerController.dataList.length,
                               reverse: false,
                               itemBuilder: (context, index) {
-                                var data = benefitBannerController.DataList[index];
+                                var data = benefitBannerController.dataList[index];
                                 var boolValue = benefitBannerController.bannerInfoReadMore[index];
                                 return Container(
                                       width: Get.width > 650 ? 600: Get.width,

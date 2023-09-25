@@ -1,8 +1,7 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables, implementation_imports, avoid_web_libraries_in_flutter, non_constant_identifier_names, depend_on_referenced_packages
 
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
@@ -88,7 +87,7 @@ class _EditBlogState extends State<EditBlog> {
   TextEditingController content_controller = TextEditingController();
   TextEditingController BlogType_controller = TextEditingController();
   TextEditingController color_controller = TextEditingController();
-  final testimonalcontroller = Get.find<EditTestimonalController>();
+  final testimonalcontroller = Get.find<EditTestimonialController>();
   final editController = Get.find<EditController>();
   bool isApiProcessing = false;
   String VideoImg = "";
@@ -114,16 +113,16 @@ class _EditBlogState extends State<EditBlog> {
 
   getData() {
     Future.delayed(
-      Duration(microseconds: 50),
+      const Duration(microseconds: 50),
       () => blogCategoriesController.geBlogCategory().whenComplete(() {
-        print("-=-=-=-=");
+        log("-=-=-=-=");
 
         List<Map<String, String>> data = blogCategoriesController
             .blogsCategories
             .where((p0) => p0["id"] == widget.blogCatagoryId)
             .toList();
         selectedValue = data[0];
-        print("selectedValue loaded   $selectedValue");
+        log("selectedValue loaded   $selectedValue");
       }),
     );
   }
@@ -254,7 +253,7 @@ class _EditBlogState extends State<EditBlog> {
                         Obx(() {
                           return blogCategoriesController
                                   .blogsCategories.isEmpty
-                              ? Text("Please Wait while Categories Load")
+                              ? const Text("Please Wait while Categories Load")
                               : DropdownButtonFormField<Map<String, String>>(
                                   decoration: const InputDecoration(
                                     // labelText: 'Select an item',
@@ -288,33 +287,6 @@ class _EditBlogState extends State<EditBlog> {
                                 );
                         }),
 
-                        // DropdownButtonFormField<Map<String, String>>(
-                        //   decoration: const InputDecoration(
-                        //     // labelText: 'Select an item',
-                        //     hintText: "Select an item",
-                        //     border: OutlineInputBorder(
-                        //       borderRadius:
-                        //           BorderRadius.all(Radius.circular(10)),
-                        //     ), // Use OutlineInputBorder for outlined border
-                        //   ),
-                        //   isExpanded: true,
-                        //   value: selectedValue,
-                        //   onChanged: (newValue) {
-                        //     setState(() {
-                        //       selectedValue = newValue;
-                        //       FocusScope.of(context).unfocus();
-                        //     });
-                        //   },
-                        //   items: dropdownItems
-                        //       .map<DropdownMenuItem<Map<String, String>>>(
-                        //           (Map<String, String> item) {
-                        //     return DropdownMenuItem<Map<String, String>>(
-                        //       value: item,
-                        //       child: Text(
-                        //           "${item['blog_type']} - ${item['value']}"),
-                        //     );
-                        //   }).toList(),
-                        // ),
                         const SizedBox(
                           height: 20,
                         ),
@@ -534,8 +506,8 @@ class _EditBlogState extends State<EditBlog> {
                                   onChanged: (value) {
                                     setState(() {
                                       VideoImg = value as String;
-                                      print(value);
-                                      print(VideoImg);
+                                      log(value);
+                                      log(VideoImg);
                                       if (VideoImg == 'image') {
                                         isImage = true;
                                         isvideo = false;
@@ -562,9 +534,9 @@ class _EditBlogState extends State<EditBlog> {
                                   onChanged: (value) {
                                     setState(() {
                                       VideoImg = value as String;
-                                      print("Img_video==");
-                                      print(value);
-                                      print(VideoImg);
+                                      log("Img_video==");
+                                      log(value);
+                                      log(VideoImg);
                                       if (VideoImg == 'video') {
                                         isvideo = true;
                                         isImage = false;
@@ -591,9 +563,9 @@ class _EditBlogState extends State<EditBlog> {
                                   onChanged: (value) {
                                     setState(() {
                                       VideoImg = value as String;
-                                      print("Img_gif==");
-                                      print(value);
-                                      print(VideoImg);
+                                      log("Img_gif==");
+                                      log(value);
+                                      log(VideoImg);
                                       if (VideoImg == 'gif') {
                                         isGif = true;
                                         isImage = false;
@@ -825,7 +797,7 @@ class _EditBlogState extends State<EditBlog> {
   Future<void> _createVideo(Uint8List bytes) async {
     final blob = html.Blob([bytes]);
     final url = html.Url.createObjectUrlFromBlob(blob);
-    _controller = VideoPlayerController.network(url);
+    _controller = VideoPlayerController.networkUrl(Uri.parse(url));
     await _controller?.initialize();
     setState(() {});
   }
@@ -836,7 +808,7 @@ class _EditBlogState extends State<EditBlog> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['mp4', 'mov', 'avi'],
       ))
           ?.files;
@@ -861,21 +833,21 @@ class _EditBlogState extends State<EditBlog> {
   }
 
   Widget displayUploadedVideo() {
-    VideoPlayerController _controller = VideoPlayerController.network(
-        APIString.latestmediaBaseUrl + widget.media);
+    VideoPlayerController vController = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.latestmediaBaseUrl + widget.media));
     bool isVideoPlaying = false;
 
     return GestureDetector(
       onTap: () {
-        if (_controller.value.isPlaying) {
-          _controller.pause();
+        if (vController.value.isPlaying) {
+          vController.pause();
         } else {
-          _controller.play();
+          vController.play();
         }
         isVideoPlaying = !isVideoPlaying;
       },
       child: FutureBuilder(
-        future: _controller.initialize(),
+        future: vController.initialize(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return AspectRatio(
@@ -884,7 +856,7 @@ class _EditBlogState extends State<EditBlog> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  VideoPlayer(_controller),
+                  VideoPlayer(vController),
                   if (!isVideoPlaying)
                     Icon(
                       Icons.play_circle_fill,
@@ -912,7 +884,7 @@ class _EditBlogState extends State<EditBlog> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))
           ?.files;
@@ -943,7 +915,7 @@ class _EditBlogState extends State<EditBlog> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['gif'],
       ))
           ?.files;
@@ -974,7 +946,7 @@ class _EditBlogState extends State<EditBlog> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))
           ?.files;
@@ -1083,7 +1055,7 @@ class _EditBlogState extends State<EditBlog> {
       request.fields['userImage'] = '';
     } catch (exception) {
       request.fields['userImage'] = '';
-      print('pic not selected');
+      log('pic not selected');
     }
 
     ///for video file
@@ -1107,7 +1079,7 @@ class _EditBlogState extends State<EditBlog> {
         request.fields['media'] = '';
       } catch (exception) {
         request.fields['media'] = '';
-        print('pic not selected');
+        log('pic not selected');
       }
     }
 
@@ -1132,7 +1104,7 @@ class _EditBlogState extends State<EditBlog> {
         request.fields['media'] = '';
       } catch (exception) {
         request.fields['media'] = '';
-        print('pic not selected');
+        log('pic not selected');
       }
     }
 
@@ -1158,7 +1130,7 @@ class _EditBlogState extends State<EditBlog> {
         request.fields['media'] = '';
       } catch (exception) {
         request.fields['media'] = '';
-        print('pic not selected');
+        log('pic not selected');
       }
     }
     // blog_auto_id,title,content,blogTypeKey,
@@ -1173,8 +1145,8 @@ class _EditBlogState extends State<EditBlog> {
     ///use it as a value of blog category -> blogs_section_color
     ///use it as a blog_type of blog category -> blogTypeKey
 
-    print("selectedValue!['id']!   ${selectedValue!['id']!}");
-    print("selectedValue!['blog_type']!   ${selectedValue!['blog_type']!}");
+    log("selectedValue!['id']!   ${selectedValue!['id']!}");
+    log("selectedValue!['blog_type']!   ${selectedValue!['blog_type']!}");
 
     //selectedValue!['blog_type']!;
     // request.fields["blogs_section_color"] = color_controller.text;
@@ -1189,7 +1161,7 @@ class _EditBlogState extends State<EditBlog> {
 
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
-      print(resp.toString());
+      log(resp.toString());
       //String message=resp['msg'];
       int status = resp['status'];
       if (status == 1) {

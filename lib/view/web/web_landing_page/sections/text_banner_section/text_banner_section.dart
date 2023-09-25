@@ -1,15 +1,15 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
-import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/app_string.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/widget/common_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class TextBannerSection extends StatefulWidget {
   const TextBannerSection({Key? key}) : super(key: key);

@@ -22,7 +22,6 @@ import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
 import 'package:grobiz_web_landing/widget/glassmorphic_container.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 class EditShowcaseAppsSection extends StatefulWidget {
@@ -918,7 +917,7 @@ class _EditShowcaseAppsSectionState extends State<EditShowcaseAppsSection> {
   }
 
   Widget displayUploadedVideo(String videoUrl) {
-    VideoPlayerController _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+videoUrl);
+    VideoPlayerController _controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+videoUrl));
     bool isVideoPlaying = false;
 
     // final double videoAspectRatio = /*_controller.value.aspectRatio > 0 ? _controller.value.aspectRatio :*/ 16 / 9;

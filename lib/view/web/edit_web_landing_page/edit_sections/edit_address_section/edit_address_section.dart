@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -52,7 +54,7 @@ class _EditAddressSectionState extends State<EditAddressSection> {
                           onChanged: (value) {
                             setState(() {
                               editController.addressSection.value = value;
-                              print("value ---- $value");
+                              log("value ---- $value");
                               editController.showHideComponent(
                                   value: value == false ? "No" : "Yes",
                                   componentName: "address_section");
@@ -74,7 +76,7 @@ class _EditAddressSectionState extends State<EditAddressSection> {
     );
   }
 
-  ///Addrss section - vertical
+  ///Address section - vertical
   verticalInfo() {
     return Padding(
       padding: const EdgeInsets.only(left: 25, right: 15),
@@ -161,7 +163,7 @@ class _EditAddressSectionState extends State<EditAddressSection> {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.to(() => PrivacyPolicy())!.whenComplete(
+                        Get.to(() => const PrivacyPolicy())!.whenComplete(
                             () => Future.delayed(Duration.zero, () {
                                   webLandingPageController.getUserCount();
                                 }));
@@ -278,7 +280,7 @@ class _EditAddressSectionState extends State<EditAddressSection> {
                         });
                       },
                     ),
-                    Container(
+                    SizedBox(
                       width: 450,
                       child: RichText(
                         text: TextSpan(
@@ -351,7 +353,7 @@ class _EditAddressSectionState extends State<EditAddressSection> {
                         ),
                         InkWell(
                           onTap: () {
-                            Get.to(() => PrivacyPolicy())!.whenComplete(
+                            Get.to(() => const PrivacyPolicy())!.whenComplete(
                                 () => Future.delayed(Duration.zero, () {
                                       webLandingPageController.getUserCount();
                                     }));

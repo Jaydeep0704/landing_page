@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables, implementation_imports, depend_on_referenced_packages
 
 import 'dart:convert';
 import 'dart:developer';
@@ -37,7 +37,6 @@ class UpdateMediaFunction extends StatefulWidget {
 class _UpdateMediaFunctionState extends State<UpdateMediaFunction> {
   EditController editController = Get.find<EditController>();
 
-
   List<PlatformFile>? paths;
   var pathsFile;
   var pathsFileName;
@@ -58,9 +57,7 @@ class _UpdateMediaFunctionState extends State<UpdateMediaFunction> {
           child: Container(
             height: 300,
             width: 400,
-            decoration: const BoxDecoration(
-                color: AppColors.whiteColor
-            ),
+            decoration: const BoxDecoration(color: AppColors.whiteColor),
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -91,14 +88,14 @@ class _UpdateMediaFunctionState extends State<UpdateMediaFunction> {
                   },
                 ),
                 const SizedBox(height: 15),
-                widget.imageSize == null ?const SizedBox():Text("media size : height*width - ${widget.imageSize}"),
-                SizedBox(height : widget.imageSize == null ?0:10),
+                widget.imageSize == null
+                    ? const SizedBox()
+                    : Text("media size : height*width - ${widget.imageSize}"),
+                SizedBox(height: widget.imageSize == null ? 0 : 10),
                 const SizedBox(height: 15),
-
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-
                       TextButton(
                         child: const Text('Save'),
                         onPressed: () async {
@@ -114,8 +111,7 @@ class _UpdateMediaFunctionState extends State<UpdateMediaFunction> {
                           Navigator.of(context).pop();
                         },
                       ),
-                    ]
-                )
+                    ])
               ],
             ),
           ),
@@ -125,7 +121,7 @@ class _UpdateMediaFunctionState extends State<UpdateMediaFunction> {
   }
 
   void pickFiles() async {
-    showLoadingDialog(loader: false,loadingText: true,delay: true);
+    showLoadingDialog(loader: false, loadingText: true, delay: true);
     log("came from ---- ${editController.mediaType.value}");
     Navigator.of(context).pop(false);
     List<String> allowedExtensions = [];
@@ -136,17 +132,16 @@ class _UpdateMediaFunctionState extends State<UpdateMediaFunction> {
     } else if (editController.mediaType.value == 'video') {
       allowedExtensions = ['mp4', 'mov', 'avi'];
     } else if (editController.mediaType.value == 'gif') {
-      allowedExtensions = ['jpg', 'jpeg', 'png','gif'];
+      allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
     }
     try {
-      paths = (
-          await FilePicker.platform.pickFiles(
+      paths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: allowedExtensions,
-      ))?.files;
+      ))
+          ?.files;
       hideLoadingDialog();
       pathsFile = paths!.first.bytes!;
       pathsFileName = paths!.first.name;
@@ -157,7 +152,6 @@ class _UpdateMediaFunctionState extends State<UpdateMediaFunction> {
       log("_paths!.first.name   $pathsFileName --  ${paths!.first.name}");
       log("selected image is ----------> $paths");
       updateData();
-
     } on PlatformException catch (e) {
       log('Unsupported operation   $e');
     } catch (e) {
@@ -206,10 +200,12 @@ class _UpdateMediaFunctionState extends State<UpdateMediaFunction> {
       log('pic not selected');
     }
     request.fields["user_auto_id"] = APIString.userAutoId;
-    request.fields[widget.keyMediaType.toString()] = editController.mediaType.value;
+    request.fields[widget.keyMediaType.toString()] =
+        editController.mediaType.value;
     // request.fields[widget.keyMediaType.toString()] = widget.mediaType.toString();
 
-    http.Response response = await http.Response.fromStream(await request.send());
+    http.Response response =
+        await http.Response.fromStream(await request.send());
 
     log("update response$response");
     final d = jsonDecode(response.body);
@@ -226,7 +222,7 @@ class _UpdateMediaFunctionState extends State<UpdateMediaFunction> {
       debugPrint(resp.toString());
 
       int status = resp['status'];
-      log("status for uploading ---> ${status}");
+      log("status for uploading ---> $status");
       log("msg for uploading ---> ${resp['msg']}");
       if (status == 1) {
         log("inside status  ---- 1");

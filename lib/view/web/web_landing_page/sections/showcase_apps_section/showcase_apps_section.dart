@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'dart:html' as html;
 import 'dart:developer';
 
@@ -18,7 +20,6 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:grobiz_web_landing/widget/glassmorphic_container.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 
@@ -635,7 +636,6 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
     VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+videoUrl));
     bool isVideoPlaying = false;
 
-    final double videoAspectRatio = /*_controller.value.aspectRatio > 0 ? _controller.value.aspectRatio :*/ 16 / 9;
 
     return InkWell(
       onTap: () {

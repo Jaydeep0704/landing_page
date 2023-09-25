@@ -1,9 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
 import 'package:grobiz_web_landing/widget/common_bg_color_pick.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:grobiz_web_landing/config/app_string.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,6 @@ import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_
 import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
-
 import '../../../../../config/api_string.dart';
 import '../../../../../widget/update_media_component.dart';
 import '../../edit_controller/edit_controller.dart';
@@ -85,7 +85,6 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                               onChanged: (value) {
                                 setState(() {
                                   editController.benefitBanner.value = value;
-                                  print("value ---- $value");
                                   editController.showHideComponent(
                                       value: value == false
                                           ? "No"
@@ -222,7 +221,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                       ClipRRect(
                                         borderRadius:
                                         const BorderRadius.all(Radius.circular(10)),
-                                        child: Container(
+                                        child: SizedBox(
                                             height: Get.width > 1000 ? 700 : 400,
                                             // width: Get.width > 1000 ? 415 : 275,
                                             width: Get.width > 1000 ? 700 : 400,
@@ -386,18 +385,18 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                               ),
                             ),
                             Obx(() {
-                              if (benefitBannerController.DataList.isNotEmpty) {
+                              if (benefitBannerController.dataList.isNotEmpty) {
                                 return
-                                  Container(
+                                  SizedBox(
                                       // height: 450,
-                                      height: benefitBannerController.DataList.length <3?450:600,
+                                      height: benefitBannerController.dataList.length <3?450:600,
                                       child:
                                       ListView.builder(
                                         scrollDirection: Axis.vertical,
                                         reverse: false,
-                                        itemCount: benefitBannerController.DataList.length,
+                                        itemCount: benefitBannerController.dataList.length,
                                         itemBuilder: (context, index) {
-                                          var data = benefitBannerController.DataList[index];
+                                          var data = benefitBannerController.dataList[index];
                                           var boolValue = benefitBannerController.bannerInfoReadMore[index];
 
                                           return Column(
@@ -453,7 +452,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                                 ),
                                               ),
                                               // SizedBox(height: Get.width * 0.02),
-                                              SizedBox(height: 10),Divider(
+                                              const SizedBox(height: 10),Divider(
                                                 thickness: 0.8,
                                                 color: AppColors.blackColor.withOpacity(0.5),
                                               ),
@@ -505,7 +504,6 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                             onChanged: (value) {
                               setState(() {
                                 editController.benefitBanner.value = value;
-                                print("value ---- $value");
                                 editController.showHideComponent(
                                     value: value == false
                                         ? "No"
@@ -627,7 +625,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                             child: ClipRRect(
                               borderRadius:
                               const BorderRadius.all(Radius.circular(10)),
-                              child: Container(
+                              child: SizedBox(
 
                                   height: Get.width > 1000 ? 700 : 400,
                                   width: Get.width > 1000 ? 700 : 400,
@@ -795,17 +793,17 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                     ),
                   ),
                   Obx(() {
-                    if (benefitBannerController.DataList.isNotEmpty) {
+                    if (benefitBannerController.dataList.isNotEmpty) {
                       return
-                        Container(
-                            height: benefitBannerController.DataList.length <3? 300:500,
+                        SizedBox(
+                            height: benefitBannerController.dataList.length <3? 300:500,
                             child:
                             ListView.builder(
                               scrollDirection: Axis.vertical,
                               reverse: false,
-                              itemCount: benefitBannerController.DataList.length,
+                              itemCount: benefitBannerController.dataList.length,
                               itemBuilder: (context, index) {
-                                var data = benefitBannerController.DataList[index];
+                                var data = benefitBannerController.dataList[index];
                                 var boolValue = benefitBannerController.bannerInfoReadMore[index];
 
                                 return Column(
@@ -857,7 +855,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                       ),
                                     ),
                                     // SizedBox(height: Get.width * 0.02),
-                                    SizedBox(height: 10),Divider(
+                                    const SizedBox(height: 10),Divider(
                                       thickness: 0.8,
                                       color: AppColors.blackColor.withOpacity(0.5),
                                     ),

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, avoid_print, non_constant_identifier_names
+// ignore_for_file: must_be_immutable, avoid_print, non_constant_identifier_names, file_names
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';

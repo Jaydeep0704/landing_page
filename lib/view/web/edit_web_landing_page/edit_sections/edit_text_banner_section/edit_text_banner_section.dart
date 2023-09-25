@@ -1,18 +1,16 @@
+import 'dart:developer';
 import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
-import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/app_string.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/widget/common_bg_color_pick.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../edit_controller/edit_controller.dart';
 
 
@@ -81,7 +79,7 @@ class _EditTextBannerSectionState extends State<EditTextBannerSection> {
                           onChanged: (value) {
                             setState(() {
                               editController.textBanner.value = value;
-                              print("value ---- $value");
+                              log("value ---- $value");
                               editController.showHideComponent(
                                   value: value == false
                                       ? "No"

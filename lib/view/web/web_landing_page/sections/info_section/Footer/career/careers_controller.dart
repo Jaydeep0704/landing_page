@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports, depend_on_referenced_packages
+
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/foundation.dart';
@@ -106,12 +108,10 @@ class CareersController extends GetxController{
         showSnackbar(title: "", message: "Sent successfully");
         emailController.clear();
         descController.clear();
-        RxString selectedOption = 'Select Designations'.obs;
+        selectedOption.value = 'Select Designations';
 
-        // Get.back();
       } else {
         log("step --------  14");
-        // numberBannerController.getPartnerLogo();
         String message = resp['msg'];
         log(message);
       }

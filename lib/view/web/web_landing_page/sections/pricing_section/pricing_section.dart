@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -300,11 +302,11 @@ class _PricingSectionState extends State<PricingSection> {
                     // color: Colors.yellowAccent,
                     height: 750,
                     child: Obx(() {
-                      return pricingScreenController.plansList.isEmpty ?SizedBox(): Scrollbar(
+                      return pricingScreenController.plansList.isEmpty ?const SizedBox(): Scrollbar(
                         controller: scrollController,
                         thickness: 10,
                         // controller: ScrollController(),
-                        isAlwaysShown: true,
+                        thumbVisibility: true,
                         child: ListView.builder(
                             controller: scrollController,
                             // shrinkWrap: true,
@@ -709,7 +711,7 @@ class _PricingSectionState extends State<PricingSection> {
                         ],
                       )),
                 ),
-                pricingScreenController.plansSHowHidBoolList[i!] == true
+                pricingScreenController.plansSHowHidBoolList[i] == true
                     ? GestureDetector(
                   onTap: () =>
                   {
@@ -782,7 +784,6 @@ class _PricingSectionState extends State<PricingSection> {
             child: data["plan_name"] == "Enterprise"
               ? GestureDetector(
             onTap: () {
-              print("here here...");
               //openwhatsapp();
               Get.dialog(purchaseDialog(isPurchaseButton: false));
             },

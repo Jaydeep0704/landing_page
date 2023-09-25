@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/utils/http_handler/network_http.dart';
-import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/related_blog/types/blog_category_controller.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 
 class CSCategoriesController extends GetxController {
@@ -151,7 +150,7 @@ class CSCategoriesController extends GetxController {
           caseStudyCategories.value =
               csConvertToMapList(response['body']['case_study_types']);
 
-          print(" caseStudyCategories.value    ${caseStudyCategories.value}");
+          print(" caseStudyCategories.value    $caseStudyCategories");
         }
       } else if (response['error'] != null) {
         // hideLoadingDialog();

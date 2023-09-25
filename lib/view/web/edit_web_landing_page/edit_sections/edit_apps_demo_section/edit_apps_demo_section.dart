@@ -98,7 +98,6 @@ class _EditAppsDemoSectionState extends State<EditAppsDemoSection> {
                           onChanged: (value) {
                             setState(() {
                               editController.appsDemo.value = value;
-                              print("value ---- $value");
                               editController.showHideComponent(
                                   value: value == false
                                       ? "No"
@@ -261,7 +260,7 @@ class _EditAppsDemoSectionState extends State<EditAppsDemoSection> {
                     children: [
 
                       Obx(() {
-                        return getLatestProject.getProjectList.isEmpty ?SizedBox(): CarouselSlider.builder(
+                        return getLatestProject.getProjectList.isEmpty ?const SizedBox(): CarouselSlider.builder(
                           carouselController: landingPageController
                               .appDetailsController,
                           options: CarouselOptions(
@@ -327,7 +326,7 @@ class _EditAppsDemoSectionState extends State<EditAppsDemoSection> {
                                     },
                                     animatedTexts: [
                                       TypewriterAnimatedText(
-                                        "${a.appName}",
+                                        a.appName,
                                         textAlign: TextAlign.center,
 
                                         textStyle: GoogleFonts.getFont(
@@ -391,7 +390,7 @@ class _EditAppsDemoSectionState extends State<EditAppsDemoSection> {
                                     repeatForever: false,
                                     animatedTexts: [
                                       TypewriterAnimatedText(
-                                        "${a.appShortDescription}",
+                                        a.appShortDescription,
                                         textAlign: TextAlign.center,
                                         // textStyle: AppTextStyle.regular300.copyWith(color: AppColors.whiteColor, fontSize: 14),
                                         textStyle: GoogleFonts.getFont(
@@ -480,7 +479,7 @@ class _EditAppsDemoSectionState extends State<EditAppsDemoSection> {
                                   )
                                       : FittedBox(
                                     fit: BoxFit.scaleDown,
-                                    child: Container(
+                                    child: SizedBox(
                                       height: 450,
                                       width: 250,
                                       child: Center(
@@ -586,8 +585,8 @@ class _EditAppsDemoSectionState extends State<EditAppsDemoSection> {
 
   Widget displayUploadedVideo(String videoUrl, {bool? isCurrent}) {
     log("url : ---- > ${APIString.latestmediaBaseUrl + videoUrl}");
-    VideoPlayerController controller = VideoPlayerController.network(
-        APIString.latestmediaBaseUrl + videoUrl);
+    VideoPlayerController controller = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.latestmediaBaseUrl + videoUrl));
     controller.initialize().then((value) {
       controller.setLooping(true);
       if (isCurrent == true) controller.play();

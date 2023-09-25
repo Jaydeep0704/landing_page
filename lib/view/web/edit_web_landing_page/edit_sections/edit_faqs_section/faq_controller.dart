@@ -23,12 +23,10 @@ class FaqController extends GetxController {
       log("inside addFaqType ---------2");
 
       showLoadingDialog();
-      // Get.focusScope!.unfocus();
       var response = await HttpHandler.postHttpMethod(
         url: APIString.add_faq_type,
         data: {
           "title": title,
-          // "title": "title",
         },
       );
       if (response['error'] == null) {
@@ -37,7 +35,6 @@ class FaqController extends GetxController {
         if (response['body']['status'].toString() == "success") {
           log("response[data]  ---- ${response['body']["data"]}");
 
-          var data = response['body']["data"];
 
           showSnackbar(title: "Success", message: "Faq type added");
           hideLoadingDialog();
@@ -64,7 +61,6 @@ class FaqController extends GetxController {
       log("inside updateFaqType ---------2");
 
       showLoadingDialog();
-      // Get.focusScope!.unfocus();
       var response = await HttpHandler.postHttpMethod(
         url: APIString.update_faq_type,
         data: {"title": title, "faq_type_id": faqTypeId},
@@ -73,9 +69,6 @@ class FaqController extends GetxController {
         log("inside updateFaqType ---------3");
 
         if (response['body']['status'].toString() == "success") {
-          // log("response[data]  ---- ${response['body']["data"]}");
-
-          // var data = response['body']["data"];
 
           showSnackbar(title: "Success", message: "Faq Updated");
           hideLoadingDialog();
@@ -101,7 +94,6 @@ class FaqController extends GetxController {
       log("inside deleteFaqType ---------2");
 
       showLoadingDialog();
-      // Get.focusScope!.unfocus();
       var response = await HttpHandler.postHttpMethod(
         url: APIString.delete_faq_type,
         data: {"faq_type_id": faqTypeId},
@@ -112,7 +104,6 @@ class FaqController extends GetxController {
         if (response['body']['status'].toString() == "success") {
           log("response[data]  ---- ${response['body']["data"]}");
 
-          // var data = response['body']["data"];
 
           showSnackbar(title: "Success", message: "Faq Deleted");
           hideLoadingDialog();
@@ -145,12 +136,10 @@ class FaqController extends GetxController {
 
         if (response['body']['status'].toString() == "success") {
           log("response[faq_types]  ---- ${response['body']["faq_types"]}");
-          // faqType.value = response['body']["faq_types"];
           faqType.value =
               faqTypeConvertToMapList(response['body']["faq_types"]);
           faqTypeShowHide.value =
               List.generate(faqType.length, (index) => true);
-          // hideLoadingDialog();
         }
       } else if (response['error'] != null) {
         log("inside getFaqType ---------4");
@@ -194,14 +183,11 @@ class FaqController extends GetxController {
       log("inside addFaq ---------2");
 
       showLoadingDialog();
-      // Get.focusScope!.unfocus();
       var response = await HttpHandler.postHttpMethod(
         url: APIString.add_faq,
         data: {
           "title": title,
           "description": description,
-          // "title": "title",
-          // "description": "description",
           "faq_type_id": faqTypeId,
         },
       );
@@ -211,7 +197,6 @@ class FaqController extends GetxController {
         if (response['body']['status'].toString() == "success") {
           log("response[data]  ---- ${response['body']["data"]}");
 
-          var data = response['body']["data"];
 
           showSnackbar(title: "Success", message: "Faq added");
           hideLoadingDialog();
@@ -240,14 +225,11 @@ class FaqController extends GetxController {
       log("inside updateFaqType ---------2");
 
       showLoadingDialog();
-      // Get.focusScope!.unfocus();
       var response = await HttpHandler.postHttpMethod(
         url: APIString.update_faq,
         data: {
           "title": title,
           "description": description,
-          // "title": "title",
-          // "description": "description",
           "faq_type_id": faqTypeId,
           "faq_id": faqId,
         },
@@ -258,7 +240,6 @@ class FaqController extends GetxController {
         if (response['body']['status'].toString() == "success") {
           log("response[data]  ---- ${response['body']["data"]}");
 
-          var data = response['body']["data"];
 
           showSnackbar(title: "Success", message: "Faq Updated");
           hideLoadingDialog();
@@ -284,7 +265,6 @@ class FaqController extends GetxController {
       log("inside deleteFaq ---------2");
 
       showLoadingDialog();
-      // Get.focusScope!.unfocus();
       var response = await HttpHandler.postHttpMethod(
         url: APIString.delete_faq,
         data: {
@@ -297,7 +277,6 @@ class FaqController extends GetxController {
         if (response['body']['status'].toString() == "success") {
           log("response[data]  ---- ${response['body']["data"]}");
 
-          var data = response['body']["data"];
 
           showSnackbar(title: "Success", message: "Faq deleted");
           hideLoadingDialog();
@@ -331,8 +310,6 @@ class FaqController extends GetxController {
 
         if (response['body']['status'].toString() == "success") {
           log("response[data]  ---- ${response['body']["faq"]}");
-
-          // var data = response['body']["faq_types"];
           faqs.value = response['body']["faq"];
           faqShowHide.value = List.generate(faqs.length, (index) => false);
           hideLoadingDialog();

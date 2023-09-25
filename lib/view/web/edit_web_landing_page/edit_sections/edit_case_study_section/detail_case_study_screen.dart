@@ -56,7 +56,6 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
 
   @override
   void initState() {
-    print("come inttt     ---- ");
     super.initState();
     mediaVideoLoaded = false;
     detailCaseStudyController.getCaseStudyData(
@@ -467,7 +466,6 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              print("clicked ---- $data");
                                               // Get.to(() => DetailCaseStudyScreen(mainData: data));
                                               Navigator.pushReplacement(context,
                                                   MaterialPageRoute(

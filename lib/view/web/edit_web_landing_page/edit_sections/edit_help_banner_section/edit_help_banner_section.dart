@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
-import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/widget/common_bg_color_pick.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
@@ -69,7 +68,6 @@ class _EditHelpBannerSectionState extends State<EditHelpBannerSection> {
                                   onChanged: (value) {
                                     setState(() {
                                       editController.helpBanner.value = value;
-                                      print("value ---- $value");
                                       editController.showHideComponent(
                                           value: value == false
                                               ? "No"

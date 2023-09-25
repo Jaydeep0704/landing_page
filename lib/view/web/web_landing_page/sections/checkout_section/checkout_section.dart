@@ -1,10 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/app_string.dart';
-import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 
@@ -13,7 +13,6 @@ import 'package:video_player/video_player.dart';
 
 import '../../../../../config/api_string.dart';
 import '../../../../../widget/common_button.dart';
-import '../../../../../widget/edit_text_dialog.dart';
 import '../../../edit_web_landing_page/edit_sections/edit_checkout_section/edit_checkoutController.dart';
 
 class CheckoutSection extends StatefulWidget {
@@ -26,7 +25,7 @@ class CheckoutSection extends StatefulWidget {
 class _CheckoutSectionState extends State<CheckoutSection> {
 
   final editController = Get.find<EditController>();
-  final EditCheckOut = Get.find<EditCheckOutController>();
+  final editCheckOutController = Get.find<EditCheckOutController>();
   WebLandingPageController webLandingPageController = Get.find<WebLandingPageController>();
   @override
   Widget build(BuildContext context) {
@@ -75,15 +74,11 @@ class _CheckoutSectionState extends State<CheckoutSection> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Container(
-                  //   color: AppColors.darkPurpleColor,
-                  //   height: Get.width > 2200 ? Get.width * 0.25 :Get.width > 1600 ? Get.width * 0.33 :Get.width * 0.4,
-                  //   width: Get.width > 2200 ? Get.width * 0.25 :Get.width > 1600 ? Get.width * 0.33 :Get.width * 0.4,
-                  // ),
+
                   ClipRRect(
                     borderRadius:
                     const BorderRadius.all(Radius.circular(10)),
-                    child: Container(
+                    child: SizedBox(
 
                         height: Get.width > 2200 ? Get.width * 0.25 :Get.width > 1600 ? Get.width * 0.33 :Get.width * 0.4,
                         width: Get.width > 2200 ? Get.width * 0.25 :Get.width > 1600 ? Get.width * 0.33 :Get.width * 0.4,
@@ -100,13 +95,6 @@ class _CheckoutSectionState extends State<CheckoutSection> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
-                        // Text(
-                        //   "FAST, RELIABLE CHECKOUT",
-                        //   style: AppTextStyle.regular400.copyWith(
-                        //       fontSize: 14, color: AppColors.blackColor),
-                        // ),
-
                         /// Changes in this section
                         Text(
                           editController.allDataResponse[0]["checkout_details"][0]["checkout_tagline"]
@@ -120,8 +108,6 @@ class _CheckoutSectionState extends State<CheckoutSection> {
                               fontWeight: FontWeight.bold,
                               color: Color(int.parse(editController.allDataResponse[0]["checkout_details"][0]["checkout_tagline_color"].toString()))),
 
-                          // style: GoogleFonts.getFont(selectedFont).copyWith(
-                          //     color: Color(int.parse(introSecController.introMainTitleColor.value))),
                         ),
                         const SizedBox(
                           height: 8,
@@ -153,13 +139,6 @@ class _CheckoutSectionState extends State<CheckoutSection> {
                         const SizedBox(
                           height: 8,
                         ),
-
-                        // Text(
-                        //   "Back your business with Shop Pay—the one-click checkout that's built to convert.",
-                        //   style: AppTextStyle.regular400.copyWith(
-                        //       fontSize: 14, color: AppColors.blackColor),
-                        // ),
-
                         /// Changes in this section
                         Text(
                           editController.allDataResponse[0]["checkout_details"][0]["checkout_description"]
@@ -339,7 +318,7 @@ class _CheckoutSectionState extends State<CheckoutSection> {
                   ClipRRect(
                     borderRadius:
                     const BorderRadius.all(Radius.circular(10)),
-                    child: Container(
+                    child: SizedBox(
                         height: Get.width * 0.6,
                         width: Get.width * 0.6,
                         child: buildMediaWidget()
@@ -452,10 +431,10 @@ class _CheckoutSectionState extends State<CheckoutSection> {
     else if (editController.allDataResponse[0]["checkout_details"][0]["checkout_file_mediatype"].toString().toLowerCase() == "video") {
       return Obx(() {
         return
-          EditCheckOut.ischeckVideoInitialized.value
+          editCheckOutController.isCheckVideoInitialized.value
               ? AspectRatio(
-            aspectRatio: EditCheckOut.checkvideoController.value.aspectRatio,
-            child: VideoPlayer(EditCheckOut.checkvideoController),
+            aspectRatio: editCheckOutController.checkVideoController.value.aspectRatio,
+            child: VideoPlayer(editCheckOutController.checkVideoController),
           )
           // : const CircularProgressIndicator();
               : const Center(child: CircularProgressIndicator());});
@@ -472,10 +451,10 @@ class _CheckoutSectionState extends State<CheckoutSection> {
     // }
     else if (editController.allDataResponse[0]["checkout_details"][0]["checkout_file_mediatype"].toString().toLowerCase() == "gif") {
       if(editController.allDataResponse[0]["checkout_details"][0]["checkout_file"].toString().toLowerCase().toString().endsWith(".mp4")){
-        return EditCheckOut.ischeckVideoInitialized.value
+        return editCheckOutController.isCheckVideoInitialized.value
             ? AspectRatio(
-          aspectRatio: EditCheckOut.checkvideoController.value.aspectRatio,
-          child: VideoPlayer(EditCheckOut.checkvideoController),
+          aspectRatio: editCheckOutController.checkVideoController.value.aspectRatio,
+          child: VideoPlayer(editCheckOutController.checkVideoController),
           // child:  Chewie(controller: mixBannerController.videoControllerChewie!),
         )
         // : const CircularProgressIndicator();

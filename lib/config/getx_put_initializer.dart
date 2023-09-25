@@ -44,8 +44,7 @@ getXPutInitializer() {
   Get.put(HelpController());
   Get.put(EditCaseStudyController());
   Get.put(DetailCaseStudyController());
-  Get.put(EditTestimonalController());
-
+  Get.put(EditTestimonialController());
   Get.put(CheckOutInfoController());
   Get.put(EditBlogController());
   Get.put(BenefitBannerController());

@@ -16,7 +16,6 @@ import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
 import 'package:grobiz_web_landing/widget/update_media_component.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 
@@ -76,7 +75,6 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                           onChanged: (value) {
                             setState(() {
                               editController.mixBanner.value = value;
-                              print("value ---- $value");
                               editController.showHideComponent(
                                   value: value == false
                                       ? "No"
@@ -155,7 +153,7 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                               ClipRRect(
                                 borderRadius:
                                 const BorderRadius.all(Radius.circular(10)),
-                                child: Container(
+                                child: SizedBox(
                                     height: Get.width > 1100 ?550: 450,
                                     width:  Get.width > 1100 ?550: 450,
                                     child : buildMediaWidget()
@@ -488,13 +486,13 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                           children: [
                             ClipRRect(
                               borderRadius: const BorderRadius.all(Radius.circular(10)),
-                              child: Container(
+                              child: SizedBox(
                                   height: Get.width > 600 ?400: 300,
                                   width:  Get.width > 600 ?400: 300,
                                   child : buildMediaWidget()
                               ),
                             ),
-                            Container(
+                            SizedBox(
 
                               width: Get.width > 800 ? 415 : 275,
                               child: Row(

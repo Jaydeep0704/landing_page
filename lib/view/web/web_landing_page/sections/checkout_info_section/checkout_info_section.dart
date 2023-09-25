@@ -1,7 +1,3 @@
-import 'dart:async';
-import 'dart:developer';
-
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:video_player/video_player.dart';
-
 import '../../../../../config/api_string.dart';
-import '../../../../../widget/edit_text_dialog.dart';
 import '../../../edit_web_landing_page/edit_controller/edit_controller.dart';
 import '../../controller/landing_page_controller.dart';
 import 'CheckOutInfoControllers.dart';
@@ -379,7 +373,7 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
 
                         ///here need to change....
                         Obx(() {
-                          return checkoutInfocontroller.CheckInfoDataList
+                          return checkoutInfocontroller.checkInfoDataList
                               .isEmpty ?
                           const Padding(
                             padding: EdgeInsets.all(10.0),
@@ -399,10 +393,10 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                               scrollDirection: Axis.vertical,
                               // controller: _scrollController,
                               itemCount: checkoutInfocontroller
-                                  .CheckInfoDataList.length,
+                                  .checkInfoDataList.length,
                               itemBuilder: (context, index) {
                                 var data = checkoutInfocontroller
-                                    .CheckInfoDataList[index];
+                                    .checkInfoDataList[index];
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -457,7 +451,7 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                   ///slider code
                   Expanded(
                     child: Obx(() {
-                      return checkoutInfocontroller.CheckInfoDataList.isEmpty ?SizedBox(): Container(
+                      return checkoutInfocontroller.checkInfoDataList.isEmpty ?const SizedBox(): SizedBox(
                         height: 600,
                         width: Get.width,
                         child: CarouselSlider.builder(
@@ -476,13 +470,13 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                             // Set viewportFraction to 1.0
                             height: 630,
                           ),
-                          itemCount: checkoutInfocontroller.CheckInfoDataList
+                          itemCount: checkoutInfocontroller.checkInfoDataList
                               .length,
                           itemBuilder: (context, itemIndex, realIndex) {
                             var a = checkoutInfocontroller
-                                .CheckInfoDataList[itemIndex];
+                                .checkInfoDataList[itemIndex];
                             return _currentIndex == itemIndex
-                                ? Container(
+                                ? SizedBox(
                               width: Get.width > 500 ? Get.width * 0.5 : Get
                                   .width > 350 ? Get.width * 0.7 : Get.width *
                                   0.7,
@@ -545,7 +539,7 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                   ),
                 ],
               )
-                  : Container(
+                  : SizedBox(
                 // height: Get.width * 0.7,
                 width: Get.width * 0.7,
                 child: Center(
@@ -566,10 +560,10 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                       // height: 630,
                       height: 750,
                     ),
-                    itemCount: checkoutInfocontroller.CheckInfoDataList.length,
+                    itemCount: checkoutInfocontroller.checkInfoDataList.length,
                     itemBuilder: (context, itemIndex, realIndex) {
                       var a = checkoutInfocontroller
-                          .CheckInfoDataList[itemIndex];
+                          .checkInfoDataList[itemIndex];
                       return _currentIndex == itemIndex
                           ? SizedBox(
                         width: Get.width > 500 ? Get.width * 0.5 : Get.width >
@@ -677,35 +671,35 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
 
   ///video play after tab
   Widget displayUploadedVideo(String videoUrl) {
-    VideoPlayerController _controller = VideoPlayerController.network(
-        APIString.latestmediaBaseUrl + videoUrl);
+    VideoPlayerController vController = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.latestmediaBaseUrl + videoUrl));
     bool isVideoPlaying = false;
 
     // final double videoAspectRatio = /*_controller.value.aspectRatio > 0 ? _controller.value.aspectRatio :*/ 16 / 9;
 
     return InkWell(
       onTap: () {
-        if (_controller.value.isPlaying) {
+        if (vController.value.isPlaying) {
           isVideoPlaying = false;
-          _controller.pause();
+          vController.pause();
         } else {
-          _controller.play();
+          vController.play();
           isVideoPlaying = true;
         }
         // isVideoPlaying = !isVideoPlaying;
       },
       child: FutureBuilder(
-        future: _controller.initialize(),
+        future: vController.initialize(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
+                aspectRatio: vController.value.aspectRatio,
                 //aspectRatio: 16/9,
                 // aspectRatio: 1 / 6,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    VideoPlayer(_controller),
+                    VideoPlayer(vController),
                     if (!isVideoPlaying)
                       Icon(
                         Icons.play_circle_fill,

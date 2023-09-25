@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 class AddProjectModel {
   AddProjectModel({
     required this.status,
@@ -8,17 +10,18 @@ class AddProjectModel {
   late final String msg;
   late final List<GetProjectData> data;
 
-  AddProjectModel.fromJson(Map<String, dynamic> json){
+  AddProjectModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     msg = json['msg'];
-    data = List.from(json['data']).map((e)=>GetProjectData.fromJson(e)).toList();
+    data =
+        List.from(json['data']).map((e) => GetProjectData.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['status'] = status;
     _data['msg'] = msg;
-    _data['data'] = data.map((e)=>e.toJson()).toList();
+    _data['data'] = data.map((e) => e.toJson()).toList();
     return _data;
   }
 }
@@ -45,7 +48,7 @@ class GetProjectData {
   late final String updatedAt;
   late final String createdAt;
 
-  GetProjectData.fromJson(Map<String, dynamic> json){
+  GetProjectData.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
     appName = json['app_name'];
     appShortDescription = json['app_short_description'];

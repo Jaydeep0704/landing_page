@@ -1,18 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
-import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_numbers_banner_section/number_banner_controller.dart';
-import 'package:http_parser/src/media_type.dart';
-import 'dart:developer';
-import 'package:flutter/foundation.dart';
-import 'package:grobiz_web_landing/widget/common_snackbar.dart';
-import 'package:http/http.dart' as http;
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
-import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../edit_web_landing_page/edit_controller/edit_controller.dart';
@@ -34,7 +25,7 @@ class _CheckOutListState extends State<CheckOutList> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       checkoutInfocontroller.getCheckOutApi();
     });
   }
@@ -58,7 +49,7 @@ class _CheckOutListState extends State<CheckOutList> {
             const Expanded(child: SizedBox()),
             Container(
               decoration:
-              BoxDecoration(color: AppColors.whiteColor, boxShadow: [
+                  BoxDecoration(color: AppColors.whiteColor, boxShadow: [
                 BoxShadow(
                     color: AppColors.blackColor.withOpacity(0.0),
                     blurRadius: 1,
@@ -72,9 +63,12 @@ class _CheckOutListState extends State<CheckOutList> {
                     alignment: Alignment.topRight,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => AddCheckInfo())).whenComplete(() => checkoutInfocontroller.getCheckOutApi());
-
+                        Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddCheckInfo()))
+                            .whenComplete(
+                                () => checkoutInfocontroller.getCheckOutApi());
                       },
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
@@ -84,7 +78,7 @@ class _CheckOutListState extends State<CheckOutList> {
                           decoration: BoxDecoration(
                               color: AppColors.greyColor.withOpacity(0.5),
                               borderRadius:
-                              const BorderRadius.all(Radius.circular(5))),
+                                  const BorderRadius.all(Radius.circular(5))),
                           child: Row(
                             children: const [
                               Icon(Icons.add),
@@ -99,27 +93,29 @@ class _CheckOutListState extends State<CheckOutList> {
                   const SizedBox(height: 25),
                   Expanded(
                     child: Obx(() {
-                      if (checkoutInfocontroller.CheckInfoDataList.isNotEmpty) {
-                        return Container(
+                      if (checkoutInfocontroller.checkInfoDataList.isNotEmpty) {
+                        return SizedBox(
                             height: Get.height,
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,
-                              itemCount:
-                              checkoutInfocontroller.CheckInfoDataList.length,
+                              itemCount: checkoutInfocontroller
+                                  .checkInfoDataList.length,
                               itemBuilder: (context, index) {
-                                var data =
-                                checkoutInfocontroller.CheckInfoDataList[index];
+                                var data = checkoutInfocontroller
+                                    .checkInfoDataList[index];
                                 return Padding(
                                   padding: const EdgeInsets.all(10.0),
-                                  child:
-                                  Column(
+                                  child: Column(
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Flexible(
-                                            child: Text(data["title"].toString(),
-                                              style: AppTextStyle.regularBold.copyWith(fontSize: 20),
+                                            child: Text(
+                                              data["title"].toString(),
+                                              style: AppTextStyle.regularBold
+                                                  .copyWith(fontSize: 20),
                                             ),
                                           ),
                                           IconButton(
@@ -127,13 +123,19 @@ class _CheckOutListState extends State<CheckOutList> {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) => EditCheckOutInfo(
-                                                    id:data["_id"].toString(),
-                                                    title: data["title"].toString(),
-                                                    description: data["description"].toString(),
-                                                    fileData: data["files"].toString(),
-                                                    filetype: data["file_media_type"].toString(),
-
+                                                  builder: (context) =>
+                                                      EditCheckOutInfo(
+                                                    id: data["_id"].toString(),
+                                                    title: data["title"]
+                                                        .toString(),
+                                                    description:
+                                                        data["description"]
+                                                            .toString(),
+                                                    fileData: data["files"]
+                                                        .toString(),
+                                                    filetype:
+                                                        data["file_media_type"]
+                                                            .toString(),
                                                   ),
                                                 ),
                                               );
@@ -143,69 +145,76 @@ class _CheckOutListState extends State<CheckOutList> {
                                         ],
                                       ),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Flexible(
-                                            child: Text(data["description"].toString(),
-                                              style: AppTextStyle.regular300.copyWith(fontSize: 14),
+                                            child: Text(
+                                              data["description"].toString(),
+                                              style: AppTextStyle.regular300
+                                                  .copyWith(fontSize: 14),
                                             ),
                                           ),
                                           IconButton(
                                             onPressed: () {
-                                              checkoutInfocontroller.deleteCheckOutDataApi(id: data["_id"].toString());
+                                              checkoutInfocontroller
+                                                  .deleteCheckOutDataApi(
+                                                      id: data["_id"]
+                                                          .toString());
                                             },
-                                            icon: const Icon(Icons.delete_forever),
+                                            icon: const Icon(
+                                                Icons.delete_forever),
                                           ),
                                         ],
                                       ),
-                                      // ClipRRect(
-                                      //   borderRadius:
-                                      //   const BorderRadius.all(Radius.circular(10)),
-                                      //   child: Container(
-                                      //       width: 250 ,
-                                      //       height: 250,
-                                      //       child: buildMediaWidget(data["file_media_type"].toString(),data["files"].toString())
-                                      //     // child: Image.asset(
-                                      //     //   "assets/nature.jpeg",
-                                      //     //   fit: BoxFit.cover,
-                                      //     // ),
-                                      //   ),
-                                      // ),
-                                      Container(
+                                      SizedBox(
                                         height: 250,
                                         width: 250,
                                         child: ClipRRect(
-                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                          child: data["file_media_type"].toString() == "image" || data["file_media_type"].toString() == "gif"
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(20)),
+                                          child: data["file_media_type"]
+                                                          .toString() ==
+                                                      "image" ||
+                                                  data["file_media_type"]
+                                                          .toString() ==
+                                                      "gif"
                                               ? CachedNetworkImage(
-                                            imageUrl: APIString.latestmediaBaseUrl + data["files"].toString(),
-                                            fit: BoxFit.contain,
-                                            placeholder: (context, url) => Container(
-                                              decoration: BoxDecoration(
-                                                color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                              ),
-                                            ),
-                                            errorWidget: (context, url, error) => const Icon(Icons.error),
-
-                                          )
-                                              : displayUploadedVideo( data["files"].toString()),
+                                                  imageUrl: APIString
+                                                          .latestmediaBaseUrl +
+                                                      data["files"].toString(),
+                                                  fit: BoxFit.contain,
+                                                  placeholder: (context, url) =>
+                                                      Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Color(int.parse(
+                                                          editController
+                                                              .appDemoBgColor
+                                                              .value
+                                                              .toString())),
+                                                    ),
+                                                  ),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.error),
+                                                )
+                                              : displayUploadedVideo(
+                                                  data["files"].toString()),
                                         ),
                                       ),
-
-
                                       Divider(
                                         thickness: 0.8,
-                                        color: AppColors.blackColor.withOpacity(0.5),
+                                        color: AppColors.blackColor
+                                            .withOpacity(0.5),
                                       ),
                                     ],
                                   ),
-
                                 );
                               },
                             ));
                       } else {
-                        return Padding(
-                          padding: const EdgeInsets.all(10.0),
+                        return const Padding(
+                          padding: EdgeInsets.all(10.0),
                           child: Center(
                             child: Text(
                               'No Data ..',
@@ -228,83 +237,88 @@ class _CheckOutListState extends State<CheckOutList> {
       );
     });
   }
+
   Widget buildMediaWidget(String filetype, String fileData) {
-    if (filetype== "image") {
+    if (filetype == "image") {
       return CachedNetworkImage(
         width: Get.width,
         imageUrl: APIString.mediaBaseUrl + fileData,
         fit: BoxFit.cover,
-        placeholder: (context, url) => Container(decoration: BoxDecoration(color: Color(int.parse(editController.appDemoBgColor.value.toString())),)),
-        errorWidget: (context, url, error) =>
-        const Icon(Icons.error),
+        placeholder: (context, url) => Container(
+            decoration: BoxDecoration(
+          color:
+              Color(int.parse(editController.appDemoBgColor.value.toString())),
+        )),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
       );
-    }
-    else if (filetype== "video") {
+    } else if (filetype == "video") {
       return Obx(() {
-        return
-          checkoutInfocontroller.isVideoInitialized.value
-              ? AspectRatio(
-            aspectRatio: checkoutInfocontroller.videoController.value.aspectRatio,
-            child: VideoPlayer(checkoutInfocontroller.videoController),
-          )
-          // : const CircularProgressIndicator();
-              : const Center(child: CircularProgressIndicator());});
-    }
-    else if (filetype == "gif") {
-      if(fileData.endsWith(".mp4")){
         return checkoutInfocontroller.isVideoInitialized.value
             ? AspectRatio(
-          aspectRatio: checkoutInfocontroller.videoController.value.aspectRatio,
-          child: VideoPlayer(checkoutInfocontroller.videoController),
-          // child:  Chewie(controller: mixBannerController.videoControllerChewie!),
-        )
-        // : const CircularProgressIndicator();
+                aspectRatio:
+                    checkoutInfocontroller.videoController.value.aspectRatio,
+                child: VideoPlayer(checkoutInfocontroller.videoController),
+              )
+            // : const CircularProgressIndicator();
             : const Center(child: CircularProgressIndicator());
-      }
-      else{
+      });
+    } else if (filetype == "gif") {
+      if (fileData.endsWith(".mp4")) {
+        return checkoutInfocontroller.isVideoInitialized.value
+            ? AspectRatio(
+                aspectRatio:
+                    checkoutInfocontroller.videoController.value.aspectRatio,
+                child: VideoPlayer(checkoutInfocontroller.videoController),
+                // child:  Chewie(controller: mixBannerController.videoControllerChewie!),
+              )
+            // : const CircularProgressIndicator();
+            : const Center(child: CircularProgressIndicator());
+      } else {
         return CachedNetworkImage(
           // width: Get.width,
           imageUrl: APIString.mediaBaseUrl + fileData,
           fit: BoxFit.cover,
-          placeholder: (context, url) => Container(decoration: BoxDecoration(color: Color(int.parse(editController.appDemoBgColor.value.toString())),)),
-          errorWidget: (context, url, error) =>
-          const Icon(Icons.error),
+          placeholder: (context, url) => Container(
+              decoration: BoxDecoration(
+            color: Color(
+                int.parse(editController.appDemoBgColor.value.toString())),
+          )),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         );
       }
-    }
-    else {
+    } else {
       return const Center(child: Text("bot"));
     }
   }
-  Widget displayUploadedVideo(String videoUrl) {
-    VideoPlayerController _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+videoUrl);
-    bool isVideoPlaying = false;
 
-    final double videoAspectRatio = /*_controller.value.aspectRatio > 0 ? _controller.value.aspectRatio :*/ 16 / 9;
+  Widget displayUploadedVideo(String videoUrl) {
+    VideoPlayerController controller = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.latestmediaBaseUrl + videoUrl));
+    bool isVideoPlaying = false;
 
     return InkWell(
       onTap: () {
-        if (_controller.value.isPlaying) {
-          isVideoPlaying=false;
-          _controller.pause();
+        if (controller.value.isPlaying) {
+          isVideoPlaying = false;
+          controller.pause();
         } else {
-          _controller.play();
-          isVideoPlaying=true;
+          controller.play();
+          isVideoPlaying = true;
         }
         // isVideoPlaying = !isVideoPlaying;
       },
       child: FutureBuilder(
-        future: _controller.initialize(),
+        future: controller.initialize(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
+                aspectRatio: controller.value.aspectRatio,
                 //aspectRatio: 16/9,
                 // aspectRatio: 1 / 6,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    VideoPlayer(_controller),
+                    VideoPlayer(controller),
                     if (!isVideoPlaying)
                       Icon(
                         Icons.play_circle_fill,
@@ -314,7 +328,6 @@ class _CheckOutListState extends State<CheckOutList> {
                   ],
                 ));
             // );
-
           } else {
             return const Center(
               child: CircularProgressIndicator(

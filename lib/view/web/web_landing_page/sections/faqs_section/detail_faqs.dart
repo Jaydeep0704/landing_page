@@ -19,24 +19,19 @@ class _DetailFAQsState extends State<DetailFAQs> {
     super.initState();
 
     getData();
-    print("^^^^^^^^s");
   }
 
   getData() {
     Future.delayed(
       const Duration(microseconds: 50),
       () {
-        faqController
-            .getFaqType()
-            .whenComplete(() => print("data loaded getFaqType  "));
+        faqController.getFaqType();
       },
     );
     Future.delayed(
       const Duration(microseconds: 50),
       () {
-        faqController
-            .getFaq()
-            .whenComplete(() => print("data loaded  getFaq "));
+        faqController.getFaq();
       },
     );
   }
@@ -157,7 +152,8 @@ class _DetailFAQsState extends State<DetailFAQs> {
                                               ? const SizedBox()
                                               : ListView.builder(
                                                   padding:
-                                                      EdgeInsets.only(left: 10),
+                                                      const EdgeInsets.only(
+                                                          left: 10),
                                                   shrinkWrap: true,
                                                   itemCount:
                                                       faqController.faqs.length,

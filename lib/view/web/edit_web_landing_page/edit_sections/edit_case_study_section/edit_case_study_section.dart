@@ -96,7 +96,6 @@ class _EditCaseStudySectionState extends State<EditCaseStudySection> {
                                 onChanged: (value) {
                                   setState(() {
                                     editController.caseStudy.value = value;
-                                    print("value ---- $value");
                                     editController.showHideComponent(
                                         value: value == false
                                             ? "No"
@@ -231,14 +230,7 @@ class _EditCaseStudySectionState extends State<EditCaseStudySection> {
                             : Get.width > 1000
                             ? Get.width * 0.6
                             : Get.width * 0.8,
-                        child: /*Text(
-                          "See how companies like yours used Grobiz's app platform to help them achieve their business goals",
-                          textAlign: TextAlign.center,
-                          style: AppTextStyle.regular400
-                              .copyWith(
-                              color: AppColors.whiteColor, fontSize: 16,
-                              height: 1.2),
-                        )*/
+                        child:
                         InkWell(
                           onTap: () =>
                               Get.dialog(

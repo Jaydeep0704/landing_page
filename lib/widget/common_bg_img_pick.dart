@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:http_parser/src/media_type.dart';
 import 'package:file_picker/file_picker.dart';
@@ -21,7 +20,7 @@ class ImgPickDialog extends StatefulWidget {
   String? keyNameImg;
   String? switchKeyNameImg;
   String? switchKeyNameClr;
-    ImgPickDialog({
+  ImgPickDialog({
     Key? key,
     this.imageSize,
     this.keyNameImg,
@@ -42,80 +41,72 @@ class _ImgPickDialogState extends State<ImgPickDialog> {
 
   @override
   Widget build(BuildContext context) {
-
     return AlertDialog(
-
       title: const Text('Pick an Image'),
       content: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            widget.imageSize == null ?const SizedBox():Text("media size  : height* width - ${widget.imageSize}"),
-            SizedBox(height : widget.imageSize == null ?0:10),
+            widget.imageSize == null
+                ? const SizedBox()
+                : Text("media size  : height* width - ${widget.imageSize}"),
+            SizedBox(height: widget.imageSize == null ? 0 : 10),
             TextButton(
               child: const Text('Pick Image From Gallery'),
               onPressed: () async {
                 pickFiles();
               },
             ),
-
           ],
         ),
       ),
       actions: <Widget>[
-        Row(
-            children: [
-
-              TextButton(
-                child: const Text('Save'),
-                onPressed: () async {
-                  updateData();
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
-                },
-              ),
-
-              TextButton(
-                child: const Text('Back'),
-                onPressed: () async {
-                  // updateData();
-                  Navigator.of(context).pop();
-                },
-              ),
-            ]
-        )
+        Row(children: [
+          TextButton(
+            child: const Text('Save'),
+            onPressed: () async {
+              updateData();
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: const Text('Back'),
+            onPressed: () async {
+              // updateData();
+              Navigator.of(context).pop();
+            },
+          ),
+        ])
       ],
     );
-
-
   }
 
   void pickFiles() async {
     Navigator.of(context).pop(false);
-    showLoadingDialog(loader: false,loadingText: true,delay: true);
+    showLoadingDialog(loader: false, loadingText: true, delay: true);
 
     try {
       paths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
-      ))?.files;
+      ))
+          ?.files;
       // WidgetsBinding.instance.addPostFrameCallback((_) {
       //   setState(() {
-        hideLoadingDialog();
-          pathsFile = paths!.first.bytes!;
-          pathsFileName = paths!.first.name;
-        // });
+      hideLoadingDialog();
+      pathsFile = paths!.first.bytes!;
+      pathsFileName = paths!.first.name;
+      // });
       // });
 
       log("_paths!.first.bytes  $pathsFile --  ${paths!.first.bytes!}");
       log("_paths!.first.name  $pathsFileName --  ${paths!.first.name}");
       log("selected image is ----------> $paths");
       updateData();
-
     } on PlatformException catch (e) {
       log('Unsupported operation   $e');
     } catch (e) {
@@ -164,19 +155,22 @@ class _ImgPickDialogState extends State<ImgPickDialog> {
       log('pic not selected');
     }
     request.fields["user_auto_id"] = APIString.userAutoId;
-    if(widget.switchKeyNameImg.toString().isNotEmpty)request.fields[widget.switchKeyNameImg.toString()] = "1";
-    if(widget.switchKeyNameClr.toString().isNotEmpty)request.fields[widget.switchKeyNameClr.toString()] = "0";
-
+    if (widget.switchKeyNameImg.toString().isNotEmpty) {
+      request.fields[widget.switchKeyNameImg.toString()] = "1";
+    }
+    if (widget.switchKeyNameClr.toString().isNotEmpty) {
+      request.fields[widget.switchKeyNameClr.toString()] = "0";
+    }
 
     debugPrint(request.fields.toString());
 
-    http.Response response = await http.Response.fromStream(await request.send());
+    http.Response response =
+        await http.Response.fromStream(await request.send());
 
     log("updateData bg image response   $response");
     log("response.statusCode   ---- ${response.statusCode}");
     hideLoadingDialog();
     if (response.statusCode == 200) {
-
       // Navigator.pop(context);
       // editController.getData();
       final resp = jsonDecode(response.body);
@@ -201,8 +195,7 @@ class _ImgPickDialogState extends State<ImgPickDialog> {
         Get.back();
         log(message);
       }
-    }
-    else if (response.statusCode == 500) {
+    } else if (response.statusCode == 500) {
       //log(response.statusCode.toString());
 
       editController.getData();
@@ -215,8 +208,7 @@ class _ImgPickDialogState extends State<ImgPickDialog> {
       if (mounted) {
         setState(() {});
       }
-    }
-    else {
+    } else {
       log(response.statusCode.toString());
 
       editController.getData();

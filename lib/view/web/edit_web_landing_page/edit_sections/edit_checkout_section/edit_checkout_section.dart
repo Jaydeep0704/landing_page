@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:grobiz_web_landing/config/app_string.dart';
 import 'package:grobiz_web_landing/widget/common_bg_color_pick.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
@@ -5,8 +7,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:grobiz_web_landing/config/app_colors.dart';
-import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
@@ -81,7 +81,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                         onChanged: (value) {
                           setState(() {
                             editController.checkout.value = value;
-                            print("value ---- $value");
+                            log("value ---- $value");
                             editController.showHideComponent(
                                 value: value == false
                                     ? "No"
@@ -384,8 +384,8 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.start,
                                     children:  [
-                                      Icon(Icons.remove_red_eye_rounded),
-                                      SizedBox(width: 8),
+                                      const Icon(Icons.remove_red_eye_rounded),
+                                      const SizedBox(width: 8),
                                       Obx(()=> webLandingPageController.webLiveCount.value.isEmpty?const SizedBox()
                                           : Text("${webLandingPageController.webLiveCount.value} people creating Website")),
                                     ],
@@ -617,8 +617,8 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                               mainAxisAlignment:
                               MainAxisAlignment.start,
                               children:  [
-                                Icon(Icons.remove_red_eye_rounded),
-                                SizedBox(width: 8),
+                                const Icon(Icons.remove_red_eye_rounded),
+                                const SizedBox(width: 8),
                                 Obx(()=> webLandingPageController.webLiveCount.value.isEmpty?const SizedBox()
                                     : Text("${webLandingPageController.webLiveCount.value} people creating Website")),
                               ],
@@ -657,10 +657,10 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
     else if (editController.allDataResponse[0]["checkout_details"][0]["checkout_file_mediatype"].toString().toLowerCase() == "video") {
       return Obx(() {
         return
-          EditCheckOut.ischeckVideoInitialized.value
+          EditCheckOut.isCheckVideoInitialized.value
               ? AspectRatio(
-            aspectRatio: EditCheckOut.checkvideoController.value.aspectRatio,
-            child: VideoPlayer(EditCheckOut.checkvideoController),
+            aspectRatio: EditCheckOut.checkVideoController.value.aspectRatio,
+            child: VideoPlayer(EditCheckOut.checkVideoController),
           )
           // : const CircularProgressIndicator();
               : const Center(child: CircularProgressIndicator());});
@@ -677,10 +677,10 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
     // }
     else if (editController.allDataResponse[0]["checkout_details"][0]["checkout_file_mediatype"].toString().toLowerCase() == "gif") {
       if(editController.allDataResponse[0]["checkout_details"][0]["checkout_file"].toString().toLowerCase().toString().endsWith(".mp4")){
-        return EditCheckOut.ischeckVideoInitialized.value
+        return EditCheckOut.isCheckVideoInitialized.value
             ? AspectRatio(
-          aspectRatio: EditCheckOut.checkvideoController.value.aspectRatio,
-          child: VideoPlayer(EditCheckOut.checkvideoController),
+          aspectRatio: EditCheckOut.checkVideoController.value.aspectRatio,
+          child: VideoPlayer(EditCheckOut.checkVideoController),
           // child:  Chewie(controller: mixBannerController.videoControllerChewie!),
         )
         // : const CircularProgressIndicator();

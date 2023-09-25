@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_
 import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
 import 'package:grobiz_web_landing/widget/update_media_component.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 ///shopify purchase view
@@ -99,7 +99,7 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
                     onChanged: (value) {
                       setState(() {
                         editController.numbersBanner.value = value;
-                        print("value ---- $value");
+                        log("value ---- $value");
                         editController.showHideComponent(
                             value: value == false
                                 ? "No"
@@ -139,15 +139,10 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
                             Stack(
                               alignment: Alignment.topRight,
                               children: [
-                                Container(
+                                SizedBox(
                                   height: Get.width * 0.08,
                                   width: Get.width * 0.15,
-
-                                  // decoration:   editController.allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file1"].toString().isEmpty
-                                  //     ? const BoxDecoration()
-                                  //     : const BoxDecoration(color: AppColors.greyColor),
                                   child: buildMedia1Widget(),
-                                  // child: const Center(child: Text("gif")),
                                 ),
                                 Row(
                                   children: [
@@ -194,7 +189,7 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
                                       width: Get.width > 1000 ? Get.width * 0.25/*0.25*/ : Get.width * 0.2,
                                       decoration:  editController.allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file2"].toString().isEmpty
                                           ? const BoxDecoration()
-                                          :BoxDecoration(
+                                          :const BoxDecoration(
                                           // color: AppColors.greyColor
                                           //     .withOpacity(0.5)
                                       ),
@@ -1256,7 +1251,7 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
                                                   : Get.width * 0.7,
                                               // : Get.width * 0.30,
                                               child: Container(
-                                                margin: EdgeInsets.only(right:5,top:5),
+                                                margin: const EdgeInsets.only(right:5,top:5),
                                                 padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2),
                                                 decoration : BoxDecoration(
                                                   borderRadius: const BorderRadius.all(Radius.circular(2)),
@@ -1342,7 +1337,7 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
                                                   ? Get.width * 0.15
                                                   : Get.width * 0.7,
                                               child: Container(
-                                                margin: EdgeInsets.only(right:5,top:5),
+                                                margin: const EdgeInsets.only(right:5,top:5),
                                                 padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2),
                                                 decoration : BoxDecoration(
                                                   borderRadius: const BorderRadius.all(Radius.circular(2)),
@@ -1454,7 +1449,7 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
                                         width: Get.width > 1000 ? Get.width * 0.25/*0.25*/ : Get.width * 0.2,
                                         decoration:  editController.allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file3"].toString().isEmpty
                                             ? const BoxDecoration()
-                                            :BoxDecoration(
+                                            :const BoxDecoration(
                                             // color: AppColors.greyColor.withOpacity(0.5)
                                         ),
                                         child: buildMedia3Widget()
@@ -1608,7 +1603,7 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
                      children: [
                        Obx(() {
                          return numberBannerController
-                             .partnerBannerLogos.isEmpty ? SizedBox() : IconButton(
+                             .partnerBannerLogos.isEmpty ? const SizedBox() : IconButton(
                              onPressed: () {
                                // performMultipleScrolls(3);
                                int currentIndex = _scrollController1.hasClients
@@ -1632,7 +1627,7 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
 
                        Obx(() {
                          return numberBannerController
-                             .partnerBannerLogos.isEmpty?SizedBox():IconButton(
+                             .partnerBannerLogos.isEmpty?const SizedBox():IconButton(
                              onPressed: () {
                                int currentIndex = _scrollController1.hasClients
                                    ? (_scrollController1.position.minScrollExtent +

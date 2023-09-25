@@ -116,7 +116,7 @@ class EditController extends GetxController {
                   : false;
 
           ///testimonials show hide
-          Get.find<EditTestimonalController>()
+          Get.find<EditTestimonialController>()
               .testimonial_title_1_Switch
               .value = allDataResponse[0]["testimonials_details"][0]
                       ["testimonials_title1_visible"] ==
@@ -124,13 +124,13 @@ class EditController extends GetxController {
               ? true
               : false;
 
-          Get.find<EditTestimonalController>().testimonial1Switch.value =
+          Get.find<EditTestimonialController>().testimonial1Switch.value =
               allDataResponse[0]["testimonials_details"][0]
                           ["testimonial1_visible"] ==
                       "show"
                   ? true
                   : false;
-          Get.find<EditTestimonalController>().testimonial2Switch.value =
+          Get.find<EditTestimonialController>().testimonial2Switch.value =
               allDataResponse[0]["testimonials_details"][0]
                           ["testimonial2_visible"] ==
                       "show"
@@ -319,10 +319,9 @@ class EditController extends GetxController {
     try {
       log("inside showHideMedia ---------2");
       log("showHideMedia APIString.userAutoId---------${APIString.userAutoId}");
-      log("showHideMedia keyName.userAutoId---------${keyName}");
-      log("showHideMedia value.userAutoId---------${value}");
+      log("showHideMedia keyName.userAutoId---------$keyName");
+      log("showHideMedia value.userAutoId---------$value");
       showLoadingDialog();
-      // Get.focusScope!.unfocus();
       var response = await HttpHandler.postHttpMethod(
           url: APIString.update_web_landing_page_data,
           data: {
@@ -356,10 +355,9 @@ class EditController extends GetxController {
     try {
       log("inside showHideComponent ---------2");
       log("showHideMedia APIString.userAutoId---------${APIString.userAutoId}");
-      log("showHideMedia keyName.userAutoId---------${componentName}");
-      log("showHideMedia value.userAutoId---------${value}");
+      log("showHideMedia keyName.userAutoId---------$componentName");
+      log("showHideMedia value.userAutoId---------$value");
       showLoadingDialog();
-      // Get.focusScope!.unfocus();
       var response = await HttpHandler.postHttpMethod(
           url: APIString.update_component_visibility,
           data: {
@@ -526,16 +524,15 @@ class EditController extends GetxController {
   }
 
   Future reorderComponent(
-      {String? id, String? oldIndex, String? newindex}) async {
+      {String? id, String? oldIndex, String? newIndex}) async {
     log("inside reorderData ---------1");
     try {
       showLoadingDialog();
-      // Get.focusScope!.unfocus();
       var response = await HttpHandler.postHttpMethod(
           url: APIString.reordering_web_components,
           data: {
             "homecomponent_auto_id": id.toString(),
-            "new_index": newindex.toString(),
+            "new_index": newIndex.toString(),
             "previous_index": oldIndex.toString()
           });
       hideLoadingDialog();

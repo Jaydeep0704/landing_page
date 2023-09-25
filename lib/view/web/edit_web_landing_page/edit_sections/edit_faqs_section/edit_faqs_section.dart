@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +13,6 @@ import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/faqs_section/detail_faqs.dart';
 import 'package:grobiz_web_landing/widget/common_bg_color_pick.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
-import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
 
 class EditFAQsSection extends StatefulWidget {
@@ -112,7 +113,7 @@ class _EditFAQsSectionState extends State<EditFAQsSection> {
                                   onChanged: (value) {
                                     setState(() {
                                       editController.faqSection.value = value;
-                                      print("value ---- $value");
+                                      log("value ---- $value");
                                       editController.showHideComponent(
                                           value: value == false
                                               ? "No"

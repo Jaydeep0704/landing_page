@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, file_names
+
 import 'dart:convert';
 import 'dart:developer';
 
@@ -9,11 +11,11 @@ import 'package:grobiz_web_landing/utils/http_handler/network_http.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:http/http.dart' as http;
 
-class EditTestimonalController extends GetxController {
+class EditTestimonialController extends GetxController {
   ///Partner Banner Logos
 
-  RxList appLogoListt = [].obs;
-  RxList getTestimonal = [].obs;
+  RxList appLogoList = [].obs;
+  RxList getTestimonial = [].obs;
   RxString msg = "".obs;
 
   RxBool testimonial_title_1_Switch = false.obs;
@@ -28,7 +30,7 @@ class EditTestimonalController extends GetxController {
     // hideLoadingDialog();
     try {
       log("step --------  +++  2 ");
-      appLogoListt.clear();
+      appLogoList.clear();
 
       Get.focusScope!.unfocus();
       var response = await HttpHandler.getHttpMethod(
@@ -40,7 +42,7 @@ class EditTestimonalController extends GetxController {
         log("step --------  +++  4");
 
         if (response['body']['status'].toString() == "1") {
-          appLogoListt.value = response['body']["data"];
+          appLogoList.value = response['body']["data"];
           msg.value = response['body']["msg"];
         }
       } else {
@@ -58,7 +60,7 @@ class EditTestimonalController extends GetxController {
     // hideLoadingDialog();
     try {
       log("step --------  +++  2 ");
-      getTestimonal.clear();
+      getTestimonial.clear();
 
       Get.focusScope!.unfocus();
       var response = await HttpHandler.getHttpMethod(
@@ -70,7 +72,7 @@ class EditTestimonalController extends GetxController {
         log("step --------  +++  4");
 
         if (response['body']['status'].toString() == "1") {
-          getTestimonal.value = response['body']["data"];
+          getTestimonial.value = response['body']["data"];
           msg.value = response['body']["msg"];
         }
       } else {
@@ -97,7 +99,7 @@ class EditTestimonalController extends GetxController {
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
       int status = resp['status'];
-      log('USer Id: ' + status.toString());
+      log('USer Id: $status');
       if (status == 1) {
 
         Fluttertoast.showToast(
@@ -106,7 +108,7 @@ class EditTestimonalController extends GetxController {
         );
         // Get.back();
         GetTestimonal();
-        print("Deleted");
+        log("Deleted");
       } else {
         String msg = resp['msg'];
 

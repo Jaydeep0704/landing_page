@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../web_landing_page/web_landing_screen.dart';
-import '../edit_web_landing_screen.dart';
 
 class LoginController extends GetxController {
 RxBool isApiProcessing=false.obs;

@@ -1,9 +1,8 @@
 
-import 'dart:io';
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
 
 import 'Add_Latest_project.dart';
@@ -54,7 +53,7 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AddProjectsScreen())).whenComplete(() {    getLatestProject.getProjectData();});
+                          MaterialPageRoute(builder: (context) =>  const AddProjectsScreen())).whenComplete(() {    getLatestProject.getProjectData();});
                     },
                     child: FittedBox(
                       fit: BoxFit.scaleDown,

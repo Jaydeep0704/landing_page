@@ -1,23 +1,19 @@
 
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, deprecated_member_use, non_constant_identifier_names, prefer_typing_uninitialized_variables, implementation_imports, depend_on_referenced_packages, avoid_web_libraries_in_flutter
 
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/blog_details_list.dart';
 import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:http_parser/src/media_type.dart';
-import 'package:chewie/chewie.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:getwidget/getwidget.dart';
 
 import 'package:video_player/video_player.dart';
 import 'dart:html' as html;
@@ -196,8 +192,6 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
                                       onChanged: (value) {
                                         setState(() {
                                           VideoImg = value as String;
-                                          print(value);
-                                          print(VideoImg);
                                           if (VideoImg == 'image') {
                                             isImage = true;
                                             isvideo = false;
@@ -225,9 +219,6 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
                                       onChanged: (value) {
                                         setState(() {
                                           VideoImg = value as String;
-                                          print("Img_video==");
-                                          print(value);
-                                          print(VideoImg);
                                           if (VideoImg == 'video') {
                                             isvideo = true;
                                             isImage = false;
@@ -255,9 +246,6 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
                                       onChanged: (value) {
                                         setState(() {
                                           VideoImg = value as String;
-                                          print("Img_gif==");
-                                          print(value);
-                                          print(VideoImg);
                                           if (VideoImg == 'gif') {
                                             isGif = true;
                                             isImage = false;
@@ -507,7 +495,7 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))?.files;
 
@@ -539,7 +527,7 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['gif'],
       ))?.files;
 
@@ -579,7 +567,7 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['mp4', 'mov', 'avi'],
       ))?.files;
       videopathsFile = videopaths!.first.bytes!;
@@ -635,7 +623,6 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
           request.fields['media'] = '';
         } catch (exception) {
           request.fields['media'] = '';
-          print('pic not selected');
         }
 
       }
@@ -661,7 +648,6 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
           request.fields['media'] = '';
         } catch (exception) {
           request.fields['media'] = '';
-          print('pic not selected');
         }
 
       }
@@ -687,7 +673,6 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
           request.fields['media'] = '';
         } catch (exception) {
           request.fields['media'] = '';
-          print('pic not selected');
         }
       }
 
@@ -703,7 +688,6 @@ class _AddBlogDetailState extends State<AddBlogDetail> {
       if (response.statusCode == 200) {
 
         final resp=jsonDecode(response.body);
-        print(resp.toString());
         //String message=resp['msg'];
         int status=resp['status'];
         if(status==1){

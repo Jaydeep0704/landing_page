@@ -1,6 +1,6 @@
-import 'dart:html' as html;
-import 'dart:developer';
+// ignore_for_file: avoid_web_libraries_in_flutter
 
+import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +12,6 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controlle
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_mix_banner_section/edit_mix_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/widget/common_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 class MixBannerSection extends StatefulWidget {

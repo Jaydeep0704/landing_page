@@ -1,7 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -11,28 +12,26 @@ import '../../../../../config/api_string.dart';
 import '../../../../../utils/http_handler/network_http.dart';
 import '../../../../../widget/loading_dialog.dart';
 
-class BenefitBannerController extends GetxController{
-
+class BenefitBannerController extends GetxController {
   late VideoPlayerController videoController;
 
   RxBool isVideoInitialized = false.obs;
 
-
   ///Edit Banner Text
 
-  RxList DataList = [].obs;
+  RxList dataList = [].obs;
   RxList bannerInfoReadMore = [].obs;
   RxString msg = "".obs;
   RxBool isApiCallProcessing = false.obs;
 
-///get Baner text
+  ///get Baner text
   Future getDataApi() async {
     log("step --------  +++ 1 ");
     showLoadingDialog();
     // hideLoadingDialog();
     try {
       log("step --------  +++  2 ");
-      DataList.clear();
+      dataList.clear();
 
       Get.focusScope!.unfocus();
       var response = await HttpHandler.getHttpMethod(
@@ -44,8 +43,8 @@ class BenefitBannerController extends GetxController{
         log("step --------  +++  4");
 
         if (response['body']['status'].toString() == "1") {
-          DataList.value = response['body']["data"];
-          for (int i = 0; i < DataList.length; i++) {
+          dataList.value = response['body']["data"];
+          for (int i = 0; i < dataList.length; i++) {
             bannerInfoReadMore.add(false);
           }
           msg.value = response['body']["msg"];
@@ -59,16 +58,15 @@ class BenefitBannerController extends GetxController{
     }
   }
 
-///Add Baner text
-  Future<void> addDataApi({String? title, String? description})  async {
-    isApiCallProcessing.value=false;
+  ///Add Baner text
+  Future<void> addDataApi({String? title, String? description}) async {
+    isApiCallProcessing.value = false;
     var url = APIString.grobizBaseUrl + APIString.add_benefit_list;
 
 //title,description
     final body = {
-      'title':title,
-      'description':description,
-
+      'title': title,
+      'description': description,
     };
 
     Uri uri = Uri.parse(url);
@@ -77,26 +75,26 @@ class BenefitBannerController extends GetxController{
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
       int status = resp['status'];
-      log('USer Id: ' + status.toString());
+      log('USer Id: $status');
       if (status == 1) {
-        isApiCallProcessing.value=true;
+        isApiCallProcessing.value = true;
         Fluttertoast.showToast(
-          msg:  'successfully Added' ,
+          msg: 'successfully Added',
           backgroundColor: Colors.grey,
         );
-         Get.back();
+        Get.back();
         getDataApi();
         print("Added");
       } else {
         String msg = resp['msg'];
-        isApiCallProcessing.value=false;
+        isApiCallProcessing.value = false;
         Fluttertoast.showToast(
           msg: msg,
           backgroundColor: Colors.grey,
         );
       }
     } else if (response.statusCode == 500) {
-      isApiCallProcessing.value=false;
+      isApiCallProcessing.value = false;
       Fluttertoast.showToast(
         msg: 'Server error',
         backgroundColor: Colors.grey,
@@ -105,16 +103,16 @@ class BenefitBannerController extends GetxController{
   }
 
   ///Update Baner text
-  Future<void> updateDataApi({String? title,String? id, String? description})  async {
-    isApiCallProcessing.value=false;
+  Future<void> updateDataApi(
+      {String? title, String? id, String? description}) async {
+    isApiCallProcessing.value = false;
     var url = APIString.grobizBaseUrl + APIString.edit_benefit_list;
 
 //benefit_list_auto_id,title,description
     final body = {
-      'benefit_list_auto_id':id,
-      'title':title,
-      'description':description,
-
+      'benefit_list_auto_id': id,
+      'title': title,
+      'description': description,
     };
 
     Uri uri = Uri.parse(url);
@@ -123,11 +121,11 @@ class BenefitBannerController extends GetxController{
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
       int status = resp['status'];
-      log('USer Id: ' + status.toString());
+      log('USer Id: $status');
       if (status == 1) {
-        isApiCallProcessing.value=true;
+        isApiCallProcessing.value = true;
         Fluttertoast.showToast(
-          msg:  'successfully updated' ,
+          msg: 'successfully updated',
           backgroundColor: Colors.grey,
         );
         Get.back();
@@ -135,14 +133,14 @@ class BenefitBannerController extends GetxController{
         print("updated");
       } else {
         String msg = resp['msg'];
-        isApiCallProcessing.value=false;
+        isApiCallProcessing.value = false;
         Fluttertoast.showToast(
           msg: msg,
           backgroundColor: Colors.grey,
         );
       }
     } else if (response.statusCode == 500) {
-      isApiCallProcessing.value=false;
+      isApiCallProcessing.value = false;
       Fluttertoast.showToast(
         msg: 'Server error',
         backgroundColor: Colors.grey,
@@ -151,13 +149,13 @@ class BenefitBannerController extends GetxController{
   }
 
   ///delete banner text
-  Future<void> deleteDataApi({String? id})  async {
-    isApiCallProcessing.value=false;
+  Future<void> deleteDataApi({String? id}) async {
+    isApiCallProcessing.value = false;
     var url = APIString.grobizBaseUrl + APIString.delete_benefit_list;
 
 //benefit_list_auto_id,title,description
     final body = {
-      'benefit_list_auto_id':id,
+      'benefit_list_auto_id': id,
     };
 
     Uri uri = Uri.parse(url);
@@ -166,35 +164,30 @@ class BenefitBannerController extends GetxController{
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
       int status = resp['status'];
-      log('USer Id: ' + status.toString());
+      log('USer Id: $status');
       if (status == 1) {
-        isApiCallProcessing.value=true;
+        isApiCallProcessing.value = true;
         Fluttertoast.showToast(
-          msg:  'successfully Deleted' ,
+          msg: 'successfully Deleted',
           backgroundColor: Colors.grey,
         );
-       // Get.back();
+        // Get.back();
         getDataApi();
         print("Deleted");
       } else {
         String msg = resp['msg'];
-        isApiCallProcessing.value=false;
+        isApiCallProcessing.value = false;
         Fluttertoast.showToast(
           msg: msg,
           backgroundColor: Colors.grey,
         );
       }
     } else if (response.statusCode == 500) {
-      isApiCallProcessing.value=false;
+      isApiCallProcessing.value = false;
       Fluttertoast.showToast(
         msg: 'Server error',
         backgroundColor: Colors.grey,
       );
     }
   }
-
-
-
-
-
 }

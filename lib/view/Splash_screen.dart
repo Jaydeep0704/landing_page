@@ -1,8 +1,11 @@
+// ignore_for_file: file_names
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
+import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/page_route/route.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
@@ -27,7 +30,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(backgroundColor: AppColors.whiteColor);
+    return Scaffold(
+      backgroundColor: AppColors.whiteColor,
+      body: Center(
+        child: Text(
+          "Splash Screen",
+          style: AppTextStyle.regularBold.copyWith(fontSize: 18),
+        ),
+      ),
+    );
   }
 
   getPage() async {

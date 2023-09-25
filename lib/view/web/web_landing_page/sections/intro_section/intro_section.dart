@@ -1,6 +1,6 @@
-import 'dart:html' as html;
-import 'dart:developer';
+// ignore_for_file: avoid_web_libraries_in_flutter
 
+import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,6 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controlle
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_intro_section/edit_intro_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/widget/common_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 class IntroSection extends StatefulWidget {
@@ -196,7 +195,7 @@ class _IntroSectionState extends State<IntroSection> {
                                                   children: [
                                                     // Text("${editController.allDataResponse[0]["intro_details"][0]["intro_bot_file"].toString().isEmpty}"),
                                                     editController.allDataResponse[0]["intro_details"][0]["intro_bot_file_show"] == "hide"
-                                                    ?const SizedBox():Container(
+                                                    ?const SizedBox():SizedBox(
                                                       height: 120,
                                                       width: 120,
                                                       child:  Center(
@@ -307,15 +306,7 @@ class _IntroSectionState extends State<IntroSection> {
                                               : Get.width > 1000
                                                   ? Get.width * 0.5
                                                   : Get.width * 0.6,
-                                          child: /*const Text(
-                                            "The first AI platform where Bot \"Genesi\" creates the app (by mere a tap)",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w400),
-                                          ),*/
-                                          FittedBox(
+                                          child: FittedBox(
                                             fit: BoxFit.scaleDown,
                                             child: Container(
                                               padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2),

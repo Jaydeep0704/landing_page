@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, use_build_context_synchronously
+// ignore_for_file: prefer_typing_uninitialized_variables, use_build_context_synchronously, non_constant_identifier_names, deprecated_member_use, must_be_immutable, avoid_web_libraries_in_flutter, implementation_imports, depend_on_referenced_packages
 
 import 'dart:convert';
 
@@ -7,7 +7,6 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:http_parser/src/media_type.dart';
-import 'dart:typed_data';
 
 import 'dart:developer';
 
@@ -532,7 +531,7 @@ class _EditBlogDetailsState extends State<EditBlogDetails> {
             type: FileType.custom,
             allowMultiple: false,
             onFileLoading: (FilePickerStatus status) =>
-                print("status .... $status"),
+                log("status .... $status"),
             allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
           ))?.files;
 
@@ -564,7 +563,7 @@ class _EditBlogDetailsState extends State<EditBlogDetails> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['gif'],
       ))?.files;
 
@@ -611,7 +610,7 @@ class _EditBlogDetailsState extends State<EditBlogDetails> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['mp4', 'mov', 'avi'],
       ))?.files;
       videopathsFile = videopaths!.first.bytes!;
@@ -665,7 +664,6 @@ class _EditBlogDetailsState extends State<EditBlogDetails> {
           request.fields['media'] = '';
         } catch (exception) {
           request.fields['media'] = '';
-          print('pic not selected');
         }
 
       }
@@ -691,7 +689,6 @@ class _EditBlogDetailsState extends State<EditBlogDetails> {
           request.fields['media'] = '';
         } catch (exception) {
           request.fields['media'] = '';
-          print('pic not selected');
         }
 
       }
@@ -717,7 +714,6 @@ class _EditBlogDetailsState extends State<EditBlogDetails> {
           request.fields['media'] = '';
         } catch (exception) {
           request.fields['media'] = '';
-          print('pic not selected');
         }
       }
 

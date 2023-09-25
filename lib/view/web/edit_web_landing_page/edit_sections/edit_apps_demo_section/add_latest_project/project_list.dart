@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
@@ -15,7 +14,7 @@ import 'add_Project_controller.dart';
 class ProjectList extends StatefulWidget {
   final GetProjectData data;
   final int index;
-  ProjectList({Key? key, required this.data, required this.index})
+  const ProjectList({Key? key, required this.data, required this.index})
       : super(key: key);
 
   @override
@@ -23,12 +22,10 @@ class ProjectList extends StatefulWidget {
 }
 
 class _ProjectListState extends State<ProjectList> {
-  final get_latest_project = Get.find<AddProjectController>();
+  final getLatestProject = Get.find<AddProjectController>();
   final editController = Get.find<EditController>();
   bool isvideo = false;
-  bool isimage = false;
-  String Urluploadvideo = '';
-  int total_like = 0;
+  bool isImage = false;
   bool isImageShown = false;
 
   @override
@@ -48,10 +45,10 @@ class _ProjectListState extends State<ProjectList> {
     if (widget.data.appMediaFileType == "image" ||
         widget.data.appMediaFileType == "gif") {
       isvideo = false;
-      isimage = true;
+      isImage = true;
     } else if (widget.data.appMediaFileType == "video") {
       isvideo = true;
-      isimage = false;
+      isImage = false;
     }
   }
 
@@ -144,7 +141,7 @@ class _ProjectListState extends State<ProjectList> {
                                       builder: (context) => EditProjects(
                                             data: widget.data,
                                           ))).whenComplete(() {
-                                get_latest_project.getProjectData();
+                                getLatestProject.getProjectData();
                               });
                             },
                             child: FittedBox(
@@ -218,8 +215,8 @@ class _ProjectListState extends State<ProjectList> {
   ///post video
 
   Widget displayUploadedVideo() {
-    VideoPlayerController _controller = VideoPlayerController.network(
-        APIString.bannerMediaUrl + widget.data.appMediaFile);
+    VideoPlayerController controller = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.bannerMediaUrl + widget.data.appMediaFile));
     bool isVideoPlaying = false;
     setState(() {
       isImageShown = true;
@@ -228,16 +225,16 @@ class _ProjectListState extends State<ProjectList> {
       height: 220,
       child: GestureDetector(
         onTap: () {
-          if (_controller.value.isPlaying) {
-            _controller.pause();
+          if (controller.value.isPlaying) {
+            controller.pause();
           } else {
-            _controller.play();
+            controller.play();
           }
           isVideoPlaying = !isVideoPlaying;
           // setState(() {});
         },
         child: FutureBuilder(
-          future: _controller.initialize(),
+          future: controller.initialize(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return AspectRatio(
@@ -246,7 +243,7 @@ class _ProjectListState extends State<ProjectList> {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    VideoPlayer(_controller),
+                    VideoPlayer(controller),
                     // if (!isVideoPlaying)
                     //   Icon(
                     //     Icons.play_circle_fill,
@@ -269,7 +266,7 @@ class _ProjectListState extends State<ProjectList> {
     );
   }
 
-  void showDeleteConfirmationDialog(BuildContext context, String p_id) {
+  void showDeleteConfirmationDialog(BuildContext context, String pId) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -279,7 +276,7 @@ class _ProjectListState extends State<ProjectList> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                get_latest_project.deleteProjectApi(project_id: p_id);
+                getLatestProject.deleteProjectApi(project_id: pId);
                 // get_latest_project.getProjectList.removeWhere((item) => item.id == p_id);
                 Navigator.of(context).pop();
               },

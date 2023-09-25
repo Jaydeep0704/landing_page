@@ -15,10 +15,7 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controlle
 import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:grobiz_web_landing/widget/update_media_component.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
-
-import '../../../web_landing_page/login_page.dart';
 import '../../../web_landing_page/controller/landing_page_controller.dart';
 import '../../../../../widget/edit_text_dialog.dart';
 
@@ -103,7 +100,7 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                             });
                           },
                         ),
-                        SizedBox(width: 10,),
+                        const SizedBox(width: 10,),
                         InkWell(
                           onTap: () {
                             showDialog(
@@ -380,7 +377,7 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                 Stack(
                                   alignment: Alignment.topRight,
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       // height: 50,
                                       // width: 50,
                                       height: 120,
@@ -432,7 +429,7 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                 Stack(
                                   alignment: Alignment.topRight,
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       // height: 100,
                                       // width: 50,
                                       height: 160,
@@ -617,7 +614,7 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                     Stack(
                                       alignment: Alignment.topRight,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           // height: 50,
                                           // width: 50,
                                           height: Get.width > 500 ? 120 : Get
@@ -676,7 +673,7 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                     Stack(
                                       alignment: Alignment.topRight,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           // height: 100,
                                           // width: 50,
                                           height: Get.width > 500 ? 160 : Get

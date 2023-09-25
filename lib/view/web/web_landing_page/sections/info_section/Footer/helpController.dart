@@ -1,6 +1,7 @@
+// ignore_for_file: non_constant_identifier_names, file_names
+
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 import 'package:get/get.dart';
 
 import 'package:flutter/material.dart';
@@ -9,11 +10,8 @@ import 'package:grobiz_web_landing/utils/http_handler/network_http.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 import 'AboutUs/AboutUsModel.dart';
-import 'ContactUs/ContactUsModel.dart';
 import 'FAQ/FaqModel.dart';
 import 'PrivacyPolicy/PrivacyPolicyModel.dart';
 import 'RefundPolicy/RefundPolicyModel.dart';
@@ -25,13 +23,7 @@ class HelpController extends GetxController {
   late String aboutus = '', about_id = '';
   late AboutUsModel aboutusModel;
 
-  ///for Contact Us
-  // late ContactUsModel contactUs_Model;
-  // late String contact_id = '',
-  //     contact_address = '',
-  //     contact_email = '',
-  //     contact_india = '',
-  //     contact_us = '';
+
 
   ///for get TFC
   late String terms = '';
@@ -153,12 +145,10 @@ class HelpController extends GetxController {
     Uri uri = Uri.parse(url);
 
     final response = await http.get(uri);
-    print(response.toString());
 
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
       int status = resp['status'];
-      print("status=>$status");
 
       if (status == 1) {
         isApiCallProcessing.value = false;

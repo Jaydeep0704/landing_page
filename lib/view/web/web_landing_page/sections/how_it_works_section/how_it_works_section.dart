@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
@@ -11,7 +13,6 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controlle
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_how_it_works_section/edit_hiw_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/widget/common_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -460,19 +461,16 @@ class _HowItWorksSectionState extends State<HowItWorksSection> {
           setState(() {
             _isVisible = visibilityInfo.visibleFraction > 0.0;
             if (_isVisible) {
-              print("is visible  ---------   true");
               // editHIWController.botChewieController.play();
 
               // editHIWController.editBotController.play();
               setState(() {});
             }
             else {
-              print("is visible  ---------   pause");
               editHIWController.botChewieController.pause();
 
               // editHIWController.editBotController.pause();
               setState(() {});
-              print("is visible  ---------   pause2");
             }
           });
         },

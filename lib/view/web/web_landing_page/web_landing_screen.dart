@@ -1,13 +1,10 @@
-import 'dart:html' as html;
 import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
-import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/pricing_section_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_apps_demo_section/add_latest_project/add_Project_controller.dart';
@@ -21,7 +18,6 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_numbers_banner_section/number_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_showcase_apps_section/showcase_app_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/blog_controller.dart';
-import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/address_section/address_section.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/checkout_info_section/CheckOutInfoControllers.dart';
@@ -42,6 +38,7 @@ import 'package:grobiz_web_landing/view/web/web_landing_page/sections/benefit_ba
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/numbers_banner_section/numbers_banner_section.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/help_banner_section/help_banner_section.dart';
 import 'package:video_player/video_player.dart';
+import '../edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 
 class WebLandingScreen extends StatefulWidget {
   const WebLandingScreen({Key? key}) : super(key: key);
@@ -68,12 +65,6 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
   final getLatestProject = Get.find<AddProjectController>();
 
   final ScrollController _scrollController = ScrollController();
-
-  ///for dynamic with edit functionality
-  String fontSize = "";
-  Color? color = Colors.white;
-  FontWeight? fontWeight = FontWeight.w300;
-  String? fontWeight1 = "${FontWeight.w300}";
 
   @override
   void initState() {
@@ -117,8 +108,8 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
       log("passed from -----  $link      --  ${item.appMediaFile}");
 
       if (mediaType == 'video') {
-        final controller =
-            VideoPlayerController.network(APIString.latestmediaBaseUrl + link);
+        final controller = VideoPlayerController.networkUrl(
+            Uri.parse(APIString.latestmediaBaseUrl + link));
         controller.initialize().then((_) {
           log("passed from ----- 1");
           controller.setLooping(true);
@@ -220,10 +211,10 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
       const Duration(microseconds: 20),
       () {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          Get.find<EditTestimonalController>().GetAppLogoes();
-          Get.find<EditTestimonalController>().GetTestimonal().then((value) {
+          Get.find<EditTestimonialController>().GetAppLogoes();
+          Get.find<EditTestimonialController>().GetTestimonal().then((value) {
             webLandingPageController.belowCardIndex.value =
-                Get.find<EditTestimonalController>().getTestimonal.length - 1;
+                Get.find<EditTestimonialController>().getTestimonial.length - 1;
           });
           Get.find<EditBlogController>().getBlogData();
         });
@@ -488,24 +479,24 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
               .toString()
               .toLowerCase() ==
           "video") {
-        editCheckOutController.checkvideoController =
+        editCheckOutController.checkVideoController =
             VideoPlayerController.networkUrl(Uri.parse(APIString.mediaBaseUrl +
                 editController.allDataResponse[0]["checkout_details"][0]
                         ["checkout_file"]
                     .toString()));
-        await editCheckOutController.checkvideoController
+        await editCheckOutController.checkVideoController
             .initialize()
             .whenComplete(() {
           // Future.delayed(const Duration(seconds: 2),() {
-          editCheckOutController.checkvideoController.setLooping(true);
-          editCheckOutController.checkvideoController.setVolume(0);
-          editCheckOutController.ischeckVideoInitialized.value = true;
-          editCheckOutController.checkvideoController.play();
+          editCheckOutController.checkVideoController.setLooping(true);
+          editCheckOutController.checkVideoController.setVolume(0);
+          editCheckOutController.isCheckVideoInitialized.value = true;
+          editCheckOutController.checkVideoController.play();
           setState(() {});
           // },);
         });
       } else {
-        editCheckOutController.ischeckVideoInitialized.value = false;
+        editCheckOutController.isCheckVideoInitialized.value = false;
       }
     }
   }
@@ -793,7 +784,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     final RenderObject? pricingSectionRenderObject =
         PricingSection.pricingSectionKey.currentContext?.findRenderObject();
     log("_scrollToPricingSection    ------ 1");
-    log("pricingSectionRenderObject    ------ ${pricingSectionRenderObject}");
+    log("pricingSectionRenderObject    ------ $pricingSectionRenderObject");
 
     if (pricingSectionRenderObject != null) {
       log("_scrollToPricingSection    ------ 2");

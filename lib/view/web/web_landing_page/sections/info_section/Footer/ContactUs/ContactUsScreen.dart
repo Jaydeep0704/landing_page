@@ -1,20 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:getwidget/getwidget.dart';
+// ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'dart:async';
 import '../helpController.dart';
-import 'ContactUsModel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Contactus extends StatefulWidget {
-  Contactus();
+  const Contactus({super.key});
 
   @override
   State<Contactus> createState() => ContactusState();
@@ -64,7 +57,7 @@ class ContactusState extends State<Contactus> {
                               : const EdgeInsets.only(left: 20, right: 20),
                   child: Obx(() {
                     return helpController.contactUs.isEmpty
-                        ? SizedBox()
+                        ? const SizedBox()
                         : Column(
                             children: [
                               Container(

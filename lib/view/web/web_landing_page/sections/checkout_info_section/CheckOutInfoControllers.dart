@@ -1,7 +1,8 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class CheckOutInfoController extends GetxController{
 
   ///Edit Banner Text
 
-  RxList CheckInfoDataList = [].obs;
+  RxList checkInfoDataList = [].obs;
   RxList videoList = [].obs;
   RxString msg = "".obs;
   RxBool isApiCallProcessing = false.obs;
@@ -32,7 +33,7 @@ class CheckOutInfoController extends GetxController{
     // hideLoadingDialog();
     try {
       log("step --------  +++  2 ");
-      CheckInfoDataList.clear();
+      checkInfoDataList.clear();
 
       Get.focusScope!.unfocus();
       var response = await HttpHandler.getHttpMethod(
@@ -45,13 +46,13 @@ class CheckOutInfoController extends GetxController{
 
         if (response['body']['status'].toString() == "1") {
           videoList.clear();
-          CheckInfoDataList.value = response['body']["data"];
+          checkInfoDataList.value = response['body']["data"];
 
           msg.value = response['body']["msg"];
-          for (int i = 0; i < CheckInfoDataList.length; i++) {
-            if (CheckInfoDataList[i]["file_media_type"] == "video") {
-              debugPrint("FileType ==> ${CheckInfoDataList[i]["file_media_type"]}");
-              videoList.add(CheckInfoDataList[i]);
+          for (int i = 0; i < checkInfoDataList.length; i++) {
+            if (checkInfoDataList[i]["file_media_type"] == "video") {
+              debugPrint("FileType ==> ${checkInfoDataList[i]["file_media_type"]}");
+              videoList.add(checkInfoDataList[i]);
             }
           }
         }
@@ -94,7 +95,7 @@ class CheckOutInfoController extends GetxController{
     if (response.statusCode == 200) {
       final resp = jsonDecode(response.body);
       int status = resp['status'];
-      log('USer Id: ' + status.toString());
+      log('USer Id: $status');
       if (status == 1) {
         isApiCallProcessing.value=true;
         Fluttertoast.showToast(
@@ -103,7 +104,6 @@ class CheckOutInfoController extends GetxController{
         );
         // Get.back();
         getCheckOutApi();
-        print("Deleted");
       } else {
         String msg = resp['msg'];
         isApiCallProcessing.value=false;

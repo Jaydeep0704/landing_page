@@ -104,8 +104,6 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
 
     // Check if location permission is granted
     permission = await Geolocator.checkPermission();
-    log("getUserLocation ----- 3   ${permission != null}");
-    log("getUserLocation permission   ${permission}");
     if (permission == LocationPermission.always ||
         permission == LocationPermission.whileInUse) {
       Position position = await Geolocator.getCurrentPosition();
@@ -186,10 +184,10 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
       const Duration(microseconds: 20),
       () {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          Get.find<EditTestimonalController>().GetAppLogoes();
-          Get.find<EditTestimonalController>().GetTestimonal().then((value) {
+          Get.find<EditTestimonialController>().GetAppLogoes();
+          Get.find<EditTestimonialController>().GetTestimonal().then((value) {
             webLandingPageController.belowCardIndex.value =
-                Get.find<EditTestimonalController>().getTestimonal.length - 1;
+                Get.find<EditTestimonialController>().getTestimonial.length - 1;
           });
           Get.find<EditBlogController>().getBlogData();
         });
@@ -531,24 +529,24 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
               .toString()
               .toLowerCase() ==
           "video") {
-        editCheckOutController.checkvideoController =
+        editCheckOutController.checkVideoController =
             VideoPlayerController.networkUrl(Uri.parse(APIString.mediaBaseUrl +
                 editController.allDataResponse[0]["checkout_details"][0]
                         ["checkout_file"]
                     .toString()));
-        await editCheckOutController.checkvideoController
+        await editCheckOutController.checkVideoController
             .initialize()
             .whenComplete(() {
           // Future.delayed(const Duration(seconds: 2),() {
-          editCheckOutController.checkvideoController.setLooping(true);
-          editCheckOutController.checkvideoController.setVolume(0);
-          editCheckOutController.ischeckVideoInitialized.value = true;
-          editCheckOutController.checkvideoController.play();
+          editCheckOutController.checkVideoController.setLooping(true);
+          editCheckOutController.checkVideoController.setVolume(0);
+          editCheckOutController.isCheckVideoInitialized.value = true;
+          editCheckOutController.checkVideoController.play();
           setState(() {});
           // },);
         });
       } else {
-        editCheckOutController.ischeckVideoInitialized.value = false;
+        editCheckOutController.isCheckVideoInitialized.value = false;
       }
     }
   }
@@ -823,7 +821,7 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
   Future<void> reorderData(int oldIndex, int newIndex) async {
     String id = editController.homeComponentList[oldIndex]["_id"];
     editController.reorderComponent(
-        id: id, newindex: newIndex.toString(), oldIndex: oldIndex.toString());
+        id: id, newIndex: newIndex.toString(), oldIndex: oldIndex.toString());
     setState(() {
       if (newIndex > oldIndex) {
         newIndex -= 1;

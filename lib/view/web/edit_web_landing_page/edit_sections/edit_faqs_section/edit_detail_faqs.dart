@@ -22,24 +22,19 @@ class _EditDetailFaqsState extends State<EditDetailFaqs> {
     super.initState();
 
     getData();
-    print("^^^^^^^^s");
   }
 
   getData() {
     Future.delayed(
       const Duration(microseconds: 50),
       () {
-        faqController
-            .getFaqType()
-            .whenComplete(() => print("data loaded getFaqType  "));
+        faqController.getFaqType();
       },
     );
     Future.delayed(
       const Duration(microseconds: 50),
       () {
-        faqController
-            .getFaq()
-            .whenComplete(() => print("data loaded  getFaq "));
+        faqController.getFaq();
       },
     );
   }
@@ -174,11 +169,6 @@ class _EditDetailFaqsState extends State<EditDetailFaqs> {
                                                     !faqController
                                                         .faqTypeShowHide[index];
                                                 setState(() {});
-
-                                                Future.delayed(
-                                                    const Duration(seconds: 1),
-                                                    () => print(
-                                                        "-0-0--0-0-0-0   ${faqController.faqTypeShowHide[index]}"));
                                               },
                                               icon: Icon(isExpanded
                                                   ? Icons.arrow_drop_up_sharp

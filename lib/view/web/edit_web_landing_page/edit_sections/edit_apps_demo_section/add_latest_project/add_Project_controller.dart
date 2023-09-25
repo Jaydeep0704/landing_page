@@ -1,17 +1,14 @@
 
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 import 'package:get/get.dart';
 
 import 'package:flutter/material.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 
 import 'AddProjectModel.dart';
@@ -46,7 +43,6 @@ class AddProjectController extends GetxController{
     if (response.statusCode == 200) {
       final resp=jsonDecode(response.body);
       int status =resp['status'];
-      print(status);
       if(status==1) {
         getProjectModel = AddProjectModel.fromJson(json.decode(response.body)) ;
         getProjectList.value = getProjectModel.data;
@@ -87,7 +83,6 @@ class AddProjectController extends GetxController{
         // getProjectList.refresh();
         // Get.find<add_project_controller>().update();
 
-        print("Category Deleted");
       } else {
         String msg = resp['msg'];
         Fluttertoast.showToast(

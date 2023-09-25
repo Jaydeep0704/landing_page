@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
-import 'package:grobiz_web_landing/view/web/web_landing_page/sections/pricing_section/pricing_section.dart';
 import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
 
 class HelpBannerSection extends StatefulWidget {

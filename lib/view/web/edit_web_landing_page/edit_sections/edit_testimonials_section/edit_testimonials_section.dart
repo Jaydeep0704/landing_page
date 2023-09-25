@@ -47,7 +47,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
   final introSecController = Get.find<IntroSectionController>();
   final editController = Get.find<EditController>();
   final editIntroController = Get.find<EditIntroController>();
-  final testimonialController = Get.find<EditTestimonalController>();
+  final testimonialController = Get.find<EditTestimonialController>();
   final blogController = Get.find<EditBlogController>();
   List<dynamic> rawData = []; // fetched data
 
@@ -372,7 +372,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                         child: Align(
                           alignment: Alignment.center,
                           child: Obx(() {
-                            return testimonialController.appLogoListt.isEmpty
+                            return testimonialController.appLogoList.isEmpty
                                 ? const Center(child: Text("No Data"))
                                 : GridView.builder(
                               padding: const EdgeInsets.all(25),
@@ -382,11 +382,11 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                   mainAxisExtent: 100,
                                   mainAxisSpacing: 10),
                               shrinkWrap: true,
-                              itemCount: testimonialController.appLogoListt
+                              itemCount: testimonialController.appLogoList
                                   .length,
                               itemBuilder: (context, index) {
                                 var data = testimonialController
-                                    .appLogoListt[index];
+                                    .appLogoList[index];
                                 return ClipRRect(
                                   borderRadius: BorderRadius.circular(5),
                                   // Adjust the radius to your preference
@@ -630,7 +630,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                 : 0.90,
                             autoPlay: true,
                           ),
-                          items: testimonialController.getTestimonal.map((
+                          items: testimonialController.getTestimonial.map((
                               featuredImage) {
                             return Container(
                               // height: 300,
@@ -920,7 +920,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                           return webLandingPageController.aboveCardIndex.value
                               .toString()
                               .isEmpty ||
-                              testimonialController.getTestimonal.isEmpty
+                              testimonialController.getTestimonial.isEmpty
                               ? const SizedBox()
                               : Expanded(
                             child: Padding(
@@ -932,7 +932,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                 children: [
                                   Text(
                                     "${testimonialController
-                                        .getTestimonal[webLandingPageController
+                                        .getTestimonial[webLandingPageController
                                         .aboveCardIndex.value]['Description']}",
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -946,7 +946,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                     children: [
                                       Text(
                                         "Company : ${testimonialController
-                                            .getTestimonal[webLandingPageController
+                                            .getTestimonial[webLandingPageController
                                             .aboveCardIndex
                                             .value]['company_name']}",
                                         style: const TextStyle(
@@ -962,7 +962,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                       Text(
                                         // "Mr Gary",
                                         "Name : ${testimonialController
-                                            .getTestimonal[webLandingPageController
+                                            .getTestimonial[webLandingPageController
                                             .aboveCardIndex
                                             .value]['user_name']}",
                                         style: const TextStyle(
@@ -972,7 +972,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                       ),
                                       Text(
                                         " -${testimonialController
-                                            .getTestimonal[webLandingPageController
+                                            .getTestimonial[webLandingPageController
                                             .aboveCardIndex
                                             .value]['Position']}",
                                         style: const TextStyle(
@@ -1009,7 +1009,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                 .aboveCardIndex
                                                 .value =
                                                 testimonialController
-                                                    .getTestimonal
+                                                    .getTestimonial
                                                     .length -
                                                     1;
                                           }
@@ -1046,7 +1046,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                               .aboveCardIndex
                                               .value <
                                               testimonialController
-                                                  .getTestimonal
+                                                  .getTestimonial
                                                   .length -
                                                   1) {
                                             webLandingPageController
@@ -1063,7 +1063,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                 .belowCardIndex
                                                 .value =
                                                 testimonialController
-                                                    .getTestimonal
+                                                    .getTestimonial
                                                     .length -
                                                     1;
                                             webLandingPageController
@@ -1152,12 +1152,12 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                             borderRadius: const BorderRadius.all(Radius.circular(20))),
                                                         child: buildMediaWidget(
                                                             testimonialController
-                                                                .getTestimonal[webLandingPageController
+                                                                .getTestimonial[webLandingPageController
                                                                 .belowCardIndex
                                                                 .value]['banner_mediatype']
                                                                 .toString(),
                                                             testimonialController
-                                                                .getTestimonal[webLandingPageController
+                                                                .getTestimonial[webLandingPageController
                                                                 .belowCardIndex
                                                                 .value]['banner']
                                                                 .toString())
@@ -1213,12 +1213,12 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                             child:
                                                             buildMediaWidget(
                                                                 testimonialController
-                                                                    .getTestimonal[webLandingPageController
+                                                                    .getTestimonial[webLandingPageController
                                                                     .aboveCardIndex
                                                                     .value]['banner_mediatype']
                                                                     .toString(),
                                                                 testimonialController
-                                                                    .getTestimonal[webLandingPageController
+                                                                    .getTestimonial[webLandingPageController
                                                                     .aboveCardIndex
                                                                     .value]['banner']
                                                                     .toString())
@@ -1303,12 +1303,12 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
 
                                                         child: buildMediaWidget(
                                                             testimonialController
-                                                                .getTestimonal[webLandingPageController
+                                                                .getTestimonial[webLandingPageController
                                                                 .belowCardIndex
                                                                 .value]['banner_mediatype']
                                                                 .toString(),
                                                             testimonialController
-                                                                .getTestimonal[webLandingPageController
+                                                                .getTestimonial[webLandingPageController
                                                                 .belowCardIndex
                                                                 .value]['banner']
                                                                 .toString())
@@ -1362,12 +1362,12 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
 
                                                         child: buildMediaWidget(
                                                             testimonialController
-                                                                .getTestimonal[webLandingPageController
+                                                                .getTestimonial[webLandingPageController
                                                                 .aboveCardIndex
                                                                 .value]['banner_mediatype']
                                                                 .toString(),
                                                             testimonialController
-                                                                .getTestimonal[webLandingPageController
+                                                                .getTestimonial[webLandingPageController
                                                                 .aboveCardIndex
                                                                 .value]['banner']
                                                                 .toString())
@@ -1388,7 +1388,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                           Text(
                             // StaticString.loremIpsum,
                             "${testimonialController
-                                .getTestimonal[webLandingPageController.aboveCardIndex.value]['Description']}",
+                                .getTestimonial[webLandingPageController.aboveCardIndex.value]['Description']}",
                             maxLines: 13,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -1397,7 +1397,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                           const SizedBox(height: 10),
                           Text(
                             "${testimonialController
-                                .getTestimonal[webLandingPageController
+                                .getTestimonial[webLandingPageController
                                 .aboveCardIndex.value]["company_name"]}",
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -1408,7 +1408,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                             children: [
                               Text(
                                 "${testimonialController
-                                    .getTestimonal[webLandingPageController
+                                    .getTestimonial[webLandingPageController
                                     .aboveCardIndex.value]['user_name']}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -1416,7 +1416,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                               ),
                               Text(
                                 " - ${testimonialController
-                                    .getTestimonal[webLandingPageController
+                                    .getTestimonial[webLandingPageController
                                     .aboveCardIndex.value]['Position']}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w400,
@@ -1442,7 +1442,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                       .belowCardIndex.value = 0;
                                   webLandingPageController
                                       .aboveCardIndex.value =
-                                      testimonialController.getTestimonal
+                                      testimonialController.getTestimonial
                                           .length - 1;
                                 }
                                 setState(() {});
@@ -1470,7 +1470,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                 print("1111111111111${webLandingPageController.aboveCardIndex.value}");
                                 if (webLandingPageController
                                     .aboveCardIndex.value <
-                                    testimonialController.getTestimonal.length -
+                                    testimonialController.getTestimonial.length -
                                         1) {
                                   webLandingPageController
                                       .belowCardIndex.value =
@@ -1484,7 +1484,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                 } else {
                                   webLandingPageController
                                       .belowCardIndex.value =
-                                      testimonialController.getTestimonal
+                                      testimonialController.getTestimonial
                                           .length - 1;
                                   webLandingPageController
                                       .aboveCardIndex.value = 0;

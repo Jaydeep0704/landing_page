@@ -51,7 +51,6 @@ class _AddEditFaqsState extends State<AddEditFaqs> {
       const Duration(microseconds: 50),
       () {
         faqController.getFaq().whenComplete(() {
-          print("data loaded ");
         });
       },
     );

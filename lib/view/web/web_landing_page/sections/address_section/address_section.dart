@@ -74,7 +74,7 @@ class _AddressSectionState extends State<AddressSection> {
                                       ["address_details_show_hide"]
                                   .toString() ==
                               "hide"
-                          ? SizedBox()
+                          ? const SizedBox()
                           : SizedBox(
                               width: 450,
                               child: RichText(
@@ -150,7 +150,7 @@ class _AddressSectionState extends State<AddressSection> {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.to(() => PrivacyPolicy())!.whenComplete(
+                        Get.to(() => const PrivacyPolicy())!.whenComplete(
                             () => Future.delayed(Duration.zero, () {
                                   webLandingPageController.getUserCount();
                                 }));
@@ -231,7 +231,7 @@ class _AddressSectionState extends State<AddressSection> {
                                   ["address_details_show_hide"]
                               .toString() ==
                           "hide"
-                      ? SizedBox()
+                      ? const SizedBox()
                       : SizedBox(
                           width: 450,
                           child: RichText(
@@ -306,7 +306,7 @@ class _AddressSectionState extends State<AddressSection> {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.to(() => PrivacyPolicy())!.whenComplete(
+                        Get.to(() => const PrivacyPolicy())!.whenComplete(
                             () => Future.delayed(Duration.zero, () {
                                   webLandingPageController.getUserCount();
                                 }));

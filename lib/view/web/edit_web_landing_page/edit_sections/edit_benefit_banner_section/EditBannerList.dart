@@ -1,21 +1,7 @@
-import 'dart:convert';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
-import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_numbers_banner_section/number_banner_controller.dart';
-import 'package:http_parser/src/media_type.dart';
-import 'dart:developer';
-import 'package:flutter/foundation.dart';
-import 'package:grobiz_web_landing/widget/common_snackbar.dart';
-import 'package:http/http.dart' as http;
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
-import 'package:grobiz_web_landing/widget/loading_dialog.dart';
-
 import 'AddBanerScreen.dart';
 import 'EditBannerScreen.dart';
 import 'edit_banner_controller.dart';
@@ -74,7 +60,8 @@ class _EditBanerListState extends State<EditBanerList> {
                     child: InkWell(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => AddBanerScreen()));
+                            MaterialPageRoute(builder: (context) =>
+                                const AddBanerScreen()));
 
                       },
                       child: FittedBox(
@@ -103,16 +90,16 @@ class _EditBanerListState extends State<EditBanerList> {
                   const SizedBox(height: 25),
                   Expanded(
                     child: Obx(() {
-                      if (benefitBannerController.DataList.isNotEmpty) {
-                        return Container(
+                      if (benefitBannerController.dataList.isNotEmpty) {
+                        return SizedBox(
                             height: Get.height,
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,
                               itemCount:
-                                  benefitBannerController.DataList.length,
+                                  benefitBannerController.dataList.length,
                               itemBuilder: (context, index) {
                                 var data =
-                                    benefitBannerController.DataList[index];
+                                    benefitBannerController.dataList[index];
                                 return Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child:
@@ -171,8 +158,8 @@ class _EditBanerListState extends State<EditBanerList> {
                               },
                             ));
                       } else {
-                        return Padding(
-                          padding: const EdgeInsets.all(10.0),
+                        return const Padding(
+                          padding: EdgeInsets.all(10.0),
                           child: Center(
                             child: Text(
                               'No Data ..',

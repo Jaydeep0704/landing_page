@@ -1,10 +1,8 @@
-import 'dart:async';
-import 'dart:convert';
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:getwidget/getwidget.dart';
 import '../helpController.dart';
 
 class AboutUs extends StatefulWidget {
@@ -64,48 +62,12 @@ class _AboutUsState extends State<AboutUs> {
             children: [
               Obx(() {
                 return helpController.aboutUs.isEmpty
-                    ? SizedBox()
-                    : Container(
-                        // child: Html(data: helpController.aboutus),
-                        child: Html(data: helpController.aboutUs[0]["about"]),
-                      );
+                    ? const SizedBox()
+                    : Html(data: helpController.aboutUs[0]["about"]);
               }),
             ],
           ),
         ),
-        // child: FutureBuilder<bool>(
-        //   future: helpController.getAboutUs(),
-        //   builder: (context, snapshot) {
-        //     if (snapshot.connectionState == ConnectionState.waiting) {
-        //       return Container(
-        //         alignment: Alignment.center,
-        //         width: MediaQuery.of(context).size.width,
-        //         child: const GFLoader(
-        //           type: GFLoaderType.circle,
-        //         ),
-        //       );
-        //     } else {
-        //       if (snapshot.hasError) {
-        //         return const Text('Error occurred while fetching data.');
-        //       } else {
-        //         if (snapshot.data == true) {
-        //           return SingleChildScrollView(
-        //             child: Column(
-        //               crossAxisAlignment: CrossAxisAlignment.start,
-        //               children: [
-        //                 Container(
-        //                   child: Html(data: helpController.aboutus),
-        //                 ),
-        //               ],
-        //             ),
-        //           );
-        //         } else {
-        //           return const Text('Error occurred while fetching data.');
-        //         }
-        //       }
-        //     }
-        //   },
-        // ),
       ),
     );
   }

@@ -1,12 +1,10 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, non_constant_identifier_names
 
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http_parser/src/media_type.dart';
-import 'package:chewie/chewie.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:file_picker/file_picker.dart';
@@ -23,7 +21,6 @@ import '../../../../../widget/common_snackbar.dart';
 import '../../../../../widget/loading_dialog.dart';
 import '../../../edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'CheckOutInfoControllers.dart';
-import 'CheckoutInfoModel.dart';
 
 class EditCheckOutInfo extends StatefulWidget {
   final String id;
@@ -31,7 +28,7 @@ class EditCheckOutInfo extends StatefulWidget {
   final String description;
   final String fileData;
   final String filetype;
-  EditCheckOutInfo({Key? key,required this.id,required this.title,required this.description
+  const EditCheckOutInfo({Key? key,required this.id,required this.title,required this.description
   ,required this.filetype,required this.fileData}) : super(key: key);
  // EditCheckOutInfo({Key? key,required this.data}) : super(key: key);
   @override
@@ -118,14 +115,14 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            title: Text("Update CheckOut Info",
+            title: const Text("Update CheckOut Info",
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold)),
             leading: IconButton(
               onPressed: () => {Navigator.of(context).pop()},
-              icon: Icon(Icons.arrow_back, color: Colors.black),
+              icon: const Icon(Icons.arrow_back, color: Colors.black),
             ),
           ),
           body: Padding(
@@ -133,7 +130,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
             child: SingleChildScrollView(
               child: Row(
                   children:[
-                    Expanded(
+                    const Expanded(
                         child:
                         SizedBox()
                     ),
@@ -142,9 +139,9 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Center(child: Text("Select Image , Video or Gif  for upload",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
-                            SizedBox(height: 10,),
-                            Divider(
+                            const Center(child: Text("Select Image , Video or Gif  for upload",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
+                            const SizedBox(height: 10,),
+                            const Divider(
                               color: Colors.grey,
                             ),
                             Row(
@@ -152,7 +149,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
                                 Expanded(
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text(
+                                    title: const Text(
                                       'Image',
                                       style: TextStyle(fontSize: 16),
                                     ),
@@ -163,8 +160,8 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
                                       onChanged: (value) {
                                         setState(() {
                                           VideoImg = value as String;
-                                          print(value);
-                                          print(VideoImg);
+                                          log(value);
+                                          log(VideoImg);
                                           if (VideoImg == 'image') {
                                             isImage = true;
                                             isvideo = false;
@@ -180,7 +177,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
                                 Expanded(
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text(
+                                    title: const Text(
                                       'Video',
                                       style: TextStyle(fontSize: 16),
                                     ),
@@ -191,9 +188,9 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
                                       onChanged: (value) {
                                         setState(() {
                                           VideoImg = value as String;
-                                          print("Img_video==");
-                                          print(value);
-                                          print(VideoImg);
+                                          log("Img_video==");
+                                          log(value);
+                                          log(VideoImg);
                                           if (VideoImg == 'video') {
                                             isvideo = true;
                                             isImage = false;
@@ -209,7 +206,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
                                 Expanded(
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
-                                    title: Text(
+                                    title: const Text(
                                       'GIF',
                                       style: TextStyle(fontSize: 16),
                                     ),
@@ -220,9 +217,9 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
                                       onChanged: (value) {
                                         setState(() {
                                           VideoImg = value as String;
-                                          print("Img_gif==");
-                                          print(value);
-                                          print(VideoImg);
+                                          log("Img_gif==");
+                                          log(value);
+                                          log(VideoImg);
                                           if (VideoImg == 'gif') {
                                             isGif = true;
                                             isImage = false;
@@ -237,7 +234,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             Visibility(
                                 visible:isImage == true ? true : false,
                                 child:
@@ -396,12 +393,12 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
                                   ],
                                 )
                             ),
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
 
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
                             const Text("Enter Title",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
 
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             TextFormField(
                               controller: project_tile_controller,
@@ -433,11 +430,11 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
                               ),
                             ),
 
-                            SizedBox(height: 20,),
+                            const SizedBox(height: 20,),
 
                             const Text("Enter Description",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
 
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             TextFormField(
                                 controller: project_description_controller,
@@ -474,10 +471,10 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
                             ),
 
 
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             Container(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               color: Colors.white,
                               child: isApiProcessing == true
                                   ? Container(
@@ -498,7 +495,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
                                     color: Colors.blueAccent,
                                   ),
                                   height: 40,
-                                  padding: EdgeInsets.all(4),
+                                  padding: const EdgeInsets.all(4),
                                   alignment: Alignment.center,
                                   child: const Text(
                                     "Update",
@@ -513,7 +510,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
                           ]
                       ),
                     ),
-                    Expanded(
+                    const Expanded(
                         child:
                         SizedBox()
                     ),
@@ -543,7 +540,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
   Future<void> _createVideo(Uint8List bytes) async {
     final blob = html.Blob([bytes]);
     final url = html.Url.createObjectUrlFromBlob(blob);
-    _controller = VideoPlayerController.network(url);
+    _controller = VideoPlayerController.networkUrl(Uri.parse(url));
     await _controller?.initialize();
     setState(() {});
   }
@@ -558,7 +555,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['mp4', 'mov', 'avi'],
       ))?.files;
       videopathsFile = videopaths!.first.bytes!;
@@ -583,20 +580,20 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
   }
 
   Widget displayUploadedVideo() {
-    VideoPlayerController _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+widget.fileData);
+    VideoPlayerController vController = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+widget.fileData));
     bool isVideoPlaying = false;
 
     return GestureDetector(
       onTap: () {
-        if (_controller.value.isPlaying) {
-          _controller.pause();
+        if (vController.value.isPlaying) {
+          vController.pause();
         } else {
-          _controller.play();
+          vController.play();
         }
         isVideoPlaying = !isVideoPlaying;
       },
       child: FutureBuilder(
-        future: _controller.initialize(),
+        future: vController.initialize(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return AspectRatio(
@@ -605,7 +602,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  VideoPlayer(_controller),
+                  VideoPlayer(vController),
                   if (!isVideoPlaying)
                     Icon(
                       Icons.play_circle_fill,
@@ -658,7 +655,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
         request.fields['files'] = '';
       } catch (exception) {
         request.fields['files'] = '';
-        print('pic not selected');
+        log('pic not selected');
       }
 
     }
@@ -684,7 +681,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
         request.fields['files'] = '';
       } catch (exception) {
         request.fields['files'] = '';
-        print('pic not selected');
+        log('pic not selected');
       }
 
     }
@@ -712,7 +709,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
         request.fields['files'] = '';
       } catch (exception) {
         request.fields['files'] = '';
-        print('pic not selected');
+        log('pic not selected');
       }
     }
     // checkout_auto_id,title,  description,files,file_media_type
@@ -726,7 +723,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
     if (response.statusCode == 200) {
 
       final resp=jsonDecode(response.body);
-      print(resp.toString());
+      log(resp.toString());
       //String message=resp['msg'];
       int status=resp['status'];
       if(status==1){
@@ -751,7 +748,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))?.files;
 
@@ -783,7 +780,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['gif'],
       ))?.files;
 

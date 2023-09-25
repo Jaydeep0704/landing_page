@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, implementation_imports, must_be_immutable
+// ignore_for_file: prefer_typing_uninitialized_variables, implementation_imports, must_be_immutable, depend_on_referenced_packages, avoid_web_libraries_in_flutter
 
 import 'dart:developer';
-import 'dart:typed_data';
 import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
@@ -146,7 +145,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
         //csCategoriesController.caseStudyCategories
 
         csCategoriesController.geCSCategory().whenComplete(() {
-          print("data loaded ");
           if (widget.isEdit == true) {
             List<Map<String, String>> data =
                 csCategoriesController.caseStudyCategories
@@ -154,7 +152,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                     .where((p0) => p0["id"] == widget.caseStudyCatagoryId)
                     .toList();
             selectedValue = data[0];
-            print("selectedValue loaded   $selectedValue");
           }
         });
       },
@@ -252,7 +249,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                       Obx(() {
                         return csCategoriesController
                                 .caseStudyCategories.isEmpty
-                            ? Text("Please Wait while Categories Load")
+                            ? const Text("Please Wait while Categories Load")
                             : DropdownButtonFormField<Map<String, String>>(
                                 decoration: const InputDecoration(
                                   // labelText: 'Select an item',
@@ -398,8 +395,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                                 onChanged: (value) {
                                   setState(() {
                                     videoImg = value as String;
-                                    print(value);
-                                    print("VideoImg ---- $videoImg");
                                     if (videoImg == 'image') {
                                       isImage = true;
                                       isvideo = false;
@@ -430,9 +425,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                                 onChanged: (value) {
                                   setState(() {
                                     videoImg = value as String;
-                                    print("Img_video==");
-                                    print(value);
-                                    print("VideoImg ---- $videoImg");
                                     if (videoImg == 'video') {
                                       isvideo = true;
                                       isImage = false;
@@ -463,9 +455,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                                 onChanged: (value) {
                                   setState(() {
                                     videoImg = value as String;
-                                    print("Img_gif==");
-                                    print(value);
-                                    print("VideoImg ---- $videoImg");
                                     if (videoImg == 'gif') {
                                       isGif = true;
                                       isImage = false;
@@ -741,7 +730,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))
           ?.files;
@@ -772,7 +761,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['gif'],
       ))
           ?.files;
@@ -820,7 +809,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
         type: FileType.custom,
         allowMultiple: false,
         onFileLoading: (FilePickerStatus status) =>
-            print("status .... $status"),
+            log("status .... $status"),
         allowedExtensions: ['mp4', 'mov', 'avi'],
       ))
           ?.files;
@@ -892,7 +881,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
           request.fields['media'] = '';
         } catch (exception) {
           request.fields['media'] = '';
-          print('pic not selected');
         }
       }
 
@@ -917,7 +905,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
           request.fields['media'] = '';
         } catch (exception) {
           request.fields['media'] = '';
-          print('pic not selected');
         }
       }
 
@@ -942,7 +929,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
           request.fields['media'] = '';
         } catch (exception) {
           request.fields['media'] = '';
-          print('pic not selected');
         }
       }
     } catch (exception) {
@@ -985,7 +971,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
         showSnackbar(title: "", message: "Added successfully");
         Get.back();
       } else {
-        String message = resp['msg'];
       }
     } else if (response.statusCode == 500) {
       hideLoadingDialog();
@@ -1194,7 +1179,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
           request.fields['media'] = '';
         } catch (exception) {
           request.fields['media'] = '';
-          print('pic not selected');
         }
       }
 
@@ -1219,7 +1203,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
           request.fields['media'] = '';
         } catch (exception) {
           request.fields['media'] = '';
-          print('pic not selected');
         }
       }
 
@@ -1244,7 +1227,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
           request.fields['media'] = '';
         } catch (exception) {
           request.fields['media'] = '';
-          print('pic not selected');
         }
       }
     } catch (exception) {
@@ -1285,7 +1267,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
         showSnackbar(title: "", message: "Updated successfully");
         Get.back();
       } else {
-        String message = resp['msg'];
       }
     } else if (response.statusCode == 500) {
       showSnackbar(title: "", message: "Server Error");

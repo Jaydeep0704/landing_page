@@ -1,11 +1,9 @@
-// ignore_for_file: implementation_imports, prefer_typing_uninitialized_variables, depend_on_referenced_packages
+// ignore_for_file: implementation_imports, prefer_typing_uninitialized_variables, depend_on_referenced_packages, file_names
 
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
-import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_info_section/edit_info_controller.dart';
-import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_numbers_banner_section/number_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'package:http_parser/src/media_type.dart';
 import 'dart:developer';
@@ -29,7 +27,7 @@ class EditTestimonalScreen extends StatefulWidget {
 
 class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
 
-  final testimonalcontroller = Get.find<EditTestimonalController>();
+  final testimonalcontroller = Get.find<EditTestimonialController>();
 
   List<PlatformFile>? _paths;
   var pathsFile;
@@ -97,7 +95,7 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
 
                   Expanded(
                     child: Obx(() {
-                      return testimonalcontroller.appLogoListt.isEmpty
+                      return testimonalcontroller.appLogoList.isEmpty
                           ? const Center(child: Text("No Data"))
                           : GridView.builder(
                         padding: const EdgeInsets.all(25),
@@ -107,9 +105,9 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
                             mainAxisSpacing: 5,
                             crossAxisSpacing: 5),
                         shrinkWrap: true,
-                        itemCount: testimonalcontroller.appLogoListt.length,
+                        itemCount: testimonalcontroller.appLogoList.length,
                         itemBuilder: (context, index) {
-                          var data = testimonalcontroller.appLogoListt[index];
+                          var data = testimonalcontroller.appLogoList[index];
                           return Container(
                             height: 250,
                             width: 250,

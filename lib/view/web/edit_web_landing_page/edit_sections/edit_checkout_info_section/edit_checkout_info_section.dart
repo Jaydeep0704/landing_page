@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grobiz_web_landing/widget/common_bg_color_pick.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
@@ -10,7 +9,6 @@ import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
 import 'package:video_player/video_player.dart';
-
 import '../../../../../config/api_string.dart';
 import '../../../web_landing_page/controller/landing_page_controller.dart';
 import '../../../web_landing_page/sections/checkout_info_section/CheckOutInfoControllers.dart';
@@ -87,7 +85,6 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                           onChanged: (value) {
                             setState(() {
                               editController.checkoutInfo.value = value;
-                              print("value ---- $value");
                               editController.showHideComponent(
                                   value: value == false
                                       ? "No"
@@ -622,15 +619,15 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
 
 
                           Obx(() {
-                            if (checkoutInfoController.CheckInfoDataList.isNotEmpty) {
+                            if (checkoutInfoController.checkInfoDataList.isNotEmpty) {
                               return SizedBox(
                                 height: 600,
                                 child: ListView.builder(
-                                  physics: checkoutInfoController.CheckInfoDataList.length == 1 ?const NeverScrollableScrollPhysics():const AlwaysScrollableScrollPhysics(),
+                                  physics: checkoutInfoController.checkInfoDataList.length == 1 ?const NeverScrollableScrollPhysics():const AlwaysScrollableScrollPhysics(),
                                   scrollDirection: Axis.vertical,
-                                  itemCount: checkoutInfoController.CheckInfoDataList.length,
+                                  itemCount: checkoutInfoController.checkInfoDataList.length,
                                   itemBuilder: (context, index) {
-                                    var data = checkoutInfoController.CheckInfoDataList[index];
+                                    var data = checkoutInfoController.checkInfoDataList[index];
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment
                                           .start,
@@ -710,7 +707,7 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                         width: Get.width,
                         child: CarouselSlider.builder(
                           carouselController: landingPageController.appDetailsController,
-                          options: CarouselOptions(scrollPhysics: checkoutInfoController.CheckInfoDataList.length == 1?NeverScrollableScrollPhysics():AlwaysScrollableScrollPhysics(),
+                          options: CarouselOptions(scrollPhysics: checkoutInfoController.checkInfoDataList.length == 1?const NeverScrollableScrollPhysics():const AlwaysScrollableScrollPhysics(),
                             onPageChanged: (index, reason) {
                               setState(() {
                                 _currentIndex = index;
@@ -722,11 +719,11 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                             // Set viewportFraction to 1.0
                             height: 630,
                           ),
-                          itemCount: checkoutInfoController.CheckInfoDataList
+                          itemCount: checkoutInfoController.checkInfoDataList
                               .length,
                           itemBuilder: (context, itemIndex, realIndex) {
                             var a = checkoutInfoController
-                                .CheckInfoDataList[itemIndex];
+                                .checkInfoDataList[itemIndex];
                             return _currentIndex == itemIndex
                                 ? SizedBox(
                               width: Get.width > 500 ? Get.width * 0.5 : Get.width > 350 ? Get.width * 0.7 : Get.width * 0.7,
@@ -803,10 +800,10 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                       // height: 630,
                       height: 750,
                     ),
-                    itemCount: checkoutInfoController.CheckInfoDataList.length,
+                    itemCount: checkoutInfoController.checkInfoDataList.length,
                     itemBuilder: (context, itemIndex, realIndex) {
                       var a = checkoutInfoController
-                          .CheckInfoDataList[itemIndex];
+                          .checkInfoDataList[itemIndex];
                       return _currentIndex == itemIndex
                           ? SizedBox(
                         width: Get.width > 500 ? Get.width * 0.5 : Get.width >

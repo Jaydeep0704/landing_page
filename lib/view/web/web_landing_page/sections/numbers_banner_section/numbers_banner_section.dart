@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'dart:html' as html;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -116,7 +118,7 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                             editController
                                 .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file1_show"] ==
                                 "hide"
-                                ? SizedBox() : SizedBox(
+                                ? const SizedBox() : SizedBox(
                               // height: Get.width * 0.08,
                               height: Get.width * 0.1,
                               width: Get.width * 0.2,
@@ -134,7 +136,7 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                             editController
                                 .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file2_show"] ==
                                 "hide"
-                                ? SizedBox() : Column(
+                                ? const SizedBox() : Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -795,7 +797,7 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                                   : Get.width * 0.7,
                                               // : Get.width * 0.30,
                                               child: Container(
-                                                margin: EdgeInsets.only(
+                                                margin: const EdgeInsets.only(
                                                     right: 5, top: 5),
                                                 padding: const EdgeInsets
                                                     .symmetric(
@@ -898,7 +900,7 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                                   : Get.width * 0.7,
                                               // : Get.width * 0.30,
                                               child: Container(
-                                                margin: EdgeInsets.only(
+                                                margin: const EdgeInsets.only(
                                                     right: 5, top: 5),
                                                 padding: const EdgeInsets
                                                     .symmetric(
@@ -989,7 +991,7 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                             editController
                                 .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file3_show"] ==
                                 "hide"
-                                ? SizedBox() : Column(
+                                ? const SizedBox() : Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -1108,7 +1110,7 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                       children: [
                         Obx(() {
                           return numberBannerController
-                              .partnerBannerLogos.isEmpty ? SizedBox() : IconButton(
+                              .partnerBannerLogos.isEmpty ? const SizedBox() : IconButton(
                               onPressed: () {
                                 // performMultipleScrolls(3);
                                 int currentIndex = _scrollController1.hasClients
@@ -1132,7 +1134,7 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
 
                         Obx(() {
                           return numberBannerController
-                              .partnerBannerLogos.isEmpty?SizedBox():IconButton(
+                              .partnerBannerLogos.isEmpty?const SizedBox():IconButton(
                               onPressed: () {
                                 int currentIndex = _scrollController1.hasClients
                                     ? (_scrollController1.position.minScrollExtent +

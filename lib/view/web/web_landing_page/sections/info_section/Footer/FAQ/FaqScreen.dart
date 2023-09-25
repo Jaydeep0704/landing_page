@@ -1,16 +1,13 @@
-import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import 'package:getwidget/getwidget.dart';
 import '../helpController.dart';
 
 class FaqScreen extends StatefulWidget {
-  FaqScreen();
+  const FaqScreen({super.key});
 
   @override
   State<FaqScreen> createState() => FaqScreenState();

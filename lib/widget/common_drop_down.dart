@@ -98,7 +98,7 @@ class CommonDropDown extends StatelessWidget {
 }
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -135,11 +135,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Dropdown Example'),
+          title: const Text('Dropdown Example'),
         ),
         body: Center(
           child: DropdownButton<Map<String, String>>(
-            hint: Text('Select an item'),
+            hint: const Text('Select an item'),
             value: selectedValue,
             onChanged: (newValue) {
               setState(() {
