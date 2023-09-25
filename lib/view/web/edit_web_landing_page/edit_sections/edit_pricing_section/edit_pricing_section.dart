@@ -389,7 +389,7 @@ class _EditPricingSectionState extends State<EditPricingSection> {
                               controller: scrollController,
                               thickness: 10,
                               // controller: ScrollController(),
-                              thumbVisibility: true,
+                              isAlwaysShown: true,
                               child: ListView.builder(
                                 controller: scrollController,
                                 // shrinkWrap: true,

@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -20,19 +19,17 @@ import 'package:getwidget/getwidget.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:html' as html;
 import 'package:http/http.dart' as http;
-
 import 'AddProjectModel.dart';
 
-class Edit_Projects extends StatefulWidget {
+class EditProjects extends StatefulWidget {
   final GetProjectData data;
 
-  Edit_Projects({Key? key,required this.data}) : super(key: key);
+  const EditProjects({Key? key, required this.data}) : super(key: key);
   @override
-  State<Edit_Projects> createState() => _Edit_ProjectsState();
+  State<EditProjects> createState() => _EditProjectsState();
 }
 
-class _Edit_ProjectsState extends State<Edit_Projects> {
-
+class _EditProjectsState extends State<EditProjects> {
   ///for gif file
   List<PlatformFile>? gifpaths;
   var gifpathsFile;
@@ -58,52 +55,49 @@ class _Edit_ProjectsState extends State<Edit_Projects> {
   var pathsFileName;
   Uint8List? imageData;
 
-  TextEditingController project_description_controller = TextEditingController();
+  TextEditingController project_description_controller =
+      TextEditingController();
   TextEditingController project_tile_controller = TextEditingController();
   final editController = Get.find<EditController>();
   bool isApiProcessing = false;
-  String VideoImg="";
-  bool isvideo=false;
-  bool isImage=false;
-  bool isGif=false;
-  String videoUrl="";
-
-
+  String VideoImg = "";
+  bool isvideo = false;
+  bool isImage = false;
+  bool isGif = false;
+  String videoUrl = "";
 
   @override
   void initState() {
     super.initState();
-    project_description_controller.text=widget.data.appShortDescription;
-    project_tile_controller.text=widget.data.appName;
-    videoUrl=widget.data.appMediaFile;
+    project_description_controller.text = widget.data.appShortDescription;
+    project_tile_controller.text = widget.data.appName;
+    videoUrl = widget.data.appMediaFile;
 
     checkisVideo();
   }
-
 
   @override
   void dispose() {
     videoController?.dispose();
     super.dispose();
-
   }
 
-  checkisVideo(){
-    if(widget.data.appMediaFileType=="image"){
-      isImage=true;
-      isvideo=false;
-      isGif= false;
-      VideoImg="image";
-    }else if(widget.data.appMediaFileType=="video"){
-      isImage=false;
-      isvideo=true;
-      isGif= false;
-      VideoImg="video";
-    }else if(widget.data.appMediaFileType=="gif"){
-      isImage=false;
-      isvideo=false;
-      isGif= true;
-      VideoImg="gif";
+  checkisVideo() {
+    if (widget.data.appMediaFileType == "image") {
+      isImage = true;
+      isvideo = false;
+      isGif = false;
+      VideoImg = "image";
+    } else if (widget.data.appMediaFileType == "video") {
+      isImage = false;
+      isvideo = true;
+      isGif = false;
+      VideoImg = "video";
+    } else if (widget.data.appMediaFileType == "gif") {
+      isImage = false;
+      isvideo = false;
+      isGif = true;
+      VideoImg = "gif";
     }
   }
 
@@ -128,448 +122,459 @@ class _Edit_ProjectsState extends State<Edit_Projects> {
           body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(
-              child: Row(
-                  children:[
-                    const Expanded(
-                        child:
-                        SizedBox()
-                    ),
-                    SizedBox(
-                      width: Get.width > 800 ? 700 :400,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Center(child: Text("Select Image , Video or Gif  for upload",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
-                            const SizedBox(height: 10,),
-                            const Divider(
-                              color: Colors.grey,
+              child: Row(children: [
+                const Expanded(child: SizedBox()),
+                SizedBox(
+                  width: Get.width > 800 ? 700 : 400,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Center(
+                            child: Text(
+                          "Select Image , Video or Gif  for upload",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        )),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Divider(
+                          color: Colors.grey,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                title: const Text(
+                                  'Image',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                leading: Radio(
+                                  activeColor: Colors.blue,
+                                  value: 'image',
+                                  groupValue: VideoImg,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      VideoImg = value as String;
+                                      print(value);
+                                      print(VideoImg);
+                                      if (VideoImg == 'image') {
+                                        isImage = true;
+                                        isvideo = false;
+                                        isGif = false;
+                                      } else {
+                                        isImage = false;
+                                      }
+                                    });
+                                  },
+                                ),
+                              ),
                             ),
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: ListTile(
-                                    contentPadding: EdgeInsets.zero,
-                                    title: const Text(
-                                      'Image',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    leading: Radio(
-                                      activeColor: Colors.blue,
-                                      value: 'image',
-                                      groupValue: VideoImg,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          VideoImg = value as String;
-                                          print(value);
-                                          print(VideoImg);
-                                          if (VideoImg == 'image') {
-                                            isImage = true;
-                                            isvideo = false;
-                                            isGif = false;
-                                          } else {
-                                            isImage = false;
-                                          }
-                                        });
-                                      },
+                            Expanded(
+                              child: ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                title: const Text(
+                                  'Video',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                leading: Radio(
+                                  activeColor: Colors.blue,
+                                  value: 'video',
+                                  groupValue: VideoImg,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      VideoImg = value as String;
+                                      print("Img_video==");
+                                      print(value);
+                                      print(VideoImg);
+                                      if (VideoImg == 'video') {
+                                        isvideo = true;
+                                        isImage = false;
+                                        isGif = false;
+                                      } else {
+                                        isvideo = false;
+                                      }
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                title: const Text(
+                                  'GIF',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                leading: Radio(
+                                  activeColor: Colors.blue,
+                                  value: 'gif',
+                                  groupValue: VideoImg,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      VideoImg = value as String;
+                                      print("Img_gif==");
+                                      print(value);
+                                      print(VideoImg);
+                                      if (VideoImg == 'gif') {
+                                        isGif = true;
+                                        isImage = false;
+                                        isvideo = false;
+                                      } else {
+                                        isGif = false;
+                                      }
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Visibility(
+                            visible: isImage == true ? true : false,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 200,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                      width: 1.0,
                                     ),
                                   ),
+                                  child: imageData != null
+                                      ? Image.memory(
+                                          imageData!,
+                                          fit: BoxFit.fill,
+                                        )
+                                      : CachedNetworkImage(
+                                          height: 200,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          imageUrl:
+                                              APIString.latestmediaBaseUrl +
+                                                  widget.data.appMediaFile,
+                                          placeholder: (context, url) =>
+                                              Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(int.parse(
+                                                  editController
+                                                      .appDemoBgColor.value
+                                                      .toString())),
+                                            ),
+                                          ),
+                                          // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                          fit: BoxFit.contain,
+                                        ),
                                 ),
-                                Expanded(
-                                  child: ListTile(
-                                    contentPadding: EdgeInsets.zero,
-                                    title: const Text(
-                                      'Video',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    leading: Radio(
-                                      activeColor: Colors.blue,
-                                      value: 'video',
-                                      groupValue: VideoImg,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          VideoImg = value as String;
-                                          print("Img_video==");
-                                          print(value);
-                                          print(VideoImg);
-                                          if (VideoImg == 'video') {
-                                            isvideo = true;
-                                            isImage = false;
-                                            isGif = false;
-                                          } else {
-                                            isvideo = false;
-                                          }
-                                        });
-                                      },
-                                    ),
-                                  ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
                                 ),
-                                Expanded(
-                                  child: ListTile(
-                                    contentPadding: EdgeInsets.zero,
-                                    title: const Text(
-                                      'GIF',
-                                      style: TextStyle(fontSize: 16),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      pickImageFiles();
+                                    },
+                                    icon: const Icon(
+                                      Icons.camera,
                                     ),
-                                    leading: Radio(
-                                      activeColor: Colors.blue,
-                                      value: 'gif',
-                                      groupValue: VideoImg,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          VideoImg = value as String;
-                                          print("Img_gif==");
-                                          print(value);
-                                          print(VideoImg);
-                                          if (VideoImg == 'gif') {
-                                            isGif = true;
-                                            isImage = false;
-                                            isvideo = false;
-                                          } else {
-                                            isGif = false;
-                                          }
-                                        });
-                                      },
+                                    label: const Text(
+                                      'Pick Image',
+                                      style: TextStyle(),
                                     ),
                                   ),
                                 ),
                               ],
-                            ),
-                            const SizedBox(height: 10,),
-                            Visibility(
-                                visible:isImage == true ? true : false,
-                                child:
-                                Column(
-                                  children: [
-                                    Container(
-                                      height: 200,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        border: Border.all(
-                                          color: Colors.grey,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: imageData != null
-                                          ? Image.memory(
-                                        imageData!,
-                                        fit: BoxFit.fill,
-                                      )
-                                          : CachedNetworkImage(
-                                        height: 200,
-                                        width: MediaQuery.of(context).size.width,
-                                        imageUrl: APIString.latestmediaBaseUrl + widget.data.appMediaFile,
-                                        placeholder: (context, url) => Container(
-                                          decoration: BoxDecoration(
-                                            color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                          ),
-                                        ),
-                                        // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
-                                        errorWidget: (context, url, error) => const Icon(Icons.error),
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.02,
-                                    ),
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.05,
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {
-                                          pickImageFiles();
-
-                                        },
-                                        icon: const Icon(
-                                          Icons.camera,
-                                        ),
-                                        label: const Text(
-                                          'Pick Image',
-                                          style: TextStyle(),
-                                        ),
-                                      ),
-                                    ),
-
-                                  ],
-                                )
-                            ),
-
-                            Visibility(
-                                visible:isvideo == true ? true : false,
-                                child:
-                                Column(
-                                  children: [
-
-                                    videoData != null
-                                        ? (controller != null && controller.value.isInitialized)
+                            )),
+                        Visibility(
+                            visible: isvideo == true ? true : false,
+                            child: Column(
+                              children: [
+                                videoData != null
+                                    ? (controller != null &&
+                                            controller.value.isInitialized)
                                         ? AspectRatio(
-                                      aspectRatio: 1 / 0.3,
-                                      child: VideoPlayer(controller),
-                                    )
+                                            aspectRatio: 1 / 0.3,
+                                            child: VideoPlayer(controller),
+                                          )
                                         : AspectRatio(
-                                      aspectRatio: 1 / 0.3,
-                                      child: VideoPlayer(controller!),
-                                    )
-                                        : displayUploadedVideo(),
-
-
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.02,
-                                    ),
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.05,
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {
-                                          pickVideoFiles();
-                                        },
-                                        icon: const Icon(Icons.camera),
-                                        label: const Text(
-                                          'Pick Video',
-                                          style: TextStyle(),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.02,
-                                    ),
-                                    Container(
-                                      height: 200,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        border: Border.all(
-                                          color: Colors.grey,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: imageDataThumbnail != null
-                                          ? Image.memory(
-                                        imageDataThumbnail!,
-                                        fit: BoxFit.fill,
-                                      )
-                                          : CachedNetworkImage(
-                                        height: 200,
-                                        width: MediaQuery.of(context).size.width,
-                                        imageUrl: APIString.latestmediaBaseUrl + widget.data.videoThumbnail,
-                                        placeholder: (context, url) => Container(
-                                          decoration: BoxDecoration(
-                                            color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                          ),
-                                        ),
-                                        // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
-                                        errorWidget: (context, url, error) => const Icon(Icons.error),
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.02,
-                                    ),
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.05,
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {
-                                          pickThumbnailFiles();
-
-                                        },
-                                        icon: const Icon(
-                                          Icons.camera,
-                                        ),
-                                        label: const Text(
-                                          'Pick Thumbnail Image',
-                                          style: TextStyle(),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )
-
-                            ),
-                            Visibility(
-                                visible: isGif == true ? true : false,
-                                child:
-                                Column(
-                                  children: [
-                                    Container(
-                                      height: 200,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        border: Border.all(
-                                          color: Colors.grey,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: gifData != null
-                                          ? Image.memory(
-                                        gifData!,
-                                        fit: BoxFit.contain,
-                                      )
-                                          :   CachedNetworkImage(
-                                        height: 200,
-                                        width: MediaQuery.of(context).size.width,
-                                        imageUrl: APIString.latestmediaBaseUrl + widget.data.appMediaFile,
-                                        placeholder: (context, url) => Container(
-                                          decoration: BoxDecoration(
-                                            color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                          ),
-                                        ),
-                                        // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
-                                        errorWidget: (context, url, error) => const Icon(Icons.error),
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.02,
-                                    ),
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.05,
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {
-
-                                          pickGifFiles();
-                                        },
-                                        icon: const Icon(
-                                          Icons.camera,
-                                        ),
-                                        label: const Text(
-                                          'Pick Gif',
-                                          style: TextStyle(),
-                                        ),
-                                      ),
-                                    ),
-
-                                  ],
-                                )
-                            ),
-                            const SizedBox(height: 20,),
-
-                            const SizedBox(height: 20,),
-                            const Text("Project Title",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-
-                            const SizedBox(height: 10,),
-
-                            TextFormField(
-                              controller: project_tile_controller,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                  const EdgeInsets.all(
-                                      10),
-                                  hintText: "Enter Project Title",
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.red, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.black, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  )
-                              ),
-                            ),
-
-                            const SizedBox(height: 20,),
-
-                            const Text("Project Description",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-
-                            const SizedBox(height: 10,),
-
-                            TextFormField(
-                                controller: project_description_controller,
-                                decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    contentPadding:
-                                    const EdgeInsets.fromLTRB(
-                                        10, 15, 0, 0),
-                                    hintText:
-                                    'Enter Project Description',
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Colors.grey, width: 1),
-                                      borderRadius:
-                                      BorderRadius.circular(10),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Colors.red, width: 1),
-                                      borderRadius:
-                                      BorderRadius.circular(10),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Colors.black, width: 1),
-                                      borderRadius:
-                                      BorderRadius.circular(10),
-                                    )
+                                            aspectRatio: 1 / 0.3,
+                                            child: VideoPlayer(controller!),
+                                          )
+                                    : displayUploadedVideo(),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
                                 ),
-                                maxLines: 5,
-                                keyboardType: TextInputType.text
-
-                            ),
-
-
-                            const SizedBox(height: 10,),
-
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              color: Colors.white,
-                              child: isApiProcessing == true
-                                  ? Container(
-                                height: 60,
-                                alignment: Alignment.center,
-                                width: 80,
-                                child: const GFLoader(type: GFLoaderType.circle),
-                              )
-                                  : InkWell(
-                                onTap: () async {
-                                  editProjectApi();
-                                },
-                                child: Container(
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      pickVideoFiles();
+                                    },
+                                    icon: const Icon(Icons.camera),
+                                    label: const Text(
+                                      'Pick Video',
+                                      style: TextStyle(),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                Container(
+                                  height: 200,
+                                  width: MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.blueAccent,
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                      width: 1.0,
+                                    ),
                                   ),
-                                  height: 40,
-                                  padding: const EdgeInsets.all(4),
-                                  alignment: Alignment.center,
-                                  child: const Text(
-                                    "Update",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
+                                  child: imageDataThumbnail != null
+                                      ? Image.memory(
+                                          imageDataThumbnail!,
+                                          fit: BoxFit.fill,
+                                        )
+                                      : CachedNetworkImage(
+                                          height: 200,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          imageUrl:
+                                              APIString.latestmediaBaseUrl +
+                                                  widget.data.videoThumbnail,
+                                          placeholder: (context, url) =>
+                                              Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(int.parse(
+                                                  editController
+                                                      .appDemoBgColor.value
+                                                      .toString())),
+                                            ),
+                                          ),
+                                          // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                          fit: BoxFit.contain,
+                                        ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      pickThumbnailFiles();
+                                    },
+                                    icon: const Icon(
+                                      Icons.camera,
+                                    ),
+                                    label: const Text(
+                                      'Pick Thumbnail Image',
+                                      style: TextStyle(),
+                                    ),
                                   ),
                                 ),
+                              ],
+                            )),
+                        Visibility(
+                            visible: isGif == true ? true : false,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 200,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  child: gifData != null
+                                      ? Image.memory(
+                                          gifData!,
+                                          fit: BoxFit.contain,
+                                        )
+                                      : CachedNetworkImage(
+                                          height: 200,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          imageUrl:
+                                              APIString.latestmediaBaseUrl +
+                                                  widget.data.appMediaFile,
+                                          placeholder: (context, url) =>
+                                              Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(int.parse(
+                                                  editController
+                                                      .appDemoBgColor.value
+                                                      .toString())),
+                                            ),
+                                          ),
+                                          // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                          fit: BoxFit.contain,
+                                        ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      pickGifFiles();
+                                    },
+                                    icon: const Icon(
+                                      Icons.camera,
+                                    ),
+                                    label: const Text(
+                                      'Pick Gif',
+                                      style: TextStyle(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Text(
+                          "Project Title",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: project_tile_controller,
+                          decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: const EdgeInsets.all(10),
+                              hintText: "Enter Project Title",
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                            )
-                          ]
-                      ),
-                    ),
-                    const Expanded(
-                        child:
-                        SizedBox()
-                    ),
-                  ]
-
-              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.red, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Text(
+                          "Project Description",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                            controller: project_description_controller,
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(10, 15, 0, 0),
+                                hintText: 'Enter Project Description',
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Colors.red, width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Colors.black, width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                )),
+                            maxLines: 5,
+                            keyboardType: TextInputType.text),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          color: Colors.white,
+                          child: isApiProcessing == true
+                              ? Container(
+                                  height: 60,
+                                  alignment: Alignment.center,
+                                  width: 80,
+                                  child:
+                                      const GFLoader(type: GFLoaderType.circle),
+                                )
+                              : InkWell(
+                                  onTap: () async {
+                                    editProjectApi();
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.blueAccent,
+                                    ),
+                                    height: 40,
+                                    padding: const EdgeInsets.all(4),
+                                    alignment: Alignment.center,
+                                    child: const Text(
+                                      "Update",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                        )
+                      ]),
+                ),
+                const Expanded(child: SizedBox()),
+              ]),
             ),
           ),
         );
       },
-
     );
-
   }
 
   // Widget displayUploadedVideo() {
@@ -591,11 +596,8 @@ class _Edit_ProjectsState extends State<Edit_Projects> {
     setState(() {});
   }
 
-
-
-
   void pickVideoFiles() async {
-    showLoadingDialog(loader: false,loadingText: true,delay: true);
+    showLoadingDialog(loader: false, loadingText: true, delay: true);
 
     try {
       videopaths = (await FilePicker.platform.pickFiles(
@@ -604,15 +606,15 @@ class _Edit_ProjectsState extends State<Edit_Projects> {
         onFileLoading: (FilePickerStatus status) =>
             print("status .... $status"),
         allowedExtensions: ['mp4', 'mov', 'avi'],
-      ))?.files;
+      ))
+          ?.files;
       hideLoadingDialog();
       videopathsFile = videopaths!.first.bytes!;
       videopathsFileName = videopaths!.first.name;
       setState(() {
-        videoData=videopathsFile;
+        videoData = videopathsFile;
         _createVideo(videoData!);
       });
-
     } on PlatformException catch (e) {
       log('Unsupported operation   $e');
     } catch (e) {
@@ -628,7 +630,8 @@ class _Edit_ProjectsState extends State<Edit_Projects> {
   }
 
   Widget displayUploadedVideo() {
-    VideoPlayerController _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+widget.data.appMediaFile);
+    VideoPlayerController _controller = VideoPlayerController.network(
+        APIString.latestmediaBaseUrl + widget.data.appMediaFile);
     bool isVideoPlaying = false;
 
     return GestureDetector(
@@ -673,16 +676,14 @@ class _Edit_ProjectsState extends State<Edit_Projects> {
   }
 
   Future editProjectApi() async {
-
-    var url=APIString.grobizBaseUrl+ APIString.edit_app_created_by_grobiz;
+    var url = APIString.grobizBaseUrl + APIString.edit_app_created_by_grobiz;
 
     var uri = Uri.parse(url);
 
     var request = http.MultipartRequest("POST", uri);
     // app_created_auto_id,app_name,app_short_description,app_media_file, app_media_file_type
     ///for video file
-    if(VideoImg=='video'){
-
+    if (VideoImg == 'video') {
       try {
         if (videopathsFile != null) {
           if (kIsWeb) {
@@ -726,10 +727,10 @@ class _Edit_ProjectsState extends State<Edit_Projects> {
         request.fields['video_thumbnail'] = '';
         print('pic not selected');
       }
-
     }
+
     ///for Images file
-    if(VideoImg=='image'){
+    if (VideoImg == 'image') {
       try {
         if (pathsFile != null) {
           if (kIsWeb) {
@@ -751,14 +752,12 @@ class _Edit_ProjectsState extends State<Edit_Projects> {
         request.fields['app_media_file'] = '';
         print('pic not selected');
       }
-
     }
 
     ///for Gif file
 
-    if(VideoImg=='gif'){
+    if (VideoImg == 'gif') {
       try {
-
         if (gifpathsFile != null) {
           if (kIsWeb) {
             request.files.add(
@@ -781,35 +780,42 @@ class _Edit_ProjectsState extends State<Edit_Projects> {
       }
     }
     // app_created_auto_id,app_name,app_short_description,app_media_file, app_media_file_type
-    request.fields["app_created_auto_id"] =widget.data.id;
-    request.fields["app_name"] =project_tile_controller.text;
-    request.fields["app_short_description"] =project_description_controller.text;
-    request.fields["app_media_file_type"] =VideoImg;
+    request.fields["app_created_auto_id"] = widget.data.id;
+    request.fields["app_name"] = project_tile_controller.text;
+    request.fields["app_short_description"] =
+        project_description_controller.text;
+    request.fields["app_media_file_type"] = VideoImg;
 
-    http.Response response = await http.Response.fromStream(await request.send());
+    http.Response response =
+        await http.Response.fromStream(await request.send());
 
     if (response.statusCode == 200) {
-
-      final resp=jsonDecode(response.body);
+      final resp = jsonDecode(response.body);
       print(resp.toString());
       //String message=resp['msg'];
-      int status=resp['status'];
-      if(status==1){
-        Fluttertoast.showToast(msg: "Update App successfully", backgroundColor: Colors.grey,);
+      int status = resp['status'];
+      if (status == 1) {
+        Fluttertoast.showToast(
+          msg: "Update App successfully",
+          backgroundColor: Colors.grey,
+        );
         Get.back();
+      } else {
+        Fluttertoast.showToast(
+          msg: "Something went wrong.Please try later",
+          backgroundColor: Colors.grey,
+        );
       }
-      else{
-        Fluttertoast.showToast(msg: "Something went wrong.Please try later", backgroundColor: Colors.grey,);
-      }
-    }
-    else if(response.statusCode==500){
-
-      Fluttertoast.showToast(msg: "Server Error", backgroundColor: Colors.grey,);
+    } else if (response.statusCode == 500) {
+      Fluttertoast.showToast(
+        msg: "Server Error",
+        backgroundColor: Colors.grey,
+      );
     }
   }
 
   void pickImageFiles() async {
-    showLoadingDialog(loader: false,loadingText: true,delay: true);
+    showLoadingDialog(loader: false, loadingText: true, delay: true);
 
     try {
       paths = (await FilePicker.platform.pickFiles(
@@ -818,15 +824,15 @@ class _Edit_ProjectsState extends State<Edit_Projects> {
         onFileLoading: (FilePickerStatus status) =>
             print("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
-      ))?.files;
-hideLoadingDialog();
+      ))
+          ?.files;
+      hideLoadingDialog();
       pathsFile = paths!.first.bytes!;
       pathsFileName = paths!.first.name;
 
       setState(() {
         imageData = pathsFile;
       });
-
     } on PlatformException catch (e) {
       log('Unsupported operation   $e');
     } catch (e) {
@@ -840,8 +846,9 @@ hideLoadingDialog();
       });
     }
   }
+
   void pickThumbnailFiles() async {
-    showLoadingDialog(loader: false,loadingText: true,delay: true);
+    showLoadingDialog(loader: false, loadingText: true, delay: true);
 
     try {
       pathsThumbnail = (await FilePicker.platform.pickFiles(
@@ -850,15 +857,15 @@ hideLoadingDialog();
         onFileLoading: (FilePickerStatus status) =>
             print("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
-      ))?.files;
-hideLoadingDialog();
+      ))
+          ?.files;
+      hideLoadingDialog();
       pathsFileThumbnail = pathsThumbnail!.first.bytes!;
       pathsFileNameThumbnail = pathsThumbnail!.first.name;
 
       setState(() {
         imageDataThumbnail = pathsFileThumbnail;
       });
-
     } on PlatformException catch (e) {
       log('Unsupported operation   $e');
     } catch (e) {
@@ -874,7 +881,7 @@ hideLoadingDialog();
   }
 
   void pickGifFiles() async {
-    showLoadingDialog(loader: false,loadingText: true,delay: true);
+    showLoadingDialog(loader: false, loadingText: true, delay: true);
 
     try {
       gifpaths = (await FilePicker.platform.pickFiles(
@@ -883,15 +890,15 @@ hideLoadingDialog();
         onFileLoading: (FilePickerStatus status) =>
             print("status .... $status"),
         allowedExtensions: ['gif'],
-      ))?.files;
-hideLoadingDialog();
+      ))
+          ?.files;
+      hideLoadingDialog();
       gifpathsFile = gifpaths!.first.bytes!;
       gifpathsFileName = gifpaths!.first.name;
 
       setState(() {
         gifData = gifpathsFile;
       });
-
     } on PlatformException catch (e) {
       log('Unsupported operation   $e');
     } catch (e) {
@@ -940,7 +947,4 @@ hideLoadingDialog();
 //     });
 //   }
 // }
-
-
-
 }

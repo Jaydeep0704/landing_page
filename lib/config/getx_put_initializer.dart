@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:grobiz_web_landing/agarb/test_flow/controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/intro_section_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/login_controller.dart';
@@ -55,8 +54,4 @@ getXPutInitializer() {
   Get.put(BlogCategoriesController());
   Get.put(AddressController());
   Get.put(FaqController());
-
-
-
-  Get.put(ControllerFile());
 }

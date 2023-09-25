@@ -13,8 +13,6 @@ import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_apps_demo_section/add_latest_project/add_Project_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
-import 'package:grobiz_web_landing/view/web/web_widget/static_data/static_list.dart';
-import 'package:grobiz_web_landing/view/web/web_widget/static_data/static_string.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../../widget/edit_text_dialog.dart';

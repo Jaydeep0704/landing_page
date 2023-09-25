@@ -193,10 +193,10 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
             () {
               initializeVideo();
               initializeVideoHIW();
-              initializeVideoMixBanner();
-              initializeVideobenefitBanner();
-              initializeVideCheckOut();
-              initializeVideoNumberBanner();
+              // initializeVideoMixBanner();
+              // initializeVideobenefitBanner();
+              // initializeVideCheckOut();
+              // initializeVideoNumberBanner();
             },
           );
         });
@@ -631,42 +631,42 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
         editHiwController.botController.dispose();
         editHiwController.botChewieController.dispose();
       }
-      //----------mix banner
-      if (editController.allDataResponse[0]["mix_banner_details"][0]
-                  ["mix_banner_file_mediatype"]
-              .toString()
-              .toLowerCase() ==
-          'video') {
-        mixBannerController.videoController.pause();
-        mixBannerController.videoController.dispose();
-      }
-      //----------NUMBER BANNER
-      if (editController.allDataResponse[0]["numbers_banner_details"][0]
-                  ["numbers_banner_file1_mediatype"]
-              .toString()
-              .toLowerCase() ==
-          'video') {
-        numberBannerController.media1Controller.pause();
-        numberBannerController.media1Controller.dispose();
-      }
-      //--------------
-      if (editController.allDataResponse[0]["numbers_banner_details"][0]
-                  ["numbers_banner_file2_mediatype"]
-              .toString()
-              .toLowerCase() ==
-          'video') {
-        numberBannerController.media2Controller.pause();
-        numberBannerController.media2Controller.dispose();
-      }
-      //--------------
-      if (editController.allDataResponse[0]["numbers_banner_details"][0]
-                  ["numbers_banner_file3_mediatype"]
-              .toString()
-              .toLowerCase() ==
-          'video') {
-        numberBannerController.media3Controller.pause();
-        numberBannerController.media3Controller.dispose();
-      }
+      // //----------mix banner
+      // if (editController.allDataResponse[0]["mix_banner_details"][0]
+      //             ["mix_banner_file_mediatype"]
+      //         .toString()
+      //         .toLowerCase() ==
+      //     'video') {
+      //   mixBannerController.videoController.pause();
+      //   mixBannerController.videoController.dispose();
+      // }
+      // //----------NUMBER BANNER
+      // if (editController.allDataResponse[0]["numbers_banner_details"][0]
+      //             ["numbers_banner_file1_mediatype"]
+      //         .toString()
+      //         .toLowerCase() ==
+      //     'video') {
+      //   numberBannerController.media1Controller.pause();
+      //   numberBannerController.media1Controller.dispose();
+      // }
+      // //--------------
+      // if (editController.allDataResponse[0]["numbers_banner_details"][0]
+      //             ["numbers_banner_file2_mediatype"]
+      //         .toString()
+      //         .toLowerCase() ==
+      //     'video') {
+      //   numberBannerController.media2Controller.pause();
+      //   numberBannerController.media2Controller.dispose();
+      // }
+      // //--------------
+      // if (editController.allDataResponse[0]["numbers_banner_details"][0]
+      //             ["numbers_banner_file3_mediatype"]
+      //         .toString()
+      //         .toLowerCase() ==
+      //     'video') {
+      //   numberBannerController.media3Controller.pause();
+      //   numberBannerController.media3Controller.dispose();
+      // }
     }
     for (var controller in getLatestProject.videoControllers) {
       controller.dispose();
@@ -697,7 +697,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                     //           ));
                     : RawScrollbar(
                         // : Scrollbar(
-                        radius: Radius.circular(20),
+                        radius: const Radius.circular(20),
                         // thumbColor: AppColors.blueColor,
                         thumbColor: Colors.blue,
                         controller: _scrollController,
@@ -711,20 +711,14 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Column(
-                                children: const [
-                                  IntroSection(),
-                                ],
-                              ),
-
                               ///first part starts from here ----  intro
-                              // const IntroSection(),
-                              //
-                              // ///second part starts from here ---- showcase_apps
-                              // const ShowcaseAppsSection(),
-                              //
-                              // ///third part starts here --- how_it_works
-                              // const HowItWorksSection(),
+                              const IntroSection(),
+
+                              ///second part starts from here ---- showcase_apps
+                              const ShowcaseAppsSection(),
+
+                              ///third part starts here --- how_it_works
+                              const HowItWorksSection(),
                               //
                               // ///fourth part starts from here --- testimonials
                               // //Phase2
@@ -777,12 +771,12 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                               //
                               // ///FAQs section ---> - builder.ai
                               // const FAQsSection(),
-                              //
-                              // ///info section ---> Note : get this data from backend --- info
-                              // const InfoSection(),
-                              //
-                              // ///Address Section ---> Note : Static data--- Address
-                              // const AddressSection(),
+
+                              ///info section ---> Note : get this data from backend --- info
+                              const InfoSection(),
+
+                              ///Address Section ---> Note : Static data--- Address
+                              const AddressSection(),
                             ],
                           ),
                         ),

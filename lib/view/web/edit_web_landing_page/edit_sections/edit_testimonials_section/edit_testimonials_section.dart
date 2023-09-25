@@ -13,8 +13,6 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'dart:math' as math;
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
-import 'package:grobiz_web_landing/view/web/web_widget/static_data/static_list.dart';
-import 'package:grobiz_web_landing/view/web/web_widget/static_data/static_string.dart';
 import 'package:grobiz_web_landing/widget/common_bg_color_pick.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:video_player/video_player.dart';

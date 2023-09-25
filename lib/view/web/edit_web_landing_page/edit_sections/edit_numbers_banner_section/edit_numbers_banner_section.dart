@@ -11,7 +11,6 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_numbers_banner_section/number_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/widget/common_button.dart';
-import 'package:grobiz_web_landing/view/web/web_widget/static_data/static_list.dart';
 import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
 import 'package:grobiz_web_landing/widget/update_media_component.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -1596,11 +1595,6 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
                                       ),
                                     );
 
-                                    return Image.asset(
-                                      "${companiesData[index]["logo"]}",
-                                      height: 150,
-                                      width: 150,
-                                    );
                                   },
                                 );
                               }),

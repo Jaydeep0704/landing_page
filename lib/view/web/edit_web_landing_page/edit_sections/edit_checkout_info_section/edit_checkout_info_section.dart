@@ -31,7 +31,6 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
   final landingPageController = Get.find<WebLandingPageController>();
   final editController = Get.find<EditController>();
   int _currentIndex = 0;
-  bool isScrolling = true;
 
 
 
@@ -43,8 +42,8 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
           return editController.homeComponentList.isEmpty &&  editController.allDataResponse.isEmpty
               ?const SizedBox()
               :Container(
-                // height: 700,
-               padding: EdgeInsets.only(
+            // height: 700,
+            padding: EdgeInsets.only(
                 left: Get.width > 650 ? Get.width * 0.1 : Get.width * 0.05,
                 right: Get.width > 650 ? Get.width * 0.1 : Get.width * 0.05),
             decoration: editController
@@ -65,8 +64,7 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                   .toString())),
             )
                 : BoxDecoration(
-                   image: DecorationImage(
-                     image: CachedNetworkImageProvider(
+                image: DecorationImage(image: CachedNetworkImageProvider(
                   APIString.mediaBaseUrl +
                       editController
                           .allDataResponse[0]["checkout_info_details"][0]["checkout_info_bg_image"]
@@ -565,6 +563,11 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                                       .toString()))),
                             ),
                           ),
+                          // Text(
+                          //   "Apps for every checkout",
+                          //   textAlign: TextAlign.center,
+                          //   style: AppTextStyle.regularBold.copyWith(fontSize: 20),
+                          // ),
                           const SizedBox(height: 20),
                           InkWell(
                             onTap: () =>
@@ -607,6 +610,12 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                                       .toString()))),
                             ),
                           ),
+                          // Text(
+                          //   """Install apps that extend your checkout’s functionality—from loyalty programs to upsells, and so much more. Or build your own app to meet your store’s unique needs.""",
+                          //   textAlign: TextAlign.center,
+                          //   style: AppTextStyle.regular400
+                          //       .copyWith(fontSize: 12),
+                          // ),
                           const SizedBox(
                             height: 16,
                           ),
@@ -626,54 +635,43 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                                       crossAxisAlignment: CrossAxisAlignment
                                           .start,
                                       children: [
-                                        InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              _currentIndex = index;
-                                              isScrolling = false;
-                                            });
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: 60,
-                                                width: 2,
-                                                margin: const EdgeInsets.only(
-                                                    right: 16),
-                                                decoration: BoxDecoration(
-                                                  // color: getItemColor(index),
-                                                  color: _currentIndex == index
-                                                    ? AppColors.blueColor
-                                                    : Colors.grey,
-                                                  borderRadius: BorderRadius
-                                                      .circular(10),
-                                                ),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: 60,
+                                              width: 2,
+                                              margin: const EdgeInsets.only(
+                                                  right: 16),
+                                              decoration: BoxDecoration(
+                                                color: getItemColor(index),
+                                                borderRadius: BorderRadius
+                                                    .circular(10),
                                               ),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment
-                                                      .start,
-                                                  children: [
-                                                    Text(
-                                                      data["title"].toString(),
-                                                      style: AppTextStyle
-                                                          .regular700.copyWith(
-                                                          fontSize: 22),
-                                                    ),
-                                                    const SizedBox(height: 10),
-                                                    Text(
-                                                      data["description"]
-                                                          .toString(),
-                                                      style: AppTextStyle
-                                                          .regular400.copyWith(
-                                                          fontSize: 14),
-                                                    ),
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment
+                                                    .start,
+                                                children: [
+                                                  Text(
+                                                    data["title"].toString(),
+                                                    style: AppTextStyle
+                                                        .regular700.copyWith(
+                                                        fontSize: 22),
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  Text(
+                                                    data["description"]
+                                                        .toString(),
+                                                    style: AppTextStyle
+                                                        .regular400.copyWith(
+                                                        fontSize: 14),
+                                                  ),
 
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
                                         ),
                                         const SizedBox(height: 16),
                                       ],
@@ -718,10 +716,10 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                                 _currentIndex = index;
                               });
                             },
-                            // autoPlay: true,
-                            autoPlay: isScrolling,
-                            autoPlayInterval: const Duration(seconds: 10),
+                            autoPlay: true,
+                            autoPlayInterval: const Duration(seconds: 5),
                             viewportFraction: 1.0,
+                            // Set viewportFraction to 1.0
                             height: 630,
                           ),
                           itemCount: checkoutInfoController.CheckInfoDataList
@@ -787,7 +785,7 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
 
                   ],
                 )
-                    :SizedBox(
+                :SizedBox(
                   // height: Get.width * 0.7,
                   width: Get.width * 0.7,
                   child: CarouselSlider.builder(
@@ -798,11 +796,11 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                           _currentIndex = index;
                         });
                       },
-                      // autoPlay: true,
-                      autoPlay: isScrolling,
-
-                      autoPlayInterval: const Duration(seconds: 10),
+                      autoPlay: true,
+                      autoPlayInterval: const Duration(seconds: 5),
                       viewportFraction: 1.0,
+                      // Set viewportFraction to 1.0
+                      // height: 630,
                       height: 750,
                     ),
                     itemCount: checkoutInfoController.CheckInfoDataList.length,

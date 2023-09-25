@@ -9,7 +9,6 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controlle
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/controller/detailed_case_study_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/controller/edit_partner_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/detail_case_study_screen.dart';
-import 'package:grobiz_web_landing/view/web/web_widget/static_data/static_list.dart';
 
 class CaseStudySection extends StatefulWidget {
   const CaseStudySection({Key? key}) : super(key: key);

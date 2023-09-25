@@ -13,9 +13,6 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 
 import 'dart:math' as math;
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
-import 'package:grobiz_web_landing/view/web/web_widget/static_data/static_list.dart';
-import 'package:grobiz_web_landing/view/web/web_widget/static_data/static_string.dart';
-import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -551,7 +548,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                       fontSize: 17),
                                 ),
                                 // const Spacer(),
-                                SizedBox(height: 100),
+                                const SizedBox(height: 100),
                                 Row(
                                   mainAxisAlignment:
                                   MainAxisAlignment.start,
@@ -737,7 +734,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                                     decoration: BoxDecoration(
                                                       // color: Colors.blue,
                                                         border: Border.all(color: AppColors.blackColor,width: 1),
-                                                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                                                        borderRadius: const BorderRadius.all(Radius.circular(20))),
                                                     child:buildMediaWidget(
                                                         testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
                                                         testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString())
@@ -780,7 +777,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                                     decoration: BoxDecoration(
                                                       // color: Colors.blue,
                                                         border: Border.all(color: AppColors.blackColor,width: 1),
-                                                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                                                        borderRadius: const BorderRadius.all(Radius.circular(20))),
                                                     child: buildMediaWidget(
                                                         testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
                                                         testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString())
@@ -1005,7 +1002,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                                   decoration: BoxDecoration(
                                                     // color: Colors.blue,
                                                       border: Border.all(color: AppColors.blackColor,width: 1),
-                                                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                                                      borderRadius: const BorderRadius.all(Radius.circular(20))),
                                                   child:buildMediaWidget(
                                                       testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
                                                       testimonialController.getTestimonal[webLandingPageController.belowCardIndex.value]['banner'].toString())
@@ -1048,7 +1045,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                                   decoration: BoxDecoration(
                                                       // color: Colors.blue,
                                                       border: Border.all(color: AppColors.blackColor,width: 1),
-                                                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                                                      borderRadius: const BorderRadius.all(Radius.circular(20))),
                                                   child: buildMediaWidget(
                                                       testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
                                                       testimonialController.getTestimonal[webLandingPageController.aboveCardIndex.value]['banner'].toString())
@@ -1665,34 +1662,26 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
     );
   }
   Widget displayUploadedVideo(String videoUrl) {
-    VideoPlayerController _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+videoUrl);
+    VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+videoUrl));
     bool isVideoPlaying = false;
-
-    final double videoAspectRatio = /*_controller.value.aspectRatio > 0 ? _controller.value.aspectRatio :*/ 16 / 9;
-
     return InkWell(
       onTap: () {
-        if (_controller.value.isPlaying) {
+        if (controller.value.isPlaying) {
           isVideoPlaying=false;
-          _controller.pause();
+          controller.pause();
         } else {
-          _controller.play();
+          controller.play();
           isVideoPlaying=true;
         }
-        // isVideoPlaying = !isVideoPlaying;
       },
       child: FutureBuilder(
-        future: _controller.initialize(),
+        future: controller.initialize(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return /*AspectRatio(
-              // aspectRatio: _controller.value.aspectRatio,
-              aspectRatio: 16/9,
-              // aspectRatio: 1 / 6,
-              child:*/ Stack(
+            return Stack(
               alignment: Alignment.center,
               children: [
-                VideoPlayer(_controller),
+                VideoPlayer(controller),
                 if (!isVideoPlaying)
                   Icon(
                     Icons.play_circle_fill,
@@ -1701,7 +1690,6 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                   ),
               ],
             );
-            // );
 
           } else {
             return const Center(
@@ -1720,20 +1708,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
       if (bannerMediaType == "image" || bannerMediaType == "gif") {
         return ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(7)),
-          // Center(
-          //   child: ClipRRect(
-          //     borderRadius: const BorderRadius.all(
-          //         Radius.circular(7)),
-          //     child: SizedBox(
-          //       height: 80,
-          //       width: 160,
-          //       child: Image.asset("assets/yt_logo.png",
-          //           fit: BoxFit.cover),
-          //     ),
-          //   ),
-          // ),
           child: ClipRect(
-
             child: CachedNetworkImage(
               fit: BoxFit.cover,
               width: 160,
@@ -1758,23 +1733,23 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
     }
   }
   Widget ytvideo(String videoUrl, {double width = 200}) {
-    VideoPlayerController _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl + videoUrl);
+    VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl + videoUrl));
     bool isVideoPlaying = false;
 
-    final double videoAspectRatio = 16 / 9;
+    const double videoAspectRatio = 16 / 9;
 
     return InkWell(
       onTap: () {
-        if (_controller.value.isPlaying) {
+        if (controller.value.isPlaying) {
           isVideoPlaying = false;
-          _controller.pause();
+          controller.pause();
         } else {
-          _controller.play();
+          controller.play();
           isVideoPlaying = true;
         }
       },
       child: FutureBuilder(
-        future: _controller.initialize(),
+        future: controller.initialize(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             final double height = width / videoAspectRatio;
@@ -1784,7 +1759,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  VideoPlayer(_controller),
+                  VideoPlayer(controller),
                   if (!isVideoPlaying)
                     Icon(
                       Icons.play_circle_fill,
