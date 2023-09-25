@@ -640,7 +640,8 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                                               margin: const EdgeInsets.only(
                                                   right: 16),
                                               decoration: BoxDecoration(
-                                                color: getItemColor(index),
+                                                // color: getItemColor(index),
+                                                color: _currentIndex == index ? AppColors.blueColor : Colors.grey,
                                                 borderRadius: BorderRadius
                                                     .circular(10),
                                               ),
@@ -714,7 +715,7 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                               });
                             },
                             autoPlay: true,
-                            autoPlayInterval: const Duration(seconds: 5),
+                            autoPlayInterval: const Duration(seconds: 8),
                             viewportFraction: 1.0,
                             // Set viewportFraction to 1.0
                             height: 630,
@@ -794,7 +795,7 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                         });
                       },
                       autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 5),
+                      autoPlayInterval: const Duration(seconds: 8),
                       viewportFraction: 1.0,
                       // Set viewportFraction to 1.0
                       // height: 630,
@@ -959,9 +960,7 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
     );
   }
 
-  Color getItemColor(int index) {
-    return _currentIndex == index ? AppColors.blueColor : Colors.grey;
-  }
+
 }
 
 

@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, file_names
 
-import 'dart:convert';
 import 'dart:developer';
 import 'package:get/get.dart';
 
@@ -8,9 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/utils/http_handler/network_http.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
-
 import 'FAQ/FaqModel.dart';
 
 class HelpController extends GetxController {

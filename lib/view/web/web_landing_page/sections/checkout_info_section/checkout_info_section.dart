@@ -465,7 +465,7 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                               });
                             },
                             autoPlay: true,
-                            autoPlayInterval: const Duration(seconds: 5),
+                            autoPlayInterval: const Duration(seconds: 8),
                             viewportFraction: 1.0,
                             // Set viewportFraction to 1.0
                             height: 630,
@@ -554,7 +554,7 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                         });
                       },
                       autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 5),
+                      autoPlayInterval: const Duration(seconds: 8),
                       viewportFraction: 1.0,
                       // Set viewportFraction to 1.0
                       // height: 630,

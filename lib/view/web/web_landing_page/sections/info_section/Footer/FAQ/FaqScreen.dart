@@ -2,10 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-
 import 'package:get/get.dart';
-
-import 'package:getwidget/getwidget.dart';
 import '../helpController.dart';
 
 class FaqScreen extends StatefulWidget {

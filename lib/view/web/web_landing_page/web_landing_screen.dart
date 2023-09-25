@@ -851,7 +851,6 @@
 //   }
 // }
 
-import 'dart:html' as html;
 import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -860,7 +859,6 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
-import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/pricing_section_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_apps_demo_section/add_latest_project/add_Project_controller.dart';
@@ -922,12 +920,6 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
 
   final ScrollController _scrollController = ScrollController();
 
-  ///for dynamic with edit functionality
-  String fontSize = "";
-  Color? color = Colors.white;
-  FontWeight? fontWeight = FontWeight.w300;
-  String? fontWeight1 = "${FontWeight.w300}";
-
   @override
   void initState() {
     super.initState();
@@ -970,8 +962,8 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
       log("passed from -----  $link      --  ${item.appMediaFile}");
 
       if (mediaType == 'video') {
-        final controller =
-            VideoPlayerController.network(APIString.latestmediaBaseUrl + link);
+        final controller = VideoPlayerController.networkUrl(
+            Uri.parse(APIString.latestmediaBaseUrl + link));
         controller.initialize().then((_) {
           log("passed from ----- 1");
           controller.setLooping(true);
@@ -1550,14 +1542,13 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                     //           ));
                     : RawScrollbar(
                         // : Scrollbar(
-                        radius: Radius.circular(20),
-                        // thumbColor: AppColors.blueColor,
+                        radius: const Radius.circular(20),
                         thumbColor: Colors.blue,
                         controller: _scrollController,
                         trackVisibility: true,
                         thickness: 15,
                         interactive: true,
-                        isAlwaysShown: true,
+                        thumbVisibility: true,
                         child: SingleChildScrollView(
                           controller: _scrollController,
                           physics: const AlwaysScrollableScrollPhysics(),
@@ -1646,7 +1637,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     final RenderObject? pricingSectionRenderObject =
         PricingSection.pricingSectionKey.currentContext?.findRenderObject();
     log("_scrollToPricingSection    ------ 1");
-    log("pricingSectionRenderObject    ------ ${pricingSectionRenderObject}");
+    log("pricingSectionRenderObject    ------ $pricingSectionRenderObject");
 
     if (pricingSectionRenderObject != null) {
       log("_scrollToPricingSection    ------ 2");
