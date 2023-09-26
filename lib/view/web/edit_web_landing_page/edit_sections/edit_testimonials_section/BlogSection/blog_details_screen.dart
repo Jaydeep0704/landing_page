@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/services.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/controller/detailed_case_study_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/related_blog/types/blog_category_controller.dart';
+import 'package:grobiz_web_landing/widget/button_scroll.dart';
 import 'package:video_player/video_player.dart';
 import 'blog_controller.dart';
 
@@ -49,6 +51,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
   final detailCaseStudyController = Get.find<DetailCaseStudyController>();
   final editController = Get.find<EditController>();
   final blogCategoriesController = Get.find<BlogCategoriesController>();
+  final ScrollController _controller = ScrollController();
 
   @override
   void initState() {
@@ -60,6 +63,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
     });
     initializeVideo();
     getRelatedData();
+    KeyboardScroll.addScrollListener(_controller);
   }
 
   getRelatedData() {
@@ -75,7 +79,8 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
       editBlogController.videoController.pause();
       editBlogController.videoController.dispose();
     }
-
+    KeyboardScroll.removeScrollListener();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -111,21 +116,35 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                     spreadRadius: 2)
               ]),
               width: Get.width > 550 ? Get.width - Get.width * 0.2 : Get.width,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [
-                    blogData(),
-                    const SizedBox(width: 13),
-                    const Divider(
-                      color: AppColors.greyBorderColor,
-                      thickness: 0.5,
-                    ),
-                    const SizedBox(width: 13),
-                    relatedBlogs(),
-                  ],
-                ),
+              child: ListView(
+                controller: _controller,
+                children: [
+                  blogData(),
+                  const SizedBox(width: 13),
+                  const Divider(
+                    color: AppColors.greyBorderColor,
+                    thickness: 0.5,
+                  ),
+                  const SizedBox(width: 13),
+                  relatedBlogs(),
+                ],
               ),
+
+              // child: SingleChildScrollView(
+              //   scrollDirection: Axis.vertical,
+              //   child: Column(
+              //     children: [
+              //       blogData(),
+              //       const SizedBox(width: 13),
+              //       const Divider(
+              //         color: AppColors.greyBorderColor,
+              //         thickness: 0.5,
+              //       ),
+              //       const SizedBox(width: 13),
+              //       relatedBlogs(),
+              //     ],
+              //   ),
+              // ),
             ),
             const Expanded(child: SizedBox()),
           ],

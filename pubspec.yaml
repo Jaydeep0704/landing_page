@@ -64,6 +64,7 @@ dependencies:
   lottie: ^2.3.2
   youtube_player_flutter: ^8.1.2
   visibility_detector:
+  scrollable_positioned_list:
 
 #  for giving text field options of bold italic, under line
   markdown_editable_textinput: ^2.2.0

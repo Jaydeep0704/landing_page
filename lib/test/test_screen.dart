@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/app_string.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
@@ -100,5 +101,75 @@ class _TestScreenState extends State<TestScreen> {
         ),
       ),
     );
+  }
+}
+
+///
+
+class ScrollMyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Scroll ListView with Arrow Keys'),
+      ),
+      body: ListView.builder(
+        controller: _controller,
+        itemCount: 100, // Adjust as needed
+        itemBuilder: (context, index) => ListTile(
+          title: Text('Item $index'),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Add a listener for keyboard events
+    RawKeyboard.instance.addListener(_handleKeyPress);
+  }
+
+  final ScrollController _controller = ScrollController();
+  void _handleKeyPress(RawKeyEvent event) {
+    if (event is RawKeyDownEvent) {
+      if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
+        _scrollListView(-1);
+      } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+        _scrollListView(1);
+      }
+    }
+  }
+
+  void _scrollListView(int direction) {
+    final double scrollAmount =
+        direction * 100.0; // Adjust the scroll amount as needed
+    _controller.animateTo(
+      _controller.offset + scrollAmount,
+      duration: const Duration(milliseconds: 50),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    // Remove the listener when the widget is disposed
+    RawKeyboard.instance.removeListener(_handleKeyPress);
+    _controller.dispose();
+    super.dispose();
   }
 }

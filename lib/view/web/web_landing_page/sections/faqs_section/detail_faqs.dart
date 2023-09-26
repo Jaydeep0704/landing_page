@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_faqs_section/faq_controller.dart';
+import 'package:grobiz_web_landing/widget/button_scroll.dart';
 
 class DetailFAQs extends StatefulWidget {
   const DetailFAQs({super.key});
@@ -13,12 +14,22 @@ class DetailFAQs extends StatefulWidget {
 
 class _DetailFAQsState extends State<DetailFAQs> {
   final faqController = Get.find<FaqController>();
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
     getData();
+    KeyboardScroll.addScrollListener(_scrollController);
+  }
+
+  @override
+  void dispose() {
+    KeyboardScroll.removeScrollListener();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   getData() {
@@ -42,30 +53,12 @@ class _DetailFAQsState extends State<DetailFAQs> {
       builder: (p0, p1) {
         return Scaffold(
           backgroundColor: AppColors.whiteColor,
-          // appBar: AppBar(
-          //   backgroundColor: AppColors.whiteColor,
-          //   title: Text("Frequently Asked Questions",
-          //       style: AppTextStyle.regular600.copyWith(
-          //         color: AppColors.blackColor,
-          //       )),
-          //   centerTitle: true,
-          //
-          // ),
           body: SingleChildScrollView(
             child: Row(
               children: [
                 const Expanded(child: SizedBox()),
                 Container(
                   padding: const EdgeInsets.all(10.0),
-                  // decoration:
-                  //     BoxDecoration(
-                  //         color: AppColors.whiteColor,
-                  //         boxShadow: [
-                  //   BoxShadow(
-                  //       color: AppColors.blackColor.withOpacity(0.0),
-                  //       blurRadius: 1,
-                  //       spreadRadius: 2)
-                  // ]),
                   width:
                       Get.width > 600 ? Get.width - Get.width * 0.2 : Get.width,
                   child: Column(
@@ -110,6 +103,7 @@ class _DetailFAQsState extends State<DetailFAQs> {
                         return faqController.faqType.isEmpty
                             ? const SizedBox()
                             : ListView.builder(
+                                controller: _scrollController,
                                 shrinkWrap: true,
                                 itemCount: faqController.faqType.length,
                                 itemBuilder: (context, index) {

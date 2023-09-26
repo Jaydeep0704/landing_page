@@ -11,6 +11,7 @@ import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/controller/detailed_case_study_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_case_study_section/related_case_studies/types/cs_category_controller.dart';
+import 'package:grobiz_web_landing/widget/button_scroll.dart';
 import 'package:video_player/video_player.dart';
 
 class DetailCaseStudyScreen extends StatefulWidget {
@@ -27,6 +28,7 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
   final editController = Get.find<EditController>();
   late VideoPlayerController mediaController;
   bool mediaVideoLoaded = false;
+  final ScrollController _scrollController = ScrollController();
 
   initializeMedia() async {
     if (widget.mainData != null) {
@@ -62,6 +64,14 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
         caseStudyAutoId: widget.mainData["case_study_auto_id"]);
     initializeMedia();
     getRelatedData();
+    KeyboardScroll.addScrollListener(_scrollController);
+  }
+
+  @override
+  void dispose() {
+    KeyboardScroll.removeScrollListener();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   getRelatedData() {
@@ -88,6 +98,7 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
                 // width: Get.width > 1200 ? 1100 : Get.width > 800 ? 700 : /*400*/Get.width-40,
                 width: Get.width - Get.width * 0.2,
                 child: SingleChildScrollView(
+                  controller: _scrollController,
                   child: Column(
                     children: [
                       caseStudyDetails(),

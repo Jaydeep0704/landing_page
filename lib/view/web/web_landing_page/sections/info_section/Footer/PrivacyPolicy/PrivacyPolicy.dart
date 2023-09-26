@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 import 'package:get/get.dart';
+import 'package:grobiz_web_landing/widget/button_scroll.dart';
 import '../helpController.dart';
 
 class PrivacyPolicy extends StatefulWidget {
@@ -17,6 +18,7 @@ class PrivacyPolicyState extends State<PrivacyPolicy> {
   PrivacyPolicyState();
 
   final helpController = Get.find<HelpController>();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -25,6 +27,14 @@ class PrivacyPolicyState extends State<PrivacyPolicy> {
     if (helpController.privacyData.isEmpty) {
       helpController.getprivacyData();
     }
+    KeyboardScroll.addScrollListener(_scrollController);
+  }
+
+  @override
+  void dispose() {
+    KeyboardScroll.removeScrollListener();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   void showAlert(BuildContext context) {
@@ -69,14 +79,14 @@ class PrivacyPolicyState extends State<PrivacyPolicy> {
                     ? const EdgeInsets.only(left: 10, right: 10)
                     : const EdgeInsets.only(left: 10, right: 10),
         child: SingleChildScrollView(
+          controller: _scrollController,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Obx(() {
                 return helpController.privacyData.isEmpty
                     ? const SizedBox()
-                    : Html(
-                        data: helpController.privacyData[0]["privacy"]);
+                    : Html(data: helpController.privacyData[0]["privacy"]);
               }),
             ],
           ),

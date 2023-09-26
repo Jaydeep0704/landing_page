@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 import 'package:get/get.dart';
+import 'package:grobiz_web_landing/widget/button_scroll.dart';
 import '../helpController.dart';
 
 class TnCScreen extends StatefulWidget {
@@ -17,12 +18,20 @@ class TnCScreenState extends State<TnCScreen> {
   TnCScreenState();
 
   final helpController = Get.find<HelpController>();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-
     getData();
+    KeyboardScroll.addScrollListener(_scrollController);
+  }
+
+  @override
+  void dispose() {
+    KeyboardScroll.removeScrollListener();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   getData() {
@@ -64,6 +73,7 @@ class TnCScreenState extends State<TnCScreen> {
       //   'assets/favicon.png',
       // ),
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Padding(
           padding: Get.width > 1500
               ? const EdgeInsets.only(left: 100, right: 100)

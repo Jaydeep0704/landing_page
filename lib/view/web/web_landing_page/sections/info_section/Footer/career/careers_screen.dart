@@ -2,6 +2,7 @@
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/career/careers_controller.dart';
+import 'package:grobiz_web_landing/widget/button_scroll.dart';
 import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:grobiz_web_landing/widget/common_textfield.dart';
@@ -23,10 +24,24 @@ class CareersScreen extends StatefulWidget {
 
 class _CareersScreenState extends State<CareersScreen> {
   final careersController = Get.find<CareersController>();
+  final ScrollController _scrollController = ScrollController();
 
   List<PlatformFile>? _paths;
   var pathsFile;
   var pathsFileName;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    KeyboardScroll.addScrollListener(_scrollController);
+  }
+
+  @override
+  void dispose() {
+    KeyboardScroll.removeScrollListener();
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +72,7 @@ class _CareersScreenState extends State<CareersScreen> {
                       ? 400
                       : Get.width,
               child: SingleChildScrollView(
+                controller: _scrollController,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

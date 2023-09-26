@@ -892,6 +892,7 @@ import 'package:grobiz_web_landing/view/web/web_landing_page/sections/mix_banner
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/benefit_banner_section/benefit_banner_section.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/numbers_banner_section/numbers_banner_section.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/help_banner_section/help_banner_section.dart';
+import 'package:grobiz_web_landing/widget/button_scroll.dart';
 import 'package:video_player/video_player.dart';
 
 class WebLandingScreen extends StatefulWidget {
@@ -936,6 +937,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     getCheckoutInfoData();
     getAppDemoData();
     getAddressData();
+    KeyboardScroll.addScrollListener(_scrollController);
   }
 
   planFunc() {
@@ -1513,9 +1515,13 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
         numberBannerController.media3Controller.dispose();
       }
     }
+
     for (var controller in getLatestProject.videoControllers) {
       controller.dispose();
     }
+
+    KeyboardScroll.removeScrollListener();
+    _scrollController.dispose();
     super.dispose();
   }
 

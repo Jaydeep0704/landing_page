@@ -41,6 +41,7 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_text_banner_section/edit_text_banner_section.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/checkout_info_section/CheckOutInfoControllers.dart';
+import 'package:grobiz_web_landing/widget/button_scroll.dart';
 import 'package:video_player/video_player.dart';
 
 import 'edit_sections/edit_case_study_section/edit_case_study_section.dart';
@@ -86,6 +87,7 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
     getCheckoutInfoData();
     getAppDemoData();
     getAddressData();
+    KeyboardScroll.addScrollListener(_scrollController);
   }
 
   planFunc() {
@@ -720,7 +722,8 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
         numberBannerController.media3Controller.dispose();
       }
     }
-
+    KeyboardScroll.removeScrollListener();
+    _scrollController.dispose();
     super.dispose();
   }
 

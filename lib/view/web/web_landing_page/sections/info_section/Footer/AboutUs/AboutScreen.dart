@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
+import 'package:grobiz_web_landing/widget/button_scroll.dart';
 import '../helpController.dart';
 
 class AboutUs extends StatefulWidget {
@@ -14,6 +15,7 @@ class AboutUs extends StatefulWidget {
 
 class _AboutUsState extends State<AboutUs> {
   final helpController = Get.find<HelpController>();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -21,6 +23,14 @@ class _AboutUsState extends State<AboutUs> {
     if (helpController.aboutUs.isEmpty) {
       helpController.getAboutUs();
     }
+    KeyboardScroll.addScrollListener(_scrollController);
+  }
+
+  @override
+  void dispose() {
+    KeyboardScroll.removeScrollListener();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   void showAlert(BuildContext context) {
@@ -57,6 +67,7 @@ class _AboutUsState extends State<AboutUs> {
                     ? const EdgeInsets.only(left: 10, right: 10)
                     : const EdgeInsets.only(left: 10, right: 10),
         child: SingleChildScrollView(
+          controller: _scrollController,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
