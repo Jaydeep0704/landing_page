@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/app_string.dart';
+import 'package:grobiz_web_landing/config/platform_utils.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_numbers_banner_section/number_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
@@ -1123,9 +1126,15 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                 int targetIndex = currentIndex + 2;
                                 if (targetIndex < numberBannerController
                                     .partnerBannerLogos.length) {
-                                  _scrollController1.animateTo(
-                                    _scrollController1.position.maxScrollExtent -
-                                        targetIndex * 56.0,
+                                  // Platform.isAndroid || Platform.isIOS
+                                  PlatformUtils.isMobile
+                                      ?  _scrollController1.animateTo(
+                                         _scrollController1.position.maxScrollExtent - targetIndex * 5,
+                                    duration: const Duration(milliseconds: 500),
+                                    curve: Curves.easeInOut,
+                                  )
+                                  :_scrollController1.animateTo(
+                                    _scrollController1.position.maxScrollExtent - targetIndex * 56.0,
                                     duration: const Duration(milliseconds: 500),
                                     curve: Curves.easeInOut,
                                   );

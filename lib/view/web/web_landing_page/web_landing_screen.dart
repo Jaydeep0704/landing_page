@@ -54,10 +54,10 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
   final webLandingPageController = Get.find<WebLandingPageController>();
   final editController = Get.find<EditController>();
   final editIntroController = Get.find<EditIntroController>();
-  final editHiwController = Get.find<EditHiwController>();
+  // final editHiwController = Get.find<EditHiwController>();
   final numberBannerController = Get.find<NumberBannerController>();
-  final mixBannerController = Get.find<MixBannerController>();
-  final pricingScreenController = Get.find<PricingScreenController>();
+  // final mixBannerController = Get.find<MixBannerController>();
+  // final pricingScreenController = Get.find<PricingScreenController>();
   final getLatestProject = Get.find<AddProjectController>();
 
   final ScrollController _scrollController = ScrollController();
@@ -73,14 +73,14 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     geComponents();
 
     getDataFunction();
-    planFunc();
+    // planFunc();
     getTestimonialData();
-    getShowcaseData();
+    // getShowcaseData();
     getBenefitBannerData();
     getNumbersBannerData();
     getCaseStudyData();
     getCheckoutInfoData();
-    getAppDemoData();
+    // getAppDemoData();
     getAddressData();
     KeyboardScroll.addScrollListener(_scrollController);
   }
@@ -93,25 +93,30 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
 
   showCompOneByOne() {
     Future.delayed(
-        const Duration(seconds: 1),
+        // const Duration(seconds: 1),
+        const Duration(seconds: 0),
         () => {
               editController.showComp1.value = true,
               initializeVideo(),
-              initializeVideoHIW()
+              // initializeVideoHIW()
             });
     Future.delayed(
-        const Duration(seconds: 8),
+        // const Duration(seconds: 8),
+        const Duration(seconds: 0),
         () => {
               editController.showComp2.value = true,
-              initializeVideoMixBanner(),
+              // initializeVideoMixBanner(),
               initializeVideobenefitBanner(),
               initializeVideoNumberBanner()
             });
     Future.delayed(
-        const Duration(seconds: 12),
+        // const Duration(seconds: 12),
+        const Duration(seconds: 0),
         () =>
             {editController.showComp3.value = true, initializeVideCheckOut()});
-    Future.delayed(const Duration(seconds: 14),
+    Future.delayed(
+        // const Duration(seconds: 14),
+        const Duration(seconds: 0),
         () => editController.showComp4.value = true);
   }
 
@@ -119,12 +124,12 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     if (editController.showComp1.value == true) {
       Future.delayed(Duration.zero, () => initializeVideo());
     }
-    if (editController.showComp1.value == true) {
-      initializeVideoHIW();
-    }
-    if (editController.showComp2.value == true) {
-      initializeVideoMixBanner();
-    }
+    // if (editController.showComp1.value == true) {
+    // initializeVideoHIW();
+    // }
+    // if (editController.showComp2.value == true) {
+    // initializeVideoMixBanner();
+    // }
     if (editController.showComp2.value == true) {
       initializeVideobenefitBanner();
     }
@@ -166,25 +171,26 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
         editIntroController.introGif2Controller.pause();
         editIntroController.introGif2Controller.dispose();
       }
-      //----------how it works
-      if (editController.allDataResponse[0]["how_it_works_details"][0]
-                  ["hiw_gif_mediatype"]
-              .toString()
-              .toLowerCase() ==
-          'video') {
-        editHiwController.botController.pause();
-        editHiwController.botController.dispose();
-        editHiwController.botChewieController.dispose();
-      }
-      //----------mix banner
-      if (editController.allDataResponse[0]["mix_banner_details"][0]
-                  ["mix_banner_file_mediatype"]
-              .toString()
-              .toLowerCase() ==
-          'video') {
-        mixBannerController.videoController.pause();
-        mixBannerController.videoController.dispose();
-      }
+
+      ///----------how it works
+      // if (editController.allDataResponse[0]["how_it_works_details"][0]
+      //             ["hiw_gif_mediatype"]
+      //         .toString()
+      //         .toLowerCase() ==
+      //     'video') {
+      //   editHiwController.botController.pause();
+      //   editHiwController.botController.dispose();
+      //   editHiwController.botChewieController.dispose();
+      // }
+      ///----------mix banner
+      // if (editController.allDataResponse[0]["mix_banner_details"][0]
+      //             ["mix_banner_file_mediatype"]
+      //         .toString()
+      //         .toLowerCase() ==
+      //     'video') {
+      //   mixBannerController.videoController.pause();
+      //   mixBannerController.videoController.dispose();
+      // }
       //----------NUMBER BANNER
       if (editController.allDataResponse[0]["numbers_banner_details"][0]
                   ["numbers_banner_file1_mediatype"]
@@ -223,117 +229,117 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     super.dispose();
   }
 
-  void scrollToPricingSection() {
-    final RenderObject? pricingSectionRenderObject =
-        PricingSection.pricingSectionKey.currentContext?.findRenderObject();
-    if (pricingSectionRenderObject != null) {
-      _scrollController.animateTo(
-        _scrollController.position.pixels +
-            pricingSectionRenderObject.getTransformTo(null).getTranslation().y,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-    }
-  }
+  // void scrollToPricingSection() {
+  //   final RenderObject? pricingSectionRenderObject =
+  //       PricingSection.pricingSectionKey.currentContext?.findRenderObject();
+  //   if (pricingSectionRenderObject != null) {
+  //     _scrollController.animateTo(
+  //       _scrollController.position.pixels +
+  //           pricingSectionRenderObject.getTransformTo(null).getTranslation().y,
+  //       duration: const Duration(milliseconds: 500),
+  //       curve: Curves.easeInOut,
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return  Scaffold(
+        return Scaffold(
             backgroundColor: Colors.white,
-            body : SafeArea(child: SizedBox(
-              width: Get.width,
-              child: Obx(() {
-                return editController.allDataResponse.isEmpty &&
-                    editController.homeComponentList.isEmpty
-                    ? const SizedBox()
-                //   : ListView.builder(
-                // controller: _scrollController,
-                //       itemCount: editController.homeComponentList.length,
-                //       itemBuilder: (context, index) =>
-                //           Container(
-                //             key: ValueKey(editController.homeComponentList[index]),
-                //             child: getComponentUi(editController.homeComponentList[index]["component_name"],keyScroll: PricingSection.pricingSectionKey),
-                //           ));
-                    : RawScrollbar(
-                  // : Scrollbar(
-                  radius: const Radius.circular(20),
-                  thumbColor: Colors.blue,
-                  controller: _scrollController,
-                  trackVisibility: true,
-                  thickness: 15,
-                  interactive: true,
-                  thumbVisibility: true,
-                  child: SingleChildScrollView(
-                    controller: _scrollController,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        editController.showComp1.value == false
-                            ? const SizedBox()
-                            : Column(
-                          children: [
-                            const IntroSection(),
-                            const ShowcaseAppsSection(),
-                            const HowItWorksSection(),
-                            TestimonialsSection(
-                                scrollToPricingSection:
-                                scrollToPricingSection),
-                          ],
-                        ),
-                        editController.showComp2.value == false
-                            ? const SizedBox()
-                            : Column(
-                          children: const [
-                            TextBannerSection(),
-                            MixBannerSection(),
-                            BenefitBannerSection(),
-                            NumbersBannerSection(),
-                          ],
-                        ),
-                        editController.showComp3.value == false
-                            ? const SizedBox()
-                            : Column(
-                          children: [
-                            HelpBannerSection(
-                              scrollToPricingSection:
-                              scrollToPricingSection,
+            body: SafeArea(
+              child: SizedBox(
+                width: Get.width,
+                child: Obx(() {
+                  return editController.allDataResponse.isEmpty &&
+                          editController.homeComponentList.isEmpty
+                      ? const SizedBox()
+                      //   : ListView.builder(
+                      // controller: _scrollController,
+                      //       itemCount: editController.homeComponentList.length,
+                      //       itemBuilder: (context, index) =>
+                      //           Container(
+                      //             key: ValueKey(editController.homeComponentList[index]),
+                      //             child: getComponentUi(editController.homeComponentList[index]["component_name"],keyScroll: PricingSection.pricingSectionKey),
+                      //           ));
+                      : RawScrollbar(
+                          // : Scrollbar(
+                          radius: const Radius.circular(20),
+                          thumbColor: Colors.blue,
+                          controller: _scrollController,
+                          trackVisibility: true,
+                          thickness: 15,
+                          interactive: true,
+                          thumbVisibility: true,
+                          child: SingleChildScrollView(
+                            controller: _scrollController,
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                editController.showComp1.value == false
+                                    ? const SizedBox()
+                                    : Column(
+                                        children: [
+                                          // const IntroSection(),
+                                          // const ShowcaseAppsSection(),
+                                          // const HowItWorksSection(),
+                                          TestimonialsSection(
+                                              // scrollToPricingSection: scrollToPricingSection,
+                                              ),
+                                        ],
+                                      ),
+                                editController.showComp2.value == false
+                                    ? const SizedBox()
+                                    : Column(
+                                        children: const [
+                                          TextBannerSection(),
+                                          // MixBannerSection(),
+                                          BenefitBannerSection(),
+                                          NumbersBannerSection(),
+                                        ],
+                                      ),
+                                editController.showComp3.value == false
+                                    ? const SizedBox()
+                                    : Column(
+                                        children: [
+                                          HelpBannerSection(
+                                              // scrollToPricingSection:
+                                              // scrollToPricingSection,
+                                              ),
+                                          const CaseStudySection(),
+                                          const CheckoutInfoSection(),
+                                          // PricingSection(key: PricingSection.pricingSectionKey),
+                                        ],
+                                      ),
+                                editController.showComp4.value == false
+                                    ? const SizedBox()
+                                    : Column(
+                                        children: const [
+                                          CheckoutSection(),
+                                          // AppsDemoSection(),
+                                          FAQsSection(),
+                                          InfoSection(),
+                                          AddressSection(),
+                                        ],
+                                      ),
+                                // editController.showComp1.value == false ||
+                                editController.showComp2.value == false ||
+                                        editController.showComp3.value ==
+                                            false ||
+                                        editController.showComp4.value == false
+                                    ? const Center(
+                                        child: CircularProgressIndicator(),
+                                      )
+                                    : const SizedBox()
+                              ],
                             ),
-                            const CaseStudySection(),
-                            const CheckoutInfoSection(),
-                            PricingSection(
-                                key: PricingSection
-                                    .pricingSectionKey),
-                          ],
-                        ),
-                        editController.showComp4.value == false
-                            ? const SizedBox()
-                            : Column(
-                          children: const [
-                            CheckoutSection(),
-                            AppsDemoSection(),
-                            FAQsSection(),
-                            InfoSection(),
-                            AddressSection(),
-                          ],
-                        ),
-                        // editController.showComp1.value == false ||
-                        editController.showComp2.value == false ||
-                            editController.showComp3.value == false ||
-                            editController.showComp4.value == false
-                            ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                            : const SizedBox()
-                      ],
-                    ),
-                  ),
-                );
-              }),
-            ),)
-          );
+                          ),
+                        );
+                }),
+              ),
+            ));
       },
     );
   }
@@ -342,34 +348,37 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
   getComponentUi(homeComponent, {var keyScroll}) {
     if (homeComponent == "intro") {
       return const IntroSection();
-    } else if (homeComponent == "showcase_apps") {
+    } /*else if (homeComponent == "showcase_apps") {
       return const ShowcaseAppsSection();
-    } else if (homeComponent == "how_it_works") {
+    }*/
+    else if (homeComponent == "how_it_works") {
       return const HowItWorksSection();
     } else if (homeComponent == "testimonials") {
       return TestimonialsSection(
-        scrollToPricingSection: scrollToPricingSection,
-      );
+          // scrollToPricingSection: scrollToPricingSection,
+          );
     } else if (homeComponent == "text_banner") {
       return const TextBannerSection();
-    } else if (homeComponent == "mix_banner") {
+    } /* else if (homeComponent == "mix_banner") {
       return const MixBannerSection();
-    } else if (homeComponent == "benefit_banner") {
+    } */
+    else if (homeComponent == "benefit_banner") {
       return const BenefitBannerSection();
     } else if (homeComponent == "numbers_banner") {
       return const NumbersBannerSection();
     } else if (homeComponent == "help_banner") {
       return HelpBannerSection(
-        scrollToPricingSection: scrollToPricingSection,
-      );
+          // scrollToPricingSection: scrollToPricingSection,
+          );
     } else if (homeComponent == "case_study") {
       return const CaseStudySection();
     } else if (homeComponent == "checkout_info") {
       return const CheckoutInfoSection();
-    } else if (homeComponent == "pricing") {
+    } /*else if (homeComponent == "pricing") {
       // return PricingSection(key: PricingSection.pricingSectionKey);
       return PricingSection(key: keyScroll);
-    } else if (homeComponent == "checkout") {
+    }*/
+    else if (homeComponent == "checkout") {
       return const CheckoutSection();
     } else if (homeComponent == "apps_demo") {
       return const AppsDemoSection();
@@ -386,53 +395,53 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
 
   ///initialization of all function and apis
 
-  planFunc() {
-    pricingScreenController.getPlansData(lat: "21.2378888", long: "72.863352");
-    getUserLocation();
-  }
+  // planFunc() {
+  //   pricingScreenController.getPlansData(lat: "21.2378888", long: "72.863352");
+  //   getUserLocation();
+  // }
 
-  Future<Position> getUserLocation() async {
-    // pricingScreenController.getPlansData(lat: "21.2378888", long: "72.863352");
-    LocationPermission permission;
-
-    // Check if location permission is granted
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.always ||
-        permission == LocationPermission.whileInUse) {
-      Position position = await Geolocator.getCurrentPosition();
-      pricingScreenController.isLocation.value = true;
-      pricingScreenController.getPlansData(
-        lat: position.latitude.toString(),
-        long: position.longitude.toString(),
-      );
-    } else if (permission == LocationPermission.denied) {
-      pricingScreenController.isLocation.value = false;
-      pricingScreenController.getPlansData(
-          lat: "21.2378888", long: "72.863352");
-      permission = await Geolocator.requestPermission();
-
-      if (permission == LocationPermission.denied) {
-        pricingScreenController.isLocation.value = false;
-        pricingScreenController.getPlansData(
-            lat: "21.2378888", long: "72.863352");
-        // Handle the scenario when the user denies the location permission
-        return Future.error('Location permission denied');
-      }
-    } else if (permission == LocationPermission.unableToDetermine) {
-      pricingScreenController.getPlansData(
-          lat: "21.2378888", long: "72.863352");
-      pricingScreenController.isLocation.value = false;
-    } else if (permission == LocationPermission.deniedForever) {
-      pricingScreenController.getPlansData(
-          lat: "21.2378888", long: "72.863352");
-      pricingScreenController.isLocation.value = false;
-    }
-    // Get the current position
-    Position position = await Geolocator.getCurrentPosition();
-    pricingScreenController.latitude.value = position.latitude.toString();
-    pricingScreenController.longitude.value = position.longitude.toString();
-    return position;
-  }
+  // Future<Position> getUserLocation() async {
+  //   // pricingScreenController.getPlansData(lat: "21.2378888", long: "72.863352");
+  //   LocationPermission permission;
+  //
+  //   // Check if location permission is granted
+  //   permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.always ||
+  //       permission == LocationPermission.whileInUse) {
+  //     Position position = await Geolocator.getCurrentPosition();
+  //     pricingScreenController.isLocation.value = true;
+  //     pricingScreenController.getPlansData(
+  //       lat: position.latitude.toString(),
+  //       long: position.longitude.toString(),
+  //     );
+  //   } else if (permission == LocationPermission.denied) {
+  //     pricingScreenController.isLocation.value = false;
+  //     pricingScreenController.getPlansData(
+  //         lat: "21.2378888", long: "72.863352");
+  //     permission = await Geolocator.requestPermission();
+  //
+  //     if (permission == LocationPermission.denied) {
+  //       pricingScreenController.isLocation.value = false;
+  //       pricingScreenController.getPlansData(
+  //           lat: "21.2378888", long: "72.863352");
+  //       // Handle the scenario when the user denies the location permission
+  //       return Future.error('Location permission denied');
+  //     }
+  //   } else if (permission == LocationPermission.unableToDetermine) {
+  //     pricingScreenController.getPlansData(
+  //         lat: "21.2378888", long: "72.863352");
+  //     pricingScreenController.isLocation.value = false;
+  //   } else if (permission == LocationPermission.deniedForever) {
+  //     pricingScreenController.getPlansData(
+  //         lat: "21.2378888", long: "72.863352");
+  //     pricingScreenController.isLocation.value = false;
+  //   }
+  //   // Get the current position
+  //   Position position = await Geolocator.getCurrentPosition();
+  //   pricingScreenController.latitude.value = position.latitude.toString();
+  //   pricingScreenController.longitude.value = position.longitude.toString();
+  //   return position;
+  // }
 
   getDataFunction() {
     Future.delayed(Duration.zero, () {
@@ -444,8 +453,6 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
       () {
         editController.getData().then((value) {
           showCompOneByOne();
-          // loadMediaOneByOne();
-
           // Future.delayed(Duration.zero, () => initializeVideo());
           // Future.delayed(
           //     const Duration(seconds: 1), () => initializeVideoHIW());
@@ -489,16 +496,16 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     );
   }
 
-  getShowcaseData() {
-    Future.delayed(
-      const Duration(microseconds: 25),
-      () {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Get.find<ShowCaseAppsController>().getShowCaseApi();
-        });
-      },
-    );
-  }
+  // getShowcaseData() {
+  //   Future.delayed(
+  //     const Duration(microseconds: 25),
+  //     () {
+  //       WidgetsBinding.instance.addPostFrameCallback((_) {
+  //         Get.find<ShowCaseAppsController>().getShowCaseApi();
+  //       });
+  //     },
+  //   );
+  // }
 
   getBenefitBannerData() {
     Future.delayed(
@@ -531,13 +538,13 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     });
   }
 
-  getAppDemoData() {
-    Future.delayed(const Duration(microseconds: 50), () {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        getLatestProject.getProjectData();
-      });
-    });
-  }
+  // getAppDemoData() {
+  //   Future.delayed(const Duration(microseconds: 50), () {
+  //     WidgetsBinding.instance.addPostFrameCallback((_) {
+  //       getLatestProject.getProjectData();
+  //     });
+  //   });
+  // }
 
   getAddressData() {
     Future.delayed(const Duration(microseconds: 50), () {
@@ -627,79 +634,79 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     }
   }
 
-  initializeVideoHIW() async {
-    if (editController.allDataResponse.isNotEmpty) {
-      ///------------how it works
-      // if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == "video") {
-      //   editHiwController.botController = VideoPlayerController.networkUrl(
-      //       Uri.parse(APIString.mediaBaseUrl + editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString()));
-      //   await editHiwController.botController.initialize().whenComplete(
-      //     () {
-      //       editHiwController.botController.setLooping(true);
-      //       editHiwController.botController.setVolume(0);
-      //       editHiwController.isBotVideoInitialized.value = true;
-      //       editHiwController.botController.play();
-      //       setState(() {});
-      //     },
-      //   );
-      // }
-      // else {
-      //   editHiwController.isBotVideoInitialized.value = false;
-      // }
+  // initializeVideoHIW() async {
+  //   if (editController.allDataResponse.isNotEmpty) {
+  //     ///------------how it works
+  //     // if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == "video") {
+  //     //   editHiwController.botController = VideoPlayerController.networkUrl(
+  //     //       Uri.parse(APIString.mediaBaseUrl + editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString()));
+  //     //   await editHiwController.botController.initialize().whenComplete(
+  //     //     () {
+  //     //       editHiwController.botController.setLooping(true);
+  //     //       editHiwController.botController.setVolume(0);
+  //     //       editHiwController.isBotVideoInitialized.value = true;
+  //     //       editHiwController.botController.play();
+  //     //       setState(() {});
+  //     //     },
+  //     //   );
+  //     // }
+  //     // else {
+  //     //   editHiwController.isBotVideoInitialized.value = false;
+  //     // }
+  //
+  //     if (editController.allDataResponse[0]["how_it_works_details"][0]
+  //                 ["hiw_gif_mediatype"]
+  //             .toString()
+  //             .toLowerCase() ==
+  //         "video") {
+  //       editHiwController.botController = VideoPlayerController.networkUrl(
+  //           Uri.parse(APIString.mediaBaseUrl +
+  //               editController.allDataResponse[0]["how_it_works_details"][0]
+  //                       ["hiw_gif"]
+  //                   .toString()));
+  //
+  //       editHiwController.botChewieController = ChewieController(
+  //         videoPlayerController: editHiwController.botController,
+  //         allowFullScreen: false,
+  //         autoPlay: false,
+  //         looping: true,
+  //       );
+  //
+  //       editHiwController.botController.initialize().then((_) {
+  //         editHiwController.isBotVideoInitialized.value = true;
+  //         setState(() {});
+  //       });
+  //     }
+  //   } else {
+  //     editHiwController.isBotVideoInitialized.value = false;
+  //   }
+  // }
 
-      if (editController.allDataResponse[0]["how_it_works_details"][0]
-                  ["hiw_gif_mediatype"]
-              .toString()
-              .toLowerCase() ==
-          "video") {
-        editHiwController.botController = VideoPlayerController.networkUrl(
-            Uri.parse(APIString.mediaBaseUrl +
-                editController.allDataResponse[0]["how_it_works_details"][0]
-                        ["hiw_gif"]
-                    .toString()));
-
-        editHiwController.botChewieController = ChewieController(
-          videoPlayerController: editHiwController.botController,
-          allowFullScreen: false,
-          autoPlay: false,
-          looping: true,
-        );
-
-        editHiwController.botController.initialize().then((_) {
-          editHiwController.isBotVideoInitialized.value = true;
-          setState(() {});
-        });
-      }
-    } else {
-      editHiwController.isBotVideoInitialized.value = false;
-    }
-  }
-
-  initializeVideoMixBanner() async {
-    if (editController.allDataResponse.isNotEmpty) {
-      ///------------mix banner
-      if (editController.allDataResponse[0]["mix_banner_details"][0]
-                  ["mix_banner_file_mediatype"]
-              .toString()
-              .toLowerCase() ==
-          "video") {
-        mixBannerController.videoController = VideoPlayerController.networkUrl(
-            Uri.parse(APIString.mediaBaseUrl +
-                editController.allDataResponse[0]["mix_banner_details"][0]
-                        ["mix_banner_file"]
-                    .toString()));
-        await mixBannerController.videoController.initialize().whenComplete(() {
-          mixBannerController.videoController.setLooping(true);
-          mixBannerController.videoController.setVolume(0);
-          mixBannerController.isVideoInitialized.value = true;
-          mixBannerController.videoController.play();
-          setState(() {});
-        });
-      } else {
-        mixBannerController.isVideoInitialized.value = false;
-      }
-    }
-  }
+  // initializeVideoMixBanner() async {
+  //   if (editController.allDataResponse.isNotEmpty) {
+  //     ///------------mix banner
+  //     if (editController.allDataResponse[0]["mix_banner_details"][0]
+  //                 ["mix_banner_file_mediatype"]
+  //             .toString()
+  //             .toLowerCase() ==
+  //         "video") {
+  //       mixBannerController.videoController = VideoPlayerController.networkUrl(
+  //           Uri.parse(APIString.mediaBaseUrl +
+  //               editController.allDataResponse[0]["mix_banner_details"][0]
+  //                       ["mix_banner_file"]
+  //                   .toString()));
+  //       await mixBannerController.videoController.initialize().whenComplete(() {
+  //         mixBannerController.videoController.setLooping(true);
+  //         mixBannerController.videoController.setVolume(0);
+  //         mixBannerController.isVideoInitialized.value = true;
+  //         mixBannerController.videoController.play();
+  //         setState(() {});
+  //       });
+  //     } else {
+  //       mixBannerController.isVideoInitialized.value = false;
+  //     }
+  //   }
+  // }
 
   initializeVideobenefitBanner() async {
     log("-=-=-=-=-   editController.allDataResponse.isNotEmpty");

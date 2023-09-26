@@ -1094,9 +1094,10 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                           .isEmpty
                       ? const SizedBox()
                       : Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                         color: Colors.blue.withOpacity(0.2)),
-                    padding: const EdgeInsets.all(25),
+                    padding:  EdgeInsets.all(Get.width > 500 ?25:10),
                     child: Column(
                       children: [
                         Column(
@@ -1228,51 +1229,10 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                             )
                           ],
                         ),
-                        const SizedBox(height: 10),
-                        Text(
-                          // StaticString.loremIpsum,
-                          "${testimonialController
-                              .getTestimonial[webLandingPageController
-                              .aboveCardIndex.value]['Description']}",
-                          maxLines: 13,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          // "ABC & Co.",
-                          "${testimonialController
-                              .getTestimonial[webLandingPageController
-                              .aboveCardIndex.value]["company_name"]}",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17),
-                        ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 15),
                         Row(
-                          children: [
-                            Text(
-                              // "Mr Gary",
-                              "${testimonialController
-                                  .getTestimonial[webLandingPageController
-                                  .aboveCardIndex.value]['user_name']}",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17),
-                            ),
-                            Text(
-                              " - ${testimonialController
-                                  .getTestimonial[webLandingPageController
-                                  .aboveCardIndex.value]['Position']}",
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 17),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(children: [
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
                           InkWell(
                             onTap: () {
                               if (webLandingPageController
@@ -1358,6 +1318,50 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                             ),
                           ),
                         ]),
+                        const SizedBox(height: 15),
+                        Text(
+                          // StaticString.loremIpsum,
+                          "${testimonialController
+                              .getTestimonial[webLandingPageController
+                              .aboveCardIndex.value]['Description']}",
+                          maxLines: 13,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          // "ABC & Co.",
+                          "${testimonialController
+                              .getTestimonial[webLandingPageController
+                              .aboveCardIndex.value]["company_name"]}",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17),
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${testimonialController
+                                  .getTestimonial[webLandingPageController
+                                  .aboveCardIndex.value]['user_name']}",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17),
+                            ),
+                            Text(
+                              " - ${testimonialController
+                                  .getTestimonial[webLandingPageController
+                                  .aboveCardIndex.value]['Position']}",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 17),
+                            ),
+                          ],
+                        ),
+
                       ],
                     ),
                   );

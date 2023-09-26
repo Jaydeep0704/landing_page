@@ -6,10 +6,15 @@ import 'package:grobiz_web_landing/page_route/route.dart';
 import 'package:flutter/gestures.dart';
 
 void main() {
+  print("inserted inside void main ----- 1");
   WidgetsFlutterBinding.ensureInitialized();
+  print("inserted inside void main ----- 2");
   HttpOverrides.global = MyHttpOverrides();
+  print("inserted inside void main ----- 3");
   getXPutInitializer();
+  print("inserted inside void main ----- 4");
   runApp(const MyApp());
+  print("inserted inside void main ----- 5");
 }
 
 class MyApp extends StatefulWidget {
