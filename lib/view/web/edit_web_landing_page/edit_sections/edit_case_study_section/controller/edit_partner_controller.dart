@@ -5,7 +5,6 @@ import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/utils/http_handler/network_http.dart';
-import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 
 class EditCaseStudyController extends GetxController {
   TextEditingController type = TextEditingController();

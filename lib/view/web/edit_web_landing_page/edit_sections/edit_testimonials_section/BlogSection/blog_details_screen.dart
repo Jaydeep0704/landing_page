@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/services.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

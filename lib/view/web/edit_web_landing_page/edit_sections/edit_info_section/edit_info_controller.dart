@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/utils/http_handler/network_http.dart';
-import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 
 class EditInfoController extends GetxController {
   ///Partner Banner Logos

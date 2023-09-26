@@ -176,7 +176,7 @@ class EditController extends GetxController {
                   "show"
               ? true
               : false;
-          functionToGetAllVideos();
+          // functionToGetAllVideos();
 
           // showSnackbar(title: "Success", message: "${response['body']['msg']}");
           hideLoadingDialog();
@@ -367,79 +367,6 @@ class EditController extends GetxController {
     }
   }
 
-  ///edit media component
-  RxString mediaType = "".obs;
-  RxList videoUrls = [].obs;
-
-  functionToGetAllVideos() {
-    videoUrls.clear();
-    if (allDataResponse[0]["intro_details"][0]["intro_bot_file_mediatype"]
-            .toString()
-            .toLowerCase() ==
-        "video") {
-      videoUrls.add(
-          "${APIString.mediaBaseUrl}${allDataResponse[0]["intro_details"][0]["intro_bot_file"].toString()}");
-    }
-    if (allDataResponse[0]["intro_details"][0]["intro_gif1_mediatype"]
-            .toString()
-            .toLowerCase() ==
-        "video") {
-      videoUrls.add(
-          "${APIString.mediaBaseUrl}${allDataResponse[0]["intro_details"][0]["intro_gif1"].toString()}");
-    }
-    if (allDataResponse[0]["intro_details"][0]["intro_gif2_mediatype"]
-            .toString()
-            .toLowerCase() ==
-        "video") {
-      videoUrls.add(
-          "${APIString.mediaBaseUrl}${allDataResponse[0]["intro_details"][0]["intro_gif2"].toString()}");
-    }
-
-    ///how it works
-    if (allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"]
-            .toString()
-            .toLowerCase() ==
-        "video") {
-      videoUrls.add(
-          "${APIString.mediaBaseUrl}${allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString()}");
-    }
-
-    ///MixBanner
-    if (allDataResponse[0]["mix_banner_details"][0]["mix_banner_file_mediatype"]
-            .toString()
-            .toLowerCase() ==
-        "video") {
-      videoUrls.add(
-          "${APIString.mediaBaseUrl}${allDataResponse[0]["mix_banner_details"][0]["mix_banner_file"].toString()}");
-    }
-
-    ///Number banner
-    if (allDataResponse[0]["numbers_banner_details"][0]
-                ["numbers_banner_file1_mediatype"]
-            .toString()
-            .toLowerCase() ==
-        "video") {
-      videoUrls.add(
-          "${APIString.mediaBaseUrl}${allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file1"].toString()}");
-    }
-    if (allDataResponse[0]["numbers_banner_details"][0]
-                ["numbers_banner_file2_mediatype"]
-            .toString()
-            .toLowerCase() ==
-        "video") {
-      videoUrls.add(
-          "${APIString.mediaBaseUrl}${allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file2"].toString()}");
-    }
-    if (allDataResponse[0]["numbers_banner_details"][0]
-                ["numbers_banner_file3_mediatype"]
-            .toString()
-            .toLowerCase() ==
-        "video") {
-      videoUrls.add(
-          "${APIString.mediaBaseUrl}${allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file3"].toString()}");
-    }
-  }
-
   Future geComponents() async {
     homeComponentList.clear();
     try {
@@ -516,31 +443,106 @@ class EditController extends GetxController {
     }
   }
 
-  List<VideoPlayerController> controllers = [];
+  RxString mediaType = "".obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    initializeControllers();
-  }
+  ///edit media component
 
-  void initializeControllers() {
-    for (String url in videoUrls) {
-      final controller = VideoPlayerController.networkUrl(Uri.parse(url));
-      controller.initialize().then((_) {
-        controller.setLooping(true);
-        controller.setVolume(0);
-        controller.play();
-      });
-      controllers.add(controller);
-    }
-  }
-
-  @override
-  void dispose() {
-    for (var controller in controllers) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
+  // RxList videoUrls = [].obs;
+  // List<VideoPlayerController> controllers = [];
+  //
+  // functionToGetAllVideos() {
+  //   videoUrls.clear();
+  //   if (allDataResponse[0]["intro_details"][0]["intro_bot_file_mediatype"]
+  //       .toString()
+  //       .toLowerCase() ==
+  //       "video") {
+  //     videoUrls.add(
+  //         "${APIString.mediaBaseUrl}${allDataResponse[0]["intro_details"][0]["intro_bot_file"].toString()}");
+  //   }
+  //   if (allDataResponse[0]["intro_details"][0]["intro_gif1_mediatype"]
+  //       .toString()
+  //       .toLowerCase() ==
+  //       "video") {
+  //     videoUrls.add(
+  //         "${APIString.mediaBaseUrl}${allDataResponse[0]["intro_details"][0]["intro_gif1"].toString()}");
+  //   }
+  //   if (allDataResponse[0]["intro_details"][0]["intro_gif2_mediatype"]
+  //       .toString()
+  //       .toLowerCase() ==
+  //       "video") {
+  //     videoUrls.add(
+  //         "${APIString.mediaBaseUrl}${allDataResponse[0]["intro_details"][0]["intro_gif2"].toString()}");
+  //   }
+  //
+  //   ///how it works
+  //   if (allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"]
+  //       .toString()
+  //       .toLowerCase() ==
+  //       "video") {
+  //     videoUrls.add(
+  //         "${APIString.mediaBaseUrl}${allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString()}");
+  //   }
+  //
+  //   ///MixBanner
+  //   if (allDataResponse[0]["mix_banner_details"][0]["mix_banner_file_mediatype"]
+  //       .toString()
+  //       .toLowerCase() ==
+  //       "video") {
+  //     videoUrls.add(
+  //         "${APIString.mediaBaseUrl}${allDataResponse[0]["mix_banner_details"][0]["mix_banner_file"].toString()}");
+  //   }
+  //
+  //   ///Number banner
+  //   if (allDataResponse[0]["numbers_banner_details"][0]
+  //   ["numbers_banner_file1_mediatype"]
+  //       .toString()
+  //       .toLowerCase() ==
+  //       "video") {
+  //     videoUrls.add(
+  //         "${APIString.mediaBaseUrl}${allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file1"].toString()}");
+  //   }
+  //   if (allDataResponse[0]["numbers_banner_details"][0]
+  //   ["numbers_banner_file2_mediatype"]
+  //       .toString()
+  //       .toLowerCase() ==
+  //       "video") {
+  //     videoUrls.add(
+  //         "${APIString.mediaBaseUrl}${allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file2"].toString()}");
+  //   }
+  //   if (allDataResponse[0]["numbers_banner_details"][0]
+  //   ["numbers_banner_file3_mediatype"]
+  //       .toString()
+  //       .toLowerCase() ==
+  //       "video") {
+  //     videoUrls.add(
+  //         "${APIString.mediaBaseUrl}${allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file3"].toString()}");
+  //   }
+  // }
+  //
+  //
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   initializeControllers();
+  // }
+  //
+  // void initializeControllers() {
+  //   for (String url in videoUrls) {
+  //     final controller = VideoPlayerController.networkUrl(Uri.parse(url));
+  //     controller.initialize().then((_) {
+  //       controller.setLooping(true);
+  //       controller.setVolume(0);
+  //       controller.play();
+  //     });
+  //     controllers.add(controller);
+  //   }
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   for (var controller in controllers) {
+  //     controller.dispose();
+  //   }
+  //   super.dispose();
+  // }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/image_path.dart';
-import 'package:lottie/lottie.dart';
 
 void showLoadingDialog(
     {bool? loadingText = false, bool? loader = true, bool? delay = false}) {

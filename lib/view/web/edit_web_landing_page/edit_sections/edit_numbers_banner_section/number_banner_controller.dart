@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:grobiz_web_landing/utils/http_handler/network_http.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
-import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:video_player/video_player.dart';
 
 class NumberBannerController extends GetxController {

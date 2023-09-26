@@ -30,14 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: AppColors.whiteColor,
-      body: Center(
-        child: Text(
-          "Splash Screen",
-          style: AppTextStyle.regularBold.copyWith(fontSize: 18),
-        ),
-      ),
     );
   }
 

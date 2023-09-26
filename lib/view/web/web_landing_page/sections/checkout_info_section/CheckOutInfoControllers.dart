@@ -10,7 +10,6 @@ import 'package:video_player/video_player.dart';
 import 'package:http/http.dart' as http;
 import '../../../../../config/api_string.dart';
 import '../../../../../utils/http_handler/network_http.dart';
-import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 
 class CheckOutInfoController extends GetxController {
   late VideoPlayerController videoController;
