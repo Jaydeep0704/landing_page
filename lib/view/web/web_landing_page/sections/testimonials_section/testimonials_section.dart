@@ -1094,9 +1094,10 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                           .isEmpty
                       ? const SizedBox()
                       : Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                         color: Colors.blue.withOpacity(0.2)),
-                    padding: const EdgeInsets.all(25),
+                    padding:  EdgeInsets.all(Get.width > 500 ?25:10),
                     child: Column(
                       children: [
                         Column(
@@ -1228,7 +1229,96 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                             )
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 15),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  if (webLandingPageController
+                                      .aboveCardIndex.value >
+                                      0) {
+                                    webLandingPageController
+                                        .belowCardIndex.value =
+                                        webLandingPageController
+                                            .aboveCardIndex.value;
+                                    webLandingPageController
+                                        .aboveCardIndex.value--;
+                                  } else {
+                                    // print("${webLandingPageController
+                                    //     .belowCardIndex.value}");
+                                    webLandingPageController
+                                        .belowCardIndex.value = 0;
+                                    // webLandingPageController.aboveCardIndex.value = clientsTestimonial.length - 1;
+                                    // if(webLandingPageController
+                                    //     .aboveCardIndex.value!=0){
+                                    webLandingPageController.aboveCardIndex.value =
+                                        testimonialController.getTestimonial
+                                            .length - 1;
+                                    // }
+                                  }
+                                  setState(() {});
+                                  _animationController.reset();
+                                  Future.delayed(
+                                      const Duration(seconds: 0), () {
+                                    _animationController
+                                        .forward(from: 0)
+                                        .whenComplete(() {
+                                      _animationController.reverse(
+                                        from: 1,
+                                      );
+                                      // stop = false;
+                                    });
+                                  });
+                                },
+                                child: const Icon(
+                                  Icons.arrow_circle_left_outlined,
+                                  size: 50,
+                                ),
+                              ),
+                              const SizedBox(width: 15),
+                              InkWell(
+                                onTap: () {
+                                  // if (webLandingPageController.aboveCardIndex.value < clientsTestimonial.length - 1) {
+                                  if (webLandingPageController.aboveCardIndex
+                                      .value <
+                                      testimonialController.getTestimonial.length -
+                                          1) {
+                                    webLandingPageController
+                                        .belowCardIndex.value =
+                                        webLandingPageController
+                                            .aboveCardIndex.value;
+                                    webLandingPageController
+                                        .aboveCardIndex.value++;
+                                  } else {
+                                    // webLandingPageController.belowCardIndex.value = clientsTestimonial.length - 1;
+                                    webLandingPageController.belowCardIndex.value =
+                                        testimonialController.getTestimonial
+                                            .length - 1;
+                                    webLandingPageController.aboveCardIndex.value =
+                                    0;
+                                  }
+                                  setState(() {});
+                                  _animationController.reset();
+                                  Future.delayed(
+                                      const Duration(seconds: 0), () {
+                                    _animationController
+                                        .forward(from: 0)
+                                        .whenComplete(() {
+                                      _animationController.reverse(
+                                        from: 1,
+                                      );
+                                      // stop = false;
+                                    });
+                                  });
+                                },
+                                child: const Icon(
+                                  Icons.arrow_circle_right_outlined,
+                                  size: 50,
+                                ),
+                              ),
+                            ]),
+                        const SizedBox(height: 15),
                         Text(
                           // StaticString.loremIpsum,
                           "${testimonialController
@@ -1251,9 +1341,9 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                         ),
                         const SizedBox(height: 10),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              // "Mr Gary",
                               "${testimonialController
                                   .getTestimonial[webLandingPageController
                                   .aboveCardIndex.value]['user_name']}",
@@ -1271,93 +1361,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20),
-                        Row(children: [
-                          InkWell(
-                            onTap: () {
-                              if (webLandingPageController
-                                  .aboveCardIndex.value >
-                                  0) {
-                                webLandingPageController
-                                    .belowCardIndex.value =
-                                    webLandingPageController
-                                        .aboveCardIndex.value;
-                                webLandingPageController
-                                    .aboveCardIndex.value--;
-                              } else {
-                                // print("${webLandingPageController
-                                //     .belowCardIndex.value}");
-                                webLandingPageController
-                                    .belowCardIndex.value = 0;
-                                // webLandingPageController.aboveCardIndex.value = clientsTestimonial.length - 1;
-                                // if(webLandingPageController
-                                //     .aboveCardIndex.value!=0){
-                                webLandingPageController.aboveCardIndex.value =
-                                    testimonialController.getTestimonial
-                                        .length - 1;
-                                // }
-                              }
-                              setState(() {});
-                              _animationController.reset();
-                              Future.delayed(
-                                  const Duration(seconds: 0), () {
-                                _animationController
-                                    .forward(from: 0)
-                                    .whenComplete(() {
-                                  _animationController.reverse(
-                                    from: 1,
-                                  );
-                                  // stop = false;
-                                });
-                              });
-                            },
-                            child: const Icon(
-                              Icons.arrow_circle_left_outlined,
-                              size: 50,
-                            ),
-                          ),
-                          const SizedBox(width: 15),
-                          InkWell(
-                            onTap: () {
-                              // if (webLandingPageController.aboveCardIndex.value < clientsTestimonial.length - 1) {
-                              if (webLandingPageController.aboveCardIndex
-                                  .value <
-                                  testimonialController.getTestimonial.length -
-                                      1) {
-                                webLandingPageController
-                                    .belowCardIndex.value =
-                                    webLandingPageController
-                                        .aboveCardIndex.value;
-                                webLandingPageController
-                                    .aboveCardIndex.value++;
-                              } else {
-                                // webLandingPageController.belowCardIndex.value = clientsTestimonial.length - 1;
-                                webLandingPageController.belowCardIndex.value =
-                                    testimonialController.getTestimonial
-                                        .length - 1;
-                                webLandingPageController.aboveCardIndex.value =
-                                0;
-                              }
-                              setState(() {});
-                              _animationController.reset();
-                              Future.delayed(
-                                  const Duration(seconds: 0), () {
-                                _animationController
-                                    .forward(from: 0)
-                                    .whenComplete(() {
-                                  _animationController.reverse(
-                                    from: 1,
-                                  );
-                                  // stop = false;
-                                });
-                              });
-                            },
-                            child: const Icon(
-                              Icons.arrow_circle_right_outlined,
-                              size: 50,
-                            ),
-                          ),
-                        ]),
+
                       ],
                     ),
                   );
