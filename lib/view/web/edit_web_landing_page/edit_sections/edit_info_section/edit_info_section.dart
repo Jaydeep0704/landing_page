@@ -43,7 +43,7 @@ class _EditInfoSectionState extends State<EditInfoSection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return editController.homeComponentList.isEmpty &&
+          return editController.homeComponentList.isEmpty /*&&*/ ||
                   editController.allDataResponse.isEmpty
               ? const SizedBox()
               : Container(
@@ -317,7 +317,7 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/youthtube.png',
+                      'assets/youtube.png',
                       width: 18,
                       height: 18,
                     ),
@@ -341,7 +341,7 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/linedin.png',
+                      'assets/linkedin.png',
                       width: 18,
                       height: 18,
                     ),
@@ -650,7 +650,7 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/youthtube.png',
+                      'assets/youtube.png',
                       width: 18,
                       height: 18,
                     ),
@@ -674,7 +674,7 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/linedin.png',
+                      'assets/linkedin.png',
                       width: 18,
                       height: 18,
                     ),

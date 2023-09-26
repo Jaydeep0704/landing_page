@@ -32,23 +32,12 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
   CarouselController carouselController = CarouselController();
 
   void nextImage() {
-    // carouselController.nextPage();
     landingPageController.appDetailsController.nextPage();
   }
 
   void previousImage() {
-    // carouselController.previousPage();
     landingPageController.appDetailsController.previousPage();
   }
-
-  @override
-  void initState() {
-    log("inside ---- AppsDemoSection   init");
-
-    // getLatestProject.getProjectData();
-    super.initState();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -229,11 +218,8 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                                     ],
                                     totalRepeatCount: 1,
                                     pause: const Duration(milliseconds: 0),
-                                    // displayFullTextOnTap: true,
-                                    // stopPauseOnTap: true,
                                   ),
                                   const SizedBox(height: 25),
-                                  // const SizedBox(height: 15),
                                   _currentIndex != itemIndex
                                       ? const Text("")
                                       : AnimatedTextKit(
@@ -293,20 +279,14 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                                     totalRepeatCount: 1,
                                     pause:
                                     const Duration(milliseconds: 0),
-                                    // displayFullTextOnTap: true,
-                                    // stopPauseOnTap: true,
                                   ),
                                   const SizedBox(height: 40),
-                                  // const SizedBox(height: 10),
                                   _currentIndex == itemIndex
                                       ? FittedBox(
                                     fit: BoxFit.scaleDown,
                                     child: Container(
                                       width: 250,
-                                      // width: 300,
-                                      // height: 550,
                                       height: 450,
-                                      // decoration: BoxDecoration(color: AppColors.whiteColor),
                                       margin: const EdgeInsets.only(
                                           left: 5, right: 5, top: 70),
                                       child: Center(
@@ -320,10 +300,7 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                                                 "image" ||
                                                 a.appMediaFileType == "gif"
                                                 ? CachedNetworkImage(
-                                              // height: 550,
-                                              // width: Get.width * 0.4,
                                               width: 250,
-                                              // width: Get.width * 0.9,
                                               imageUrl: APIString
                                                   .latestmediaBaseUrl +
                                                   a.appMediaFile,
@@ -388,11 +365,9 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                                               const Icon(Icons.error),
                                               fit: BoxFit.fill,
                                             )
-                                            // : displayUploadedVideo(a.appMediaFile,isCurrent: _currentIndex == itemIndex),
                                                 : CachedNetworkImage(
-                                              // width: Get.width * 0.4,
                                               width: 250,
-                                              height: 450,
+                                              height: 450,fit: BoxFit.fill,
                                               imageUrl:
                                               APIString.latestmediaBaseUrl +
                                                   a.videoThumbnail,
@@ -406,10 +381,8 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                                                               .toString())),
                                                     ),
                                                   ),
-                                              errorWidget: (context, url,
-                                                  error) =>
-                                              const Icon(Icons.error),
-                                              fit: BoxFit.fill,
+                                              errorWidget: (context, url, error) => const Icon(Icons.error),
+
                                             ),
                                           ),
                                         ),
@@ -453,7 +426,6 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
 
 
   Widget displayUploadedVideo(String videoUrl, {bool? isCurrent}) {
-    log("url : ---- > ${APIString.latestmediaBaseUrl + videoUrl}");
     VideoPlayerController controller = VideoPlayerController.networkUrl(
         Uri.parse(APIString.latestmediaBaseUrl + videoUrl));
     controller.initialize().then((value) {
@@ -475,16 +447,13 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
       child: FutureBuilder(
         future: controller.initialize().whenComplete(() => controller.play()),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return FittedBox(
+            return  snapshot.connectionState == ConnectionState.done
+                ? FittedBox(
               fit: BoxFit.scaleDown,
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 child: Container(
-                  // height:Get.width >1000 ?500:450,
                     height: 500,
-                    // width: 250,
-                    // width: 300,
                     decoration: const BoxDecoration(
                         color: AppColors.whiteColor),
                     child: Stack(
@@ -493,7 +462,6 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                         AspectRatio(
                             aspectRatio: 250 / 450,
                             child: VideoPlayer(controller)),
-                        // isVideoPlaying == false
                         Positioned(
                           bottom: 25, right: 25,
                           child: Obx(() =>
@@ -512,14 +480,12 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                     )
                 ),
               ),
+            )
+                :const Center(
+                 child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.cyan),
+                ),
             );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.cyan),
-              ),
-            );
-          }
         },
       ),
     );

@@ -34,7 +34,7 @@ class PricingScreenController extends GetxController {
             "longitude": long ?? "72.863352",
           });
       hideLoadingDialog();
-      log("0-=-0=-0=-0-=0=-0=-0=-0-=0-=0-=0=-0=-0-= $response");
+      log("getPlansLandingPage :: Response :: $response");
 
       if (response['error'] == null) {
         if (response['body']['status'].toString() == "1") {

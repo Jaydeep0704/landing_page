@@ -35,7 +35,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(()=>
-        editController.homeComponentList.isEmpty && editController.allDataResponse.isEmpty ?const SizedBox():
+        editController.homeComponentList.isEmpty /*&&*/|| editController.allDataResponse.isEmpty ?const SizedBox():
         Container(
           padding: EdgeInsets.only(
             left: Get.width > 1000

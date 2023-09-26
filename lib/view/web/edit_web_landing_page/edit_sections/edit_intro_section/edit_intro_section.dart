@@ -49,7 +49,7 @@ class _EditIntroSectionState extends State<EditIntroSection> {
       builder: (context, constraints) {
         return Obx(() {
           // var data = editController.allDataResponse[0]["intro_details"][0];
-          return editController.homeComponentList.isEmpty && editController.allDataResponse.isEmpty
+          return editController.homeComponentList.isEmpty /*&&*/|| editController.allDataResponse.isEmpty
               ? const SizedBox()
               : Container(
             decoration: editController

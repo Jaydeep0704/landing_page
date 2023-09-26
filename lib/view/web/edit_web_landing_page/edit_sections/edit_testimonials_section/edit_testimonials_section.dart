@@ -45,6 +45,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
   late AnimationController _animationController;
   late Animation<double> _rotationAnimation;
   late Animation<double> _rotationAnimation1;
+
   // Animation<double>? _animation;
   final introSecController = Get.find<IntroSectionController>();
   final editController = Get.find<EditController>();
@@ -111,7 +112,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return editController.homeComponentList.isEmpty &&
+          return editController.homeComponentList.isEmpty /*&&*/ ||
               editController.allDataResponse.isEmpty
               ? const SizedBox()
               : Container(
@@ -785,7 +786,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                   const SizedBox(height: 40),
 
                   ///testimonial 2 starts
-                    ///inspired testimonial
+                  ///inspired testimonial
                   Align(
                     alignment: AlignmentDirectional.centerEnd,
                     child: FittedBox(
@@ -912,15 +913,15 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                     decoration: BoxDecoration(
                         color: Colors.blue.withOpacity(0.2)),
                     padding: const EdgeInsets.all(25),
-                    child: Row(
-                      children: [
-                        Obx(() {
-                          return webLandingPageController.aboveCardIndex.value
-                              .toString()
-                              .isEmpty ||
-                              testimonialController.getTestimonial.isEmpty
-                              ? const SizedBox()
-                              : Expanded(
+                    child: Obx(() {
+                      return webLandingPageController.aboveCardIndex.value
+                          .toString()
+                          .isEmpty ||
+                          testimonialController.getTestimonial.isEmpty
+                          ? const SizedBox()
+                          : Row(
+                        children: [
+                          Expanded(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 40),
                               child:
@@ -935,7 +936,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 17),
-                                  ) ,
+                                  ),
                                   // const Spacer(),
                                   const SizedBox(height: 100),
                                   Row(
@@ -1093,154 +1094,178 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                 ],
                               ),
                             ),
-                          );
-                        }),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: SizedBox(
-                            height: Get.width > 1500 ? 550 : 500,
-                            // color: Colors.yellowAccent,
-                            child: Obx(() {
-                              return webLandingPageController.aboveCardIndex.value.toString().isEmpty
-                                  ? const SizedBox()
-                                  : Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.all(
-                                                Get.width > 1000 ? 42 : 37),
-                                            child: AnimatedBuilder(
-                                              animation: _rotationAnimation,
-                                              builder: (context, child) {
-                                                return Transform.rotate(
-                                                  angle: _rotationAnimation
-                                                      .value * 0.33,
-                                                  transformHitTests: true,
-                                                  child: Transform.rotate(
-                                                    angle: -math.pi / 15,
-                                                    child: Container(
-                                                        height: Get.width > 1500
-                                                            ? 450
-                                                            : Get.width > 1000
-                                                            ? 400
-                                                            : 400,
-                                                        // width: Get.width > 1500 ? 285
-                                                        //     : Get.width > 1000 ? 250
-                                                        //         : Get.width > 600 ? 200 : 200,
-                                                        width: Get.width > 1500
-                                                            ? 285
-                                                            : Get.width > 1000
-                                                            ? 250
-                                                            : Get.width > 600
-                                                            ? 250
-                                                            : 200,
-                                                        decoration: BoxDecoration(
-                                                          // color: Colors.blue,
-                                                            border: Border.all(color: AppColors.blackColor,width: 1),
-                                                            borderRadius: const BorderRadius.all(Radius.circular(20))),
-                                                        child: buildMediaWidget(
-                                                            testimonialController
-                                                                .getTestimonial[webLandingPageController
-                                                                .belowCardIndex
-                                                                .value]['banner_mediatype']
-                                                                .toString(),
-                                                            testimonialController
-                                                                .getTestimonial[webLandingPageController
-                                                                .belowCardIndex
-                                                                .value]['banner']
-                                                                .toString())
-
-                                                    ),
-
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                          Positioned(
-                                            top: 5,
-                                            left: 10,
-                                            child: Padding(
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: SizedBox(
+                              height: Get.width > 1500 ? 550 : 500,
+                              // color: Colors.yellowAccent,
+                              child: Obx(() {
+                                return webLandingPageController.aboveCardIndex
+                                    .value
+                                    .toString()
+                                    .isEmpty
+                                    ? const SizedBox()
+                                    : Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center,
+                                      children: [
+                                        Stack(
+                                          children: [
+                                            Padding(
                                               padding: EdgeInsets.all(
-                                                  Get.width > 1000
-                                                      ? 42
-                                                      : 35),
+                                                  Get.width > 1000 ? 42 : 37),
                                               child: AnimatedBuilder(
-                                                animation: _rotationAnimation1,
+                                                animation: _rotationAnimation,
                                                 builder: (context, child) {
                                                   return Transform.rotate(
-                                                    origin: const Offset(
-                                                        0, 100),
-                                                    angle: -_rotationAnimation
-                                                        .value * 0.2,
-                                                    child: Container(
-                                                        height: Get.width > 1500
-                                                            ? 450
-                                                            : Get.width > 1000
-                                                            ? 400
-                                                            : 400,
-                                                        width: Get.width > 1500
-                                                            ? 285
-                                                            : Get.width > 1000
-                                                            ? 250
-                                                            : Get.width > 600
-                                                            ? 250
-                                                            : 200,
-                                                        decoration: BoxDecoration(
-                                                          // color: Colors.blue,
-                                                            border: Border.all(color: AppColors.blackColor,width: 1),
-                                                            borderRadius: const BorderRadius.all(Radius.circular(20))),
-                                                        child:
-                                                        ClipRRect(
-                                                            borderRadius:
-                                                            const BorderRadius
-                                                                .all(
-                                                                Radius.circular(
-                                                                    20)),
+                                                    angle: _rotationAnimation
+                                                        .value * 0.33,
+                                                    transformHitTests: true,
+                                                    child: Transform.rotate(
+                                                      angle: -math.pi / 15,
+                                                      child: Container(
+                                                          height: Get.width >
+                                                              1500
+                                                              ? 450
+                                                              : Get.width > 1000
+                                                              ? 400
+                                                              : 400,
+                                                          // width: Get.width > 1500 ? 285
+                                                          //     : Get.width > 1000 ? 250
+                                                          //         : Get.width > 600 ? 200 : 200,
+                                                          width: Get.width >
+                                                              1500
+                                                              ? 285
+                                                              : Get.width > 1000
+                                                              ? 250
+                                                              : Get.width > 600
+                                                              ? 250
+                                                              : 200,
+                                                          decoration: BoxDecoration(
+                                                            // color: Colors.blue,
+                                                              border: Border
+                                                                  .all(
+                                                                  color: AppColors
+                                                                      .blackColor,
+                                                                  width: 1),
+                                                              borderRadius: const BorderRadius
+                                                                  .all(Radius
+                                                                  .circular(
+                                                                  20))),
+                                                          child: buildMediaWidget(
+                                                              testimonialController
+                                                                  .getTestimonial[webLandingPageController
+                                                                  .belowCardIndex
+                                                                  .value]['banner_mediatype']
+                                                                  .toString(),
+                                                              testimonialController
+                                                                  .getTestimonial[webLandingPageController
+                                                                  .belowCardIndex
+                                                                  .value]['banner']
+                                                                  .toString())
 
-                                                            child:
-                                                            buildMediaWidget(
-                                                                testimonialController
-                                                                    .getTestimonial[webLandingPageController
-                                                                    .aboveCardIndex
-                                                                    .value]['banner_mediatype']
-                                                                    .toString(),
-                                                                testimonialController
-                                                                    .getTestimonial[webLandingPageController
-                                                                    .aboveCardIndex
-                                                                    .value]['banner']
-                                                                    .toString())
-                                                        )
+                                                      ),
+
                                                     ),
-
                                                   );
                                                 },
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
+                                            Positioned(
+                                              top: 5,
+                                              left: 10,
+                                              child: Padding(
+                                                padding: EdgeInsets.all(
+                                                    Get.width > 1000
+                                                        ? 42
+                                                        : 35),
+                                                child: AnimatedBuilder(
+                                                  animation: _rotationAnimation1,
+                                                  builder: (context, child) {
+                                                    return Transform.rotate(
+                                                      origin: const Offset(
+                                                          0, 100),
+                                                      angle: -_rotationAnimation
+                                                          .value * 0.2,
+                                                      child: Container(
+                                                          height: Get.width >
+                                                              1500
+                                                              ? 450
+                                                              : Get.width > 1000
+                                                              ? 400
+                                                              : 400,
+                                                          width: Get.width >
+                                                              1500
+                                                              ? 285
+                                                              : Get.width > 1000
+                                                              ? 250
+                                                              : Get.width > 600
+                                                              ? 250
+                                                              : 200,
+                                                          decoration: BoxDecoration(
+                                                            // color: Colors.blue,
+                                                              border: Border
+                                                                  .all(
+                                                                  color: AppColors
+                                                                      .blackColor,
+                                                                  width: 1),
+                                                              borderRadius: const BorderRadius
+                                                                  .all(Radius
+                                                                  .circular(
+                                                                  20))),
+                                                          child:
+                                                          ClipRRect(
+                                                              borderRadius:
+                                                              const BorderRadius
+                                                                  .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                      20)),
+
+                                                              child:
+                                                              buildMediaWidget(
+                                                                  testimonialController
+                                                                      .getTestimonial[webLandingPageController
+                                                                      .aboveCardIndex
+                                                                      .value]['banner_mediatype']
+                                                                      .toString(),
+                                                                  testimonialController
+                                                                      .getTestimonial[webLandingPageController
+                                                                      .aboveCardIndex
+                                                                      .value]['banner']
+                                                                      .toString())
+                                                          )
+                                                      ),
+
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            }),
+                                );
+                              }),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      );
+                    }),
                   )
                       : Obx(() {
-                    return webLandingPageController.aboveCardIndex.value
-                        .toString()
-                        .isEmpty
+                    return testimonialController.getTestimonial.isEmpty ||
+                        webLandingPageController.aboveCardIndex.value
+                            .toString()
+                            .isEmpty
                         ? const SizedBox()
                         : Container(
                       decoration: BoxDecoration(
@@ -1276,39 +1301,44 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                               child: Transform.rotate(
                                                 angle: -math.pi / 15,
                                                 child: Container(
-                                                    height: 350,
-                                                    width: Get.width >
-                                                        1500
-                                                        ? 175
-                                                        : Get.width > 1000
-                                                        ? 175
-                                                        : Get.width >
-                                                        600
-                                                        ? 200
-                                                        : 200,
+                                                  height: 350,
+                                                  width: Get.width >
+                                                      1500
+                                                      ? 175
+                                                      : Get.width > 1000
+                                                      ? 175
+                                                      : Get.width >
+                                                      600
+                                                      ? 200
+                                                      : 200,
                                                   decoration: BoxDecoration(
                                                     // color: Colors.blue,
-                                                      border: Border.all(color: AppColors.blackColor,width: 1),
-                                                      borderRadius: const BorderRadius.all(Radius.circular(20))),
-                                                    child: ClipRRect(
-                                                        borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(
-                                                                20)),
+                                                      border: Border.all(
+                                                          color: AppColors
+                                                              .blackColor,
+                                                          width: 1),
+                                                      borderRadius: const BorderRadius
+                                                          .all(
+                                                          Radius.circular(20))),
+                                                  child: ClipRRect(
+                                                      borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(
+                                                              20)),
 
-                                                        child: buildMediaWidget(
-                                                            testimonialController
-                                                                .getTestimonial[webLandingPageController
-                                                                .belowCardIndex
-                                                                .value]['banner_mediatype']
-                                                                .toString(),
-                                                            testimonialController
-                                                                .getTestimonial[webLandingPageController
-                                                                .belowCardIndex
-                                                                .value]['banner']
-                                                                .toString())
+                                                      child: buildMediaWidget(
+                                                          testimonialController
+                                                              .getTestimonial[webLandingPageController
+                                                              .belowCardIndex
+                                                              .value]['banner_mediatype']
+                                                              .toString(),
+                                                          testimonialController
+                                                              .getTestimonial[webLandingPageController
+                                                              .belowCardIndex
+                                                              .value]['banner']
+                                                              .toString())
 
-                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             );
@@ -1335,38 +1365,43 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                                     .value *
                                                     0.2,
                                                 child: Container(
-                                                    height: 350,
-                                                    width: Get.width >
-                                                        1500
-                                                        ? 175
-                                                        : Get.width > 1000
-                                                        ? 175
-                                                        : Get.width >
-                                                        600
-                                                        ? 200
-                                                        : 200,
+                                                  height: 350,
+                                                  width: Get.width >
+                                                      1500
+                                                      ? 175
+                                                      : Get.width > 1000
+                                                      ? 175
+                                                      : Get.width >
+                                                      600
+                                                      ? 200
+                                                      : 200,
                                                   decoration: BoxDecoration(
                                                     // color: Colors.blue,
-                                                      border: Border.all(color: AppColors.blackColor,width: 1),
-                                                      borderRadius: const BorderRadius.all(Radius.circular(20))),
-                                                    child: ClipRRect(
-                                                        borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(
-                                                                20)),
+                                                      border: Border.all(
+                                                          color: AppColors
+                                                              .blackColor,
+                                                          width: 1),
+                                                      borderRadius: const BorderRadius
+                                                          .all(
+                                                          Radius.circular(20))),
+                                                  child: ClipRRect(
+                                                      borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(
+                                                              20)),
 
-                                                        child: buildMediaWidget(
-                                                            testimonialController
-                                                                .getTestimonial[webLandingPageController
-                                                                .aboveCardIndex
-                                                                .value]['banner_mediatype']
-                                                                .toString(),
-                                                            testimonialController
-                                                                .getTestimonial[webLandingPageController
-                                                                .aboveCardIndex
-                                                                .value]['banner']
-                                                                .toString())
-                                                    ),
+                                                      child: buildMediaWidget(
+                                                          testimonialController
+                                                              .getTestimonial[webLandingPageController
+                                                              .aboveCardIndex
+                                                              .value]['banner_mediatype']
+                                                              .toString(),
+                                                          testimonialController
+                                                              .getTestimonial[webLandingPageController
+                                                              .aboveCardIndex
+                                                              .value]['banner']
+                                                              .toString())
+                                                  ),
                                                 ),
                                               );
                                             },
@@ -1383,7 +1418,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                           Text(
                             // StaticString.loremIpsum,
                             "${testimonialController
-                                .getTestimonial[webLandingPageController.aboveCardIndex.value]['Description']}",
+                                .getTestimonial[webLandingPageController
+                                .aboveCardIndex.value]['Description']}",
                             maxLines: 13,
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -1464,7 +1500,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                               onTap: () {
                                 if (webLandingPageController
                                     .aboveCardIndex.value <
-                                    testimonialController.getTestimonial.length -
+                                    testimonialController.getTestimonial
+                                        .length -
                                         1) {
                                   webLandingPageController
                                       .belowCardIndex.value =
@@ -1908,7 +1945,8 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                     color: AppColors.whiteColor.withOpacity(
                                         0.8),
                                     borderRadius:
-                                    const BorderRadius.all(Radius.circular(20))),
+                                    const BorderRadius.all(
+                                        Radius.circular(20))),
                                 margin: const EdgeInsets.only(
                                     right: 5, left: 5),
                                 padding: const EdgeInsets.all(8),

@@ -44,7 +44,7 @@ class _EditCaseStudySectionState extends State<EditCaseStudySection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return editController.homeComponentList.isEmpty && editController.allDataResponse.isEmpty ?const SizedBox()
+          return editController.homeComponentList.isEmpty /*&&*/ || editController.allDataResponse.isEmpty ?const SizedBox()
               : SizedBox(
             height: 700,
             width: Get.width,

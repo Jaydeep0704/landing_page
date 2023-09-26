@@ -38,7 +38,7 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return editController.homeComponentList.isEmpty && editController.allDataResponse.isEmpty ?const SizedBox():
+          return editController.homeComponentList.isEmpty /*&&*/ ||  editController.allDataResponse.isEmpty ?const SizedBox():
           Container(
             // height: Get.width > 1500 ?600 :Get.width > 900 ?600 : 500,
             width: Get.width,

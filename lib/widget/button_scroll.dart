@@ -1,6 +1,7 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 class KeyboardScroll {
   static void addScrollListener(ScrollController controller) {
@@ -22,19 +23,20 @@ class KeyboardScroll {
   }
 
   static void _scrollListView(ScrollController controller, int direction) {
-    final double scrollAmount =
-        direction * 100.0; // Adjust the scroll amount as needed
+    final double scrollAmount = direction * 100.0;
     controller.animateTo(
       controller.offset + scrollAmount,
-      duration: const Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 1),
       curve: Curves.easeInOut,
     );
   }
 }
 
-///Exmaple
+/// Example
 
 class TestScrolling extends StatefulWidget {
+  const TestScrolling({super.key});
+
   @override
   _TestScrollingState createState() => _TestScrollingState();
 }
@@ -63,7 +65,7 @@ class _TestScrollingState extends State<TestScrolling> {
       ),
       body: ListView.builder(
         controller: _controller,
-        itemCount: 100, // Adjust as needed
+        itemCount: 100,
         itemBuilder: (context, index) => ListTile(
           title: Text('Item $index'),
         ),

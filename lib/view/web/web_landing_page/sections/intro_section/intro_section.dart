@@ -38,7 +38,7 @@ class _IntroSectionState extends State<IntroSection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return editController.introComp.value == false || editController.allDataResponse.isEmpty&& editController.homeComponentList.isEmpty
+          return editController.introComp.value == false || editController.allDataResponse.isEmpty /*&&*/|| editController.homeComponentList.isEmpty
               ? const SizedBox()
               : Container(
                           decoration: editController.allDataResponse[0]["intro_details"][0]["intro_bg_color_switch"].toString() == "1" &&

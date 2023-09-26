@@ -87,7 +87,7 @@ class _EditNumbersBannerSectionState extends State<EditNumbersBannerSection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return editController.homeComponentList.isEmpty && editController.allDataResponse.isEmpty
+          return editController.homeComponentList.isEmpty /*&&*/ ||  editController.allDataResponse.isEmpty
               ? const SizedBox()
               : SizedBox(
             width: Get.width,

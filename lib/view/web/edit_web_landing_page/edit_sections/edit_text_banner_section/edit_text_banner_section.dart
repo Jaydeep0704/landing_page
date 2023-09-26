@@ -33,7 +33,7 @@ class _EditTextBannerSectionState extends State<EditTextBannerSection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return  editController.homeComponentList.isEmpty && editController.allDataResponse.isEmpty
+          return  editController.homeComponentList.isEmpty /*&&*/ || editController.allDataResponse.isEmpty
               ?const SizedBox()
               :Container(
             width: Get.width,

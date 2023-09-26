@@ -16,6 +16,12 @@ import 'package:grobiz_web_landing/widget/loading_dialog.dart';
 import 'package:video_player/video_player.dart';
 
 class EditController extends GetxController {
+  RxBool showComp1 = false.obs;
+  RxBool showComp2 = false.obs;
+  RxBool showComp3 = false.obs;
+  RxBool showComp4 = false.obs;
+  RxBool showComp5 = false.obs;
+
   RxString introBgColor =
       AppColors.bgGreen.withOpacity(0.3).value.toString().obs;
   RxString showcaseAppsBgColor =
@@ -60,7 +66,6 @@ class EditController extends GetxController {
     try {
       allDataResponse.clear();
       showLoadingDialog();
-      // Get.focusScope!.unfocus();
       var response = await HttpHandler.postHttpMethod(
           url: APIString.get_web_landing_page_data,
           data: {
@@ -315,12 +320,7 @@ class EditController extends GetxController {
   }
 
   Future showHideMedia({String? keyName, String? value}) async {
-    log("inside showHideMedia ---------1");
     try {
-      log("inside showHideMedia ---------2");
-      log("showHideMedia APIString.userAutoId---------${APIString.userAutoId}");
-      log("showHideMedia keyName.userAutoId---------$keyName");
-      log("showHideMedia value.userAutoId---------$value");
       showLoadingDialog();
       var response = await HttpHandler.postHttpMethod(
           url: APIString.update_web_landing_page_data,
@@ -329,34 +329,22 @@ class EditController extends GetxController {
             keyName.toString(): value.toString(),
           });
       if (response['error'] == null) {
-        log("inside showHideMedia ---------3");
-
         if (response['body']['status'].toString() == "1") {
           getData();
-          // showSnackbar(title: "Success", message: "${response['body']['msg']}");
           hideLoadingDialog();
         }
       } else if (response['error'] != null) {
-        log("inside showHideMedia ---------4");
         getData();
-        // showSnackbar(title: "Warning",message: "Error");
         hideLoadingDialog();
       }
     } catch (e, s) {
-      log("inside showHideMedia ---------5");
       getData();
-      debugPrint("showHideMedia Error -- $e  $s");
       hideLoadingDialog();
     }
   }
 
   Future showHideComponent({String? componentName, String? value}) async {
-    log("inside showHideComponent ---------1");
     try {
-      log("inside showHideComponent ---------2");
-      log("showHideMedia APIString.userAutoId---------${APIString.userAutoId}");
-      log("showHideMedia keyName.userAutoId---------$componentName");
-      log("showHideMedia value.userAutoId---------$value");
       showLoadingDialog();
       var response = await HttpHandler.postHttpMethod(
           url: APIString.update_component_visibility,
@@ -365,23 +353,16 @@ class EditController extends GetxController {
             "visible": value.toString()
           });
       if (response['error'] == null) {
-        log("inside showHideMedia ---------3");
-
         if (response['body']['status'].toString() == "1") {
           getData();
-          // showSnackbar(title: "Success", message: "${response['body']['msg']}");
           hideLoadingDialog();
         }
       } else if (response['error'] != null) {
-        log("inside showHideMedia ---------4");
         getData();
-        // showSnackbar(title: "Warning",message: "Error");
         hideLoadingDialog();
       }
     } catch (e, s) {
-      log("inside showHideMedia ---------5");
       getData();
-      debugPrint("showHideMedia Error -- $e  $s");
       hideLoadingDialog();
     }
   }
@@ -460,27 +441,17 @@ class EditController extends GetxController {
   }
 
   Future geComponents() async {
-    log("geComponents step --------  +++ 1 ");
-    // showLoadingDialog();
     homeComponentList.clear();
     try {
-      log("geComponents step --------  +++  2 ");
-
       var response = await HttpHandler.getHttpMethod(
         url: APIString.get_web_component_list,
       );
-      log("geComponents step --------  +++ 3 ");
-      // hideLoadingDialog();
       if (response['error'] == null) {
-        log("geComponents step --------  +++  4");
-        log("response['body']['status'].toString()--------  +++ ${response['body']['status'].toString()}");
-
         if (response['body']['status'].toString() == "1") {
           homeComponentList.value = response['body']["data"];
 
           introComp.value =
               homeComponentList[0]["visible"] == "Yes" ? true : false;
-          log(" introComp.value   -------------- > ${introComp.value}");
           showcaseApps.value =
               homeComponentList[1]["visible"] == "Yes" ? true : false;
           howItWorks.value =
@@ -515,7 +486,6 @@ class EditController extends GetxController {
               homeComponentList[16]["visible"] == "Yes" ? true : false;
         }
       } else {
-        log("geComponents step --------  +++  77 Error");
         //error
       }
     } catch (e, s) {
@@ -525,7 +495,6 @@ class EditController extends GetxController {
 
   Future reorderComponent(
       {String? id, String? oldIndex, String? newIndex}) async {
-    log("inside reorderData ---------1");
     try {
       showLoadingDialog();
       var response = await HttpHandler.postHttpMethod(
@@ -537,26 +506,15 @@ class EditController extends GetxController {
           });
       hideLoadingDialog();
       if (response['error'] == null) {
-        log("inside reorderData ---------3");
         if (response['body']['status'].toString() == "1") {
           log(" response[msg] ----->  ${response['msg']}");
         }
-      } else if (response['error'] != null) {
-        log("inside reorderData ---------4 ${response['error']}");
-      }
+      } else if (response['error'] != null) {}
     } catch (e, s) {
-      log("inside reorderData ---------5");
       hideLoadingDialog();
       debugPrint("reorderData Error -- $e  $s");
     }
   }
-
-  // final videoUrls = [
-  //   'https://gruzen.in/GrobizEcommerceSuperAdminTest/images/Web/new_vid.mp4',
-  //   'https://gruzen.in/GrobizEcommerceSuperAdminTest/images/Web/new_vid.mp4',
-  //   'https://gruzen.in/GrobizEcommerceSuperAdminTest/images/Web/VID-20230620-WA0001.mp4',
-  //   'https://gruzen.in/GrobizEcommerceSuperAdminTest/images/Web/VID-20230620-WA0001.mp4',
-  // ];
 
   List<VideoPlayerController> controllers = [];
 
@@ -568,7 +526,6 @@ class EditController extends GetxController {
 
   void initializeControllers() {
     for (String url in videoUrls) {
-      // if (url.toString().isNotEmpty) {
       final controller = VideoPlayerController.networkUrl(Uri.parse(url));
       controller.initialize().then((_) {
         controller.setLooping(true);
@@ -576,11 +533,6 @@ class EditController extends GetxController {
         controller.play();
       });
       controllers.add(controller);
-      // }
-      // else{
-      //     final controller = VideoPlayerController.networkUrl(Uri.parse(url));
-      //     controllers.add(controller);
-      // }
     }
   }
 

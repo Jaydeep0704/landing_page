@@ -25,18 +25,22 @@ import '../../../edit_web_landing_page/edit_sections/edit_testimonials_section/t
 
 class TestimonialsSection extends StatefulWidget {
   final VoidCallback? scrollToPricingSection;
-  const TestimonialsSection({Key? key, this.scrollToPricingSection}) : super(key: key);
+
+  const TestimonialsSection({Key? key, this.scrollToPricingSection})
+      : super(key: key);
 
   @override
   State<TestimonialsSection> createState() => _TestimonialsSectionState();
 }
 
-class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTickerProviderStateMixin {
+class _TestimonialsSectionState extends State<TestimonialsSection>
+    with SingleTickerProviderStateMixin {
   final webLandingPageController = Get.find<WebLandingPageController>();
 
   late AnimationController _animationController;
   late Animation<double> _rotationAnimation;
   late Animation<double> _rotationAnimation1;
+
   // Animation<double>? _animation;
   final editIntroController = Get.find<EditIntroController>();
   final editController = Get.find<EditController>();
@@ -44,13 +48,13 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
   final blogController = Get.find<EditBlogController>();
 
 
-
   oneTimeAnimation() {
-    if(mounted){
-    _animationController.forward();
-    Future.delayed(const Duration(seconds: 1), () {
-      _animationController.reverse(from: 1);
-    });}
+    if (mounted) {
+      _animationController.forward();
+      Future.delayed(const Duration(seconds: 1), () {
+        _animationController.reverse(from: 1);
+      });
+    }
   }
 
 
@@ -65,16 +69,19 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
     //   blog_controller.GetBlogData();
     // });
 
-    _animationController = AnimationController(duration: const Duration(seconds: 2), vsync: this,);
+    _animationController =
+        AnimationController(duration: const Duration(seconds: 2), vsync: this,);
 
-    _rotationAnimation = Tween<double>(begin: 0.0, end: 0.785398).animate(CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.linear,
-      ),);
-    _rotationAnimation1 = Tween<double>(begin: -1, end: 0.785398).animate(CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.linear,
-      ),);
+    _rotationAnimation =
+        Tween<double>(begin: 0.0, end: 0.785398).animate(CurvedAnimation(
+          parent: _animationController,
+          curve: Curves.linear,
+        ),);
+    _rotationAnimation1 =
+        Tween<double>(begin: -1, end: 0.785398).animate(CurvedAnimation(
+          parent: _animationController,
+          curve: Curves.linear,
+        ),);
 
     oneTimeAnimation();
   }
@@ -89,6 +96,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
   void _disposeAnimationController() {
     _animationController.dispose();
   }
+
   //  late AnimationController _animationController;
   //   late Animation<double> _rotationAnimation;
   //   late Animation<double> _rotationAnimation1;
@@ -103,55 +111,73 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return  editController.testimonials.value == false ||   editController.allDataResponse.isEmpty
-              ?const SizedBox()
-           :Container (
+          return editController.testimonials.value == false ||
+              editController.allDataResponse.isEmpty
+              ? const SizedBox()
+              : Container(
             // decoration: BoxDecoration(color: AppColors.bgOrange.withOpacity(0.3)),
             width: Get.width,
 
 
-            decoration:  editController.allDataResponse[0]["testimonials_details"][0]["testimonials_bg_color_switch"].toString() == "1" &&
-                  editController.allDataResponse[0]["testimonials_details"][0]["testimonials_bg_image_switch"].toString() == "0"
-                   ?  BoxDecoration(
-    color: editController.allDataResponse[0]
-    ["testimonials_details"][0]["testimonials_bg_color"]
-        .toString()
-        .isEmpty
-        ? Color(int.parse(
-        editController.introBgColor.value.toString()))
-        : Color(int.parse(editController.allDataResponse[0]
-    ["testimonials_details"][0]["testimonials_bg_color"]
-        .toString())),
-  )
-                   :BoxDecoration(
-      image: DecorationImage(image: CachedNetworkImageProvider(
-        APIString.mediaBaseUrl + editController.allDataResponse[0]["testimonials_details"]
-            [0]["testimonials_bg_image"]
-                .toString(),
-        errorListener: () =>  const Icon(Icons.error),),fit: BoxFit.cover)
-  ),
+            decoration: editController
+                .allDataResponse[0]["testimonials_details"][0]["testimonials_bg_color_switch"]
+                .toString() == "1" &&
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonials_bg_image_switch"]
+                    .toString() == "0"
+                ? BoxDecoration(
+              color: editController.allDataResponse[0]
+              ["testimonials_details"][0]["testimonials_bg_color"]
+                  .toString()
+                  .isEmpty
+                  ? Color(int.parse(
+                  editController.introBgColor.value.toString()))
+                  : Color(int.parse(editController.allDataResponse[0]
+              ["testimonials_details"][0]["testimonials_bg_color"]
+                  .toString())),
+            )
+                : BoxDecoration(
+                image: DecorationImage(image: CachedNetworkImageProvider(
+                  APIString.mediaBaseUrl +
+                      editController.allDataResponse[0]["testimonials_details"]
+                      [0]["testimonials_bg_image"]
+                          .toString(),
+                  errorListener: () => const Icon(Icons.error),),
+                    fit: BoxFit.cover)
+            ),
             child: Column(
               children: [
                 const SizedBox(height: 50),
-                editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] == "hide"
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] ==
+                    "hide"
                     ? const SizedBox()
                     : Row(
                   children: [
-                    Get.width > 500 ? const SizedBox( )
-                        :const SizedBox(width:  10),
+                    Get.width > 500 ? const SizedBox()
+                        : const SizedBox(width: 10),
                     Expanded(
                       child: Center(
                         child: Text(
-                          editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1"]
+                          editController
+                              .allDataResponse[0]["testimonials_details"][0]["testimonials_title1"]
                               .toString(),
-                          style: GoogleFonts.getFont(editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_font"].toString()).copyWith(
-                              fontSize: editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_size"].toString() !=""
-                                  ? double.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_size"].toString())
+                          style: GoogleFonts.getFont(editController
+                              .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_font"]
+                              .toString()).copyWith(
+                              fontSize: editController
+                                  .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_size"]
+                                  .toString() != ""
+                                  ? double.parse(editController
+                                  .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_size"]
+                                  .toString())
                                   : Get.width > 1000
                                   ? 50
                                   : 30,
                               fontWeight: FontWeight.bold,
-                              color: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_color"].toString()))),
+                              color: Color(int.parse(editController
+                                  .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_color"]
+                                  .toString()))),
 
                           textAlign: TextAlign.center,
                           // style: GoogleFonts.getFont(selectedFont).copyWith(
@@ -159,22 +185,26 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                         ),
                       ),
                     ),
-                    Get.width > 500 ? const SizedBox( )
-                        :const SizedBox(width:  10),
+                    Get.width > 500 ? const SizedBox()
+                        : const SizedBox(width: 10),
 
                     // Get.width > 500 ? const Expanded(child: SizedBox( ))
                     //     :SizedBox(width:  Get.width * 0.05),
                   ],
                 ),
-                editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] == "hide"
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] ==
+                    "hide"
                     ? const SizedBox()
                     : const SizedBox(height: 40),
-                editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] == "hide"
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] ==
+                    "hide"
                     ? const SizedBox()
-                    :  Row(
+                    : Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Expanded(flex: 3,child: SizedBox()),
+                    const Expanded(flex: 3, child: SizedBox()),
                     // SizedBox(width: Get.width * 0.08),
                     Expanded(
                       flex: 6,
@@ -193,9 +223,11 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                             shrinkWrap: true,
                             itemCount: testimonialController.appLogoList.length,
                             itemBuilder: (context, index) {
-                              var data = testimonialController.appLogoList[index];
+                              var data = testimonialController
+                                  .appLogoList[index];
                               return ClipRRect(
-                                borderRadius: BorderRadius.circular(5), // Adjust the radius to your preference
+                                borderRadius: BorderRadius.circular(5),
+                                // Adjust the radius to your preference
                                 child: Container(
                                   height: 50,
                                   width: 50,
@@ -207,37 +239,43 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                   ),
                                   child: CachedNetworkImage(
                                     fit: BoxFit.cover,
-                                    imageUrl: APIString.bannerMediaUrl + data["images"].toString(),
-                                    placeholder: (context, url) => Container(
-                                      decoration: const BoxDecoration(
-                                        color: AppColors.greyColor,
-                                      ),
-                                    ),
+                                    imageUrl: APIString.bannerMediaUrl +
+                                        data["images"].toString(),
+                                    placeholder: (context, url) =>
+                                        Container(
+                                          decoration: const BoxDecoration(
+                                            color: AppColors.greyColor,
+                                          ),
+                                        ),
                                     // progressIndicatorBuilder: (context, url, downloadProgress) =>
                                     //     CircularProgressIndicator(value: downloadProgress.progress),
-                                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                                    errorWidget: (context, url,
+                                        error) => const Icon(Icons.error),
                                   ),
                                 ),
                               );
-
                             },
                           );
                         }),
                       ),
                     ),
-                    const Expanded(flex: 3,child: SizedBox()),
+                    const Expanded(flex: 3, child: SizedBox()),
                     // SizedBox(width: Get.width * 0.08)
                   ],
                 ),
-                editController.allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] == "hide"
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonials_title1_visible"] ==
+                    "hide"
                     ? const SizedBox()
                     : const SizedBox(height: 40),
 
                 ///our testimonial
 
-                editController.allDataResponse[0]["testimonials_details"][0]["testimonial1_visible"] == "hide"
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonial1_visible"] ==
+                    "hide"
                     ? const SizedBox()
-                    :Padding(
+                    : Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: Get.width > 1500
                           ? 60
@@ -248,40 +286,53 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                           : 15),
                   child: Row(
                     children: [
-                      Get.width > 500 ? const SizedBox( )
-                          :const SizedBox(width:  10),
+                      Get.width > 500 ? const SizedBox()
+                          : const SizedBox(width: 10),
                       Expanded(
                         child:
 
                         Center(
                           child: Text(
-                            editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title"]
+                            editController
+                                .allDataResponse[0]["testimonials_details"][0]["testimonials1_title"]
                                 .toString(),
-                            style: GoogleFonts.getFont(editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title_font"].toString()).copyWith(
-                                fontSize: editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title_size"].toString() !=""
-                                    ? double.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title_size"].toString())
+                            style: GoogleFonts.getFont(editController
+                                .allDataResponse[0]["testimonials_details"][0]["testimonials1_title_font"]
+                                .toString()).copyWith(
+                                fontSize: editController
+                                    .allDataResponse[0]["testimonials_details"][0]["testimonials1_title_size"]
+                                    .toString() != ""
+                                    ? double.parse(editController
+                                    .allDataResponse[0]["testimonials_details"][0]["testimonials1_title_size"]
+                                    .toString())
                                     : Get.width > 1000
                                     ? 50
                                     : 30,
                                 fontWeight: FontWeight.bold,
-                                color: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials1_title_color"].toString()))),
+                                color: Color(int.parse(editController
+                                    .allDataResponse[0]["testimonials_details"][0]["testimonials1_title_color"]
+                                    .toString()))),
                             textAlign: TextAlign.center,
                             // style: GoogleFonts.getFont(selectedFont).copyWith(
                             //     color: Color(int.parse(introSecController.introMainTitleColor.value))),
                           ),
                         ),
                       ),
-                      Get.width > 500 ? const SizedBox( )
-                          :const SizedBox(width:  10),
+                      Get.width > 500 ? const SizedBox()
+                          : const SizedBox(width: 10),
                     ],
                   ),
                 ),
-                editController.allDataResponse[0]["testimonials_details"][0]["testimonial1_visible"] == "hide"
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonial1_visible"] ==
+                    "hide"
                     ? const SizedBox()
-                    :const SizedBox(height: 40),
-                editController.allDataResponse[0]["testimonials_details"][0]["testimonial1_visible"] == "hide"
+                    : const SizedBox(height: 40),
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonial1_visible"] ==
+                    "hide"
                     ? const SizedBox()
-                    :Row(
+                    : Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Get.width > 505
@@ -328,22 +379,27 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                               : 0.90,
                           autoPlay: true,
                         ),
-                        items: testimonialController.getTestimonial.map((featuredImage) {
+                        items: testimonialController.getTestimonial.map((
+                            featuredImage) {
                           return Container(
                             // height: 300,
                             width: Get.width > 700 ? 600 : 450,
-                            decoration:  BoxDecoration(
-                                // color: Colors.yellow,
+                            decoration: BoxDecoration(
+                              // color: Colors.yellow,
                                 color: AppColors.redColor.withOpacity(0.2),
-                                borderRadius: const BorderRadius.all(Radius.circular(10))),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(10))),
                             padding: const EdgeInsets.all(10),
                             margin: const EdgeInsets.symmetric(horizontal: 5),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
 
-                                ytMediaWidget(featuredImage['media_type'].toString(),featuredImage['banner_mediatype'].toString(),
-                                  featuredImage['banner'].toString(),featuredImage['media_link'].toString(),),
+                                ytMediaWidget(
+                                  featuredImage['media_type'].toString(),
+                                  featuredImage['banner_mediatype'].toString(),
+                                  featuredImage['banner'].toString(),
+                                  featuredImage['media_link'].toString(),),
 
                                 // Center(
                                 //   child: ClipRRect(
@@ -380,18 +436,28 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                       width: 30,
                                       child: Center(
                                         child: ClipRRect(
-                                          borderRadius: const BorderRadius.all(Radius.circular(50)),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(50)),
                                           child: CachedNetworkImage(
-                                            imageUrl: APIString.latestmediaBaseUrl +featuredImage["user_image"].toString(),
+                                            imageUrl: APIString
+                                                .latestmediaBaseUrl +
+                                                featuredImage["user_image"]
+                                                    .toString(),
                                             fit: BoxFit.cover,
                                             width: 30,
                                             height: 30,
-                                            placeholder: (context, url) => Container(
-                                              decoration: BoxDecoration(
-                                                color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                              ),
-                                            ),
-                                            errorWidget: (context, url, error) => const Icon(Icons.error),
+                                            placeholder: (context, url) =>
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Color(int.parse(
+                                                        editController
+                                                            .appDemoBgColor
+                                                            .value.toString())),
+                                                  ),
+                                                ),
+                                            errorWidget: (context, url,
+                                                error) =>
+                                            const Icon(Icons.error),
                                           ),
                                         ),
                                       ),
@@ -410,7 +476,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                     const SizedBox(width: 8),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 20),
-                                      child: Text("${featuredImage["user_name"]}"),
+                                      child: Text(
+                                          "${featuredImage["user_name"]}"),
                                     ),
                                   ],
                                 ),
@@ -433,7 +500,9 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                         : const SizedBox(),
                   ],
                 ),
-                editController.allDataResponse[0]["testimonials_details"][0]["testimonial1_visible"] == "hide"
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonial1_visible"] ==
+                    "hide"
                     ? const SizedBox()
                     : Get.width > 505
                     ? const SizedBox()
@@ -465,14 +534,18 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                   ),
                 ),
 
-                editController.allDataResponse[0]["testimonials_details"][0]["testimonial1_visible"] == "hide"
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonial1_visible"] ==
+                    "hide"
                     ? const SizedBox()
-                    :const SizedBox(height: 40),
+                    : const SizedBox(height: 40),
 
                 ///inspired testimonial
-                editController.allDataResponse[0]["testimonials_details"][0]["testimonial2_visible"] == "hide"
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonial2_visible"] ==
+                    "hide"
                     ? const SizedBox()
-                    :Padding(
+                    : Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: Get.width > 1500
                           ? 60
@@ -483,39 +556,52 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                           : 15),
                   child: Row(
                     children: [
-                      Get.width > 500 ? const SizedBox( )
-                          :const SizedBox(width:  10),
+                      Get.width > 500 ? const SizedBox()
+                          : const SizedBox(width: 10),
                       Expanded(
                         child: Center(
                           child: Text(
-                            editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title"]
+                            editController
+                                .allDataResponse[0]["testimonials_details"][0]["testimonials2_title"]
                                 .toString(),
-                            style: GoogleFonts.getFont(editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title_font"].toString()).copyWith(
-                                fontSize: editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title_size"].toString() !=""
-                                    ? double.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title_size"].toString())
+                            style: GoogleFonts.getFont(editController
+                                .allDataResponse[0]["testimonials_details"][0]["testimonials2_title_font"]
+                                .toString()).copyWith(
+                                fontSize: editController
+                                    .allDataResponse[0]["testimonials_details"][0]["testimonials2_title_size"]
+                                    .toString() != ""
+                                    ? double.parse(editController
+                                    .allDataResponse[0]["testimonials_details"][0]["testimonials2_title_size"]
+                                    .toString())
                                     : Get.width > 1000
                                     ? 50
                                     : 30,
                                 fontWeight: FontWeight.bold,
-                                color: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["testimonials2_title_color"].toString()))),
+                                color: Color(int.parse(editController
+                                    .allDataResponse[0]["testimonials_details"][0]["testimonials2_title_color"]
+                                    .toString()))),
                             textAlign: TextAlign.center,
                             // style: GoogleFonts.getFont(selectedFont).copyWith(
                             //     color: Color(int.parse(introSecController.introMainTitleColor.value))),
                           ),
                         ),
                       ),
-                      Get.width > 500 ? const SizedBox( )
-                          :const SizedBox(width:  10),
+                      Get.width > 500 ? const SizedBox()
+                          : const SizedBox(width: 10),
                     ],
                   ),
                 ),
-                editController.allDataResponse[0]["testimonials_details"][0]["testimonial2_visible"] == "hide"
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonial2_visible"] ==
+                    "hide"
                     ? const SizedBox()
-                    :const SizedBox(height: 40),
+                    : const SizedBox(height: 40),
 
-                editController.allDataResponse[0]["testimonials_details"][0]["testimonial2_visible"] == "hide"
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonial2_visible"] ==
+                    "hide"
                     ? const SizedBox()
-                    :Get.width > 800
+                    : Get.width > 800
                     ? Container(
                   // height: 600,
                   height: 600,
@@ -528,432 +614,484 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                       : Get.width > 600
                       ? 500
                       : 450,
-                  decoration: BoxDecoration(color: Colors.blue.withOpacity(0.2)),
+                  decoration: BoxDecoration(
+                      color: Colors.blue.withOpacity(0.2)),
                   padding: const EdgeInsets.all(25),
-                  child: Row(
-                    children: [
-                      Obx(() {
-                        return webLandingPageController.aboveCardIndex.value
-                            .toString().isEmpty || testimonialController.getTestimonial.isEmpty
-                            ? const SizedBox()
-                            : Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 40),
-                            child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${testimonialController.getTestimonial[webLandingPageController.aboveCardIndex.value]['Description']}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17),
-                                ),
-                                // const Spacer(),
-                                const SizedBox(height: 100),
-                                Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Company : ${testimonialController.getTestimonial[webLandingPageController.aboveCardIndex.value]['company_name']}",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 17),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Name : ${testimonialController.getTestimonial[webLandingPageController.aboveCardIndex.value]['user_name']}",
-                                      style: const TextStyle(
-                                          fontWeight:
-                                          FontWeight.bold,
-                                          fontSize: 17),
-                                    ),
-                                    Text(
-                                      " - ${testimonialController.getTestimonial[webLandingPageController.aboveCardIndex.value]['Position']}",
-                                      style: const TextStyle(
-                                          fontWeight:
-                                          FontWeight.w400,
-                                          fontSize: 17),
-                                    ),
-                                  ],
-                                ),
-
-                                const SizedBox(height: 20),
-                                Row(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        if (webLandingPageController
-                                            .aboveCardIndex
-                                            .value >
-                                            0) {
-                                          webLandingPageController
-                                              .belowCardIndex
-                                              .value =
-                                              webLandingPageController
-                                                  .aboveCardIndex
-                                                  .value;
-                                          webLandingPageController
-                                              .aboveCardIndex
-                                              .value--;
-                                        } else {
-                                          webLandingPageController
-                                              .belowCardIndex
-                                              .value = 0;
-                                          webLandingPageController
-                                              .aboveCardIndex
-                                              .value =
-                                              testimonialController.getTestimonial
-                                                  .length -
-                                                  1;
-                                        }
-                                        setState(() {});
-                                        _animationController
-                                            .reset();
-                                        Future.delayed(
-                                            const Duration(
-                                                seconds: 0), () {
-                                          _animationController
-                                              .forward(from: 0)
-                                              .whenComplete(() {
-                                            _animationController
-                                                .reverse(
-                                              from: 1,
-                                            );
-                                            // stop = false;
-                                          });
-                                        });
-                                      },
-                                      child: const Icon(
-                                        Icons
-                                            .arrow_circle_left_outlined,
-                                        size: 50,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 15),
-                                    InkWell(
-                                      onTap: () {
-                                        if (webLandingPageController
-                                            .aboveCardIndex
-                                            .value <
-                                            testimonialController.getTestimonial
-                                                .length -
-                                                1) {
-                                          webLandingPageController
-                                              .belowCardIndex
-                                              .value =
-                                              webLandingPageController
-                                                  .aboveCardIndex
-                                                  .value;
-                                          webLandingPageController
-                                              .aboveCardIndex
-                                              .value++;
-                                        } else {
-                                          webLandingPageController
-                                              .belowCardIndex
-                                              .value =
-                                              testimonialController.getTestimonial
-                                                  .length -
-                                                  1;
-                                          webLandingPageController
-                                              .aboveCardIndex
-                                              .value = 0;
-                                        }
-                                        setState(() {});
-                                        _animationController
-                                            .reset();
-                                        Future.delayed(
-                                            const Duration(
-                                                seconds: 0), () {
-                                          _animationController
-                                              .forward(from: 0)
-                                              .whenComplete(() {
-                                            _animationController
-                                                .reverse(
-                                              from: 1,
-                                            );
-                                            // stop = false;
-                                          });
-                                        });
-                                      },
-                                      child: const Icon(
-                                        Icons
-                                            .arrow_circle_right_outlined,
-                                        size: 50,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: SizedBox(
-                          height: Get.width > 1500 ? 550 : 500,
-                          // color: Colors.yellowAccent,
-                          child: Center(
+                  child: Obx(() {
+                    return webLandingPageController.aboveCardIndex.value
+                        .toString().isEmpty || testimonialController.getTestimonial.isEmpty
+                        ? const SizedBox()
+                        : Row(
+                      children: [
+                        Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 0),
+                              padding: const EdgeInsets.symmetric(vertical: 40),
                               child: Column(
                                 crossAxisAlignment:
-                                CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                CrossAxisAlignment.start,
                                 children: [
-                                  Stack(
+                                  Text(
+                                    "${testimonialController
+                                        .getTestimonial[webLandingPageController
+                                        .aboveCardIndex.value]['Description']}",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17),
+                                  ),
+                                  // const Spacer(),
+                                  const SizedBox(height: 100),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(Get.width > 1000 ? 42 : 37),
-                                        child: AnimatedBuilder(
-                                          animation: _rotationAnimation,
-                                          builder: (context, child) {
-                                            return Transform.rotate(
-                                              angle: _rotationAnimation.value * 0.33,
-                                              transformHitTests: true,
-                                              child: Transform.rotate(
-                                                angle: -math.pi / 15,
-                                                child: Container(
-                                                    height: Get.width > 1500
-                                                        ? 450
-                                                        : Get.width > 1000
-                                                        ? 400
-                                                        : 400,
-                                                    // width: Get.width > 1500 ? 285
-                                                    //     : Get.width > 1000 ? 250
-                                                    //         : Get.width > 600 ? 200 : 200,
-                                                    width: Get.width > 1500 ? 285
-                                                        : Get.width > 1000 ? 250
-                                                        : Get.width > 600 ? 250 : 200,
-                                                    decoration: BoxDecoration(
-                                                      // color: Colors.blue,
-                                                        border: Border.all(color: AppColors.blackColor,width: 1),
-                                                        borderRadius: const BorderRadius.all(Radius.circular(20))),
-                                                    child:buildMediaWidget(
-                                                        testimonialController.getTestimonial[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
-                                                        testimonialController.getTestimonial[webLandingPageController.belowCardIndex.value]['banner'].toString())
+                                      Text(
+                                        "Company : ${testimonialController
+                                            .getTestimonial[webLandingPageController
+                                            .aboveCardIndex
+                                            .value]['company_name']}",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 17),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Name : ${testimonialController
+                                            .getTestimonial[webLandingPageController
+                                            .aboveCardIndex
+                                            .value]['user_name']}",
+                                        style: const TextStyle(
+                                            fontWeight:
+                                            FontWeight.bold,
+                                            fontSize: 17),
+                                      ),
+                                      Text(
+                                        " - ${testimonialController
+                                            .getTestimonial[webLandingPageController
+                                            .aboveCardIndex
+                                            .value]['Position']}",
+                                        style: const TextStyle(
+                                            fontWeight:
+                                            FontWeight.w400,
+                                            fontSize: 17),
+                                      ),
+                                    ],
+                                  ),
 
-                                                ),
-                                              ),
-                                            );
-                                          },
+                                  const SizedBox(height: 20),
+                                  Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          if (webLandingPageController
+                                              .aboveCardIndex
+                                              .value >
+                                              0) {
+                                            webLandingPageController
+                                                .belowCardIndex
+                                                .value =
+                                                webLandingPageController
+                                                    .aboveCardIndex
+                                                    .value;
+                                            webLandingPageController
+                                                .aboveCardIndex
+                                                .value--;
+                                          } else {
+                                            webLandingPageController
+                                                .belowCardIndex
+                                                .value = 0;
+                                            webLandingPageController
+                                                .aboveCardIndex
+                                                .value =
+                                                testimonialController
+                                                    .getTestimonial
+                                                    .length -
+                                                    1;
+                                          }
+                                          setState(() {});
+                                          _animationController
+                                              .reset();
+                                          Future.delayed(
+                                              const Duration(
+                                                  seconds: 0), () {
+                                            _animationController
+                                                .forward(from: 0)
+                                                .whenComplete(() {
+                                              _animationController
+                                                  .reverse(
+                                                from: 1,
+                                              );
+                                              // stop = false;
+                                            });
+                                          });
+                                        },
+                                        child: const Icon(
+                                          Icons
+                                              .arrow_circle_left_outlined,
+                                          size: 50,
                                         ),
                                       ),
-                                      Positioned(
-                                        top: 5,
-                                        left: 10,
-                                        child: Padding(
-                                          padding: EdgeInsets.all(
-                                              Get.width > 1000
-                                                  ? 42
-                                                  : 35),
-                                          child: AnimatedBuilder(
-                                            animation: _rotationAnimation1,
-                                            builder: (context, child) {
-                                              return Transform.rotate(
-                                                origin: const Offset(
-                                                    0, 100),
-                                                angle: -_rotationAnimation.value * 0.2,
-                                                child:  Container(
-                                                    height: Get.width > 1500
-                                                        ? 450
-                                                        : Get.width > 1000
-                                                        ? 400
-                                                        : 400,
-                                                    // width: Get.width > 1500 ? 200
-                                                    //     : Get.width > 1000 ? 200
-                                                    //     : Get.width > 600 ? 200 : 200,
-                                                    width: Get.width > 1500 ? 285
-                                                        : Get.width > 1000 ? 250
-                                                        : Get.width > 600
-                                                        ? 250
-                                                        : 200,
-                                                    decoration: BoxDecoration(
-                                                      // color: Colors.blue,
-                                                        border: Border.all(color: AppColors.blackColor,width: 1),
-                                                        borderRadius: const BorderRadius.all(Radius.circular(20))),
-                                                    child: buildMediaWidget(
-                                                        testimonialController.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
-                                                        testimonialController.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner'].toString())
-                                                  // ClipRRect(
-                                                  //   borderRadius:
-                                                  //   const BorderRadius.all(Radius.circular(20)),
-                                                  //
-                                                  //   child:  testimonalcontroller.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "image" ||
-                                                  //       testimonalcontroller.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "gif"
-                                                  //       ? CachedNetworkImage(
-                                                  //     fit: BoxFit
-                                                  //         .cover,
-                                                  //     width: Get.width * 0.9,
-                                                  //     imageUrl:
-                                                  //     APIString.latestmediaBaseUrl +  testimonalcontroller.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner'].toString(),
-                                                  //     placeholder: (context, url) => Container(
-                                                  //       decoration: BoxDecoration(
-                                                  //         color: Color(int.parse(editController
-                                                  //             .appDemoBgColor.value
-                                                  //             .toString())),
-                                                  //       ),
-                                                  //     ),
-                                                  //     errorWidget: (context, url, error) =>
-                                                  //     const Icon(Icons.error),
-                                                  //
-                                                  //   )
-                                                  //       : displayUploadedVideo( testimonalcontroller.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner'].toString()),
-                                                  // )
-                                                  // Image.asset("${featuredImage["image"]}"
-                                                  // )
-                                                ),
-                                                // Container(
-                                                //   height: Get.width > 1500
-                                                //       ? 450
-                                                //       : Get.width > 1000
-                                                //       ? 400
-                                                //       : 400,
-                                                //   // width: Get.width > 1500 ? 200
-                                                //   //     : Get.width > 1000 ? 200
-                                                //   //     : Get.width > 600 ? 200 : 200,
-                                                //   width: Get.width > 1500 ? 285
-                                                //       : Get.width > 1000 ? 250
-                                                //       : Get.width > 600
-                                                //       ? 250
-                                                //       : 200,
-                                                //
-                                                //
-                                                //   decoration: BoxDecoration(
-                                                //       color: Colors.black,
-                                                //       image: DecorationImage(
-                                                //           image: AssetImage(clientsTestimonial[webLandingPageController
-                                                //               .aboveCardIndex
-                                                //               .value]
-                                                //           [
-                                                //           "clientImage"]),
-                                                //           fit: BoxFit
-                                                //               .cover),
-                                                //       borderRadius:
-                                                //       BorderRadius
-                                                //           .circular(
-                                                //           10)),
-                                                // ),
+                                      const SizedBox(width: 15),
+                                      InkWell(
+                                        onTap: () {
+                                          if (webLandingPageController
+                                              .aboveCardIndex
+                                              .value <
+                                              testimonialController
+                                                  .getTestimonial
+                                                  .length -
+                                                  1) {
+                                            webLandingPageController
+                                                .belowCardIndex
+                                                .value =
+                                                webLandingPageController
+                                                    .aboveCardIndex
+                                                    .value;
+                                            webLandingPageController
+                                                .aboveCardIndex
+                                                .value++;
+                                          } else {
+                                            webLandingPageController
+                                                .belowCardIndex
+                                                .value =
+                                                testimonialController
+                                                    .getTestimonial
+                                                    .length -
+                                                    1;
+                                            webLandingPageController
+                                                .aboveCardIndex
+                                                .value = 0;
+                                          }
+                                          setState(() {});
+                                          _animationController
+                                              .reset();
+                                          Future.delayed(
+                                              const Duration(
+                                                  seconds: 0), () {
+                                            _animationController
+                                                .forward(from: 0)
+                                                .whenComplete(() {
+                                              _animationController
+                                                  .reverse(
+                                                from: 1,
                                               );
-                                            },
-                                          ),
+                                              // stop = false;
+                                            });
+                                          });
+                                        },
+                                        child: const Icon(
+                                          Icons
+                                              .arrow_circle_right_outlined,
+                                          size: 50,
                                         ),
                                       ),
                                     ],
                                   )
-                                  // Center(
-                                  //   child: Stack(
-                                  //     children: [
-                                  //       Padding(
-                                  //         padding: EdgeInsets.all(Get.width > 1000 ? 42 : 37),
-                                  //         child: AnimatedBuilder(
-                                  //           animation: _rotationAnimation,
-                                  //           builder: (context, child) {
-                                  //             return Transform.rotate(
-                                  //               angle: _rotationAnimation.value * 0.33,
-                                  //               transformHitTests: true,
-                                  //               child: Transform.rotate(
-                                  //                 angle: -math.pi / 15,
-                                  //                 child: Container(
-                                  //                   height: Get.width > 1500
-                                  //                       ? 450
-                                  //                       : Get.width > 1000
-                                  //                       ? 400
-                                  //                       : 400,
-                                  //                   // width: Get.width > 1500 ? 285
-                                  //                   //     : Get.width > 1000 ? 250
-                                  //                   //         : Get.width > 600 ? 200 : 200,
-                                  //                   width: Get.width > 1500 ? 285
-                                  //                       : Get.width > 1000 ? 250
-                                  //                       : Get.width > 600 ? 250 : 200,
-                                  //                   decoration:
-                                  //                   BoxDecoration(
-                                  //                     color:
-                                  //                     Colors.blue,
-                                  //                     image: DecorationImage(
-                                  //                         image: AssetImage(clientsTestimonial[webLandingPageController.belowCardIndex.value]["clientImage"]),
-                                  //                         fit: BoxFit
-                                  //                             .cover),
-                                  //                     borderRadius:
-                                  //                     BorderRadius
-                                  //                         .circular(
-                                  //                         10),
-                                  //                   ),
-                                  //                 ),
-                                  //               ),
-                                  //             );
-                                  //           },
-                                  //         ),
-                                  //       ),
-                                  //       Positioned(
-                                  //         top: 5,
-                                  //         left: 10,
-                                  //         child: Padding(
-                                  //           padding: EdgeInsets.all(
-                                  //               Get.width > 1000
-                                  //                   ? 42
-                                  //                   : 35),
-                                  //           child: AnimatedBuilder(
-                                  //             animation: _rotationAnimation1,
-                                  //             builder: (context, child) {
-                                  //               return Transform.rotate(
-                                  //                 origin: const Offset(
-                                  //                     0, 100),
-                                  //                 angle: -_rotationAnimation.value * 0.2,
-                                  //                 child: Container(
-                                  //                   height: Get.width > 1500
-                                  //                       ? 450
-                                  //                       : Get.width > 1000
-                                  //                       ? 400
-                                  //                       : 400,
-                                  //                   // width: Get.width > 1500 ? 200
-                                  //                   //     : Get.width > 1000 ? 200
-                                  //                   //     : Get.width > 600 ? 200 : 200,
-                                  //                   width: Get.width > 1500 ? 285
-                                  //                       : Get.width > 1000 ? 250
-                                  //                       : Get.width > 600
-                                  //                       ? 250
-                                  //                       : 200,
-                                  //                   decoration: BoxDecoration(
-                                  //                       color: Colors.black,
-                                  //                       image: DecorationImage(
-                                  //                           image: AssetImage(clientsTestimonial[webLandingPageController
-                                  //                               .aboveCardIndex
-                                  //                               .value]
-                                  //                           [
-                                  //                           "clientImage"]),
-                                  //                           fit: BoxFit
-                                  //                               .cover),
-                                  //                       borderRadius:
-                                  //                       BorderRadius
-                                  //                           .circular(
-                                  //                           10)),
-                                  //                 ),
-                                  //               );
-                                  //             },
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // )inspired testimonial
                                 ],
                               ),
                             ),
                           ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: SizedBox(
+                            height: Get.width > 1500 ? 550 : 500,
+                            // color: Colors.yellowAccent,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 0),
+                                child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(
+                                              Get.width > 1000 ? 42 : 37),
+                                          child: AnimatedBuilder(
+                                            animation: _rotationAnimation,
+                                            builder: (context, child) {
+                                              return Transform.rotate(
+                                                angle: _rotationAnimation
+                                                    .value * 0.33,
+                                                transformHitTests: true,
+                                                child: Transform.rotate(
+                                                  angle: -math.pi / 15,
+                                                  child: Container(
+                                                      height: Get.width > 1500
+                                                          ? 450
+                                                          : Get.width > 1000
+                                                          ? 400
+                                                          : 400,
+                                                      width: Get.width > 1500
+                                                          ? 285
+                                                          : Get.width > 1000
+                                                          ? 250
+                                                          : Get.width > 600
+                                                          ? 250
+                                                          : 200,
+                                                      decoration: BoxDecoration(
+                                                        // color: Colors.blue,
+                                                          border: Border.all(
+                                                              color: AppColors
+                                                                  .blackColor,
+                                                              width: 1),
+                                                          borderRadius: const BorderRadius
+                                                              .all(
+                                                              Radius.circular(
+                                                                  20))),
+                                                      child: buildMediaWidget(
+                                                          testimonialController
+                                                              .getTestimonial[webLandingPageController
+                                                              .belowCardIndex
+                                                              .value]['banner_mediatype']
+                                                              .toString(),
+                                                          testimonialController
+                                                              .getTestimonial[webLandingPageController
+                                                              .belowCardIndex
+                                                              .value]['banner']
+                                                              .toString())
+
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                        Positioned(
+                                          top: 5,
+                                          left: 10,
+                                          child: Padding(
+                                            padding: EdgeInsets.all(
+                                                Get.width > 1000
+                                                    ? 42
+                                                    : 35),
+                                            child: AnimatedBuilder(
+                                              animation: _rotationAnimation1,
+                                              builder: (context, child) {
+                                                return Transform.rotate(
+                                                  origin: const Offset(
+                                                      0, 100),
+                                                  angle: -_rotationAnimation
+                                                      .value * 0.2,
+                                                  child: Container(
+                                                      height: Get.width > 1500
+                                                          ? 450
+                                                          : Get.width > 1000
+                                                          ? 400
+                                                          : 400,
+                                                      // width: Get.width > 1500 ? 200
+                                                      //     : Get.width > 1000 ? 200
+                                                      //     : Get.width > 600 ? 200 : 200,
+                                                      width: Get.width > 1500
+                                                          ? 285
+                                                          : Get.width > 1000
+                                                          ? 250
+                                                          : Get.width > 600
+                                                          ? 250
+                                                          : 200,
+                                                      decoration: BoxDecoration(
+                                                        // color: Colors.blue,
+                                                          border: Border.all(
+                                                              color: AppColors
+                                                                  .blackColor,
+                                                              width: 1),
+                                                          borderRadius: const BorderRadius
+                                                              .all(
+                                                              Radius.circular(
+                                                                  20))),
+                                                      child: buildMediaWidget(
+                                                          testimonialController
+                                                              .getTestimonial[webLandingPageController
+                                                              .aboveCardIndex
+                                                              .value]['banner_mediatype']
+                                                              .toString(),
+                                                          testimonialController
+                                                              .getTestimonial[webLandingPageController
+                                                              .aboveCardIndex
+                                                              .value]['banner']
+                                                              .toString())
+                                                    // ClipRRect(
+                                                    //   borderRadius:
+                                                    //   const BorderRadius.all(Radius.circular(20)),
+                                                    //
+                                                    //   child:  testimonalcontroller.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "image" ||
+                                                    //       testimonalcontroller.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "gif"
+                                                    //       ? CachedNetworkImage(
+                                                    //     fit: BoxFit
+                                                    //         .cover,
+                                                    //     width: Get.width * 0.9,
+                                                    //     imageUrl:
+                                                    //     APIString.latestmediaBaseUrl +  testimonalcontroller.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner'].toString(),
+                                                    //     placeholder: (context, url) => Container(
+                                                    //       decoration: BoxDecoration(
+                                                    //         color: Color(int.parse(editController
+                                                    //             .appDemoBgColor.value
+                                                    //             .toString())),
+                                                    //       ),
+                                                    //     ),
+                                                    //     errorWidget: (context, url, error) =>
+                                                    //     const Icon(Icons.error),
+                                                    //
+                                                    //   )
+                                                    //       : displayUploadedVideo( testimonalcontroller.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner'].toString()),
+                                                    // )
+                                                    // Image.asset("${featuredImage["image"]}"
+                                                    // )
+                                                  ),
+                                                  // Container(
+                                                  //   height: Get.width > 1500
+                                                  //       ? 450
+                                                  //       : Get.width > 1000
+                                                  //       ? 400
+                                                  //       : 400,
+                                                  //   // width: Get.width > 1500 ? 200
+                                                  //   //     : Get.width > 1000 ? 200
+                                                  //   //     : Get.width > 600 ? 200 : 200,
+                                                  //   width: Get.width > 1500 ? 285
+                                                  //       : Get.width > 1000 ? 250
+                                                  //       : Get.width > 600
+                                                  //       ? 250
+                                                  //       : 200,
+                                                  //
+                                                  //
+                                                  //   decoration: BoxDecoration(
+                                                  //       color: Colors.black,
+                                                  //       image: DecorationImage(
+                                                  //           image: AssetImage(clientsTestimonial[webLandingPageController
+                                                  //               .aboveCardIndex
+                                                  //               .value]
+                                                  //           [
+                                                  //           "clientImage"]),
+                                                  //           fit: BoxFit
+                                                  //               .cover),
+                                                  //       borderRadius:
+                                                  //       BorderRadius
+                                                  //           .circular(
+                                                  //           10)),
+                                                  // ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                    // Center(
+                                    //   child: Stack(
+                                    //     children: [
+                                    //       Padding(
+                                    //         padding: EdgeInsets.all(Get.width > 1000 ? 42 : 37),
+                                    //         child: AnimatedBuilder(
+                                    //           animation: _rotationAnimation,
+                                    //           builder: (context, child) {
+                                    //             return Transform.rotate(
+                                    //               angle: _rotationAnimation.value * 0.33,
+                                    //               transformHitTests: true,
+                                    //               child: Transform.rotate(
+                                    //                 angle: -math.pi / 15,
+                                    //                 child: Container(
+                                    //                   height: Get.width > 1500
+                                    //                       ? 450
+                                    //                       : Get.width > 1000
+                                    //                       ? 400
+                                    //                       : 400,
+                                    //                   // width: Get.width > 1500 ? 285
+                                    //                   //     : Get.width > 1000 ? 250
+                                    //                   //         : Get.width > 600 ? 200 : 200,
+                                    //                   width: Get.width > 1500 ? 285
+                                    //                       : Get.width > 1000 ? 250
+                                    //                       : Get.width > 600 ? 250 : 200,
+                                    //                   decoration:
+                                    //                   BoxDecoration(
+                                    //                     color:
+                                    //                     Colors.blue,
+                                    //                     image: DecorationImage(
+                                    //                         image: AssetImage(clientsTestimonial[webLandingPageController.belowCardIndex.value]["clientImage"]),
+                                    //                         fit: BoxFit
+                                    //                             .cover),
+                                    //                     borderRadius:
+                                    //                     BorderRadius
+                                    //                         .circular(
+                                    //                         10),
+                                    //                   ),
+                                    //                 ),
+                                    //               ),
+                                    //             );
+                                    //           },
+                                    //         ),
+                                    //       ),
+                                    //       Positioned(
+                                    //         top: 5,
+                                    //         left: 10,
+                                    //         child: Padding(
+                                    //           padding: EdgeInsets.all(
+                                    //               Get.width > 1000
+                                    //                   ? 42
+                                    //                   : 35),
+                                    //           child: AnimatedBuilder(
+                                    //             animation: _rotationAnimation1,
+                                    //             builder: (context, child) {
+                                    //               return Transform.rotate(
+                                    //                 origin: const Offset(
+                                    //                     0, 100),
+                                    //                 angle: -_rotationAnimation.value * 0.2,
+                                    //                 child: Container(
+                                    //                   height: Get.width > 1500
+                                    //                       ? 450
+                                    //                       : Get.width > 1000
+                                    //                       ? 400
+                                    //                       : 400,
+                                    //                   // width: Get.width > 1500 ? 200
+                                    //                   //     : Get.width > 1000 ? 200
+                                    //                   //     : Get.width > 600 ? 200 : 200,
+                                    //                   width: Get.width > 1500 ? 285
+                                    //                       : Get.width > 1000 ? 250
+                                    //                       : Get.width > 600
+                                    //                       ? 250
+                                    //                       : 200,
+                                    //                   decoration: BoxDecoration(
+                                    //                       color: Colors.black,
+                                    //                       image: DecorationImage(
+                                    //                           image: AssetImage(clientsTestimonial[webLandingPageController
+                                    //                               .aboveCardIndex
+                                    //                               .value]
+                                    //                           [
+                                    //                           "clientImage"]),
+                                    //                           fit: BoxFit
+                                    //                               .cover),
+                                    //                       borderRadius:
+                                    //                       BorderRadius
+                                    //                           .circular(
+                                    //                           10)),
+                                    //                 ),
+                                    //               );
+                                    //             },
+                                    //           ),
+                                    //         ),
+                                    //       ),
+                                    //     ],
+                                    //   ),
+                                    // )inspired testimonial
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    );
+                  }),
                 )
                     : Obx(() {
-                  return webLandingPageController.aboveCardIndex.value.toString().isEmpty
+                  return testimonialController.getTestimonial.isEmpty ||
+                      webLandingPageController.aboveCardIndex.value
+                          .toString()
+                          .isEmpty
                       ? const SizedBox()
                       : Container(
                     decoration: BoxDecoration(
@@ -1001,11 +1139,24 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                                       : 200,
                                                   decoration: BoxDecoration(
                                                     // color: Colors.blue,
-                                                      border: Border.all(color: AppColors.blackColor,width: 1),
-                                                      borderRadius: const BorderRadius.all(Radius.circular(20))),
-                                                  child:buildMediaWidget(
-                                                      testimonialController.getTestimonial[webLandingPageController.belowCardIndex.value]['banner_mediatype'].toString(),
-                                                      testimonialController.getTestimonial[webLandingPageController.belowCardIndex.value]['banner'].toString())
+                                                      border: Border.all(
+                                                          color: AppColors
+                                                              .blackColor,
+                                                          width: 1),
+                                                      borderRadius: const BorderRadius
+                                                          .all(
+                                                          Radius.circular(20))),
+                                                  child: buildMediaWidget(
+                                                      testimonialController
+                                                          .getTestimonial[webLandingPageController
+                                                          .belowCardIndex
+                                                          .value]['banner_mediatype']
+                                                          .toString(),
+                                                      testimonialController
+                                                          .getTestimonial[webLandingPageController
+                                                          .belowCardIndex
+                                                          .value]['banner']
+                                                          .toString())
                                               ),
                                             ),
                                           );
@@ -1031,7 +1182,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                               -_rotationAnimation
                                                   .value *
                                                   0.2,
-                                              child:  Container(
+                                              child: Container(
                                                   height: 350,
                                                   width: Get.width >
                                                       1500
@@ -1043,12 +1194,25 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                                       ? 200
                                                       : 200,
                                                   decoration: BoxDecoration(
-                                                      // color: Colors.blue,
-                                                      border: Border.all(color: AppColors.blackColor,width: 1),
-                                                      borderRadius: const BorderRadius.all(Radius.circular(20))),
+                                                    // color: Colors.blue,
+                                                      border: Border.all(
+                                                          color: AppColors
+                                                              .blackColor,
+                                                          width: 1),
+                                                      borderRadius: const BorderRadius
+                                                          .all(
+                                                          Radius.circular(20))),
                                                   child: buildMediaWidget(
-                                                      testimonialController.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner_mediatype'].toString(),
-                                                      testimonialController.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner'].toString())
+                                                      testimonialController
+                                                          .getTestimonial[webLandingPageController
+                                                          .aboveCardIndex
+                                                          .value]['banner_mediatype']
+                                                          .toString(),
+                                                      testimonialController
+                                                          .getTestimonial[webLandingPageController
+                                                          .aboveCardIndex
+                                                          .value]['banner']
+                                                          .toString())
 
                                               ),
 
@@ -1067,7 +1231,9 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                         const SizedBox(height: 10),
                         Text(
                           // StaticString.loremIpsum,
-                          "${testimonialController.getTestimonial[webLandingPageController.aboveCardIndex.value]['Description']}",
+                          "${testimonialController
+                              .getTestimonial[webLandingPageController
+                              .aboveCardIndex.value]['Description']}",
                           maxLines: 13,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
@@ -1076,23 +1242,29 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                         const SizedBox(height: 10),
                         Text(
                           // "ABC & Co.",
-                          "${testimonialController.getTestimonial[webLandingPageController.aboveCardIndex.value]["company_name"]}",
+                          "${testimonialController
+                              .getTestimonial[webLandingPageController
+                              .aboveCardIndex.value]["company_name"]}",
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 17),
                         ),
                         const SizedBox(height: 10),
                         Row(
-                          children:  [
+                          children: [
                             Text(
                               // "Mr Gary",
-                              "${testimonialController.getTestimonial[webLandingPageController.aboveCardIndex.value]['user_name']}",
+                              "${testimonialController
+                                  .getTestimonial[webLandingPageController
+                                  .aboveCardIndex.value]['user_name']}",
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 17),
                             ),
                             Text(
-                              " - ${testimonialController.getTestimonial[webLandingPageController.aboveCardIndex.value]['Position']}",
+                              " - ${testimonialController
+                                  .getTestimonial[webLandingPageController
+                                  .aboveCardIndex.value]['Position']}",
                               style: const TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 17),
@@ -1120,7 +1292,9 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                 // webLandingPageController.aboveCardIndex.value = clientsTestimonial.length - 1;
                                 // if(webLandingPageController
                                 //     .aboveCardIndex.value!=0){
-                                  webLandingPageController.aboveCardIndex.value = testimonialController.getTestimonial.length - 1;
+                                webLandingPageController.aboveCardIndex.value =
+                                    testimonialController.getTestimonial
+                                        .length - 1;
                                 // }
                               }
                               setState(() {});
@@ -1146,7 +1320,10 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                           InkWell(
                             onTap: () {
                               // if (webLandingPageController.aboveCardIndex.value < clientsTestimonial.length - 1) {
-                              if (webLandingPageController.aboveCardIndex.value < testimonialController.getTestimonial.length - 1) {
+                              if (webLandingPageController.aboveCardIndex
+                                  .value <
+                                  testimonialController.getTestimonial.length -
+                                      1) {
                                 webLandingPageController
                                     .belowCardIndex.value =
                                     webLandingPageController
@@ -1155,8 +1332,11 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                     .aboveCardIndex.value++;
                               } else {
                                 // webLandingPageController.belowCardIndex.value = clientsTestimonial.length - 1;
-                                webLandingPageController.belowCardIndex.value = testimonialController.getTestimonial.length - 1;
-                                webLandingPageController.aboveCardIndex.value = 0;
+                                webLandingPageController.belowCardIndex.value =
+                                    testimonialController.getTestimonial
+                                        .length - 1;
+                                webLandingPageController.aboveCardIndex.value =
+                                0;
                               }
                               setState(() {});
                               _animationController.reset();
@@ -1183,9 +1363,11 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                   );
                 }),
 
-                editController.allDataResponse[0]["testimonials_details"][0]["testimonial2_visible"] == "hide"
+                editController
+                    .allDataResponse[0]["testimonials_details"][0]["testimonial2_visible"] ==
+                    "hide"
                     ? const SizedBox()
-                    :const SizedBox(height: 40),
+                    : const SizedBox(height: 40),
 
                 ///Contact buttons
                 Wrap(
@@ -1215,12 +1397,18 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                         FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2),
-                            decoration : BoxDecoration(
-                              borderRadius: const BorderRadius.all(Radius.circular(2)),
-                              color: editController.allDataResponse[0]["live_app_count_bg"] == "hide"
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                  Radius.circular(2)),
+                              color: editController
+                                  .allDataResponse[0]["live_app_count_bg"] ==
+                                  "hide"
                                   ? AppColors.transparentColor
-                                  : Color(int.parse(editController.allDataResponse[0]["live_app_count_bg_color"].toString()),
+                                  : Color(int.parse(editController
+                                  .allDataResponse[0]["live_app_count_bg_color"]
+                                  .toString()),
                               ),
                             ),
                             child: Row(
@@ -1231,21 +1419,36 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                 const SizedBox(width: 8),
                                 Row(
                                   children: [
-                                    Obx(() => Text("${webLandingPageController.appLiveCount.value} ",style: GoogleFonts.getFont(editController.allDataResponse[0]["live_app_count_font"].toString()).copyWith(
-                                      // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
-                                      //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
-                                      //     : 14,
-                                      // fontWeight: FontWeight.w400,
-                                        color: Color(int.parse(editController.allDataResponse[0]["live_app_count_color"].toString()))))),
+                                    Obx(() =>
+                                        Text("${webLandingPageController
+                                            .appLiveCount.value} ",
+                                            style: GoogleFonts.getFont(
+                                                editController
+                                                    .allDataResponse[0]["live_app_count_font"]
+                                                    .toString()).copyWith(
+                                              // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
+                                              //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
+                                              //     : 14,
+                                              // fontWeight: FontWeight.w400,
+                                                color: Color(int.parse(
+                                                    editController
+                                                        .allDataResponse[0]["live_app_count_color"]
+                                                        .toString()))))),
                                     // Obx(() => Text(" people creating App")),
                                     Text(
-                                      editController.allDataResponse[0]["live_app_count_string"].toString(),
-                                      style: GoogleFonts.getFont(editController.allDataResponse[0]["live_app_count_font"].toString()).copyWith(
+                                      editController
+                                          .allDataResponse[0]["live_app_count_string"]
+                                          .toString(),
+                                      style: GoogleFonts.getFont(editController
+                                          .allDataResponse[0]["live_app_count_font"]
+                                          .toString()).copyWith(
                                         // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
                                         //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
                                         //     : 14,
                                         // fontWeight: FontWeight.w400,
-                                          color: Color(int.parse(editController.allDataResponse[0]["live_app_count_color"].toString()))),
+                                          color: Color(int.parse(editController
+                                              .allDataResponse[0]["live_app_count_color"]
+                                              .toString()))),
                                     ),
                                   ],
                                 ),
@@ -1277,12 +1480,18 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                         FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 2),
-                            decoration : BoxDecoration(
-                              borderRadius: const BorderRadius.all(Radius.circular(2)),
-                              color: editController.allDataResponse[0]["live_web_count_bg"] == "hide"
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                  Radius.circular(2)),
+                              color: editController
+                                  .allDataResponse[0]["live_web_count_bg"] ==
+                                  "hide"
                                   ? AppColors.transparentColor
-                                  : Color(int.parse(editController.allDataResponse[0]["live_web_count_bg_color"].toString()),
+                                  : Color(int.parse(editController
+                                  .allDataResponse[0]["live_web_count_bg_color"]
+                                  .toString()),
                               ),
                             ),
                             child: Row(
@@ -1293,21 +1502,36 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                 const SizedBox(width: 8),
                                 Row(
                                   children: [
-                                    Obx(() => Text("${webLandingPageController.webLiveCount.value} ",style: GoogleFonts.getFont(editController.allDataResponse[0]["live_web_count_font"].toString()).copyWith(
-                                      // fontSize: editController.allDataResponse[0]["live_web_count_size"].toString() ==""
-                                      //     ? double.parse(editController.allDataResponse[0]["live_web_count_size"].toString())
-                                      //     : 14,
-                                      // fontWeight: FontWeight.w400,
-                                        color: Color(int.parse(editController.allDataResponse[0]["live_web_count_color"].toString()))),)),
+                                    Obx(() =>
+                                        Text("${webLandingPageController
+                                            .webLiveCount.value} ",
+                                          style: GoogleFonts.getFont(
+                                              editController
+                                                  .allDataResponse[0]["live_web_count_font"]
+                                                  .toString()).copyWith(
+                                            // fontSize: editController.allDataResponse[0]["live_web_count_size"].toString() ==""
+                                            //     ? double.parse(editController.allDataResponse[0]["live_web_count_size"].toString())
+                                            //     : 14,
+                                            // fontWeight: FontWeight.w400,
+                                              color: Color(int.parse(
+                                                  editController
+                                                      .allDataResponse[0]["live_web_count_color"]
+                                                      .toString()))),)),
                                     // Obx(() => Text(" people creating App")),
                                     Text(
-                                      editController.allDataResponse[0]["live_web_count_string"].toString(),
-                                      style: GoogleFonts.getFont(editController.allDataResponse[0]["live_web_count_font"].toString()).copyWith(
+                                      editController
+                                          .allDataResponse[0]["live_web_count_string"]
+                                          .toString(),
+                                      style: GoogleFonts.getFont(editController
+                                          .allDataResponse[0]["live_web_count_font"]
+                                          .toString()).copyWith(
                                         // fontSize: editController.allDataResponse[0]["live_web_count_size"].toString() ==""
                                         //     ? double.parse(editController.allDataResponse[0]["live_web_count_size"].toString())
                                         //     : 14,
                                         // fontWeight: FontWeight.w400,
-                                          color: Color(int.parse(editController.allDataResponse[0]["live_web_count_color"].toString()))),
+                                          color: Color(int.parse(editController
+                                              .allDataResponse[0]["live_web_count_color"]
+                                              .toString()))),
                                     ),
 
                                   ],
@@ -1334,7 +1558,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                     //     txtColor: Colors.white),
 
                     commonIconButton(
-                            onTap: () {
+                        onTap: () {
                           if (widget.scrollToPricingSection != null) {
                             widget.scrollToPricingSection!();
                           }
@@ -1359,23 +1583,32 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                           ? 15
                           : 15),
                   child: Row(
-                    children:  [
-                      Get.width > 500 ? const SizedBox( )
-                          :const SizedBox(width:  10),
+                    children: [
+                      Get.width > 500 ? const SizedBox()
+                          : const SizedBox(width: 10),
                       Expanded(
                         child:
                         Center(
                           child: Text(
-                            editController.allDataResponse[0]["testimonials_details"][0]["Blog_title"]
+                            editController
+                                .allDataResponse[0]["testimonials_details"][0]["Blog_title"]
                                 .toString(),
-                            style: GoogleFonts.getFont(editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_font"].toString()).copyWith(
-                                fontSize: editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_size"].toString() !=""
-                                    ? double.parse(editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_size"].toString())
+                            style: GoogleFonts.getFont(editController
+                                .allDataResponse[0]["testimonials_details"][0]["Blog_title_font"]
+                                .toString()).copyWith(
+                                fontSize: editController
+                                    .allDataResponse[0]["testimonials_details"][0]["Blog_title_size"]
+                                    .toString() != ""
+                                    ? double.parse(editController
+                                    .allDataResponse[0]["testimonials_details"][0]["Blog_title_size"]
+                                    .toString())
                                     : Get.width > 1000
                                     ? 50
                                     : 30,
                                 fontWeight: FontWeight.bold,
-                                color: Color(int.parse(editController.allDataResponse[0]["testimonials_details"][0]["Blog_title_color"].toString()))),
+                                color: Color(int.parse(editController
+                                    .allDataResponse[0]["testimonials_details"][0]["Blog_title_color"]
+                                    .toString()))),
                             textAlign: TextAlign.center,
 
                             // style: GoogleFonts.getFont(selectedFont).copyWith(
@@ -1383,12 +1616,13 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                           ),
                         ),
                       ),
-                      Get.width > 500 ? const SizedBox( )
-                          :const SizedBox(width:  10),
+                      Get.width > 500 ? const SizedBox()
+                          : const SizedBox(width: 10),
                     ],
                   ),
                 ),
                 const SizedBox(height: 40),
+
                 ///carousel
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -1450,24 +1684,27 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                           autoPlay: true,
                         ),
                         items: blogController.blogdata.map((featuredImage) {
-
                           return InkWell(
-                            onTap: (){
+                            onTap: () {
                               Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => BlogDetailsScreen(
-                                    id: featuredImage["blog_auto_id"],
-                                    blogTypeKey: featuredImage["blogTypeKey"],
-                                    title:featuredImage["title"] ,
-                                    content:featuredImage["content"]  ,
-                                    name: featuredImage["userName"]  ,
-                                    media: featuredImage["media"]  ,
-                                    blogType: featuredImage["blogTypeKey"]  ,
-                                    mediaType:  featuredImage["media_type"]  ,
-                                    profileImg:  featuredImage["userImage"],
-                                    bgColor:  featuredImage["blogs_section_color"]  ,
-                                    blogDetails: List<Map<String, String>>.from(featuredImage["blog_details"]
-                                        .map((detail) => Map<String, String>.from(detail))),
-                                  )));
+                                  MaterialPageRoute(builder: (context) =>
+                                      BlogDetailsScreen(
+                                        id: featuredImage["blog_auto_id"],
+                                        blogTypeKey: featuredImage["blogTypeKey"],
+                                        title: featuredImage["title"],
+                                        content: featuredImage["content"],
+                                        name: featuredImage["userName"],
+                                        media: featuredImage["media"],
+                                        blogType: featuredImage["blogTypeKey"],
+                                        mediaType: featuredImage["media_type"],
+                                        profileImg: featuredImage["userImage"],
+                                        bgColor: featuredImage["blogs_section_color"],
+                                        blogDetails: List<
+                                            Map<String, String>>.from(
+                                            featuredImage["blog_details"]
+                                                .map((detail) =>
+                                            Map<String, String>.from(detail))),
+                                      )));
                             },
                             child: Container(
                               // width: 400,
@@ -1480,8 +1717,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                   : Get.width < 500
                                   ? Get.width - 30
                                   : 400,
-                              decoration:  BoxDecoration(
-                                  // color: Colors.green,
+                              decoration: BoxDecoration(
+                                // color: Colors.green,
                                   color: AppColors.whiteColor.withOpacity(0.8),
                                   borderRadius:
                                   const BorderRadius.all(Radius.circular(20))),
@@ -1504,7 +1741,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 8,
                                         style: const TextStyle(
-                                            fontSize: 15, fontWeight: FontWeight.w200),
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w200),
                                       )),
                                   const SizedBox(
                                     height: 10,
@@ -1660,27 +1898,29 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                     ],
                   ),
                 ),
+
                 ///Blog Ends
                 const SizedBox(height: 80),
               ],
             ),
           );
-
         });
       },
     );
   }
+
   Widget displayUploadedVideo(String videoUrl) {
-    VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+videoUrl));
+    VideoPlayerController controller = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.latestmediaBaseUrl + videoUrl));
     bool isVideoPlaying = false;
     return InkWell(
       onTap: () {
         if (controller.value.isPlaying) {
-          isVideoPlaying=false;
+          isVideoPlaying = false;
           controller.pause();
         } else {
           controller.play();
-          isVideoPlaying=true;
+          isVideoPlaying = true;
         }
       },
       child: FutureBuilder(
@@ -1699,7 +1939,6 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
                   ),
               ],
             );
-
           } else {
             return const Center(
               child: CircularProgressIndicator(
@@ -1710,9 +1949,10 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
         },
       ),
     );
-
   }
-  Widget ytMediaWidget(String mediaType, String bannerMediaType, String bannerMedia,String youthtube) {
+
+  Widget ytMediaWidget(String mediaType, String bannerMediaType,
+      String bannerMedia, String youthtube) {
     if (mediaType == 'normal') {
       if (bannerMediaType == "image" || bannerMediaType == "gif") {
         return ClipRRect(
@@ -1723,11 +1963,13 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
               width: 160,
               height: 80,
               imageUrl: APIString.latestmediaBaseUrl + bannerMedia,
-              placeholder: (context, url) => Container(
-                decoration: BoxDecoration(
-                  color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                ),
-              ),
+              placeholder: (context, url) =>
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color(int.parse(
+                          editController.appDemoBgColor.value.toString())),
+                    ),
+                  ),
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
@@ -1741,8 +1983,10 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
       return Container();
     }
   }
+
   Widget ytVideo(String videoUrl, {double width = 200}) {
-    VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl + videoUrl));
+    VideoPlayerController controller = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.latestmediaBaseUrl + videoUrl));
     bool isVideoPlaying = false;
 
     const double videoAspectRatio = 16 / 9;
@@ -1789,7 +2033,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
       ),
     );
   }
-  Widget displayYoutubeVideo(String videoUrl, ) {
+
+  Widget displayYoutubeVideo(String videoUrl,) {
     final YoutubePlayerController controller = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(videoUrl)!,
       flags: const YoutubePlayerFlags(
@@ -1816,8 +2061,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
       },
     );
   }
-  Widget buildMediaWidget( String bannerMediaType, String bannerMedia) {
 
+  Widget buildMediaWidget(String bannerMediaType, String bannerMedia) {
     if (bannerMediaType == "image" || bannerMediaType == "gif") {
       return ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -1825,17 +2070,19 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
           fit: BoxFit.cover,
           width: Get.width * 0.9,
           imageUrl: APIString.latestmediaBaseUrl + bannerMedia,
-          placeholder: (context, url) => Container(
-            decoration: BoxDecoration(
-              color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-            ),
-          ),
+          placeholder: (context, url) =>
+              Container(
+                decoration: BoxDecoration(
+                  color: Color(int.parse(
+                      editController.appDemoBgColor.value.toString())),
+                ),
+              ),
           errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
       );
-    } else if(bannerMediaType == "video"){
+    } else if (bannerMediaType == "video") {
       return displayUploadedVideo(bannerMedia);
-    }else{
+    } else {
       return
         Center(
           child: ClipRRect(
@@ -1850,6 +2097,5 @@ class _TestimonialsSectionState extends State<TestimonialsSection> with SingleTi
           ),
         );
     }
-
   }
 }

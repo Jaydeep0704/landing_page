@@ -214,7 +214,7 @@ class _InfoSectionState extends State<InfoSection> {
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/youthtube.png',
+                      'assets/youtube.png',
                       width: 18,
                       height: 18,
                     ),
@@ -247,7 +247,7 @@ class _InfoSectionState extends State<InfoSection> {
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/linedin.png',
+                      'assets/linkedin.png',
                       width: 18,
                       height: 18,
                     ),
@@ -614,7 +614,7 @@ class _InfoSectionState extends State<InfoSection> {
                         // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            'assets/youthtube.png',
+                            'assets/youtube.png',
                             width: 18,
                             height: 18,
                           ),
@@ -651,7 +651,7 @@ class _InfoSectionState extends State<InfoSection> {
                         // mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            'assets/linedin.png',
+                            'assets/linkedin.png',
                             width: 18,
                             height: 18,
                           ),

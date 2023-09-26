@@ -31,15 +31,15 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
   int _currentIndex = 0;
 
 
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          return editController.homeComponentList.isEmpty &&  editController.allDataResponse.isEmpty
-              ?const SizedBox()
-              :Container(
+          return editController.homeComponentList.isEmpty /*&&*/ ||
+              editController.allDataResponse.isEmpty
+              ? const SizedBox()
+              : Container(
             // height: 700,
             padding: EdgeInsets.only(
                 left: Get.width > 650 ? Get.width * 0.1 : Get.width * 0.05,
@@ -117,10 +117,11 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                                                         // containerColor: Color(int.parse(editController.showcaseAppsBgColor.value.toString())),
                                                         // containerColor: Color(int.parse(editController.showcaseAppsBgColor.value.toString())),
                                                         containerColor: Color(
-                                                            int.parse(editController
-                                                                .allDataResponse[0]["checkout_info_details"][0][
-                                                            "checkout_info_bg_color"]
-                                                                .toString())),
+                                                            int.parse(
+                                                                editController
+                                                                    .allDataResponse[0]["checkout_info_details"][0][
+                                                                "checkout_info_bg_color"]
+                                                                    .toString())),
                                                         keyNameClr:
                                                         "checkout_info_bg_color",
                                                         clrSwitchValue: "1",
@@ -315,7 +316,7 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
 
                 Get.width > 650
                     ? const SizedBox()
-                    :    Container(
+                    : Container(
                   padding: const EdgeInsets.all(5),
                   decoration: const BoxDecoration(
                       color: AppColors.yellowColor,
@@ -368,7 +369,7 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                 const SizedBox(height: 25),
                 Get.width > 650
                     ? const SizedBox()
-                : InkWell(
+                    : InkWell(
                   onTap: () =>
                       Get.dialog(
                           TextEditModule(
@@ -619,15 +620,21 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
 
 
                           Obx(() {
-                            if (checkoutInfoController.checkInfoDataList.isNotEmpty) {
+                            if (checkoutInfoController.checkInfoDataList
+                                .isNotEmpty) {
                               return SizedBox(
                                 height: 600,
                                 child: ListView.builder(
-                                  physics: checkoutInfoController.checkInfoDataList.length == 1 ?const NeverScrollableScrollPhysics():const AlwaysScrollableScrollPhysics(),
+                                  physics: checkoutInfoController
+                                      .checkInfoDataList.length == 1
+                                      ? const NeverScrollableScrollPhysics()
+                                      : const AlwaysScrollableScrollPhysics(),
                                   scrollDirection: Axis.vertical,
-                                  itemCount: checkoutInfoController.checkInfoDataList.length,
+                                  itemCount: checkoutInfoController
+                                      .checkInfoDataList.length,
                                   itemBuilder: (context, index) {
-                                    var data = checkoutInfoController.checkInfoDataList[index];
+                                    var data = checkoutInfoController
+                                        .checkInfoDataList[index];
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment
                                           .start,
@@ -641,7 +648,9 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                                                   right: 16),
                                               decoration: BoxDecoration(
                                                 // color: getItemColor(index),
-                                                color: _currentIndex == index ? AppColors.blueColor : Colors.grey,
+                                                color: _currentIndex == index
+                                                    ? AppColors.blueColor
+                                                    : Colors.grey,
                                                 borderRadius: BorderRadius
                                                     .circular(10),
                                               ),
@@ -706,198 +715,219 @@ class _EditCheckoutInfoSectionState extends State<EditCheckoutInfoSection> {
                       child: SizedBox(
                         height: 600,
                         width: Get.width,
-                        child: CarouselSlider.builder(
-                          carouselController: landingPageController.appDetailsController,
-                          options: CarouselOptions(scrollPhysics: checkoutInfoController.checkInfoDataList.length == 1?const NeverScrollableScrollPhysics():const AlwaysScrollableScrollPhysics(),
-                            onPageChanged: (index, reason) {
-                              setState(() {
-                                _currentIndex = index;
-                              });
-                            },
-                            autoPlay: true,
-                            autoPlayInterval: const Duration(seconds: 8),
-                            viewportFraction: 1.0,
-                            // Set viewportFraction to 1.0
-                            height: 630,
-                          ),
-                          itemCount: checkoutInfoController.checkInfoDataList
-                              .length,
-                          itemBuilder: (context, itemIndex, realIndex) {
-                            var a = checkoutInfoController
-                                .checkInfoDataList[itemIndex];
-                            return _currentIndex == itemIndex
-                                ? SizedBox(
-                              width: Get.width > 500 ? Get.width * 0.5 : Get.width > 350 ? Get.width * 0.7 : Get.width * 0.7,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const SizedBox(height: 10),
-                                  Container(
-                                    height: 550,
-                                    width: Get.width * 0.9,
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 5),
-                                    child: Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(20)),
-                                          child: a["file_media_type"]
-                                              .toString() == "image" ||
-                                              a["file_media_type"].toString() ==
-                                                  "gif"
-                                              ? CachedNetworkImage(
-                                            imageUrl: APIString
-                                                .latestmediaBaseUrl +
-                                                a["files"].toString(),
-                                            placeholder: (context, url) =>
-                                                Container(
-                                                  // decoration: BoxDecoration(
+                        child: Obx(() {
+                          return checkoutInfoController.checkInfoDataList.isEmpty ?const SizedBox(): CarouselSlider.builder(
+                            carouselController: landingPageController
+                                .appDetailsController,
+                            options: CarouselOptions(
+                              scrollPhysics: checkoutInfoController
+                                  .checkInfoDataList.length == 1
+                                  ? const NeverScrollableScrollPhysics()
+                                  : const AlwaysScrollableScrollPhysics(),
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _currentIndex = index;
+                                });
+                              },
+                              autoPlay: true,
+                              autoPlayInterval: const Duration(seconds: 8),
+                              viewportFraction: 1.0,
+                              // Set viewportFraction to 1.0
+                              height: 630,
+                            ),
+                            itemCount: checkoutInfoController.checkInfoDataList
+                                .length,
+                            itemBuilder: (context, itemIndex, realIndex) {
+                              var a = checkoutInfoController
+                                  .checkInfoDataList[itemIndex];
+                              return _currentIndex == itemIndex
+                                  ? SizedBox(
+                                width: Get.width > 500 ? Get.width * 0.5 : Get
+                                    .width > 350 ? Get.width * 0.7 : Get.width *
+                                    0.7,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(height: 10),
+                                    Container(
+                                      height: 550,
+                                      width: Get.width * 0.9,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: ClipRRect(
+                                            borderRadius: const BorderRadius
+                                                .all(
+                                                Radius.circular(20)),
+                                            child: a["file_media_type"]
+                                                .toString() == "image" ||
+                                                a["file_media_type"]
+                                                    .toString() ==
+                                                    "gif"
+                                                ? CachedNetworkImage(
+                                              imageUrl: APIString
+                                                  .latestmediaBaseUrl +
+                                                  a["files"].toString(),
+                                              placeholder: (context, url) =>
+                                                  Container(
+                                                    // decoration: BoxDecoration(
                                                     // color: Color(int.parse(
                                                     //     editController
                                                     //         .appDemoBgColor
                                                     //         .value.toString())),
-                                                  // ),
-                                                ),
-                                            errorWidget: (context, url,
-                                                error) =>
-                                            const Icon(Icons.error),
-                                            fit: BoxFit
-                                                .cover, // Use cover to make the image fit the container
-                                          )
-                                              : displayUploadedVideo(
-                                              a["files"].toString()),
+                                                    // ),
+                                                  ),
+                                              errorWidget: (context, url,
+                                                  error) =>
+                                              const Icon(Icons.error),
+                                              fit: BoxFit
+                                                  .cover, // Use cover to make the image fit the container
+                                            )
+                                                : displayUploadedVideo(
+                                                a["files"].toString()),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            )
-                                : Container();
-                          },
-                        ),
+                                  ],
+                                ),
+                              )
+                                  : Container();
+                            },
+                          );
+                        }),
                       ),
                     ),
 
                   ],
                 )
-                :SizedBox(
-                  // height: Get.width * 0.7,
-                  width: Get.width * 0.7,
-                  child: CarouselSlider.builder(
-                    carouselController: landingPageController.appDetailsController,
-                    options: CarouselOptions(
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _currentIndex = index;
-                        });
-                      },
-                      autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 8),
-                      viewportFraction: 1.0,
-                      // Set viewportFraction to 1.0
-                      // height: 630,
-                      height: 750,
-                    ),
-                    itemCount: checkoutInfoController.checkInfoDataList.length,
-                    itemBuilder: (context, itemIndex, realIndex) {
-                      var a = checkoutInfoController
-                          .checkInfoDataList[itemIndex];
-                      return _currentIndex == itemIndex
-                          ? SizedBox(
-                        width: Get.width > 500 ? Get.width * 0.5 : Get.width >
-                            350 ? Get.width * 0.7 : Get.width * 0.7,
-                           child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.center,
-                           children: [
-                            const SizedBox(height: 10),
-                            Container(
-                              height: 300,
-                              // Increase the height of the image container
-                              width: Get.width * 0.9,
-                              // Increase the width of the image container
-                              margin: const EdgeInsets.symmetric(horizontal: 5),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20)),
-                                    child: a["file_media_type"].toString() ==
-                                        "image" ||
-                                        a["file_media_type"].toString() == "gif"
-                                        ? CachedNetworkImage(
-                                      imageUrl: APIString.latestmediaBaseUrl +
-                                          a["files"].toString(),
-                                      placeholder: (context, url) =>
-                                          Container(
-                                            // decoration: BoxDecoration(
-                                            //   color: Color(int.parse(
-                                            //       editController.appDemoBgColor
-                                            //           .value.toString())),
-                                            // ),
-                                          ),
-                                      errorWidget: (context, url,
-                                          error) => const Icon(Icons.error),
-                                      fit: BoxFit
-                                          .cover, // Use cover to make the image fit the container
-                                    )
-                                        :
-                                    //buildMediaWidget()
-                                    displayUploadedVideo(a["files"].toString()),
+                    : Obx(() {
+                  return checkoutInfoController.checkInfoDataList.isEmpty
+                      ? const SizedBox()
+                      : SizedBox(
+                    // height: Get.width * 0.7,
+                    width: Get.width * 0.7,
+                    child: CarouselSlider.builder(
+                      carouselController: landingPageController
+                          .appDetailsController,
+                      options: CarouselOptions(
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _currentIndex = index;
+                          });
+                        },
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(seconds: 8),
+                        viewportFraction: 1.0,
+                        // Set viewportFraction to 1.0
+                        // height: 630,
+                        height: 750,
+                      ),
+                      itemCount: checkoutInfoController.checkInfoDataList
+                          .length,
+                      itemBuilder: (context, itemIndex, realIndex) {
+                        var a = checkoutInfoController
+                            .checkInfoDataList[itemIndex];
+                        return _currentIndex == itemIndex
+                            ? SizedBox(
+                          width: Get.width > 500 ? Get.width * 0.5 : Get.width >
+                              350 ? Get.width * 0.7 : Get.width * 0.7,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(height: 10),
+                              Container(
+                                height: 300,
+                                // Increase the height of the image container
+                                width: Get.width * 0.9,
+                                // Increase the width of the image container
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 5),
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20)),
+                                      child: a["file_media_type"].toString() ==
+                                          "image" ||
+                                          a["file_media_type"].toString() ==
+                                              "gif"
+                                          ? CachedNetworkImage(
+                                        imageUrl: APIString.latestmediaBaseUrl +
+                                            a["files"].toString(),
+                                        placeholder: (context, url) =>
+                                            Container(
+                                              // decoration: BoxDecoration(
+                                              //   color: Color(int.parse(
+                                              //       editController.appDemoBgColor
+                                              //           .value.toString())),
+                                              // ),
+                                            ),
+                                        errorWidget: (context, url,
+                                            error) => const Icon(Icons.error),
+                                        fit: BoxFit
+                                            .cover, // Use cover to make the image fit the container
+                                      )
+                                          :
+                                      //buildMediaWidget()
+                                      displayUploadedVideo(
+                                          a["files"].toString()),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 30),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 60,
-                                      width: 2,
-                                      margin: const EdgeInsets.only(
-                                          right: 16),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.blueColor,
-                                        borderRadius: BorderRadius.circular(10),
+                              const SizedBox(height: 30),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 60,
+                                        width: 2,
+                                        margin: const EdgeInsets.only(
+                                            right: 16),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.blueColor,
+                                          borderRadius: BorderRadius.circular(
+                                              10),
+                                        ),
                                       ),
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .start,
-                                        children: [
-                                          Text(
-                                            a["title"].toString(),
-                                            style: AppTextStyle.regular700
-                                                .copyWith(fontSize: 22),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            a["description"].toString(),
-                                            style: AppTextStyle.regular400
-                                                .copyWith(fontSize: 14),
-                                          ),
-                                        ],
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .start,
+                                          children: [
+                                            Text(
+                                              a["title"].toString(),
+                                              style: AppTextStyle.regular700
+                                                  .copyWith(fontSize: 22),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              a["description"].toString(),
+                                              style: AppTextStyle.regular400
+                                                  .copyWith(fontSize: 14),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 16),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                          : Container();
-                    },
-                  ),
-                ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 16),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                            : Container();
+                      },
+                    ),
+                  );
+                }),
                 const SizedBox(height: 80),
               ],
             ),);

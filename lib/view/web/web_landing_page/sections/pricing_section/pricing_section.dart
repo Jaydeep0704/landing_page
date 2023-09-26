@@ -9,7 +9,6 @@ import 'package:grobiz_web_landing/config/app_colors.dart';
 import 'package:grobiz_web_landing/config/app_string.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
-import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../edit_web_landing_page/edit_controller/pricing_section_controller.dart';
@@ -17,46 +16,16 @@ import '../../../edit_web_landing_page/edit_controller/pricing_section_controlle
 class PricingSection extends StatefulWidget {
   const PricingSection({Key? key}) : super(key: key);
   static final GlobalKey pricingSectionKey = GlobalKey();
+  static final GlobalKey editPricingSectionKey = GlobalKey();
 
   @override
   State<PricingSection> createState() => _PricingSectionState();
 }
 
 class _PricingSectionState extends State<PricingSection> {
-  final landingPageController = Get.find<WebLandingPageController>();
   final editController = Get.find<EditController>();
   final pricingScreenController = Get.find<PricingScreenController>();
   final ScrollController scrollController = ScrollController();
-
-
-  @override
-  void initState() {
-    super.initState();
-    // Future.delayed(Duration.zero, () async {
-    //   pricingScreenController.getPlansData();
-    // });
-  }
-
-
-  void _showDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Alert!!"),
-          content: const Text("You are awesome!"),
-          actions: [
-            MaterialButton(
-              child: const Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,12 +151,9 @@ class _PricingSectionState extends State<PricingSection> {
                           if (value == 1) {
                             pricingScreenController.getPlansData(
                                 lat: "37.661224", long: "-100.015796");
-                            // _showDialog(context);
-                            // if value 2 show dialog
                           } else if (value == 2) {
                             pricingScreenController.getPlansData(
                                 lat: "21.2378888", long: "72.863352");
-                            // _showDialog(context);
                           }
                         },
                         child: Container(
@@ -201,120 +167,21 @@ class _PricingSectionState extends State<PricingSection> {
                     }),
                 const SizedBox(height: 10),
 
-                ///plan type section
-                // Container(
-                //   height: 60,
-                //   width: Get.width > 1000 ? Get.width * 0.35 : Get.width > 800
-                //       ? Get.width * 0.4
-                //       : Get.width > 500 ? Get.width * 0.7 : 300,
-                //   margin: const EdgeInsets.only(top: 24, bottom: 24),
-                //   padding: const EdgeInsets.all(3),
-                //   decoration: BoxDecoration(
-                //       color: AppColors.greyBorderColor.withOpacity(0.6),
-                //       // color: AppColors.lightBlackColor,
-                //       borderRadius: BorderRadius.circular(10),
-                //       border: Border.all(
-                //           color: AppColors.greyBorderColor, width: 2)),
-                //   child: Row(
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       Expanded(child: InkWell(
-                //         onTap: () {
-                //           setState(() {
-                //             landingPageController.selectedType.value = 0;
-                //           });
-                //         },
-                //         child: Container(
-                //           alignment: Alignment.center,
-                //           height: double.infinity,
-                //           decoration: BoxDecoration(
-                //               color: landingPageController.selectedType.value ==
-                //                   0 ? AppColors.whiteColor : AppColors
-                //                   .transparentColor,
-                //               borderRadius: BorderRadius.circular(
-                //                   landingPageController.selectedType.value == 0
-                //                       ? 5
-                //                       : 0)
-                //           ),
-                //           padding: const EdgeInsets.only(left: 12, right: 12),
-                //           child: Text("App Only", textAlign: TextAlign.center,
-                //             style: AppTextStyle.regular500.copyWith(
-                //                 fontSize: 15),),
-                //         ),
-                //       )),
-                //       Expanded(child: InkWell(
-                //         onTap: () {
-                //           setState(() {
-                //             landingPageController.selectedType.value = 1;
-                //           });
-                //         },
-                //         child: Container(
-                //           height: double.infinity,
-                //           padding: const EdgeInsets.only(left: 12, right: 12),
-                //           alignment: Alignment.center,
-                //           decoration: BoxDecoration(
-                //               color: landingPageController.selectedType.value ==
-                //                   1 ? AppColors.whiteColor : AppColors
-                //                   .transparentColor,
-                //               borderRadius: BorderRadius.circular(
-                //                   landingPageController.selectedType.value == 1
-                //                       ? 5
-                //                       : 0)
-                //           ),
-                //           child: Text("Web Only", textAlign: TextAlign.center,
-                //               style: AppTextStyle.regular500.copyWith(
-                //                   fontSize: 15)),
-                //         ),
-                //       )),
-                //       Expanded(child: InkWell(
-                //         onTap: () {
-                //           setState(() {
-                //             landingPageController.selectedType.value = 2;
-                //           });
-                //         },
-                //         child: Container(
-                //           alignment: Alignment.center,
-                //           height: double.infinity,
-                //           decoration: BoxDecoration(
-                //               color: landingPageController.selectedType.value ==
-                //                   2 ? AppColors.whiteColor : AppColors
-                //                   .transparentColor,
-                //               borderRadius: BorderRadius.circular(
-                //                   landingPageController.selectedType.value == 2
-                //                       ? 5
-                //                       : 0)
-                //           ),
-                //           padding: const EdgeInsets.only(left: 12, right: 12),
-                //           child: Text(
-                //               "Web and App", textAlign: TextAlign.center,
-                //               style: AppTextStyle.regular500.copyWith(
-                //                   fontSize: 15)),
-                //         ),
-                //       )),
-                //     ],
-                //   ),
-                // ),
-
                 Center(
                   child:
                   SizedBox(
-                    // color: Colors.yellowAccent,
                     height: 750,
                     child: Obx(() {
                       return pricingScreenController.plansList.isEmpty ?const SizedBox(): Scrollbar(
                         controller: scrollController,
                         thickness: 10,
-                        // controller: ScrollController(),
                         thumbVisibility: true,
                         child: ListView.builder(
                             controller: scrollController,
-                            // shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             physics: const AlwaysScrollableScrollPhysics(),
                             itemCount: pricingScreenController.plansList.length,
                             itemBuilder: (context, index) {
-                              // return Text("data---");
                               return planCard(
                                   data: pricingScreenController
                                       .plansList[index],
@@ -325,8 +192,6 @@ class _PricingSectionState extends State<PricingSection> {
                     }),
                   ),
                 ),
-
-
                 const SizedBox(height: 80),
               ],
             ),
@@ -825,7 +690,6 @@ class _PricingSectionState extends State<PricingSection> {
       ),
     );
   }
-//            alignment: AlignmentDirectional.bottomCenter,
   changeVisibility(int index) {
     setState(() {
       pricingScreenController.plansSHowHidBoolList[index] =
@@ -836,6 +700,7 @@ class _PricingSectionState extends State<PricingSection> {
 
 
 }
+
 AlertDialog purchaseDialog({bool? isPurchaseButton}) {
   return AlertDialog(
     content: Container(
