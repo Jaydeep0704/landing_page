@@ -100,7 +100,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
               initializeVideoHIW()
             });
     Future.delayed(
-        const Duration(seconds: 8),
+        const Duration(seconds: 2),
         () => {
               editController.showComp2.value = true,
               initializeVideoMixBanner(),
@@ -108,10 +108,10 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
               initializeVideoNumberBanner()
             });
     Future.delayed(
-        const Duration(seconds: 12),
+        const Duration(seconds: 4),
         () =>
             {editController.showComp3.value = true, initializeVideCheckOut()});
-    Future.delayed(const Duration(seconds: 14),
+    Future.delayed(const Duration(seconds: 8),
         () => editController.showComp4.value = true);
   }
 
@@ -240,100 +240,102 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return  Scaffold(
+        return Scaffold(
             backgroundColor: Colors.white,
-            body : SafeArea(child: SizedBox(
-              width: Get.width,
-              child: Obx(() {
-                return editController.allDataResponse.isEmpty &&
-                    editController.homeComponentList.isEmpty
-                    ? const SizedBox()
-                //   : ListView.builder(
-                // controller: _scrollController,
-                //       itemCount: editController.homeComponentList.length,
-                //       itemBuilder: (context, index) =>
-                //           Container(
-                //             key: ValueKey(editController.homeComponentList[index]),
-                //             child: getComponentUi(editController.homeComponentList[index]["component_name"],keyScroll: PricingSection.pricingSectionKey),
-                //           ));
-                    : RawScrollbar(
-                  // : Scrollbar(
-                  radius: const Radius.circular(20),
-                  thumbColor: Colors.blue,
-                  controller: _scrollController,
-                  trackVisibility: true,
-                  thickness: 15,
-                  interactive: true,
-                  thumbVisibility: true,
-                  child: SingleChildScrollView(
-                    controller: _scrollController,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        editController.showComp1.value == false
-                            ? const SizedBox()
-                            : Column(
-                          children: [
-                            const IntroSection(),
-                            const ShowcaseAppsSection(),
-                            const HowItWorksSection(),
-                            TestimonialsSection(
-                                scrollToPricingSection:
-                                scrollToPricingSection),
-                          ],
-                        ),
-                        editController.showComp2.value == false
-                            ? const SizedBox()
-                            : Column(
-                          children: const [
-                            TextBannerSection(),
-                            MixBannerSection(),
-                            BenefitBannerSection(),
-                            NumbersBannerSection(),
-                          ],
-                        ),
-                        editController.showComp3.value == false
-                            ? const SizedBox()
-                            : Column(
-                          children: [
-                            HelpBannerSection(
-                              scrollToPricingSection:
-                              scrollToPricingSection,
+            body: SafeArea(
+              child: SizedBox(
+                width: Get.width,
+                child: Obx(() {
+                  return editController.allDataResponse.isEmpty &&
+                          editController.homeComponentList.isEmpty
+                      ? const SizedBox()
+                      //   : ListView.builder(
+                      // controller: _scrollController,
+                      //       itemCount: editController.homeComponentList.length,
+                      //       itemBuilder: (context, index) =>
+                      //           Container(
+                      //             key: ValueKey(editController.homeComponentList[index]),
+                      //             child: getComponentUi(editController.homeComponentList[index]["component_name"],keyScroll: PricingSection.pricingSectionKey),
+                      //           ));
+                      : RawScrollbar(
+                          // : Scrollbar(
+                          radius: const Radius.circular(20),
+                          thumbColor: Colors.blue,
+                          controller: _scrollController,
+                          trackVisibility: true,
+                          thickness: 15,
+                          interactive: true,
+                          thumbVisibility: true,
+                          child: SingleChildScrollView(
+                            controller: _scrollController,
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                editController.showComp1.value == false
+                                    ? const SizedBox()
+                                    : Column(
+                                        children: [
+                                          const IntroSection(),
+                                          const ShowcaseAppsSection(),
+                                          const HowItWorksSection(),
+                                          TestimonialsSection(
+                                              scrollToPricingSection:
+                                                  scrollToPricingSection),
+                                        ],
+                                      ),
+                                editController.showComp2.value == false
+                                    ? const SizedBox()
+                                    : Column(
+                                        children: const [
+                                          TextBannerSection(),
+                                          MixBannerSection(),
+                                          BenefitBannerSection(),
+                                          NumbersBannerSection(),
+                                        ],
+                                      ),
+                                editController.showComp3.value == false
+                                    ? const SizedBox()
+                                    : Column(
+                                        children: [
+                                          HelpBannerSection(
+                                            scrollToPricingSection:
+                                                scrollToPricingSection,
+                                          ),
+                                          const CaseStudySection(),
+                                          const CheckoutInfoSection(),
+                                          PricingSection(
+                                              key: PricingSection
+                                                  .pricingSectionKey),
+                                        ],
+                                      ),
+                                editController.showComp4.value == false
+                                    ? const SizedBox()
+                                    : Column(
+                                        children: const [
+                                          CheckoutSection(),
+                                          AppsDemoSection(),
+                                          FAQsSection(),
+                                          InfoSection(),
+                                          AddressSection(),
+                                        ],
+                                      ),
+                                // editController.showComp1.value == false ||
+                                editController.showComp2.value == false ||
+                                        editController.showComp3.value ==
+                                            false ||
+                                        editController.showComp4.value == false
+                                    ? const Center(
+                                        child: CircularProgressIndicator(),
+                                      )
+                                    : const SizedBox()
+                              ],
                             ),
-                            const CaseStudySection(),
-                            const CheckoutInfoSection(),
-                            PricingSection(
-                                key: PricingSection
-                                    .pricingSectionKey),
-                          ],
-                        ),
-                        editController.showComp4.value == false
-                            ? const SizedBox()
-                            : Column(
-                          children: const [
-                            CheckoutSection(),
-                            AppsDemoSection(),
-                            FAQsSection(),
-                            InfoSection(),
-                            AddressSection(),
-                          ],
-                        ),
-                        // editController.showComp1.value == false ||
-                        editController.showComp2.value == false ||
-                            editController.showComp3.value == false ||
-                            editController.showComp4.value == false
-                            ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                            : const SizedBox()
-                      ],
-                    ),
-                  ),
-                );
-              }),
-            ),)
-          );
+                          ),
+                        );
+                }),
+              ),
+            ));
       },
     );
   }
