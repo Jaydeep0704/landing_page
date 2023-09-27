@@ -2,6 +2,13 @@
   <library name="Dart Packages" type="DartPackagesLibraryType">
     <properties>
       <option name="packageNameToDirsMap">
+        <entry key="animated_icon_button">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/animated_icon_button-1.0.2/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="animated_text_kit">
           <value>
             <list>
@@ -324,6 +331,13 @@
             </list>
           </value>
         </entry>
+        <entry key="freezed_annotation">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/freezed_annotation-2.4.1/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="fwfh_cached_network_image">
           <value>
             <list>
@@ -482,6 +496,13 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/js-0.6.5/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="json_annotation">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/json_annotation-4.8.1/lib" />
             </list>
           </value>
         </entry>
@@ -1034,6 +1055,7 @@
       </option>
     </properties>
     <CLASSES>
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/animated_icon_button-1.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/animated_text_kit-4.2.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/archive-3.4.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/args-2.4.2/lib" />
@@ -1077,6 +1099,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_widget_from_html-0.10.5+3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_widget_from_html_core-0.10.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fluttertoast-8.2.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/freezed_annotation-2.4.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fwfh_cached_network_image-0.7.0+7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fwfh_chewie-0.7.1+4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fwfh_just_audio-0.9.0+3/lib" />
@@ -1100,6 +1123,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http-0.13.6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_parser-4.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/js-0.6.5/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/json_annotation-4.8.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/just_audio-0.9.35/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/just_audio_platform_interface-4.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/just_audio_web-0.4.8/lib" />

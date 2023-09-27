@@ -85,12 +85,6 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     KeyboardScroll.addScrollListener(_scrollController);
   }
 
-  // @override
-  // void didChangeDependencies() {
-  //   loadMediaOneByOne();
-  //   super.didChangeDependencies();
-  // }
-
   showCompOneByOne() {
     Future.delayed(
         const Duration(seconds: 1),
@@ -113,27 +107,6 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
             {editController.showComp3.value = true, initializeVideCheckOut()});
     Future.delayed(const Duration(seconds: 8),
         () => editController.showComp4.value = true);
-  }
-
-  loadMediaOneByOne() {
-    if (editController.showComp1.value == true) {
-      Future.delayed(Duration.zero, () => initializeVideo());
-    }
-    if (editController.showComp1.value == true) {
-      initializeVideoHIW();
-    }
-    if (editController.showComp2.value == true) {
-      initializeVideoMixBanner();
-    }
-    if (editController.showComp2.value == true) {
-      initializeVideobenefitBanner();
-    }
-    if (editController.showComp2.value == true) {
-      initializeVideoNumberBanner();
-    }
-    if (editController.showComp3.value == true) {
-      initializeVideCheckOut();
-    }
   }
 
   @override
@@ -277,8 +250,11 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                     : Column(
                                         children: [
                                           const IntroSection(),
-                                          const ShowcaseAppsSection(),
-                                          const HowItWorksSection(),
+                                          Get.width > 950
+                                              ? const ShowcaseAppsSection()
+                                              : const SizedBox(),
+                                          Get.width > 950
+                                              ? const HowItWorksSection(): const SizedBox(),
                                           TestimonialsSection(
                                               scrollToPricingSection:
                                                   scrollToPricingSection),
@@ -345,9 +321,11 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     if (homeComponent == "intro") {
       return const IntroSection();
     } else if (homeComponent == "showcase_apps") {
-      return const ShowcaseAppsSection();
+      return Get.width > 950 ? const ShowcaseAppsSection() : const SizedBox();
     } else if (homeComponent == "how_it_works") {
-      return const HowItWorksSection();
+      return Get.width > 950
+          ? const HowItWorksSection()
+          : const SizedBox();
     } else if (homeComponent == "testimonials") {
       return TestimonialsSection(
         scrollToPricingSection: scrollToPricingSection,

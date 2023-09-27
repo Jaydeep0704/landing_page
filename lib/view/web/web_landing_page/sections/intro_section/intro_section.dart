@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
+import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_intro_section/edit_intro_section.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,10 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controlle
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/intro_section_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_intro_section/edit_intro_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/case_study_section/case_study_section.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/how_it_works_section/how_it_works_section.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/pricing_section/pricing_section.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/showcase_apps_section/showcase_apps_section.dart';
 import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,15 +27,27 @@ class IntroSection extends StatefulWidget {
   State<IntroSection> createState() => _IntroSectionState();
 }
 
-class _IntroSectionState extends State<IntroSection> {
+class _IntroSectionState extends State<IntroSection> with TickerProviderStateMixin  {
   final introSecController = Get.find<IntroSectionController>();
   final webLandingPageController = Get.find<WebLandingPageController>();
   final editController = Get.find<EditController>();
   final editIntroController = Get.find<EditIntroController>();
 
+  AnimationController? _animationController;
+
+
   @override
   void initState() {
     super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+  }
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -97,6 +114,23 @@ class _IntroSectionState extends State<IntroSection> {
                         ),
 
                       ),
+
+                      Get.width >950?const SizedBox():AnimatedIconButton(
+                        size: 30,
+                        onPressed: () {
+                          _showPopupMenu();
+                        },
+                        duration: const Duration(milliseconds: 500),
+                        splashColor: AppColors.transparentColor,
+                        icons: const <AnimatedIconItem>[
+                          AnimatedIconItem(
+                            icon: Icon(
+                              Icons.menu,
+                              color: AppColors.whiteColor,
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -422,5 +456,79 @@ class _IntroSectionState extends State<IntroSection> {
       },
     ));
   }
-}
 
+
+  void _showPopupMenu() {
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      barrierColor: AppColors.blackColor.withOpacity(0.5),
+      transitionDuration: const Duration(milliseconds: 200),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Material(
+          color: AppColors.transparentColor,
+          child: Align(
+            alignment: Alignment.topRight,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Container(
+                width: Get.width > 500 ?475:Get.width,
+                margin: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColors.whiteColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional.topEnd,
+                      child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: const Icon(
+                            Icons.close,
+                            color: Colors.purple,
+                          )),
+                    ),
+                    ListTile(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return const Material(child:  ShowcaseAppsSection(),);
+                          },));
+                        },
+                        title: const Text('Showcase Apps')),
+                     ListTile(
+                         onTap: () {
+                           Navigator.push(context, MaterialPageRoute(builder: (context) {
+                             return const Material(child: HowItWorksSection(),);
+                           },));
+                         },
+                         title: const Text('How It Works')),
+                     ListTile(
+                         onTap: () {
+                           Navigator.push(context, MaterialPageRoute(builder: (context) {
+                             return const Material(child: CaseStudySection(),);
+                           },));
+                         },
+                         title: const Text('Case Study')),
+                     ListTile(
+                         onTap: () {
+                           Navigator.push(context, MaterialPageRoute(builder: (context) {
+                             return const Material(child: PricingSection(),);
+                           },));
+                         },
+                         title: const Text('Pricing')),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
