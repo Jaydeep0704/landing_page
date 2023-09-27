@@ -40,7 +40,6 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
         return Obx(() {
           return editController.homeComponentList.isEmpty /*&&*/ ||  editController.allDataResponse.isEmpty ?const SizedBox():
           Container(
-            // height: Get.width > 1500 ?600 :Get.width > 900 ?600 : 500,
             width: Get.width,
             decoration:  editController.allDataResponse[0]["mix_banner_details"][0] ["mix_banner_bg_color_switch"].toString() == "1" &&
                 editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_bg_image_switch"].toString() == "0"
@@ -254,6 +253,7 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                           child: Text(
                             editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title"]
                                 .toString(),
+                            textAlign: TextAlign.center,
                             style: GoogleFonts.getFont(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_font"].toString()).copyWith(
                                 fontSize: editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_size"].toString() !=""
                                     ? double.parse(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_size"].toString())
@@ -291,7 +291,7 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                               style: GoogleFonts.getFont(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_description_font"].toString()).copyWith(
                                   fontSize: editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_description_size"].toString() !=""
                                       ? double.parse(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_description_size"].toString())
-                                      : 25,
+                                      : Get.width > 1000 ?25 : 20,
                                   fontWeight: FontWeight.w700,
                                   color: editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_description_color"].toString().isEmpty
                                       ?AppColors.blackColor
@@ -315,14 +315,8 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                                 FittedBox(
                                     fit: BoxFit.scaleDown,
                                     child: commonIconButton(
-                                        onTap: () async {
-                                          const url = AppString.playStoreAppLink;
-                                          if (await canLaunchUrl(Uri.parse(url))) {
-                                            await launchUrl(Uri.parse(url));
-                                          } else {
-                                            throw 'Could not launch $url';
-                                          }
-                                        },
+                                        onTap: appOpen,
+
 
                                         margin: EdgeInsets.zero,
                                         width: Get.width > 1500
@@ -404,14 +398,7 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 commonIconButton(
-                                    onTap: () async {
-                                      const url = AppString.websiteLink;
-                                      if (await canLaunchUrl(Uri.parse(url))) {
-                                        await launchUrl(Uri.parse(url));
-                                      } else {
-                                        throw 'Could not launch $url';
-                                      }
-                                    },
+                                    onTap: websiteOpen,
                                     margin: EdgeInsets.zero,
                                     icon: Icons.language,
                                     title: "Create Your Website",
@@ -508,9 +495,6 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                                   Switch(
                                     value: mixBannerController.mixBannerFileShowSwitch.value,
                                     onChanged: (value) {
-                                      // setState(() {
-                                      //   mixBannerController.mixBannerFileShowSwitch.value = value;
-                                      // });
                                       setState(() {
                                         mixBannerController.mixBannerFileShowSwitch.value = value;
                                         log("value ---- $value");
@@ -538,11 +522,6 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // const Text(
-                        //   "Small Text",
-                        //   style:
-                        //   TextStyle(fontWeight: FontWeight.w300, fontSize: 17),
-                        // ),
                         InkWell(
                           onTap: () => Get.dialog(
                               TextEditModule(
@@ -568,12 +547,6 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        // const Spacer(),
-                        // const Text(
-                        //   "Heading",
-                        //   style:
-                        //   TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                        // ),
                         InkWell(
                           onTap: () => Get.dialog(
                               TextEditModule(
@@ -588,6 +561,7 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                           child: Text(
                             editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title"]
                                 .toString(),
+                            textAlign: TextAlign.center,
                             style: GoogleFonts.getFont(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_font"].toString()).copyWith(
                                 fontSize: editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_size"].toString() !=""
                                     ? double.parse(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_size"].toString())
@@ -624,7 +598,7 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                                 style: GoogleFonts.getFont(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_description_font"].toString()).copyWith(
                                     fontSize: editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_description_size"].toString() !=""
                                         ? double.parse(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_description_size"].toString())
-                                        : 25,
+                                        : Get.width > 1000 ?25 : 20,
                                     fontWeight: FontWeight.w700,
                                     color: editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_description_color"].toString().isEmpty
                                         ?AppColors.blackColor
@@ -643,14 +617,8 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                             FittedBox(
                               fit: BoxFit.scaleDown,
                               child: commonIconButton(
-                                  onTap: () async {
-                                    const url = AppString.playStoreAppLink;
-                                    if (await canLaunchUrl(Uri.parse(url))) {
-                                      await launchUrl(Uri.parse(url));
-                                    } else {
-                                      throw 'Could not launch $url';
-                                    }
-                                  },
+                                  onTap: appOpen,
+
 
                                   icon: Icons.phone_android,
                                   title: "Create Your App",
@@ -721,14 +689,7 @@ class _EditMixBannerSectionState extends State<EditMixBannerSection> {
                             FittedBox(
                               fit: BoxFit.scaleDown,
                               child: commonIconButton(
-                                  onTap: () async {
-                                    const url = AppString.websiteLink;
-                                    if (await canLaunchUrl(Uri.parse(url))) {
-                                      await launchUrl(Uri.parse(url));
-                                    } else {
-                                      throw 'Could not launch $url';
-                                    }
-                                  },
+                                  onTap: websiteOpen,
                                   icon: Icons.language,
                                   title: "Create Your Website",
                                   btnColor: Colors.green.withOpacity(0.7),

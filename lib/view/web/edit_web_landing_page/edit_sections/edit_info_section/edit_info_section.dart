@@ -553,17 +553,17 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              const SizedBox(height: 10),
-              InkWell(
-                onTap: () {
-                  // Get.to(() => const LoginPage());
-                },
-                child: const Text(
-                  "Admin Login",
-                  style: TextStyle(fontSize: 18, color: Colors.black),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              // const SizedBox(height: 10),
+              // InkWell(
+              //   onTap: () {
+              //     // Get.to(() => const LoginPage());
+              //   },
+              //   child: const Text(
+              //     "Admin Login",
+              //     style: TextStyle(fontSize: 18, color: Colors.black),
+              //     textAlign: TextAlign.center,
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -882,17 +882,17 @@ class _EditInfoSectionState extends State<EditInfoSection> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              const SizedBox(height: 10),
-              InkWell(
-                onTap: () {
-                  // Get.to(() => const LoginPage())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
-                },
-                child: const Text(
-                  "Admin Login",
-                  style: TextStyle(fontSize: 18, color: Colors.black),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              // const SizedBox(height: 10),
+              // InkWell(
+              //   onTap: () {
+              //     // Get.to(() => const LoginPage())!.whenComplete(() => Future.delayed(Duration.zero,(){webLandingPageController.getUserCount();}));
+              //   },
+              //   child: const Text(
+              //     "Admin Login",
+              //     style: TextStyle(fontSize: 18, color: Colors.black),
+              //     textAlign: TextAlign.center,
+              //   ),
+              // ),
             ],
           ),
         ),

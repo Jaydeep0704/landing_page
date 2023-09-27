@@ -298,7 +298,7 @@ class _EditPricingSectionState extends State<EditPricingSection> {
 
   planCard({var data, int? i}) {
     return Container(
-      height: Get.width > 800 ? 500 : 425,
+      height: Get.width > 800 ? 500 :Get.width > 600 ? 425 : 390,
       width: Get.width > 800 ? 450 : 300,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

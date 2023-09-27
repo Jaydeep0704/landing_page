@@ -335,15 +335,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                                 FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: commonIconButton(
-                                      onTap: () async {
-                                        const url = AppString.playStoreAppLink;
-                                        if (await canLaunchUrl(Uri.parse(url))) {
-                                          await launchUrl(Uri.parse(url));
-                                        } else {
-                                          throw 'Could not launch $url';
-                                        }
-                                      },
-
+                                      onTap: appOpen,
                                       icon: Icons.phone_android,
                                       title: "Create Your App",
                                       btnColor:
@@ -373,14 +365,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                                 FittedBox(
                                   fit: BoxFit.scaleDown,
                                   child: commonIconButton(
-                                      onTap: () async {
-                                        const url = AppString.websiteLink;
-                                        if (await canLaunchUrl(Uri.parse(url))) {
-                                          await launchUrl(Uri.parse(url));
-                                        } else {
-                                          throw 'Could not launch $url';
-                                        }
-                                      },
+                                      onTap: websiteOpen,
                                       icon: Icons.language,
                                       title: "Create Your Website",
                                       btnColor: Colors.green.withOpacity(0.7),
@@ -578,15 +563,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: commonIconButton(
-                                onTap: () async {
-                                  const url = AppString.playStoreAppLink;
-                                  if (await canLaunchUrl(Uri.parse(url))) {
-                                    await launchUrl(Uri.parse(url));
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
-                                },
-
+                                onTap: appOpen,
                                 icon: Icons.phone_android,
                                 title: "Create Your App",
                                 btnColor:
@@ -616,14 +593,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: commonIconButton(
-                                onTap: () async {
-                                  const url = AppString.websiteLink;
-                                  if (await canLaunchUrl(Uri.parse(url))) {
-                                    await launchUrl(Uri.parse(url));
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
-                                },
+                                onTap: websiteOpen,
                                 icon: Icons.language,
                                 title: "Create Your Website",
                                 btnColor: Colors.green.withOpacity(0.7),
@@ -830,14 +800,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
 //                                 FittedBox(
 //                                   fit: BoxFit.scaleDown,
 //                                   child: commonIconButton(
-//                                                        onTap: () async {
-//                     const url = AppString.playStoreAppLink;
-//                     if (await canLaunchUrl(Uri.parse(url))) {
-//                       await launchUrl(Uri.parse(url));
-//                     } else {
-//                       throw 'Could not launch $url';
-//                     }
-//                   },
+//                                                onTap: appOpen,
 //                                       icon: Icons.phone_android,
 //                                       title: "Create Your App",
 //                                       btnColor:
@@ -867,15 +830,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
 //                                 FittedBox(
 //                                   fit: BoxFit.scaleDown,
 //                                   child: commonIconButton(
-//                                       onTap: () async {
-//                     const url = AppString.websiteLink;
-//                     if (await canLaunchUrl(Uri.parse(url))) {
-//                       await launchUrl(Uri.parse(url));
-//                     } else {
-//                       throw 'Could not launch $url';
-//                     }
-//                   },
-//                                       icon: Icons.language,
+//                                                                     onTap: websiteOpen, icon: Icons.language,
 //                                       title: "Create Your Website",
 //                                       btnColor: Colors.green.withOpacity(0.7),
 //                                       txtColor: Colors.white),
@@ -958,14 +913,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
 //                           FittedBox(
 //                             fit: BoxFit.scaleDown,
 //                             child: commonIconButton(
-//                                                  onTap: () async {
-//                     const url = AppString.playStoreAppLink;
-//                     if (await canLaunchUrl(Uri.parse(url))) {
-//                       await launchUrl(Uri.parse(url));
-//                     } else {
-//                       throw 'Could not launch $url';
-//                     }
-//                   },
+//                                                  onTap: appOpen,
 //                                 icon: Icons.phone_android,
 //                                 title: "Create Your App",
 //                                 btnColor:
@@ -995,14 +943,7 @@ class _EditCheckoutSectionState extends State<EditCheckoutSection> {
 //                           FittedBox(
 //                             fit: BoxFit.scaleDown,
 //                             child: commonIconButton(
-//                                 onTap: () async {
-//                     const url = AppString.websiteLink;
-//                     if (await canLaunchUrl(Uri.parse(url))) {
-//                       await launchUrl(Uri.parse(url));
-//                     } else {
-//                       throw 'Could not launch $url';
-//                     }
-//                   },
+//                                                              onTap: websiteOpen,
 //                                 icon: Icons.language,
 //                                 title: "Create Your Website",
 //                                 btnColor: Colors.green.withOpacity(0.7),

@@ -753,15 +753,7 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                             const SizedBox(height: 20),
                                             // commonButton(
                                             Get.width > 450 ? commonIconButton(
-                                                onTap: () async {
-                                                  const url = AppString.playStoreAppLink;
-                                                  if (await canLaunchUrl(Uri.parse(url))) {
-                                                    await launchUrl(Uri.parse(url));
-                                                  } else {
-                                                    throw 'Could not launch $url';
-                                                  }
-                                                },
-
+                                                onTap: appOpen,
                                                 margin: EdgeInsets.zero,
                                                 icon: Icons.phone_android,
                                                 title: "Create Your App",
@@ -771,15 +763,7 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                                 : FittedBox(
                                               fit: BoxFit.scaleDown,
                                               child: commonIconButton(
-                                                  onTap: () async {
-                                                    const url = AppString.playStoreAppLink;
-                                                    if (await canLaunchUrl(Uri.parse(url))) {
-                                                      await launchUrl(Uri.parse(url));
-                                                    } else {
-                                                      throw 'Could not launch $url';
-                                                    }
-                                                  },
-
+                                                  onTap: appOpen,
                                                   margin: EdgeInsets.zero,
                                                   icon: Icons.phone_android,
                                                   title: "Create Your App",
@@ -865,14 +849,7 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                             const SizedBox(height: 20),
                                             // commonButton(
                                             Get.width > 450 ? commonIconButton(
-                                                onTap: () async {
-                                                  const url = AppString.websiteLink;
-                                                  if (await canLaunchUrl(Uri.parse(url))) {
-                                                    await launchUrl(Uri.parse(url));
-                                                  } else {
-                                                    throw 'Could not launch $url';
-                                                  }
-                                                },
+                                                onTap: websiteOpen,
                                                 icon: Icons.language,
                                                 margin: EdgeInsets.zero,
                                                 title: "Create Your Website",
@@ -882,14 +859,7 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                                 : FittedBox(
                                               fit: BoxFit.scaleDown,
                                               child: commonIconButton(
-                                                  onTap: () async {
-                                                    const url = AppString.websiteLink;
-                                                    if (await canLaunchUrl(Uri.parse(url))) {
-                                                      await launchUrl(Uri.parse(url));
-                                                    } else {
-                                                      throw 'Could not launch $url';
-                                                    }
-                                                  },
+                                                  onTap: websiteOpen,
                                                   icon: Icons.language,
                                                   margin: EdgeInsets.zero,
                                                   title: "Create Your Website",

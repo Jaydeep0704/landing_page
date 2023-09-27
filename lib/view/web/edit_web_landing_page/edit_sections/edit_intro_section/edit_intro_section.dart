@@ -261,40 +261,9 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                             ? Row(
                           children: [
                             Expanded(
-                              child: /*Text(
-                                              "Make Your Own Premium Ecommerce App & Website , AI easier way",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  // fontSize: 50,
-                                                  fontSize:
-                                                      Get.width > 1000
-                                                          ? 50
-                                                          : 30,
-                                                  fontWeight:
-                                                      FontWeight.bold,
-                                                  color: Colors.black),
-                                            ),*/
+                              child:
                               InkWell(
-                                onTap: () =>
-                                    Get.dialog(
-                                        TextEditModule(
-                                          textKeyName: "intro_main_title",
-                                          colorKeyName: "intro_main_title_color",
-                                          fontFamilyKeyName: "intro_main_title_font",
-                                          textValue: editController
-                                              .allDataResponse[0]["intro_details"][0]["intro_main_title"]
-                                              .toString(),
-                                          fontFamily: editController
-                                              .allDataResponse[0]["intro_details"][0]["intro_main_title_font"]
-                                              .toString(),
-                                          fontSize: editController
-                                              .allDataResponse[0]["intro_details"][0]["intro_main_title_size"]
-                                              .toString(),
-                                          textColor: Color(int.parse(
-                                              editController
-                                                  .allDataResponse[0]["intro_details"][0]["intro_main_title_color"]
-                                                  .toString())),
-                                        )),
+                                onTap: titleOnTap,
                                 child: Text(
                                   editController
                                       .allDataResponse[0]["intro_details"][0]["intro_main_title"]
@@ -302,13 +271,13 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                   style: GoogleFonts.getFont(editController
                                       .allDataResponse[0]["intro_details"][0]["intro_main_title_font"]
                                       .toString()).copyWith(
-                                      fontSize: editController
-                                          .allDataResponse[0]["intro_details"][0]["intro_main_title_size"]
-                                          .toString() != ""
-                                          ? double.parse(editController
-                                          .allDataResponse[0]["intro_details"][0]["intro_main_title_size"]
-                                          .toString())
-                                          : 50,
+                                      fontSize: editController.allDataResponse[0]["intro_details"][0]["intro_main_title_size"].toString() !=""
+                                          ? double.parse(editController.allDataResponse[0]["intro_details"][0]["intro_main_title_size"].toString())
+                                          : Get.width > 1000
+                                          ? 50
+                                          : Get.width > 550
+                                          ? 30
+                                          : 20,
                                       fontWeight: FontWeight.w400,
                                       color: Color(int.parse(editController
                                           .allDataResponse[0]["intro_details"][0]["intro_main_title_color"]
@@ -501,26 +470,7 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                                 color: Colors.black),
                                           ),*/
                             InkWell(
-                              onTap: () =>
-                                  Get.dialog(
-                                      TextEditModule(
-                                        textKeyName: "intro_main_title",
-                                        colorKeyName: "intro_main_title_color",
-                                        fontFamilyKeyName: "intro_main_title_font",
-                                        textValue: editController
-                                            .allDataResponse[0]["intro_details"][0]["intro_main_title"]
-                                            .toString(),
-                                        fontFamily: editController
-                                            .allDataResponse[0]["intro_details"][0]["intro_main_title_font"]
-                                            .toString(),
-                                        fontSize: editController
-                                            .allDataResponse[0]["intro_details"][0]["intro_main_title_size"]
-                                            .toString(),
-                                        textColor: Color(int.parse(
-                                            editController
-                                                .allDataResponse[0]["intro_details"][0]["intro_main_title_color"]
-                                                .toString())),
-                                      )),
+                              onTap: titleOnTap,
                               child: Text(
                                 editController
                                     .allDataResponse[0]["intro_details"][0]["intro_main_title"]
@@ -528,15 +478,13 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                 style: GoogleFonts.getFont(editController
                                     .allDataResponse[0]["intro_details"][0]["intro_main_title_font"]
                                     .toString()).copyWith(
-                                    fontSize: editController
-                                        .allDataResponse[0]["intro_details"][0]["intro_main_title_size"]
-                                        .toString() != ""
-                                        ? double.parse(editController
-                                        .allDataResponse[0]["intro_details"][0]["intro_main_title_size"]
-                                        .toString())
+                                    fontSize: editController.allDataResponse[0]["intro_details"][0]["intro_main_title_size"].toString() !=""
+                                        ? double.parse(editController.allDataResponse[0]["intro_details"][0]["intro_main_title_size"].toString())
                                         : Get.width > 1000
                                         ? 50
-                                        : 30,
+                                        : Get.width > 550
+                                        ? 30
+                                        : 20,
                                     fontWeight: FontWeight.bold,
                                     color: Color(int.parse(editController
                                         .allDataResponse[0]["intro_details"][0]["intro_main_title_color"]
@@ -552,8 +500,7 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                   alignment: Alignment.topRight,
                                   children: [
                                     Container(
-                                      // height: 150,
-                                      // width: 150,
+
                                       height: Get.width > 500 ? 300 : Get
                                           .width > 425 ? 250 : 175,
                                       width: Get.width > 500 ? 300 : Get.width >
@@ -926,14 +873,8 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                             CrossAxisAlignment.center,
                             children: [
                               commonIconButton(
-                                  onTap: () async {
-                                    const url = AppString.playStoreAppLink;
-                                    if (await canLaunchUrl(Uri.parse(url))) {
-                                      await launchUrl(Uri.parse(url));
-                                    } else {
-                                      throw 'Could not launch $url';
-                                    }
-                                  },
+                                  onTap: appOpen,
+
 
                                   icon: Icons.phone_android,
                                   title: "Create Your App",
@@ -1123,14 +1064,7 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                             CrossAxisAlignment.center,
                             children: [
                               commonIconButton(
-                                  onTap: () async {
-                                    const url = AppString.websiteLink;
-                                    if (await canLaunchUrl(Uri.parse(url))) {
-                                      await launchUrl(Uri.parse(url));
-                                    } else {
-                                      throw 'Could not launch $url';
-                                    }
-                                  },
+                                  onTap: websiteOpen,
                                   icon: Icons.language,
                                   title: "Create Your Website",
                                   btnColor: Colors.green
@@ -1328,221 +1262,153 @@ class _EditIntroSectionState extends State<EditIntroSection> {
     );
   }
 
+  void titleOnTap() => Get.dialog(TextEditModule(
+                                textKeyName: "intro_main_title",
+                                colorKeyName: "intro_main_title_color",
+                                fontFamilyKeyName: "intro_main_title_font",
+                                textValue: editController
+                                    .allDataResponse[0]["intro_details"][0]["intro_main_title"]
+                                    .toString(),
+                                fontFamily: editController
+                                    .allDataResponse[0]["intro_details"][0]["intro_main_title_font"]
+                                    .toString(),
+                                fontSize: editController
+                                    .allDataResponse[0]["intro_details"][0]["intro_main_title_size"]
+                                    .toString(),
+                                textColor: Color(int.parse(
+                                    editController
+                                        .allDataResponse[0]["intro_details"][0]["intro_main_title_color"]
+                                        .toString())),
+                              ));
 
-  Widget buildBotWidget() {
-    if (editController
-        .allDataResponse[0]["intro_details"][0]["intro_bot_file_mediatype"]
-        .toString()
-        .toLowerCase() == "image") {
-      return CachedNetworkImage(
-        width: Get.width,
-        imageUrl: APIString.mediaBaseUrl + editController
-            .allDataResponse[0]["intro_details"][0]["intro_bot_file"]
-            .toString(),
-        fit: BoxFit.cover,
-        placeholder: (context, url) => Container(decoration: BoxDecoration(
-          color: Color(
-              int.parse(editController.appDemoBgColor.value.toString())),)),
-        errorWidget: (context, url, error) =>
-        const Icon(Icons.error),
-      );
-    }
-    else if (editController
-        .allDataResponse[0]["intro_details"][0]["intro_bot_file_mediatype"]
-        .toString()
-        .toLowerCase() == "video") {
-      return Obx(() {
-        return editIntroController.isBotVideoInitialized.value
-            ? AspectRatio(
-          aspectRatio: editIntroController.introBotController.value.aspectRatio,
-          child: VideoPlayer(editIntroController.introBotController),
-          // child:  Chewie(controller: editIntroController.introBotControllerChewie!),
-        )
-        // : const CircularProgressIndicator();
-            : const Center(child: CircularProgressIndicator());
-      });
-    }
-    else if (editController
-        .allDataResponse[0]["intro_details"][0]["intro_bot_file_mediatype"]
-        .toString()
-        .toLowerCase() == "gif") {
-      if (editController
-          .allDataResponse[0]["intro_details"][0]["intro_bot_file"].toString()
-          .toLowerCase().toString()
-          .endsWith(".mp4")) {
-        return editIntroController.isBotVideoInitialized.value
-            ? AspectRatio(
-          aspectRatio: editIntroController.introBotController.value.aspectRatio,
-          child: VideoPlayer(editIntroController.introBotController),
-          // child:  Chewie(controller: editIntroController.introBotControllerChewie!),
-        )
-        // : const CircularProgressIndicator();
-            : const Center(child: CircularProgressIndicator());
-      }
-      else {
-        return CachedNetworkImage(
-          // width: Get.width,
-          imageUrl: APIString.mediaBaseUrl + editController
-              .allDataResponse[0]["intro_details"][0]["intro_bot_file"]
+
+}
+
+Widget buildBotWidget() {
+  if (Get.find<EditController>()
+      .allDataResponse[0]["intro_details"][0]["intro_bot_file_mediatype"]
+      .toString()
+      .toLowerCase() == "image" || Get.find<EditController>()
+      .allDataResponse[0]["intro_details"][0]["intro_bot_file_mediatype"]
+      .toString()
+      .toLowerCase() == "gif") {
+    return CachedNetworkImage(
+      width: Get.width,
+      imageUrl: APIString.mediaBaseUrl + Get.find<EditController>()
+          .allDataResponse[0]["intro_details"][0]["intro_bot_file"]
+          .toString(),
+      fit: BoxFit.cover,
+      placeholder: (context, url) => Container(decoration: BoxDecoration(
+        color: Color(
+            int.parse(Get.find<EditController>().appDemoBgColor.value.toString())),)),
+      errorWidget: (context, url, error) =>
+      const Icon(Icons.error),
+    );
+  }
+  else if (Get.find<EditController>()
+      .allDataResponse[0]["intro_details"][0]["intro_bot_file_mediatype"]
+      .toString()
+      .toLowerCase() == "video") {
+    return Obx(() {
+      return Get.find<EditIntroController>().isBotVideoInitialized.value
+          ? AspectRatio(
+        aspectRatio: Get.find<EditIntroController>().introBotController.value.aspectRatio,
+        child: VideoPlayer(Get.find<EditIntroController>().introBotController),
+        // child:  Chewie(controller: editIntroController.introBotControllerChewie!),
+      )
+      // : const CircularProgressIndicator();
+          : const Center(child: CircularProgressIndicator());
+    });
+  }
+
+  else {
+    return const Text("bot");
+  }
+}
+
+
+Widget buildGif1Widget() {
+  if (Get.find<EditController>()
+      .allDataResponse[0]["intro_details"][0]["intro_gif1_mediatype"]
+      .toString()
+      .toLowerCase() == "image" || Get.find<EditController>()
+      .allDataResponse[0]["intro_details"][0]["intro_gif1_mediatype"]
+      .toString()
+      .toLowerCase() == "gif") {
+    return CachedNetworkImage(
+      width: Get.width,
+      imageUrl: APIString.mediaBaseUrl +
+          Get.find<EditController>().allDataResponse[0]["intro_details"][0]["intro_gif1"]
               .toString(),
-          fit: BoxFit.cover,
-          placeholder: (context, url) => Container(decoration: BoxDecoration(
-            color: Color(
-                int.parse(editController.appDemoBgColor.value.toString())),)),
-          errorWidget: (context, url, error) =>
-          const Icon(Icons.error),
-        );
-      }
-      // return CachedNetworkImage(
-      //   width: Get.width,
-      //   imageUrl: APIString.mediaBaseUrl + editController.allDataResponse[0]["intro_details"][0]["intro_bot_file"].toString(),
-      //   placeholder: (context, url) => Container(decoration: BoxDecoration(color: Color(int.parse(editController.appDemoBgColor.value.toString())),)),
-      //   errorWidget: (context, url, error) =>
-      //   const Icon(Icons.error),
-      // );
-      // return Image.network(APIString.mediaBaseUrl + editController.allDataResponse[0]["intro_details"][0]["intro_bot_file"].toString());
-    }
-    else {
-      return const Text("bot");
-    }
+      fit: BoxFit.cover,
+      placeholder: (context, url) => Container(decoration: BoxDecoration(
+        color: Color(
+            int.parse(Get.find<EditController>().appDemoBgColor.value.toString())),)),
+      errorWidget: (context, url, error) =>
+      const Icon(Icons.error),
+    );
   }
 
-  Widget buildGif1Widget() {
-    if (editController
-        .allDataResponse[0]["intro_details"][0]["intro_gif1_mediatype"]
-        .toString()
-        .toLowerCase() == "image") {
-      return CachedNetworkImage(
-        width: Get.width,
-        imageUrl: APIString.mediaBaseUrl +
-            editController.allDataResponse[0]["intro_details"][0]["intro_gif1"]
-                .toString(),
-        fit: BoxFit.cover,
-        placeholder: (context, url) => Container(decoration: BoxDecoration(
-          color: Color(
-              int.parse(editController.appDemoBgColor.value.toString())),)),
-        errorWidget: (context, url, error) =>
-        const Icon(Icons.error),
-      );
-    }
-
-    else if (editController
-        .allDataResponse[0]["intro_details"][0]["intro_gif1_mediatype"]
-        .toString()
-        .toLowerCase() == "video") {
-      return Obx(() {
-        return
-          editIntroController.isIntroGif1Initialized.value
-              ? AspectRatio(
-            aspectRatio: editIntroController.introGif1Controller.value
-                .aspectRatio,
-            child: VideoPlayer(editIntroController.introGif1Controller),
-          )
-          // : const CircularProgressIndicator();
-              : const Center(child: CircularProgressIndicator());
-      });
-    }
-    else if (editController
-        .allDataResponse[0]["intro_details"][0]["intro_gif1_mediatype"]
-        .toString()
-        .toLowerCase() == "gif") {
-      if (editController.allDataResponse[0]["intro_details"][0]["intro_gif1"]
-          .toString().toLowerCase().toString()
-          .endsWith(".mp4")) {
-        return editIntroController.isIntroGif1Initialized.value
+  else if (Get.find<EditController>()
+      .allDataResponse[0]["intro_details"][0]["intro_gif1_mediatype"]
+      .toString()
+      .toLowerCase() == "video") {
+    return Obx(() {
+      return
+        Get.find<EditIntroController>().isIntroGif1Initialized.value
             ? AspectRatio(
-          aspectRatio: editIntroController.introGif1Controller.value
+          aspectRatio: Get.find<EditIntroController>().introGif1Controller.value
               .aspectRatio,
-          child: VideoPlayer(editIntroController.introGif1Controller),
-          // child:  Chewie(controller: editIntroController.introBotControllerChewie!),
+          child: VideoPlayer(Get.find<EditIntroController>().introGif1Controller),
         )
             : const Center(child: CircularProgressIndicator());
-      }
-      else {
-        return CachedNetworkImage(
-          // width: Get.width,
-          imageUrl: APIString.mediaBaseUrl + editController
-              .allDataResponse[0]["intro_details"][0]["intro_gif1"].toString(),
-          fit: BoxFit.cover,
-          placeholder: (context, url) => Container(decoration: BoxDecoration(
-            color: Color(
-                int.parse(editController.appDemoBgColor.value.toString())),)),
-          errorWidget: (context, url, error) =>
-          const Icon(Icons.error),
-        );
-      }
-    }
-    else {
-      return const Text("gif");
-    }
+    });
   }
 
-  Widget buildGif2Widget() {
-    if (editController
-        .allDataResponse[0]["intro_details"][0]["intro_gif2_mediatype"]
-        .toString()
-        .toLowerCase() == "image") {
-      return CachedNetworkImage(
-        width: Get.width,
-        imageUrl: APIString.mediaBaseUrl +
-            editController.allDataResponse[0]["intro_details"][0]["intro_gif2"]
-                .toString(),
-        fit: BoxFit.cover,
-        placeholder: (context, url) => Container(decoration: BoxDecoration(
-          color: Color(
-              int.parse(editController.appDemoBgColor.value.toString())),)),
-        errorWidget: (context, url, error) =>
-        const Icon(Icons.error),
-      );
-    }
+  else {
+    return const Text("gif");
+  }
+}
 
-    else if (editController
-        .allDataResponse[0]["intro_details"][0]["intro_gif2_mediatype"]
-        .toString()
-        .toLowerCase() == "video") {
-      return Obx(() {
-        return
-          editIntroController.isIntroGif2Initialized.value
-              ? AspectRatio(
-            aspectRatio: editIntroController.introGif2Controller.value
-                .aspectRatio,
-            child: VideoPlayer(editIntroController.introGif2Controller),
-          )
-              : const Center(child: CircularProgressIndicator());
-      });
-    }
-    else if (editController
-        .allDataResponse[0]["intro_details"][0]["intro_gif2_mediatype"]
-        .toString()
-        .toLowerCase() == "gif") {
-      if (editController.allDataResponse[0]["intro_details"][0]["intro_gif2"]
-          .toString().toLowerCase().toString()
-          .endsWith(".mp4")) {
-        return editIntroController.isIntroGif2Initialized.value
+Widget buildGif2Widget() {
+  if (Get.find<EditController>()
+      .allDataResponse[0]["intro_details"][0]["intro_gif2_mediatype"]
+      .toString()
+      .toLowerCase() == "image" || Get.find<EditController>()
+      .allDataResponse[0]["intro_details"][0]["intro_gif2_mediatype"]
+      .toString()
+      .toLowerCase() == "gif") {
+    return CachedNetworkImage(
+      width: Get.width,
+      imageUrl: APIString.mediaBaseUrl +
+          Get.find<EditController>().allDataResponse[0]["intro_details"][0]["intro_gif2"]
+              .toString(),
+      fit: BoxFit.cover,
+      placeholder: (context, url) => Container(decoration: BoxDecoration(
+        color: Color(
+            int.parse(Get.find<EditController>().appDemoBgColor.value.toString())),)),
+      errorWidget: (context, url, error) =>
+      const Icon(Icons.error),
+    );
+  }
+
+  else if (Get.find<EditController>()
+      .allDataResponse[0]["intro_details"][0]["intro_gif2_mediatype"]
+      .toString()
+      .toLowerCase() == "video") {
+    return Obx(() {
+      return
+        Get.find<EditIntroController>().isIntroGif2Initialized.value
             ? AspectRatio(
-          aspectRatio: editIntroController.introGif2Controller.value
+          aspectRatio: Get.find<EditIntroController>().introGif2Controller.value
               .aspectRatio,
-          child: VideoPlayer(editIntroController.introGif2Controller),
-          // child:  Chewie(controller: editIntroController.introBotControllerChewie!),
+          child: VideoPlayer(Get.find<EditIntroController>().introGif2Controller),
         )
             : const Center(child: CircularProgressIndicator());
-      }
-      else {
-        return CachedNetworkImage(
-          imageUrl: APIString.mediaBaseUrl + editController
-              .allDataResponse[0]["intro_details"][0]["intro_gif2"].toString(),
-          fit: BoxFit.cover,
-          placeholder: (context, url) => Container(decoration: BoxDecoration(
-            color: Color(
-                int.parse(editController.appDemoBgColor.value.toString())),)),
-          errorWidget: (context, url, error) =>
-          const Icon(Icons.error),
-        );
-      }
-    }
-    else {
-      return const Text("gif");
-    }
+    });
   }
 
+  else {
+    return const Text("gif");
+  }
 }

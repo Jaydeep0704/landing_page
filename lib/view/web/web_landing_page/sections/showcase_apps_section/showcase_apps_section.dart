@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
-import 'package:url_launcher/url_launcher.dart';
-import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -33,36 +31,17 @@ class ShowcaseAppsSection extends StatefulWidget {
 class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
   final webLandingPageController = Get.find<WebLandingPageController>();
   final editController = Get.find<EditController>();
-  // final showCaseAppController = Get.find<ShowCaseAppController>();
   final showCaseAppController = Get.find<ShowCaseAppsController>();
 
 
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_){
-    //   showCaseAppController.getShowCaseApi();
-    // });
     getCurrentCouponDetails();
-    log("couponCode --- <<${getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponCode)}>>");
   }
 
   getCurrentCouponDetails()async{
       showCaseAppController.couponCode.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponCode) ?? "" ;
-      // showCaseAppController.couponUserId.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponUserId);
-      // showCaseAppController.couponRegisterDate.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponRegisterDate);
-      // showCaseAppController.couponRegisterTime.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponRegisterTime);
-      // showCaseAppController.couponUpdatedAt.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponUpdatedAt);
-      // showCaseAppController.couponCreatedAt.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponCreatedAt);
-      // showCaseAppController.couponId.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponId);
-
-      log("showCaseAppController.couponCode.value ${showCaseAppController.couponCode.value}");
-      log("showCaseAppController.couponUserId.value ${showCaseAppController.couponUserId.value}");
-      log("showCaseAppController.couponRegisterDate.value ${showCaseAppController.couponRegisterDate.value}");
-      log("showCaseAppController.couponRegisterTime.value ${showCaseAppController.couponRegisterTime.value}");
-      log("showCaseAppController.couponUpdatedAt.value ${showCaseAppController.couponUpdatedAt.value}");
-      log("showCaseAppController.couponCreatedAt.value ${showCaseAppController.couponCreatedAt.value}");
-      log("showCaseAppController.couponId.value ${showCaseAppController.couponId.value}");
   }
 
   @override
@@ -91,7 +70,6 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
               child: Column(
                 children: [
                   const SizedBox(height: 80),
-
                   ///app created by genesi title and Carosul slider - commented for now
                   ///Starts
                   editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_show_hide"] == "hide"
@@ -106,15 +84,6 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                         Get.width > 500 ? const Expanded(child: SizedBox( ))
                             :SizedBox(width:  Get.width * 0.10),
                         Expanded(
-                          // child: Text(
-                          //   "Apps Created by \"Genesi\" ",
-                          //   textAlign: TextAlign.center,
-                          //   style: TextStyle(
-                          //     // fontSize: 50,
-                          //       fontSize: Get.width > 1000 ? 24 : 24,
-                          //       fontWeight: FontWeight.bold,
-                          //       color: Colors.black),
-                          // ),
                           child: Text(
                             editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading"].toString(),
                             textAlign: TextAlign.center,
@@ -151,117 +120,10 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                         icon: const Icon(Icons.arrow_back),
                       )
                           :const SizedBox(),
-                      Container(
-                        width: Get.width > 1500 ?  Get.width - Get.width * 0.16 : Get.width > 1000 ? Get.width - Get.width * 0.15 : Get.width > 500 ?Get.width - Get.width * 0.2:Get.width -50,
-                        alignment: Alignment.center,
-                        child: CarouselSlider(
-                          carouselController:
-                          webLandingPageController.carouselController, // Give the controller
-                          options: CarouselOptions(
-                            // viewportFraction: Get.width > 1500 ?0.3 : Get.width > 1000 ? 0.33 : Get.width > 500 ? 0.36 :0.89,
-                            viewportFraction: Get.width > 1500 ?0.35 : Get.width > 1000 ? 0.45 : Get.width > 500 ? 0.55 :0.89,
-                            height:  Get.width > 1500 ? 325 : Get.width > 1000 ? 280 :Get.width > 500 ? 250 : 230,
-                            // height:  Get.width > 1500 ? 300 : Get.width > 1000 ? 250 : 230,
-                            autoPlayAnimationDuration:
-                            const Duration(seconds: 1),
-                            autoPlay: true,
-                          ),
-                          items: showCaseAppController.ShowcaseData.map((featuredImage) {
-                            return Container(
-                              // color: AppColors.greenColor,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0),
-                              child: Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    // height: Get.width > 1500 ? 225 : Get.width > 1000 ? 200 : 175,
-                                      height: Get.width > 1500 ? 275 : Get.width > 1000 ? 240 :Get.width > 500 ? 212 : 175,
-                                      width: Get.width > 1500 ? 650 : Get.width > 1000 ?400 :  Get.width > 600 ?500:Get.width-Get.width*0.2,
-                                      // width: Get.width > 1500 ? 600 : Get.width > 1000 ?500 :  Get.width > 500 ?450:Get.width-Get.width*0.2,
-                                      decoration: const BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.all(Radius.circular(5))),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                        const BorderRadius.all(Radius.circular(20)),
-                                        child: featuredImage['file_mediatype'] == "image" ||
-                                            featuredImage['file_mediatype'] == "gif"
-                                            ? CachedNetworkImage(
-                                          width: Get.width * 0.9,
-                                          imageUrl:
-                                          APIString.latestmediaBaseUrl + featuredImage['files'].toString(),
-                                          placeholder: (context, url) => Container(
-                                            decoration: BoxDecoration(
-                                              color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                            ),
-                                          ),
-                                          errorWidget: (context, url, error) =>
-                                          const Icon(Icons.error),
-                                          fit: BoxFit.cover,
-                                        )
-                                            : displayUploadedVideo(featuredImage['files'].toString()),
-                                      )
-                                    // Image.asset("${featuredImage["image"]}"
-                                    // )
-                                  ),
-                                  Padding(padding: const EdgeInsets.only(top: 20),
-                                    child: Text("${featuredImage['title']}"),
-                                  )
-                                ],
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                      // Container(
-                      //   width: Get.width > 1500 ?  Get.width - Get.width * 0.16 : Get.width > 1000 ? Get.width - Get.width * 0.15 : Get.width > 500 ?Get.width - Get.width * 0.2:Get.width -50,
-                      //   alignment: Alignment.center,
-                      //   child: CarouselSlider(
-                      //     carouselController:
-                      //     webLandingPageController.carouselController, // Give the controller
-                      //     options: CarouselOptions(
-                      //       // viewportFraction: Get.width > 1500 ?0.3 : Get.width > 1000 ? 0.33 : Get.width > 500 ? 0.36 :0.89,
-                      //       viewportFraction: Get.width > 1500 ?0.35 : Get.width > 1000 ? 0.45 : Get.width > 500 ? 0.55 :0.89,
-                      //       height:  Get.width > 1500 ? 325 : Get.width > 1000 ? 280 :Get.width > 500 ? 250 : 230,
-                      //       // height:  Get.width > 1500 ? 300 : Get.width > 1000 ? 250 : 230,
-                      //       autoPlayAnimationDuration:
-                      //       const Duration(seconds: 1),
-                      //       autoPlay: true,
-                      //     ),
-                      //     items: createdApp.map((featuredImage) {
-                      //       return Container(
-                      //         // color: AppColors.greenColor,
-                      //         padding: const EdgeInsets.symmetric(
-                      //             horizontal: 8.0),
-                      //         child: Column(
-                      //           crossAxisAlignment:
-                      //           CrossAxisAlignment.center,
-                      //           children: [
-                      //             Container(
-                      //               // height: Get.width > 1500 ? 225 : Get.width > 1000 ? 200 : 175,
-                      //               height: Get.width > 1500 ? 275 : Get.width > 1000 ? 240 :Get.width > 500 ? 212 : 175,
-                      //                 width: Get.width > 1500 ? 650 : Get.width > 1000 ?400 :  Get.width > 600 ?500:Get.width-Get.width*0.2,
-                      //                 // width: Get.width > 1500 ? 600 : Get.width > 1000 ?500 :  Get.width > 500 ?450:Get.width-Get.width*0.2,
-                      //               decoration: const BoxDecoration(
-                      //                   color: Colors.blue,
-                      //                   borderRadius:
-                      //                   BorderRadius.all(Radius.circular(5))),
-                      //               child: Image.asset("${featuredImage["image"]}")),
-                      //             Padding(padding: const EdgeInsets.only(top: 20),
-                      //               child: Text("${featuredImage["name"]}"),
-                      //             )
-                      //           ],
-                      //         ),
-                      //       );
-                      //     }).toList(),
-                      //   ),
-                      // ),
+                      showcaseCarousel(),
                       Get.width > 505?
                       IconButton(
                         onPressed: () {
-                          // Use the controller to change the current page
                           webLandingPageController.carouselController.nextPage();
                         },
                         icon: const Icon(Icons.arrow_forward),
@@ -300,18 +162,8 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                   ///Ends
                   Padding(
 
-                    // padding: EdgeInsets.symmetric(horizontal: Get.width > 1500 ? 60 : Get.width > 1000 ? 22 : Get.width > 600 ? 15 : 15),
                     padding: EdgeInsets.symmetric(horizontal: Get.width > 1500 ? 200 : Get.width > 1000 ? 200 : Get.width > 600 ? 15 : 15),
-                    child: /*const Text(
-                      " \"Genesi\" armours you with the ease of website & app creation via AI tool\nThat none other in it's competition does.\n"
-                          "with 98% og accuracy , it renders the premium standard quality\n& the app is suitable to beat its rival on the launch",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          height: 1.5,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 20,
-                          color: Colors.black),
-                    ),*/
+                    child:
                     Text(
                       editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_desc"].toString(),
                       textAlign: TextAlign.center,
@@ -330,21 +182,12 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                   Wrap(
                     crossAxisAlignment: WrapCrossAlignment.start,
                     alignment: WrapAlignment.center,
-                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           commonIconButton(
-                              onTap: () async {
-                                const url = AppString.playStoreAppLink;
-                                if (await canLaunchUrl(Uri.parse(url))) {
-                                  await launchUrl(Uri.parse(url));
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
-                              },
-
+                              onTap: appOpen,
                               icon: Icons.phone_android,
                               title: "Create Your App",
                               btnColor:
@@ -367,33 +210,16 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                                 children: [
                                   const Icon(Icons.remove_red_eye_rounded),
                                   const SizedBox(width: 8),
-                                  // Text("30k people creating App"),
-                                  // Obx(() =>
-                                  // webLandingPageController.appLiveCount.value
-                                  //     .isEmpty ? const SizedBox()
-                                  //     : Text(
-                                  //     "${webLandingPageController.appLiveCount
-                                  //         .value} people creating App")),
                                   Row(
                                     children: [
                                       Obx(() => Text("${webLandingPageController.appLiveCount.value} ",style: GoogleFonts.getFont(editController.allDataResponse[0]["live_app_count_font"].toString()).copyWith(
-                                          // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
-                                          //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
-                                          //     : 14,
-                                          // fontWeight: FontWeight.w400,
                                           color: Color(int.parse(editController.allDataResponse[0]["live_app_count_color"].toString()))))),
                                       // Obx(() => Text(" people creating App")),
                                       Text(
                                         editController.allDataResponse[0]["live_app_count_string"].toString(),
                                         style: GoogleFonts.getFont(editController.allDataResponse[0]["live_app_count_font"].toString()).copyWith(
-                                            // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
-                                            //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
-                                            //     : 14,
-                                            // fontWeight: FontWeight.w400,
                                             color: Color(int.parse(editController.allDataResponse[0]["live_app_count_color"].toString()))),
                                       ),
-
-
                                     ],
                                   ),
                                 ],
@@ -407,14 +233,7 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           commonIconButton(
-                              onTap: () async {
-                                const url = AppString.websiteLink;
-                                if (await canLaunchUrl(Uri.parse(url))) {
-                                  await launchUrl(Uri.parse(url));
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
-                              },
+                              onTap: websiteOpen,
                               icon: Icons.language,
                               title: "Create Your Website",
                               btnColor: Colors.green.withOpacity(0.7),
@@ -435,29 +254,13 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                                 children: [
                                   const Icon(Icons.remove_red_eye_rounded),
                                   const SizedBox(width: 8),
-                                  // Text("30k people creating Website"),
-                                  // Obx(() =>
-                                  // webLandingPageController.appLiveCount.value
-                                  //     .isEmpty ? const SizedBox()
-                                  //     : Text(
-                                  //     "${webLandingPageController.appLiveCount
-                                  //         .value} people creating Website")),
                                   Row(
                                     children: [
                                       Obx(() => Text("${webLandingPageController.webLiveCount.value} ",style: GoogleFonts.getFont(editController.allDataResponse[0]["live_web_count_font"].toString()).copyWith(
-                                          // fontSize: editController.allDataResponse[0]["live_web_count_size"].toString() ==""
-                                          //     ? double.parse(editController.allDataResponse[0]["live_web_count_size"].toString())
-                                          //     : 14,
-                                          // fontWeight: FontWeight.w400,
                                           color: Color(int.parse(editController.allDataResponse[0]["live_web_count_color"].toString()))),)),
-                                      // Obx(() => Text(" people creating App")),
                                       Text(
                                         editController.allDataResponse[0]["live_web_count_string"].toString(),
                                         style: GoogleFonts.getFont(editController.allDataResponse[0]["live_web_count_font"].toString()).copyWith(
-                                            // fontSize: editController.allDataResponse[0]["live_web_count_size"].toString() ==""
-                                            //     ? double.parse(editController.allDataResponse[0]["live_web_count_size"].toString())
-                                            //     : 14,
-                                            // fontWeight: FontWeight.w400,
                                             color: Color(int.parse(editController.allDataResponse[0]["live_web_count_color"].toString()))),
                                       ),
 
@@ -479,8 +282,6 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                     ],
                   ),
 
-                  const SizedBox(height: 40),
-                  // const Text("Currently App Build in Process for 30k Customers"),
 
                   const SizedBox(height: 40),
                   Padding(
@@ -494,78 +295,7 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                             : 15),
                     child: Wrap(
                       crossAxisAlignment: WrapCrossAlignment.center,
-                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // const Text(
-                        //   "Deem coupon code",
-                        //   style: TextStyle(
-                        //       fontWeight: FontWeight.w400,
-                        //       fontSize: 20,
-                        //       color: Colors.black),
-                        // ),
-                        // const Text(
-                        //   " Ending in : 00:30:00 hours",
-                        //   style: TextStyle(
-                        //       fontWeight: FontWeight.w400,
-                        //       fontSize: 20,
-                        //       color: Colors.blue),
-                        // ),
-                        /*FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: const BoxDecoration(
-                                color: AppColors.whiteColor
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                commonButton(onTap: (){
-                                  showCaseAppController.generateCoupon().whenComplete(()async {
-                                    showCaseAppController.couponCode.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponCode);
-                                    showCaseAppController.couponUserId.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponUserId);
-                                    showCaseAppController.couponRegisterDate.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponRegisterDate);
-                                    showCaseAppController.couponRegisterTime.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponRegisterTime);
-                                    showCaseAppController.couponUpdatedAt.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponUpdatedAt);
-                                    showCaseAppController.couponCreatedAt.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponCreatedAt);
-                                    showCaseAppController.couponId.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponId);
-
-                                  });
-                                },
-                                    title: "Redeem Coupon"),
-                                Obx(() {
-                                  return showCaseAppController.couponCode.value.isEmpty
-                                      ?  const SizedBox()
-                                      :  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Text("Your Coupon Code is : ${showCaseAppController.couponCode.value}"),
-                                      InkWell(
-                                          onTap: () async {
-                                            await Clipboard.setData(
-                                              ClipboardData(
-                                                text: showCaseAppController.couponCode.value,
-                                              ),
-                                            ).then(
-                                                  (result) {
-                                                showSnackbar(title: "Success", message: "Copied!");
-                                                // Fluttertoast.showToast(msg: "Copied!");
-                                              },
-                                            );
-                                          },
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: Icon(Icons.copy),
-                                          )),
-                                    ],
-                                  );
-                                },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),*/
                         FittedBox(
                           fit: BoxFit.scaleDown,
                           child: GlassmorphicContainer(
@@ -586,7 +316,6 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                                     showCaseAppController.couponUpdatedAt.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponUpdatedAt);
                                     showCaseAppController.couponCreatedAt.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponCreatedAt);
                                     showCaseAppController.couponId.value = await getDataFromLocalStorage(dataType: LocalStorage.stringType, prefKey: LocalStorage.couponId);
-
                                   });
                                 },
                                     title: "Redeem Coupon",
@@ -636,59 +365,111 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
       },
     );
   }
-  Widget displayUploadedVideo(String videoUrl) {
-    // VideoPlayerController controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+videoUrl);
-    VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+videoUrl));
-    bool isVideoPlaying = false;
 
 
-    return InkWell(
-      onTap: () {
-        if (controller.value.isPlaying) {
-          isVideoPlaying=false;
-          controller.pause();
-        } else {
-          controller.play();
-          isVideoPlaying=true;
-        }
-        // isVideoPlaying = !isVideoPlaying;
-      },
-      child: FutureBuilder(
-        future: controller.initialize(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return /*AspectRatio(
-              // aspectRatio: _controller.value.aspectRatio,
-              aspectRatio: 16/9,
-              // aspectRatio: 1 / 6,
-              child:*/ Stack(
-              alignment: Alignment.center,
-              children: [
-                VideoPlayer(controller),
-                if (!isVideoPlaying)
-                  Icon(
-                    Icons.play_circle_fill,
-                    size: 60,
-                    color: Colors.white.withOpacity(0.7),
-                  ),
-              ],
-            );
-            // );
-
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.cyan),
-              ),
-            );
-          }
-        },
-      ),
-    );
-  }
 
 }
 
+Container showcaseCarousel() {
+  return Container(
+    width: Get.width > 1500 ?  Get.width - Get.width * 0.16 : Get.width > 1000 ? Get.width - Get.width * 0.15 : Get.width > 500 ?Get.width - Get.width * 0.2:Get.width -50,
+    alignment: Alignment.center,
+    child: CarouselSlider(
+      carouselController:
+      Get.find<WebLandingPageController>().carouselController, // Give the controller
+      options: CarouselOptions(
+        viewportFraction: Get.width > 1500 ?0.35 : Get.width > 1000 ? 0.45 : Get.width > 500 ? 0.55 :0.89,
+        height:  Get.width > 1500 ? 325 : Get.width > 1000 ? 280 :Get.width > 500 ? 250 : 230,
+        autoPlayAnimationDuration:
+        const Duration(seconds: 1),
+        autoPlay: true,
+      ),
+      items: Get.find<ShowCaseAppsController>().ShowcaseData.map((featuredImage) {
+        return Container(
+          // color: AppColors.greenColor,
+          padding: const EdgeInsets.symmetric(
+              horizontal: 8.0),
+          child: Column(
+            crossAxisAlignment:
+            CrossAxisAlignment.center,
+            children: [
+              Container(
+                  height: Get.width > 1500 ? 275 : Get.width > 1000 ? 240 :Get.width > 500 ? 212 : 175,
+                  width: Get.width > 1500 ? 650 : Get.width > 1000 ?400 :  Get.width > 600 ?500:Get.width-Get.width*0.2,
+                  decoration: const BoxDecoration(
+                      borderRadius:
+                      BorderRadius.all(Radius.circular(5))),
+                  child: ClipRRect(
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(20)),
+                    child: featuredImage['file_mediatype'] == "image" ||
+                        featuredImage['file_mediatype'] == "gif"
+                        ? CachedNetworkImage(
+                      width: Get.width * 0.9,
+                      imageUrl:
+                      APIString.latestmediaBaseUrl + featuredImage['files'].toString(),
+                      placeholder: (context, url) => Container(
+                        decoration: BoxDecoration(
+                          color: Color(int.parse(Get.find<EditController>().appDemoBgColor.value.toString())),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) =>
+                      const Icon(Icons.error),
+                      fit: BoxFit.cover,
+                    )
+                        : showcaseVideo(featuredImage['files'].toString()),
+                  )
+              ),
+              Padding(padding: const EdgeInsets.only(top: 20),
+                child: Text("${featuredImage['title']}"),
+              )
+            ],
+          ),
+        );
+      }).toList(),
+    ),
+  );
+}
 
+Widget showcaseVideo(String videoUrl) {
+  VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+videoUrl));
+  bool isVideoPlaying = false;
 
+  return InkWell(
+    onTap: () {
+      if (controller.value.isPlaying) {
+        isVideoPlaying=false;
+        controller.pause();
+      } else {
+        controller.play();
+        isVideoPlaying=true;
+      }
+    },
+    child: FutureBuilder(
+      future: controller.initialize(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Stack(
+            alignment: Alignment.center,
+            children: [
+              VideoPlayer(controller),
+              if (!isVideoPlaying)
+                Icon(
+                  Icons.play_circle_fill,
+                  size: 60,
+                  color: Colors.white.withOpacity(0.7),
+                ),
+            ],
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.cyan),
+            ),
+          );
+        }
+      },
+    ),
+  );
+}
 

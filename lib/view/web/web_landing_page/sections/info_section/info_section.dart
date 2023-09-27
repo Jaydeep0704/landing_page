@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
 import 'dart:developer';
+import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,6 +25,7 @@ import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_secti
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/PrivacyPolicy/PrivacyPolicy.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/TandC/termsCondition.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/career/careers_screen.dart';
+import 'package:grobiz_web_landing/widget/paltform_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InfoSection extends StatefulWidget {
@@ -465,20 +467,23 @@ class _InfoSectionState extends State<InfoSection> {
                 ),
               ),
               const SizedBox(height: 10),
-              InkWell(
-                onTap: () {
-                  Get.find<EditHiwController>().botController.pause();
-                  Get.to(() => const LoginPage())!
-                      .whenComplete(() => Future.delayed(Duration.zero, () {
-                            webLandingPageController.getUserCount();
-                          }));
-                },
-                child: const Text(
-                  "Admin Login",
-                  style: TextStyle(fontSize: 18, color: Colors.black),
-                  textAlign: TextAlign.center,
+              if (!PlatformUtil.isAndroid() && !PlatformUtil.isiOS())
+                /*? const SizedBox()
+                  : */
+                InkWell(
+                  onTap: () {
+                    Get.find<EditHiwController>().botController.pause();
+                    Get.to(() => const LoginPage())!
+                        .whenComplete(() => Future.delayed(Duration.zero, () {
+                              webLandingPageController.getUserCount();
+                            }));
+                  },
+                  child: const Text(
+                    "Admin Login",
+                    style: TextStyle(fontSize: 18, color: Colors.black),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
             ],
           ),
         ),
@@ -890,6 +895,9 @@ class _InfoSectionState extends State<InfoSection> {
                 ),
               ),
               const SizedBox(height: 10),
+              /*Platform.isAndroid || Platform.isIOS
+                  ? const SizedBox()
+                  : */
               InkWell(
                 onTap: () {
                   // Get.find<EditHiwController>().botController.pause();

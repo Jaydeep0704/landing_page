@@ -203,7 +203,8 @@ class _PricingSectionState extends State<PricingSection> {
 
   planCard({var data, int? i}) {
     return Container(
-      height: Get.width > 800 ? 500 : 425,
+      // height: Get.width > 800 ? 500 :Get.width > 600 ? 425 :Get.height > 600 ?425: 390,
+      height: 200,
       width: Get.width > 800 ? 450 : 300,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -212,11 +213,12 @@ class _PricingSectionState extends State<PricingSection> {
       padding: const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 24),
       margin: const EdgeInsets.all(20),
       // width: MediaQuery.of(context).size.width,
-      child: Stack(
+      child: Column(
         children: [
-          SingleChildScrollView(
+          Expanded(child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
+                Text("${Get.height }"),
                 Container(
                   height: 50,
                   padding: const EdgeInsets.only(left: 8, right: 8),
@@ -641,12 +643,11 @@ class _PricingSectionState extends State<PricingSection> {
                 // const SizedBox(height: 20),
               ],
             ),
-          ),
-          Positioned(
-            left: 0,right: 0,
-            bottom: 0,
-            // alignment: AlignmentDirectional.bottomCenter,
-            child: data["plan_name"] == "Enterprise"
+          )),
+          // Positioned(
+          //   left: 0,right: 0,
+          //   bottom: 0,
+            /*child: */data["plan_name"] == "Enterprise"
               ? GestureDetector(
             onTap: () {
               //openwhatsapp();
@@ -661,6 +662,7 @@ class _PricingSectionState extends State<PricingSection> {
                   left: 8, right: 8, top: 16),
               padding: const EdgeInsets.only(top: 8, bottom: 8),
               child: Text("CONNECT US",
+
                 style: AppTextStyle.regular500.copyWith(
                     fontSize: 14,
                     color: AppColors.whiteColor),),
@@ -685,7 +687,7 @@ class _PricingSectionState extends State<PricingSection> {
                     color: AppColors.whiteColor),),
             ),
            ),
-          )
+          // )
         ],
       ),
     );
@@ -694,7 +696,6 @@ class _PricingSectionState extends State<PricingSection> {
     setState(() {
       pricingScreenController.plansSHowHidBoolList[index] =
       !pricingScreenController.plansSHowHidBoolList[index];
-      // planList[index].showDetails = !planList[index].showDetails;
     });
   }
 

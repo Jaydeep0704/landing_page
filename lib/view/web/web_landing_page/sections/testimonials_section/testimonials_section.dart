@@ -1384,14 +1384,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         commonIconButton(
-                            onTap: () async {
-                              const url = AppString.playStoreAppLink;
-                              if (await canLaunchUrl(Uri.parse(url))) {
-                                await launchUrl(Uri.parse(url));
-                              } else {
-                                throw 'Could not launch $url';
-                              }
-                            },
+                            onTap: appOpen,
 
                             icon: Icons.phone_android,
                             title: "Create Your App",
@@ -1468,14 +1461,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                       children: [
                         FittedBox(fit: BoxFit.scaleDown,
                           child: commonIconButton(
-                              onTap: () async {
-                                const url = AppString.websiteLink;
-                                if (await canLaunchUrl(Uri.parse(url))) {
-                                  await launchUrl(Uri.parse(url));
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
-                              },
+                              onTap: websiteOpen,
                               icon: Icons.language,
                               title: "Create Your Website",
                               btnColor: Colors.green.withOpacity(0.7),
@@ -1608,7 +1594,9 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                                     .toString())
                                     : Get.width > 1000
                                     ? 50
-                                    : 30,
+                                    : Get.width > 550
+                                    ? 30
+                                    : 20,
                                 fontWeight: FontWeight.bold,
                                 color: Color(int.parse(editController
                                     .allDataResponse[0]["testimonials_details"][0]["Blog_title_color"]
