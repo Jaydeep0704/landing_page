@@ -35,68 +35,14 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_){
-    //   checkoutInfocontroller.getCheckOutApi();
-    // });
   }
 
   @override
   void dispose() {
-    // _timer?.cancel();
-    // _autoScrollTimer?.cancel();
-    // _scrollController.dispose();
-
     super.dispose();
   }
 
-  // void startAutoScroll() {
-  //   const autoScrollDuration = Duration(seconds: 5);
-  //   const pixelsToScroll = 300.0;
-  //
-  //   _autoScrollTimer = Timer.periodic(autoScrollDuration, (_) {
-  //     final maxScrollExtent = _scrollController.position.maxScrollExtent;
-  //     final currentScrollOffset = _scrollController.offset;
-  //     final newScrollOffset = currentScrollOffset + pixelsToScroll;
-  //
-  //     if (newScrollOffset <= maxScrollExtent) {
-  //       _scrollController.animateTo(
-  //         newScrollOffset,
-  //         duration: autoScrollDuration,
-  //         curve: Curves.linear,
-  //       );
-  //     } else {
-  //       _scrollController.animateTo(
-  //         0,
-  //         duration: autoScrollDuration,
-  //         curve: Curves.linear,
-  //       );
-  //     }
-  //   });
-  // }
-  //
-  // void startAutoScrolllist() {
-  //   const autoScrollDuration = Duration(seconds: 5);
-  //
-  //   _autoScrollTimer = Timer.periodic(autoScrollDuration, (_) {
-  //     final maxScrollExtent = _scrollController.position.maxScrollExtent;
-  //     final currentScrollOffset = _scrollController.offset;
-  //     final newScrollOffset = currentScrollOffset + 300.0; // Adjust the scroll distance as needed
-  //
-  //     if (newScrollOffset <= maxScrollExtent) {
-  //       _scrollController.animateTo(
-  //         newScrollOffset,
-  //         duration: autoScrollDuration,
-  //         curve: Curves.linear,
-  //       );
-  //     } else {
-  //       _scrollController.animateTo(
-  //         0,
-  //         duration: autoScrollDuration,
-  //         curve: Curves.linear,
-  //       );
-  //     }
-  //   });
-  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -537,7 +483,6 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
               )
                   : Obx(() {
                 return checkoutInfocontroller.checkInfoDataList.isEmpty ?const SizedBox():  SizedBox(
-                  // height: Get.width * 0.7,
                   width: Get.width * 0.7,
                   child: Center(
                     child: CarouselSlider.builder(

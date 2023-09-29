@@ -87,7 +87,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
 
   showCompOneByOne() {
     Future.delayed(
-        const Duration(seconds: 1),
+        const Duration(seconds: 0),
         () => {
               editController.showComp1.value = true,
               initializeVideo(),
@@ -105,7 +105,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
         const Duration(seconds: 4),
         () =>
             {editController.showComp3.value = true, initializeVideCheckOut()});
-    Future.delayed(const Duration(seconds: 8),
+    Future.delayed(const Duration(seconds: 6),
         () => editController.showComp4.value = true);
   }
 
@@ -140,14 +140,16 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
         editIntroController.introGif2Controller.dispose();
       }
       //----------how it works
-      if (editController.allDataResponse[0]["how_it_works_details"][0]
-                  ["hiw_gif_mediatype"]
-              .toString()
-              .toLowerCase() ==
-          'video') {
-        editHiwController.botController.pause();
-        editHiwController.botController.dispose();
-        editHiwController.botChewieController.dispose();
+      if (Get.width > 950) {
+        if (editController.allDataResponse[0]["how_it_works_details"][0]
+                    ["hiw_gif_mediatype"]
+                .toString()
+                .toLowerCase() ==
+            'video') {
+          editHiwController.botController.pause();
+          editHiwController.botController.dispose();
+          editHiwController.botChewieController.dispose();
+        }
       }
       //----------mix banner
       if (editController.allDataResponse[0]["mix_banner_details"][0]
@@ -250,11 +252,12 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                     : Column(
                                         children: [
                                           const IntroSection(),
-                                          Get.width > 950
-                                              ? const ShowcaseAppsSection()
-                                              : const SizedBox(),
-                                          Get.width > 950
-                                              ? const HowItWorksSection(): const SizedBox(),
+                                          Get.width < 950
+                                              ? const SizedBox()
+                                              : const ShowcaseAppsSection(),
+                                          Get.width < 950
+                                              ? const SizedBox()
+                                              : const HowItWorksSection(),
                                           TestimonialsSection(
                                               scrollToPricingSection:
                                                   scrollToPricingSection),
@@ -278,11 +281,17 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                             scrollToPricingSection:
                                                 scrollToPricingSection,
                                           ),
-                                          const CaseStudySection(),
-                                          const CheckoutInfoSection(),
-                                          PricingSection(
-                                              key: PricingSection
-                                                  .pricingSectionKey),
+                                          Get.width < 950
+                                              ? const SizedBox()
+                                              : const CaseStudySection(),
+                                          Get.width < 950
+                                              ? const SizedBox()
+                                              : const CheckoutInfoSection(),
+                                          Get.width < 950
+                                              ? const SizedBox()
+                                              : PricingSection(
+                                                  key: PricingSection
+                                                      .pricingSectionKey),
                                         ],
                                       ),
                                 editController.showComp4.value == false
@@ -323,9 +332,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     } else if (homeComponent == "showcase_apps") {
       return Get.width > 950 ? const ShowcaseAppsSection() : const SizedBox();
     } else if (homeComponent == "how_it_works") {
-      return Get.width > 950
-          ? const HowItWorksSection()
-          : const SizedBox();
+      return Get.width > 950 ? const HowItWorksSection() : const SizedBox();
     } else if (homeComponent == "testimonials") {
       return TestimonialsSection(
         scrollToPricingSection: scrollToPricingSection,
@@ -367,8 +374,11 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
   ///initialization of all function and apis
 
   planFunc() {
-    pricingScreenController.getPlansData(lat: "21.2378888", long: "72.863352");
-    getUserLocation();
+    if (Get.width > 950) {
+      pricingScreenController.getPlansData(
+          lat: "21.2378888", long: "72.863352");
+      getUserLocation();
+    }
   }
 
   Future<Position> getUserLocation() async {
@@ -424,19 +434,6 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
       () {
         editController.getData().then((value) {
           showCompOneByOne();
-          // loadMediaOneByOne();
-
-          // Future.delayed(Duration.zero, () => initializeVideo());
-          // Future.delayed(
-          //     const Duration(seconds: 1), () => initializeVideoHIW());
-          // Future.delayed(
-          //     const Duration(seconds: 3), () => initializeVideoMixBanner());
-          // Future.delayed(
-          //     const Duration(seconds: 5), () => initializeVideobenefitBanner());
-          // Future.delayed(
-          //     const Duration(seconds: 7), () => initializeVideCheckOut());
-          // Future.delayed(
-          //     const Duration(seconds: 9), () => initializeVideoNumberBanner());
         });
       },
     );
@@ -470,14 +467,16 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
   }
 
   getShowcaseData() {
-    Future.delayed(
-      const Duration(microseconds: 25),
-      () {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Get.find<ShowCaseAppsController>().getShowCaseApi();
-        });
-      },
-    );
+    if (Get.width < 950) {
+      Future.delayed(
+        const Duration(microseconds: 25),
+        () {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Get.find<ShowCaseAppsController>().getShowCaseApi();
+          });
+        },
+      );
+    }
   }
 
   getBenefitBannerData() {
@@ -498,9 +497,11 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
   }
 
   getCaseStudyData() {
-    Future.delayed(const Duration(microseconds: 40), () {
-      Get.find<EditCaseStudyController>().getCaseStudy();
-    });
+    if (Get.width > 950) {
+      Future.delayed(const Duration(microseconds: 40), () {
+        Get.find<EditCaseStudyController>().getCaseStudy();
+      });
+    }
   }
 
   getCheckoutInfoData() {
@@ -608,50 +609,35 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
   }
 
   initializeVideoHIW() async {
-    if (editController.allDataResponse.isNotEmpty) {
-      ///------------how it works
-      // if (editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == "video") {
-      //   editHiwController.botController = VideoPlayerController.networkUrl(
-      //       Uri.parse(APIString.mediaBaseUrl + editController.allDataResponse[0]["how_it_works_details"][0]["hiw_gif"].toString()));
-      //   await editHiwController.botController.initialize().whenComplete(
-      //     () {
-      //       editHiwController.botController.setLooping(true);
-      //       editHiwController.botController.setVolume(0);
-      //       editHiwController.isBotVideoInitialized.value = true;
-      //       editHiwController.botController.play();
-      //       setState(() {});
-      //     },
-      //   );
-      // }
-      // else {
-      //   editHiwController.isBotVideoInitialized.value = false;
-      // }
+    if (Get.width > 950) {
+      if (editController.allDataResponse.isNotEmpty) {
+        ///------------how it works
+        if (editController.allDataResponse[0]["how_it_works_details"][0]
+                    ["hiw_gif_mediatype"]
+                .toString()
+                .toLowerCase() ==
+            "video") {
+          editHiwController.botController = VideoPlayerController.networkUrl(
+              Uri.parse(APIString.mediaBaseUrl +
+                  editController.allDataResponse[0]["how_it_works_details"][0]
+                          ["hiw_gif"]
+                      .toString()));
 
-      if (editController.allDataResponse[0]["how_it_works_details"][0]
-                  ["hiw_gif_mediatype"]
-              .toString()
-              .toLowerCase() ==
-          "video") {
-        editHiwController.botController = VideoPlayerController.networkUrl(
-            Uri.parse(APIString.mediaBaseUrl +
-                editController.allDataResponse[0]["how_it_works_details"][0]
-                        ["hiw_gif"]
-                    .toString()));
+          editHiwController.botChewieController = ChewieController(
+            videoPlayerController: editHiwController.botController,
+            allowFullScreen: false,
+            autoPlay: false,
+            looping: true,
+          );
 
-        editHiwController.botChewieController = ChewieController(
-          videoPlayerController: editHiwController.botController,
-          allowFullScreen: false,
-          autoPlay: false,
-          looping: true,
-        );
-
-        editHiwController.botController.initialize().then((_) {
-          editHiwController.isBotVideoInitialized.value = true;
-          setState(() {});
-        });
+          editHiwController.botController.initialize().then((_) {
+            editHiwController.isBotVideoInitialized.value = true;
+            setState(() {});
+          });
+        }
+      } else {
+        editHiwController.isBotVideoInitialized.value = false;
       }
-    } else {
-      editHiwController.isBotVideoInitialized.value = false;
     }
   }
 

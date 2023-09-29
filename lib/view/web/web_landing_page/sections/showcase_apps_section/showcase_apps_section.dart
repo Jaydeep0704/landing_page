@@ -18,6 +18,7 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:grobiz_web_landing/widget/common_snackbar.dart';
 import 'package:grobiz_web_landing/widget/glassmorphic_container.dart';
+import 'package:grobiz_web_landing/widget/top_navbar.dart';
 import 'package:video_player/video_player.dart';
 
 
@@ -37,7 +38,21 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
   @override
   void initState() {
     super.initState();
+    getShowcaseData();
     getCurrentCouponDetails();
+  }
+
+  getShowcaseData() {
+    if(Get.width < 950) {
+      Future.delayed(
+        const Duration(microseconds: 25),
+            () {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Get.find<ShowCaseAppsController>().getShowCaseApi();
+          });
+        },
+      );
+    }
   }
 
   getCurrentCouponDetails()async{
@@ -83,7 +98,8 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
             ),
             child: Column(
               children: [
-                const SizedBox(height: 80),
+                Get.width > 950 ?const SizedBox(): TopNavBar(),
+                SizedBox(height: Get.width > 950 ?80:30),
                 ///app created by genesi title and Carosul slider - commented for now
                 ///Starts
                 editController.allDataResponse[0]["showcase_apps_details"][0]["showcase_apps_heading_show_hide"] == "hide"

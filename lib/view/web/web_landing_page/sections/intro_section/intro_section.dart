@@ -494,32 +494,45 @@ class _IntroSectionState extends State<IntroSection> with TickerProviderStateMix
                             color: Colors.purple,
                           )),
                     ),
-                    ListTile(
+                    ///Showcase Apps
+                    editController.showcaseApps.value == false ? const SizedBox():ListTile (
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return const Material(child:  ShowcaseAppsSection(),);
-                          },));
+                            return const Material(child:  ShowcaseAppsSection());
+                          },)).whenComplete(() => {Navigator.of(context).pop(),
+                            Future.delayed(Duration.zero, () {
+                              webLandingPageController.getUserCount();
+                            })});
                         },
                         title: const Text('Showcase Apps')),
-                     ListTile(
+                    editController.howItWorks.value == false ? const SizedBox():ListTile(
                          onTap: () {
                            Navigator.push(context, MaterialPageRoute(builder: (context) {
                              return const Material(child: HowItWorksSection(),);
-                           },));
+                           },)).whenComplete(() => {Navigator.of(context).pop(),
+                             Future.delayed(Duration.zero, () {
+                               webLandingPageController.getUserCount();
+                             })});
                          },
                          title: const Text('How It Works')),
-                     ListTile(
+                    editController.caseStudy.value == false ? const SizedBox():ListTile(
                          onTap: () {
                            Navigator.push(context, MaterialPageRoute(builder: (context) {
                              return const Material(child: CaseStudySection(),);
-                           },));
+                           },)).whenComplete(() => {Navigator.of(context).pop(),
+                             Future.delayed(Duration.zero, () {
+                               webLandingPageController.getUserCount();
+                             })});
                          },
                          title: const Text('Case Study')),
-                     ListTile(
+                    editController.pricing.value == false ? const SizedBox():ListTile(
                          onTap: () {
                            Navigator.push(context, MaterialPageRoute(builder: (context) {
                              return const Material(child: PricingSection(),);
-                           },));
+                           },)).whenComplete(() => {Navigator.of(context).pop(),
+                             Future.delayed(Duration.zero, () {
+                               webLandingPageController.getUserCount();
+                             })});
                          },
                          title: const Text('Pricing')),
                   ],

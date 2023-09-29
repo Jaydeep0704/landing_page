@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/checkout_info_section/checkout_info_section.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:grobiz_web_landing/widget/top_navbar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +29,60 @@ class _HowItWorksSectionState extends State<HowItWorksSection> {
       WebLandingPageController>();
   final editController = Get.find<EditController>();
   final editHIWController = Get.find<EditHiwController>();
+
+  @override
+  void initState() {
+    initializeVideoHIW();
+  }
+
+  initializeVideoHIW() async {
+    if(Get.width < 950) {
+      if (editController.allDataResponse.isNotEmpty) {
+        ///------------how it works
+        if (editController.allDataResponse[0]["how_it_works_details"][0]
+        ["hiw_gif_mediatype"]
+            .toString()
+            .toLowerCase() ==
+            "video") {
+          editHIWController.botController = VideoPlayerController.networkUrl(
+              Uri.parse(APIString.mediaBaseUrl +
+                  editController.allDataResponse[0]["how_it_works_details"][0]
+                  ["hiw_gif"]
+                      .toString()));
+
+          editHIWController.botChewieController = ChewieController(
+            videoPlayerController: editHIWController.botController,
+            allowFullScreen: false,
+            autoPlay: false,
+            looping: true,
+          );
+
+          editHIWController.botController.initialize().then((_) {
+            editHIWController.isBotVideoInitialized.value = true;
+            setState(() {});
+          });
+        }
+      } else {
+        editHIWController.isBotVideoInitialized.value = false;
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    if(Get.width < 950) {
+      if (editController.allDataResponse[0]["how_it_works_details"][0]
+      ["hiw_gif_mediatype"]
+          .toString()
+          .toLowerCase() ==
+          'video') {
+        editHIWController.botController.pause();
+        editHIWController.botController.dispose();
+        editHIWController.botChewieController.dispose();
+      }}
+  }
 
 
 
@@ -73,11 +127,11 @@ class _HowItWorksSectionState extends State<HowItWorksSection> {
                     errorListener: () =>  const Icon(Icons.error),),fit: BoxFit.cover)
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: /*Get.width >600 ?0:*/ 16),
+                padding: const EdgeInsets.symmetric(horizontal:  16),
                 child: Column(
                   children: [
-                    const SizedBox(height: 80),
+                    Get.width > 950 ?const SizedBox(): TopNavBar(padding: EdgeInsets.zero),
+                    SizedBox(height: Get.width > 950 ?80:30),
                     SizedBox(
                       width: Get.width * 0.45,
                       child: Column(
@@ -160,7 +214,7 @@ class _HowItWorksSectionState extends State<HowItWorksSection> {
                       style: GoogleFonts.getFont(editController.allDataResponse[0]["how_it_works_details"][0]["hiw_desc_font"].toString()).copyWith(
                           fontSize: editController.allDataResponse[0]["how_it_works_details"][0]["hiw_desc_size"].toString() !=""
                               ? double.parse(editController.allDataResponse[0]["how_it_works_details"][0]["hiw_desc_size"].toString())
-                              : 20,
+                              : Get.width > 600 ?20:16,
                           fontWeight: FontWeight.w600,
                           color: editController.allDataResponse[0]["how_it_works_details"][0]["hiw_desc_color"].toString().isEmpty
                               ?AppColors.blackColor
@@ -282,7 +336,7 @@ class _HowItWorksSectionState extends State<HowItWorksSection> {
   );
   }
 
-  bool _isVisible = false;
+  // bool isVisible = false;
 
 
   Widget buildBotWidget() {
@@ -299,19 +353,19 @@ class _HowItWorksSectionState extends State<HowItWorksSection> {
     }
     else if (Get.find<EditController>().allDataResponse[0]["how_it_works_details"][0]["hiw_gif_mediatype"].toString().toLowerCase() == "video") {
 
-      return VisibilityDetector(
+    return VisibilityDetector(
         key: const Key('video-visibility-key'),
         onVisibilityChanged: (visibilityInfo) {
-          setState(() {
-            _isVisible = visibilityInfo.visibleFraction > 0.0;
-            if (_isVisible) {
-              setState(() {});
+          // setState(() {
+            editHIWController.isVisible.value = visibilityInfo.visibleFraction > 0.0;
+            if (editHIWController.isVisible.value) {
+              // setState(() {});
             }
             else {
               editHIWController.botChewieController.pause();
-              setState(() {});
+              // setState(() {});
             }
-          });
+          // });
         },
         child: Obx(() {
           return editHIWController.isBotVideoInitialized.value
@@ -320,6 +374,7 @@ class _HowItWorksSectionState extends State<HowItWorksSection> {
           )
               : const CircularProgressIndicator();}),
       );
+
     }
     else {
       return const Text("bot");

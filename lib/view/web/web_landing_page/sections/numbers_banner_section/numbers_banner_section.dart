@@ -126,345 +126,66 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                             )
                           ],
                         ),
-                        SizedBox(height: Get.width * 0.02),
-                        Row(
+                        const SizedBox(height: 15),
+                        ///title
+                        SizedBox(
+                          width: Get.width > 600 ?  Get.width * 0.6: Get.width - 50,
+                          child: Text(
+                            editController
+                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title"]
+                                .toString(),
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.getFont(editController
+                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_font"]
+                                .toString()).copyWith(
+                                fontSize: editController
+                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_size"]
+                                    .toString() != ""
+                                    ? double.parse(editController
+                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_size"]
+                                    .toString())
+                                    : Get.width > 600 ? 40 : 25,
+                                fontWeight: FontWeight.bold,
+                                color: editController
+                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_color"]
+                                    .toString()
+                                    .isEmpty
+                                    ? AppColors.blackColor
+                                    : Color(int.parse(editController
+                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_color"]
+                                    .toString()))),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        ///description
+                        Get.width > 900?SizedBox(): description(),
+                        const SizedBox(height: 15),
+                        Get.width > 900 ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(
-                                width: Get.width > 1000 ? Get.width * 0.03 : Get
-                                    .width * 0.01),
-                            editController
-                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file2_show"] ==
-                                "hide"
-                                ? const SizedBox() : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: Get.width > 1000 ? Get.height *
-                                      0.6 : Get.height * 0.35,
-                                  width: Get.width > 1000 ? Get.width *
-                                      0.25 : Get.width * 0.2,
-                                  child: buildMedia2Widget(),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                                width: Get.width > 1000 ? Get.width * 0.05 : Get
-                                    .width * 0.02),
+                            SizedBox(width: Get.width > 1000 ? Get.width * 0.03 : Get.width * 0.01),
+                            media2(),
+                            SizedBox(width: Get.width > 1000 ? Get.width * 0.05 : Get.width * 0.02),
                             Expanded(
                               child: Column(
                                 children: [
-                                  SizedBox(
-                                    width: Get.width * 0.635,
-                                    // child: Text(
-                                    //   StaticString.twoLineTitle,
-                                    //   textAlign: TextAlign.center,
-                                    //   style: AppTextStyle.regularBold.copyWith(
-                                    //       fontSize: Get.width > 600 ? 40 : 25),
-                                    // ),
-                                    child: Text(
-                                      editController
-                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title"]
-                                          .toString(),
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.getFont(editController
-                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_font"]
-                                          .toString()).copyWith(
-                                          fontSize: editController
-                                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_size"]
-                                              .toString() != ""
-                                              ? double.parse(editController
-                                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_size"]
-                                              .toString())
-                                              : Get.width > 600 ? 40 : 25,
-                                          fontWeight: FontWeight.bold,
-                                          color: editController
-                                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_color"]
-                                              .toString()
-                                              .isEmpty
-                                              ? AppColors.blackColor
-                                              : Color(int.parse(editController
-                                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_color"]
-                                              .toString()))),
-                                    ),
-                                  ),
-                                  SizedBox(height: Get.width * 0.02),
-                                  SizedBox(
-                                    width: Get.width * 0.6,
-                                    child: Text(
-                                      editController
-                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_description"]
-                                          .toString(),
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.getFont(editController
-                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_description_font"]
-                                          .toString()).copyWith(
-                                          fontSize: editController
-                                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_description_size"]
-                                              .toString() != ""
-                                              ? double.parse(editController
-                                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_description_size"]
-                                              .toString())
-                                              : Get.width > 600 ? 20 : 16,
-                                          fontWeight: FontWeight.w300,
-                                          color: editController
-                                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_description_color"]
-                                              .toString()
-                                              .isEmpty
-                                              ? AppColors.blackColor
-                                              : Color(int.parse(editController
-                                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_description_color"]
-                                              .toString()))),
-                                    ),
-                                  ),
-
-
-                                  SizedBox(height: Get.width * 0.02),
+                                  Get.width < 900?SizedBox(): description(),
+                                 SizedBox(height: Get.width < 900? 0 : 20),
                                   Get.width > 550
                                       ? Row(
                                     crossAxisAlignment: CrossAxisAlignment
                                         .start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          /* Text(
-                                          "25M",
-                                          style: AppTextStyle.regularBold
-                                              .copyWith(fontSize: 30),
-                                        ),*/
-                                          Text(
-                                            editController
-                                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count"]
-                                                .toString(),
-                                            style: GoogleFonts.getFont(
-                                                editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_font"]
-                                                    .toString()).copyWith(
-                                                fontSize: editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_size"]
-                                                    .toString() != ""
-                                                    ? double.parse(
-                                                    editController
-                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_size"]
-                                                        .toString())
-                                                    : 30,
-                                                fontWeight: FontWeight.bold,
-                                                color: editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_color"]
-                                                    .toString()
-                                                    .isEmpty
-                                                    ? AppColors.blackColor
-                                                    : Color(int.parse(
-                                                    editController
-                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_color"]
-                                                        .toString()))),
-                                          ),
-                                          SizedBox(height: Get.width * 0.008),
-                                          SizedBox(
-                                            // width: Get.width*0.08,
-                                            width: Get.width > 900
-                                                ? Get.width * 0.08
-                                                : Get.width * 0.15,
-                                            child: Text(
-                                              editController
-                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer"]
-                                                  .toString(),
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.getFont(
-                                                  editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_font"]
-                                                      .toString()).copyWith(
-                                                  fontSize: editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_size"]
-                                                      .toString() != ""
-                                                      ? double.parse(
-                                                      editController
-                                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_size"]
-                                                          .toString())
-                                                      : 14,
-                                                  height: 1.2,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_color"]
-                                                      .toString()
-                                                      .isEmpty
-                                                      ? AppColors.blackColor
-                                                      : Color(
-                                                      int.parse(editController
-                                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_color"]
-                                                          .toString()))),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                      numbers1(),
                                       SizedBox(width: Get.width * 0.01),
-                                      SizedBox(
-                                        height: 90,
-                                        child: VerticalDivider(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          width: 10,
-                                          thickness: 0.5,
-                                          indent: 10,
-                                          endIndent: 10,
-                                        ),
-                                      ),
+                                      vertDivider(),
                                       SizedBox(width: Get.width * 0.01),
-                                      Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-
-                                          Text(
-                                            editController
-                                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count"]
-                                                .toString(),
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.getFont(
-                                                editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_font"]
-                                                    .toString()).copyWith(
-                                                fontSize: editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_size"]
-                                                    .toString() != ""
-                                                    ? double.parse(
-                                                    editController
-                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_size"]
-                                                        .toString())
-                                                    : 30,
-                                                fontWeight: FontWeight.bold,
-                                                color: editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_color"]
-                                                    .toString()
-                                                    .isEmpty
-                                                    ? AppColors.blackColor
-                                                    : Color(int.parse(
-                                                    editController
-                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_color"]
-                                                        .toString()))),
-                                          ),
-                                          SizedBox(height: Get.width * 0.008),
-                                          SizedBox(
-                                            width: Get.width > 900
-                                                ? Get.width * 0.08
-                                                : Get.width * 0.15,
-                                            child: Text(
-                                              editController
-                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed"]
-                                                  .toString(),
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.getFont(
-                                                  editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_font"]
-                                                      .toString()).copyWith(
-                                                  fontSize: editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_size"]
-                                                      .toString() != ""
-                                                      ? double.parse(
-                                                      editController
-                                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_size"]
-                                                          .toString())
-                                                      : 14,
-                                                  height: 1.2,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_color"]
-                                                      .toString()
-                                                      .isEmpty
-                                                      ? AppColors.blackColor
-                                                      : Color(
-                                                      int.parse(editController
-                                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_color"]
-                                                          .toString()))),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                      numbers2(),
                                       SizedBox(width: Get.width * 0.01),
-                                      SizedBox(
-                                        height: 90,
-                                        child: VerticalDivider(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          width: 10,
-                                          thickness: 0.5,
-                                          indent: 10,
-                                          endIndent: 10,
-                                        ),
-                                      ),
+                                      vertDivider(),
                                       SizedBox(width: Get.width * 0.01),
-                                      Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-
-                                          Text(
-                                            editController
-                                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count"]
-                                                .toString(),
-                                            style: GoogleFonts.getFont(
-                                                editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_font"]
-                                                    .toString()).copyWith(
-                                                fontSize: editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_size"]
-                                                    .toString() != ""
-                                                    ? double.parse(
-                                                    editController
-                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_size"]
-                                                        .toString())
-                                                    : 30,
-                                                fontWeight: FontWeight.bold,
-                                                color: editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_color"]
-                                                    .toString()
-                                                    .isEmpty
-                                                    ? AppColors.blackColor
-                                                    : Color(int.parse(
-                                                    editController
-                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_color"]
-                                                        .toString()))),
-                                          ),
-                                          SizedBox(height: Get.width * 0.008),
-                                          SizedBox(
-                                            // width: Get.width*0.08,
-                                            width: Get.width > 900
-                                                ? Get.width * 0.08
-                                                : Get.width * 0.15,
-                                            child: Text(
-                                              editController
-                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout"]
-                                                  .toString(),
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.getFont(
-                                                  editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_font"]
-                                                      .toString()).copyWith(
-                                                  fontSize: editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_size"]
-                                                      .toString() != ""
-                                                      ? double.parse(
-                                                      editController
-                                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_size"]
-                                                          .toString())
-                                                      : 14,
-                                                  height: 1.2,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_color"]
-                                                      .toString()
-                                                      .isEmpty
-                                                      ? AppColors.blackColor
-                                                      : Color(
-                                                      int.parse(editController
-                                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_color"]
-                                                          .toString()))),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                      numbers3(),
                                     ],
                                   )
                                       : Column(
@@ -472,85 +193,16 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                         .center,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          const SizedBox(height: 10),
-
-                                          Text(
-                                            editController
-                                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count"]
-                                                .toString(),
-                                            style: GoogleFonts.getFont(
-                                                editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_font"]
-                                                    .toString()).copyWith(
-                                                fontSize: editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_size"]
-                                                    .toString() != ""
-                                                    ? double.parse(
-                                                    editController
-                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_size"]
-                                                        .toString())
-                                                    : 25,
-                                                fontWeight: FontWeight.bold,
-                                                color: editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_color"]
-                                                    .toString()
-                                                    .isEmpty
-                                                    ? AppColors.blackColor
-                                                    : Color(int.parse(
-                                                    editController
-                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_color"]
-                                                        .toString()))),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          SizedBox(
-                                            // width: Get.width*0.08,
-                                            // width: Get.width > 900
-                                            //     ? Get.width * 0.08
-                                            //     : Get.width * 0.15,
-                                            child: /* Text(
-                                              "Global Customers",
-                                              textAlign: TextAlign.center,
-                                              style: AppTextStyle.regular400
-                                                  .copyWith(
-                                                      fontSize: 14,
-                                                      height: 1.2),
-                                            ),*/
-                                            Text(
-                                              editController
-                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer"]
-                                                  .toString(),
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.getFont(
-                                                  editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_font"]
-                                                      .toString()).copyWith(
-                                                  fontSize: editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_size"]
-                                                      .toString() != ""
-                                                      ? double.parse(
-                                                      editController
-                                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_size"]
-                                                          .toString())
-                                                      : 14,
-                                                  height: 1.2,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_color"]
-                                                      .toString()
-                                                      .isEmpty
-                                                      ? AppColors.blackColor
-                                                      : Color(
-                                                      int.parse(editController
-                                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_color"]
-                                                          .toString()))),
-                                            ),
-                                          ),
-                                        ],
+                                      numbers1(),
+                                      const SizedBox(height: 5),
+                                      Divider(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        thickness: 0.5,
+                                        indent: 10,
+                                        endIndent: 10,
                                       ),
+                                      const SizedBox(height: 5),
+                                      numbers2(),
                                       const SizedBox(height: 5),
                                       Divider(
                                         color: Colors.grey.withOpacity(0.5),
@@ -560,435 +212,299 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                         endIndent: 10,
                                       ),
                                       const SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          // Text(
-                                          //   "1.2B",
-                                          //   style: AppTextStyle.regularBold
-                                          //       .copyWith(fontSize: 25),
-                                          // ),
-                                          Text(
-                                            editController
-                                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count"]
-                                                .toString(),
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.getFont(
-                                                editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_font"]
-                                                    .toString()).copyWith(
-                                                fontSize: editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_size"]
-                                                    .toString() != ""
-                                                    ? double.parse(
-                                                    editController
-                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_size"]
-                                                        .toString())
-                                                    : 25,
-                                                fontWeight: FontWeight.bold,
-                                                color: editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_color"]
-                                                    .toString()
-                                                    .isEmpty
-                                                    ? AppColors.blackColor
-                                                    : Color(int.parse(
-                                                    editController
-                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_color"]
-                                                        .toString()))),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          SizedBox(
-                                            // width: Get.width*0.08,
-                                            width: Get.width > 900
-                                                ? Get.width * 0.08
-                                                : Get.width * 0.15,
-                                            // child: Text(
-                                            //   "Orders Processed",
-                                            //   textAlign: TextAlign.center,
-                                            //   style: AppTextStyle.regular400
-                                            //       .copyWith(
-                                            //           fontSize: 14,
-                                            //           height: 1.2),
-                                            // ),
-                                            child: Text(
-                                              editController
-                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed"]
-                                                  .toString(),
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.getFont(
-                                                  editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_font"]
-                                                      .toString()).copyWith(
-                                                  fontSize: editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_size"]
-                                                      .toString() != ""
-                                                      ? double.parse(
-                                                      editController
-                                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_size"]
-                                                          .toString())
-                                                      : 14,
-                                                  height: 1.2,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_color"]
-                                                      .toString()
-                                                      .isEmpty
-                                                      ? AppColors.blackColor
-                                                      : Color(
-                                                      int.parse(editController
-                                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_color"]
-                                                          .toString()))),
-                                            ),),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Divider(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        // width: 10,
-                                        thickness: 0.5,
-                                        indent: 10,
-                                        endIndent: 10,
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          // Text(
-                                          //   "25K",
-                                          //   style: AppTextStyle.regularBold
-                                          //       .copyWith(fontSize: 25),
-                                          // ),
-                                          Text(
-                                            editController
-                                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count"]
-                                                .toString(),
-                                            style: GoogleFonts.getFont(
-                                                editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_font"]
-                                                    .toString()).copyWith(
-                                                fontSize: editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_size"]
-                                                    .toString() != ""
-                                                    ? double.parse(
-                                                    editController
-                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_size"]
-                                                        .toString())
-                                                    : 30,
-                                                fontWeight: FontWeight.bold,
-                                                color: editController
-                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_color"]
-                                                    .toString()
-                                                    .isEmpty
-                                                    ? AppColors.blackColor
-                                                    : Color(int.parse(
-                                                    editController
-                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_color"]
-                                                        .toString()))),
-                                          ),
-                                          const SizedBox(height: 5),
-                                          SizedBox(
-                                            // width: Get.width*0.08,
-                                            // width: Get.width > 900
-                                            //     ? Get.width * 0.08
-                                            //     : Get.width * 0.15,
-                                            // child: Text(
-                                            //   "Peak Checkout Started Per Minute",
-                                            //   textAlign: TextAlign.center,
-                                            //   style: AppTextStyle.regular400
-                                            //       .copyWith(
-                                            //       fontSize: 14,
-                                            //       height: 1.2),
-                                            // ),
-                                            child: Text(
-                                              editController
-                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout"]
-                                                  .toString(),
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.getFont(
-                                                  editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_font"]
-                                                      .toString()).copyWith(
-                                                  fontSize: editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_size"]
-                                                      .toString() != ""
-                                                      ? double.parse(
-                                                      editController
-                                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_size"]
-                                                          .toString())
-                                                      : 14,
-                                                  height: 1.2,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: editController
-                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_color"]
-                                                      .toString()
-                                                      .isEmpty
-                                                      ? AppColors.blackColor
-                                                      : Color(
-                                                      int.parse(editController
-                                                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_color"]
-                                                          .toString()))),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                      numbers3(),
                                     ],
                                   ),
-                                  SizedBox(height: Get.width * 0.02),
-                                  SizedBox(
-                                    // width: Get.width * 0.5,
-                                    child: Wrap(
-                                      crossAxisAlignment:
-                                      WrapCrossAlignment.start,
-                                      alignment: WrapAlignment.center,
-                                      // mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          children: [
-                                            const SizedBox(height: 20),
-                                            // commonButton(
-                                            Get.width > 450 ? commonIconButton(
-                                                onTap: appOpen,
-                                                margin: EdgeInsets.zero,
-                                                icon: Icons.phone_android,
-                                                title: "Create Your App",
-                                                btnColor: Colors.redAccent
-                                                    .withOpacity(0.7),
-                                                txtColor: Colors.white)
-                                                : FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              child: commonIconButton(
-                                                  onTap: appOpen,
-                                                  margin: EdgeInsets.zero,
-                                                  icon: Icons.phone_android,
-                                                  title: "Create Your App",
-                                                  btnColor: Colors.redAccent
-                                                      .withOpacity(0.7),
-                                                  txtColor: Colors.white),
-                                            ),
-                                            SizedBox(
-                                              width: Get.width > 800
-                                                  ? Get.width * 0.15
-                                                  : Get.width * 0.7,
-                                              // : Get.width * 0.30,
-                                              child: Container(
-                                                margin: const EdgeInsets.only(
-                                                    right: 5, top: 5),
-                                                padding: const EdgeInsets
-                                                    .symmetric(
-                                                    horizontal: 5, vertical: 2),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: const BorderRadius
-                                                      .all(Radius.circular(2)),
-                                                  color: editController
-                                                      .allDataResponse[0]["live_app_count_bg"] ==
-                                                      "hide"
-                                                      ? AppColors
-                                                      .transparentColor
-                                                      : Color(
-                                                    int.parse(editController
-                                                        .allDataResponse[0]["live_app_count_bg_color"]
-                                                        .toString()),
-                                                  ),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                                  children: [
-                                                    const Icon(Icons
-                                                        .remove_red_eye_rounded),
-                                                    const SizedBox(width: 8),
-                                                    Flexible(
-                                                      child:
-                                                      Text(
-                                                        "${webLandingPageController
-                                                            .appLiveCount
-                                                            .value} ${editController
-                                                            .allDataResponse[0]["live_app_count_string"]
-                                                            .toString()}",
-                                                        //
-                                                        // editController.allDataResponse[0]["live_app_count_string"].toString(),
-                                                        style: GoogleFonts
-                                                            .getFont(
-                                                            editController
-                                                                .allDataResponse[0]["live_app_count_font"]
-                                                                .toString())
-                                                            .copyWith(
-                                                          // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
-                                                          //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
-                                                          //     : 14,
-                                                          // fontWeight: FontWeight.w400,
-                                                            color: Color(
-                                                                int.parse(
-                                                                    editController
-                                                                        .allDataResponse[0]["live_app_count_color"]
-                                                                        .toString()))),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(width: Get.width > 1500 ? Get
-                                            .width * 0.02 : Get.width > 450
-                                            ? 0
-                                            : Get.width * 0.02, height: 8),
-                                        Column(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          children: [
-                                            const SizedBox(height: 20),
-                                            // commonButton(
-                                            Get.width > 450 ? commonIconButton(
-                                                onTap: websiteOpen,
-                                                icon: Icons.language,
-                                                margin: EdgeInsets.zero,
-                                                title: "Create Your Website",
-                                                btnColor: Colors.green
-                                                    .withOpacity(0.7),
-                                                txtColor: Colors.white)
-                                                : FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              child: commonIconButton(
-                                                  onTap: websiteOpen,
-                                                  icon: Icons.language,
-                                                  margin: EdgeInsets.zero,
-                                                  title: "Create Your Website",
-                                                  btnColor: Colors.green
-                                                      .withOpacity(0.7),
-                                                  txtColor: Colors.white),),
-                                            SizedBox(
-                                              width: Get.width > 800
-                                                  ? Get.width * 0.15
-                                                  : Get.width * 0.7,
-                                              // : Get.width * 0.30,
-                                              child: Container(
-                                                margin: const EdgeInsets.only(
-                                                    right: 5, top: 5),
-                                                padding: const EdgeInsets
-                                                    .symmetric(
-                                                    horizontal: 5, vertical: 2),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: const BorderRadius
-                                                      .all(Radius.circular(2)),
-                                                  color: editController
-                                                      .allDataResponse[0]["live_web_count_bg"] ==
-                                                      "hide"
-                                                      ? AppColors
-                                                      .transparentColor
-                                                      : Color(
-                                                    int.parse(editController
-                                                        .allDataResponse[0]["live_web_count_bg_color"]
-                                                        .toString()),
-                                                  ),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                                  children: [
-                                                    const Icon(Icons
-                                                        .remove_red_eye_rounded),
-                                                    const SizedBox(width: 8),
-                                                    Flexible(
-                                                      child: Text(
-                                                        "${webLandingPageController
-                                                            .webLiveCount
-                                                            .value} ${editController
-                                                            .allDataResponse[0]["live_web_count_string"]
-                                                            .toString()}",
-                                                        style: GoogleFonts
-                                                            .getFont(
-                                                            editController
-                                                                .allDataResponse[0]["live_web_count_font"]
-                                                                .toString())
-                                                            .copyWith(
-                                                          // fontSize: editController.allDataResponse[0]["live_web_count_size"].toString() ==""
-                                                          //     ? double.parse(editController.allDataResponse[0]["live_web_count_size"].toString())
-                                                          //     : 14,
-                                                          // fontWeight: FontWeight.w400,
-                                                            color: Color(
-                                                                int.parse(
-                                                                    editController
-                                                                        .allDataResponse[0]["live_web_count_color"]
-                                                                        .toString()))),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: Get.width * 0.04),
-                                  // Text("Try Grobiz Free", style: AppTextStyle.regular200),
-                                  Text(
-                                    editController
-                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline"]
-                                        .toString(),
-                                    style: GoogleFonts.getFont(editController
-                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_font"]
-                                        .toString()).copyWith(
-                                      // fontSize: editController.allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_size"].toString() !=""
-                                      //     ? double.parse(editController.allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_size"].toString())
-                                      //     : 30,
-                                        fontWeight: FontWeight.w200,
-                                        color: editController
-                                            .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_color"]
-                                            .toString()
-                                            .isEmpty
-                                            ? AppColors.blackColor
-                                            : Color(int.parse(editController
-                                            .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_color"]
-                                            .toString()))),
-                                  ),
-                                  SizedBox(height: Get.width * 0.02),
                                 ],
                               ),
                             ),
-                            SizedBox(
-                                width: Get.width > 1000 ? Get.width * 0.05 : Get
-                                    .width * 0.02),
-                            editController
-                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file3_show"] ==
-                                "hide"
-                                ? const SizedBox() : Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                            SizedBox(width: Get.width > 1000 ? Get.width * 0.05 : Get.width * 0.02),
+                            media3(),
+                            SizedBox(width: Get.width > 1000 ? Get.width * 0.03 : Get.width * 0.01),
+                          ],
+                        )
+                        :Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(height:10),
+                            media2(),
+                            const SizedBox(height:10),
+                            Column(
                               children: [
-                                SizedBox(
-                                    height: Get.width > 1000 ? Get.height *
-                                        0.6 : Get.height *
-                                        0.35,
-                                    width: Get.width > 1000 ? Get.width *
-                                        0.25 : Get.width * 0.2,
-                                    child: buildMedia3Widget()
+
+                                Get.width > 550
+                                    ? Row(
+                                  crossAxisAlignment: CrossAxisAlignment
+                                      .start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    numbers1(),
+                                    SizedBox(width: Get.width * 0.01),
+                                    vertDivider(),
+                                    SizedBox(width: Get.width * 0.01),
+                                    numbers2(),
+                                    SizedBox(width: Get.width * 0.01),
+                                    vertDivider(),
+                                    SizedBox(width: Get.width * 0.01),
+                                    numbers3(),
+                                  ],
+                                )
+                                    : Column(
+                                  crossAxisAlignment: CrossAxisAlignment
+                                      .center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    numbers1(),
+                                    const SizedBox(height: 5),
+                                    Divider(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      thickness: 0.5,
+                                      indent: 10,
+                                      endIndent: 10,
+                                    ),
+                                    const SizedBox(height: 5),
+                                    numbers2(),
+                                    const SizedBox(height: 5),
+                                    Divider(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      // width: 10,
+                                      thickness: 0.5,
+                                      indent: 10,
+                                      endIndent: 10,
+                                    ),
+                                    const SizedBox(height: 5),
+                                    numbers3(),
+                                  ],
                                 ),
                               ],
                             ),
-                            SizedBox(
-                                width: Get.width > 1000 ? Get.width * 0.03 : Get
-                                    .width * 0.01),
+                            const SizedBox(height:10),
+                            media3(),
+                            const SizedBox(height:10),
                           ],
                         ),
                       ],
                     ),
                   ),
                 ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  // width: Get.width * 0.5,
+                  child: Wrap(
+                    crossAxisAlignment:
+                    WrapCrossAlignment.start,
+                    alignment: WrapAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment:
+                        MainAxisAlignment.start,
+                        crossAxisAlignment:
+                        CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 20),
+                          // commonButton(
+                          Get.width > 800 ? commonIconButton(
+                              onTap: appOpen,
+                              margin: EdgeInsets.zero,
+                              icon: Icons.phone_android,
+                              title: "Create Your App",
+                              btnColor: Colors.redAccent
+                                  .withOpacity(0.7),
+                              txtColor: Colors.white)
+                              : FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child:  commonIconButtonSmall(
+                                onTap: appOpen,
+                                icon: Icons.phone_android,
+                                margin: EdgeInsets.zero,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 0, vertical: 5),
+                                fontSize: 12,
+                                title: "Create Your App",
+                                btnColor: Colors.redAccent.withOpacity(0.7),
+                                txtColor: Colors.white),
+                          ),
+
+                          SizedBox(
+                            width: Get.width > 800
+                                ? Get.width * 0.15
+                                : Get.width * 0.7,
+                            // : Get.width * 0.30,
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  right: 5, top: 5),
+                              padding: const EdgeInsets
+                                  .symmetric(
+                                  horizontal: 5, vertical: 2),
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius
+                                    .all(Radius.circular(2)),
+                                color: editController
+                                    .allDataResponse[0]["live_app_count_bg"] ==
+                                    "hide"
+                                    ? AppColors
+                                    .transparentColor
+                                    : Color(
+                                  int.parse(editController
+                                      .allDataResponse[0]["live_app_count_bg_color"]
+                                      .toString()),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons
+                                      .remove_red_eye_rounded),
+                                  const SizedBox(width: 8),
+                                  Flexible(
+                                    child:
+                                    Text(
+                                      "${webLandingPageController
+                                          .appLiveCount
+                                          .value} ${editController
+                                          .allDataResponse[0]["live_app_count_string"]
+                                          .toString()}",
+                                      //
+                                      // editController.allDataResponse[0]["live_app_count_string"].toString(),
+                                      style: GoogleFonts
+                                          .getFont(
+                                          editController
+                                              .allDataResponse[0]["live_app_count_font"]
+                                              .toString())
+                                          .copyWith(
+                                        // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
+                                        //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
+                                        //     : 14,
+                                        // fontWeight: FontWeight.w400,
+                                          color: Color(
+                                              int.parse(
+                                                  editController
+                                                      .allDataResponse[0]["live_app_count_color"]
+                                                      .toString()))),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                          width: Get.width > 800 ? 10 : 0 , height: Get.width > 800 ?0:8),
+                      Column(
+                        mainAxisAlignment:
+                        MainAxisAlignment.start,
+                        crossAxisAlignment:
+                        CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 20),
+                          // commonButton(
+                          Get.width > 800 ? commonIconButton(
+                              onTap: websiteOpen,
+                              icon: Icons.language,
+                              margin: EdgeInsets.zero,
+                              title: "Create Your Website",
+                              btnColor: Colors.green
+                                  .withOpacity(0.7),
+                              txtColor: Colors.white)
+                              : FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child:    commonIconButtonSmall(
+                                onTap: websiteOpen,
+                                margin: EdgeInsets.zero,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 0, vertical: 5),
+                                fontSize: 12,
+                                icon: Icons.language,
+                                title: "Create Your Website",
+                                btnColor: Colors.green.withOpacity(0.7),
+                                txtColor: Colors.white),
+                          ),
+                          SizedBox(
+                            width: Get.width > 800
+                                ? Get.width * 0.15
+                                : Get.width * 0.7,
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  right: 5, top: 5),
+                              padding: const EdgeInsets
+                                  .symmetric(
+                                  horizontal: 5, vertical: 2),
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius
+                                    .all(Radius.circular(2)),
+                                color: editController
+                                    .allDataResponse[0]["live_web_count_bg"] ==
+                                    "hide"
+                                    ? AppColors
+                                    .transparentColor
+                                    : Color(
+                                  int.parse(editController
+                                      .allDataResponse[0]["live_web_count_bg_color"]
+                                      .toString()),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons
+                                      .remove_red_eye_rounded),
+                                  const SizedBox(width: 8),
+                                  Flexible(
+                                    child: Text(
+                                      "${webLandingPageController
+                                          .webLiveCount
+                                          .value} ${editController
+                                          .allDataResponse[0]["live_web_count_string"]
+                                          .toString()}",
+                                      style: GoogleFonts
+                                          .getFont(
+                                          editController
+                                              .allDataResponse[0]["live_web_count_font"]
+                                              .toString())
+                                          .copyWith(
+                                          color: Color(
+                                              int.parse(
+                                                  editController
+                                                      .allDataResponse[0]["live_web_count_color"]
+                                                      .toString()))),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Text(
+                      editController
+                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline"]
+                          .toString(),
+                      style: GoogleFonts.getFont(editController
+                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_font"]
+                          .toString()).copyWith(
+
+                          fontWeight: FontWeight.w200,
+                          color: editController
+                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_color"]
+                              .toString()
+                              .isEmpty
+                              ? AppColors.blackColor
+                              : Color(int.parse(editController
+                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_color"]
+                              .toString()))),
+                    ),
+                    const SizedBox(height: 20),
                     Container(
                       width: Get.width,
                       decoration: const BoxDecoration(color: AppColors
@@ -1138,6 +654,309 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
         });
       },
     );
+  }
+
+  SizedBox description() {
+    return SizedBox(
+                        width: Get.width > 600 ?  Get.width * 0.6: Get.width - 50,
+                        child: Text(
+                          editController
+                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_description"]
+                              .toString(),
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.getFont(editController
+                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_description_font"]
+                              .toString()).copyWith(
+                              fontSize: editController
+                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_description_size"]
+                                  .toString() != ""
+                                  ? double.parse(editController
+                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_description_size"]
+                                  .toString())
+                                  : Get.width > 600 ? 20 : 16,
+                              fontWeight: FontWeight.w300,
+                              color: editController
+                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_description_color"]
+                                  .toString()
+                                  .isEmpty
+                                  ? AppColors.blackColor
+                                  : Color(int.parse(editController
+                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_description_color"]
+                                  .toString()))),
+                        ),
+                      );
+  }
+
+  SizedBox vertDivider() {
+    return SizedBox(
+                                      height: 90,
+                                      child: VerticalDivider(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        width: 10,
+                                        thickness: 0.5,
+                                        indent: 10,
+                                        endIndent: 10,
+                                      ),
+                                    );
+  }
+
+  Column numbers3() {
+    return Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+
+                                        Text(
+                                          editController
+                                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count"]
+                                              .toString(),
+                                          style: GoogleFonts.getFont(
+                                              editController
+                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_font"]
+                                                  .toString()).copyWith(
+                                              fontSize: editController
+                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_size"]
+                                                  .toString() != ""
+                                                  ? double.parse(
+                                                  editController
+                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_size"]
+                                                      .toString())
+                                                  : Get.width > 750 ? 30:20,
+                                              fontWeight: FontWeight.bold,
+                                              color: editController
+                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_color"]
+                                                  .toString()
+                                                  .isEmpty
+                                                  ? AppColors.blackColor
+                                                  : Color(int.parse(
+                                                  editController
+                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_count_color"]
+                                                      .toString()))),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        SizedBox(
+                                          width: Get.width > 900
+                                              ? Get.width * 0.08
+                                              : Get.width > 550
+                                              ? Get.width * 0.2
+                                              : null,
+                                          child: Text(
+                                            editController
+                                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout"]
+                                                .toString(),
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.getFont(
+                                                editController
+                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_font"]
+                                                    .toString()).copyWith(
+                                                fontSize: editController
+                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_size"]
+                                                    .toString() != ""
+                                                    ? double.parse(
+                                                    editController
+                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_size"]
+                                                        .toString())
+                                                    : 14,
+                                                height: 1.2,
+                                                fontWeight: FontWeight.w400,
+                                                color: editController
+                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_color"]
+                                                    .toString()
+                                                    .isEmpty
+                                                    ? AppColors.blackColor
+                                                    : Color(
+                                                    int.parse(editController
+                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_checkout_color"]
+                                                        .toString()))),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+  }
+
+  Column numbers2() {
+    return Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+
+                                        Text(
+                                          editController
+                                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count"]
+                                              .toString(),
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.getFont(
+                                              editController
+                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_font"]
+                                                  .toString()).copyWith(
+                                              fontSize: editController
+                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_size"]
+                                                  .toString() != ""
+                                                  ? double.parse(
+                                                  editController
+                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_size"]
+                                                      .toString())
+                                                  : Get.width > 750 ? 30:20,
+                                              fontWeight: FontWeight.bold,
+                                              color: editController
+                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_color"]
+                                                  .toString()
+                                                  .isEmpty
+                                                  ? AppColors.blackColor
+                                                  : Color(int.parse(
+                                                  editController
+                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_count_color"]
+                                                      .toString()))),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        SizedBox(
+                                          width: Get.width > 900
+                                              ? Get.width * 0.08
+                                              : Get.width > 550
+                                              ? Get.width * 0.2
+                                              : null,
+                                          child: Text(
+                                            editController
+                                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed"]
+                                                .toString(),
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.getFont(
+                                                editController
+                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_font"]
+                                                    .toString()).copyWith(
+                                                fontSize: editController
+                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_size"]
+                                                    .toString() != ""
+                                                    ? double.parse(
+                                                    editController
+                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_size"]
+                                                        .toString())
+                                                    : 14,
+                                                height: 1.2,
+                                                fontWeight: FontWeight.w400,
+                                                color: editController
+                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_color"]
+                                                    .toString()
+                                                    .isEmpty
+                                                    ? AppColors.blackColor
+                                                    : Color(
+                                                    int.parse(editController
+                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_orders_processed_color"]
+                                                        .toString()))),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+  }
+
+  Column numbers1() {
+                       return Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          editController
+                                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count"]
+                                              .toString(),
+                                          style: GoogleFonts.getFont(
+                                              editController
+                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_font"]
+                                                  .toString()).copyWith(
+                                              fontSize: editController
+                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_size"]
+                                                  .toString() != ""
+                                                  ? double.parse(
+                                                  editController
+                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_size"]
+                                                      .toString())
+                                                  :Get.width > 750 ? 30:20,
+                                              fontWeight: FontWeight.bold,
+                                              color: editController
+                                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_color"]
+                                                  .toString()
+                                                  .isEmpty
+                                                  ? AppColors.blackColor
+                                                  : Color(int.parse(
+                                                  editController
+                                                      .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_count_color"]
+                                                      .toString()))),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        SizedBox(
+                                          width: Get.width > 900
+                                              ? Get.width * 0.08
+                                              : Get.width > 550
+                                              ? Get.width * 0.2
+                                              : null,
+                                          child: Text(
+                                            editController
+                                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer"]
+                                                .toString(),
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.getFont(
+                                                editController
+                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_font"]
+                                                    .toString()).copyWith(
+                                                fontSize: editController
+                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_size"]
+                                                    .toString() != ""
+                                                    ? double.parse(
+                                                    editController
+                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_size"]
+                                                        .toString())
+                                                    : 14,
+                                                height: 1.2,
+                                                fontWeight: FontWeight.w400,
+                                                color: editController
+                                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_color"]
+                                                    .toString()
+                                                    .isEmpty
+                                                    ? AppColors.blackColor
+                                                    : Color(
+                                                    int.parse(editController
+                                                        .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_global_customer_color"]
+                                                        .toString()))),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                   }
+
+  RenderObjectWidget media2() {
+    return editController
+                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file2_show"] ==
+                              "hide"
+                              ? const SizedBox() : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: Get.width > 1000 ? Get.height *
+                                    0.6 : Get.height * 0.35,
+                                // width: Get.width > 1000 ? Get.width * 0.25 : Get.width * 0.2,
+                                width: Get.width > 1000 ?Get.height * 0.6 : Get.height * 0.35,
+                                child: buildMedia2Widget(),
+                              ),
+                            ],
+                          );
+  }
+
+  RenderObjectWidget media3() {
+    return editController
+                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file3_show"] ==
+                              "hide"
+                              ? const SizedBox() : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                  height: Get.width > 1000 ? Get.height * 0.6 : Get.height * 0.35,
+                                  // width: Get.width > 1000 ? Get.width * 0.25 : Get.width * 0.2,
+                                  width: Get.width > 1000 ?Get.height * 0.6 : Get.height * 0.35,
+                                  child: buildMedia3Widget()
+                              ),
+                            ],
+                          );
   }
 
 

@@ -167,37 +167,29 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
                     ),
                   ),
                 )),
-            const SizedBox(height: 25),
+            SizedBox(height: Get.width > 950 ? 0 : 10),
+            Get.width > 950 ? const SizedBox() : logo(),
+            SizedBox(height: Get.width > 950 ? 25 : 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("${widget.mainData["case_study_title"]}",
-                    style: AppTextStyle.regularBold
-                        .copyWith(fontSize: 55, color: AppColors.blackColor)),
+                    style: AppTextStyle.regularBold.copyWith(
+                        fontSize: Get.width > 950
+                            ? 30
+                            : Get.width > 650
+                                ? 25
+                                : 20,
+                        color: AppColors.blackColor)),
                 // const SizedBox(width: 15),
-                CachedNetworkImage(
-                  height: 50,
-                  width: 150,
-                  fit: BoxFit.cover,
-                  imageUrl: APIString.bannerMediaUrl +
-                      widget.mainData["case_study_image"].toString(),
-                  placeholder: (context, url) => Container(
-                    height: 50,
-                    width: 150,
-                    decoration: const BoxDecoration(
-                      color: AppColors.greyColor,
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
+                Get.width > 950 ? logo() : const SizedBox(),
               ],
             ),
-
             const SizedBox(height: 25),
             Text(
               "${widget.mainData["case_study_detail_desciption"]}",
               style: TextStyle(
-                fontSize: Get.width > 550 ? 24 : 20,
+                fontSize: Get.width > 550 ? 24 : 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
@@ -216,35 +208,11 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
                 mediaType: widget.mainData["mediaTypeKey"],
                 media: widget.mainData["media"]),
             const SizedBox(height: 25),
-
             Text("${widget.mainData["case_study_short_desciption"]}",
-                style: AppTextStyle.regular500
-                    .copyWith(fontSize: 22, color: AppColors.blackColor)),
+                style: AppTextStyle.regular500.copyWith(
+                    fontSize: Get.width > 550 ? 22 : 18,
+                    color: AppColors.blackColor)),
             const SizedBox(height: 25)
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   crossAxisAlignment: CrossAxisAlignment.center,
-            //   children: [
-            //     Expanded(
-            //       child: Column(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           // const SizedBox(height: 40),
-            //
-            //           const SizedBox(height: 40),
-            //           Text(
-            //               "${widget.mainData["case_study_short_desciption"]}",
-            //               style: AppTextStyle.regular500.copyWith(
-            //                   fontSize: 22, color: AppColors.blackColor)),
-            //         ],
-            //       ),
-            //     ),
-            //     const SizedBox(width: 30),
-            //     // mediaComponent(
-            //     //     mediaType: widget.mainData["mediaTypeKey"],
-            //     //     media: widget.mainData["media"])
-            //   ],
-            // ),
           ],
         ),
         const SizedBox(height: 25),
@@ -287,7 +255,8 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
                                         "${data["title"]}",
                                         style: AppTextStyle.regularBold
                                             .copyWith(
-                                                fontSize: 24,
+                                                fontSize:
+                                                    Get.width > 550 ? 24 : 20,
                                                 color: AppColors.blackColor,
                                                 height: 1.1),
                                       ),
@@ -295,7 +264,7 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
                                       Text(
                                         "${data["description"]}",
                                         style: AppTextStyle.regular300.copyWith(
-                                            fontSize: 20,
+                                            fontSize: Get.width > 550 ? 20 : 16,
                                             color: AppColors.blackColor,
                                             height: 1.1),
                                       ),
@@ -343,6 +312,24 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
         }),
         const SizedBox(height: 50),
       ],
+    );
+  }
+
+  CachedNetworkImage logo() {
+    return CachedNetworkImage(
+      height: 50,
+      width: 80,
+      fit: BoxFit.cover,
+      imageUrl: APIString.bannerMediaUrl +
+          widget.mainData["case_study_image"].toString(),
+      placeholder: (context, url) => Container(
+        height: 50,
+        width: 80,
+        decoration: const BoxDecoration(
+          color: AppColors.greyColor,
+        ),
+      ),
+      errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }
 

@@ -167,8 +167,7 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                           horizontal: 0, vertical: 5),
                                       fontSize: 12,
                                       title: "Create Your App",
-                                      btnColor: Colors.redAccent.withOpacity(
-                                          0.7),
+                                      btnColor: Colors.redAccent.withOpacity(0.7),
                                       txtColor: Colors.white),
                                   const SizedBox(height: 10),
                                   SizedBox(

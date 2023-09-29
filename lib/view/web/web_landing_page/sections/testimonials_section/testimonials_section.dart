@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
+import 'package:grobiz_web_landing/view/web/web_landing_page/sections/pricing_section/pricing_section.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -1548,10 +1549,24 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                     //     txtColor: Colors.white),
 
                     commonIconButton(
-                        onTap: () {
+                        onTap: Get.width > 950 ? () {
                           if (widget.scrollToPricingSection != null) {
                             widget.scrollToPricingSection!();
                           }
+                        }
+                        :() {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return const Material(
+                                child: PricingSection(),
+                              );
+                            },
+                          )).whenComplete(() => {
+                            Future.delayed(Duration.zero, () {
+                              webLandingPageController
+                                  .getUserCount();
+                            })
+                          });
                         },
                         icon: Icons.currency_rupee_rounded,
                         title: "See Pricing Plans",
@@ -1704,6 +1719,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                                   ? 400
                                   : Get.width > 1000
                                   ? 375
+                                  // ? 400
                                   : Get.width > 700
                                   ? 375
                                   : Get.width < 500
@@ -1795,7 +1811,9 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                                         padding: const EdgeInsets.only(
                                             top: 0),
                                         child: Text(
-                                            "${featuredImage["userName"]}"),
+                                            "${featuredImage["userName"]}",
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ],
                                   ),
