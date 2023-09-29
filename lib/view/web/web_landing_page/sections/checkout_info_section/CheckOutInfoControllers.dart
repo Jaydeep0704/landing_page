@@ -22,6 +22,10 @@ class CheckOutInfoController extends GetxController {
   RxList videoList = [].obs;
   RxString msg = "".obs;
   RxBool isApiCallProcessing = false.obs;
+  RxInt currentIndex = 0.obs;
+  // RxInt selectedIndex = 0.obs;
+  RxBool isAutoScrollingPaused = false.obs;
+
 
   ///get Baner text
   Future getCheckOutApi() async {

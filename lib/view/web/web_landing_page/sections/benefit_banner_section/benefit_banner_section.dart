@@ -8,7 +8,6 @@ import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_benefit_banner_section/edit_banner_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/widget/common_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../../config/api_string.dart';
@@ -26,14 +25,13 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
   final editController = Get.find<EditController>();
   final benefitBannerController = Get.find<BenefitBannerController>();
   List<bool>? bannerInfoReadMoreList ;
+  final ScrollController scrollController = ScrollController();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_){
-    //   benefitBannerController.getDataApi().whenComplete(() {
-    //   });
-    // });
+
   }
   @override
   Widget build(BuildContext context) {
@@ -247,80 +245,82 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                           if (benefitBannerController.dataList.isNotEmpty) {
                             return
                               SizedBox(
-                                  // height: 600,
                                   height: benefitBannerController.dataList.length <3?450:600,
                                   child:
-                                  ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    reverse: false,
-                                    itemCount: benefitBannerController.dataList.length,
-                                    itemBuilder: (context, index) {
-                                      var data = benefitBannerController.dataList[index];
-                                      var boolValue = benefitBannerController.bannerInfoReadMore[index];
-                                      return Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              CircleAvatar(
-                                                  radius: 10,
-                                                  backgroundColor: AppColors.blueColor
-                                                      .withOpacity(0.1),
-                                                  child: const Center(
-                                                      child: Icon(
-                                                        Icons.radio_button_checked_rounded,
-                                                        size: 15,
-                                                        opticalSize: 15,
-                                                        color: AppColors.blueColor,
-                                                      ))),
-                                              const SizedBox(width: 12),
-                                              Expanded(
-                                                child: Text(
-                                                    data["title"].toString(),
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: AppTextStyle.regularBold
-                                                        .copyWith(fontSize: 20)
+                                  Scrollbar(
+                                    controller: scrollController,
+                                    child: ListView.builder(
+                                      controller: scrollController,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: benefitBannerController.dataList.length,
+                                      itemBuilder: (context, index) {
+                                        var data = benefitBannerController.dataList[index];
+                                        var boolValue = benefitBannerController.bannerInfoReadMore[index];
+                                        return Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                CircleAvatar(
+                                                    radius: 10,
+                                                    backgroundColor: AppColors.blueColor
+                                                        .withOpacity(0.1),
+                                                    child: const Center(
+                                                        child: Icon(
+                                                          Icons.radio_button_checked_rounded,
+                                                          size: 15,
+                                                          opticalSize: 15,
+                                                          color: AppColors.blueColor,
+                                                        ))),
+                                                const SizedBox(width: 12),
+                                                Expanded(
+                                                  child: Text(
+                                                      data["title"].toString(),
+                                                      maxLines: 2,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: AppTextStyle.regularBold
+                                                          .copyWith(fontSize: 20)
 
+                                                  ),
                                                 ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 8.0),
+                                              child: Text(
+                                                  data["description"].toString(),
+                                                  style: AppTextStyle.regular300
+                                                      .copyWith(fontSize: 14),
+                                                textAlign: TextAlign.start,
+                                                maxLines: boolValue ? 10 : 2,
+                                                overflow: TextOverflow.ellipsis,
                                               ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 8.0),
-                                            child: Text(
-                                                data["description"].toString(),
-                                                style: AppTextStyle.regular300
-                                                    .copyWith(fontSize: 14),
-                                              textAlign: TextAlign.start,
-                                              maxLines: boolValue ? 10 : 2,
-                                              overflow: TextOverflow.ellipsis,
                                             ),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                // boolValue = !boolValue;
-                                                benefitBannerController.bannerInfoReadMore[index] = !boolValue;
+                                            TextButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  // boolValue = !boolValue;
+                                                  benefitBannerController.bannerInfoReadMore[index] = !boolValue;
 
-                                              });
-                                            },
-                                            child: Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal : 5,vertical:2),
-                                              child: Text(boolValue ? "Read less" : "Read more",
-                                                style: AppTextStyle.regular300.copyWith(color: AppColors.blueColor),),
+                                                });
+                                              },
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal : 5,vertical:2),
+                                                child: Text(boolValue ? "Read less" : "Read more",
+                                                  style: AppTextStyle.regular300.copyWith(color: AppColors.blueColor),),
+                                              ),
                                             ),
-                                          ),
-                                          // SizedBox(height: Get.width * 0.02),
-                                          const SizedBox(height: 10), Divider(
-                                            thickness: 0.8,
-                                            color: AppColors.blackColor.withOpacity(0.5),
-                                          ),
-                                        ],
-                                      );
-                                    },
+                                            // SizedBox(height: Get.width * 0.02),
+                                            const SizedBox(height: 10), Divider(
+                                              thickness: 0.8,
+                                              color: AppColors.blackColor.withOpacity(0.5),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
                                   )
                               );
                           } else {
@@ -519,77 +519,82 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                             height: benefitBannerController.dataList.length < 3? 300:500,
                             width: Get.width > 650 ? 600: Get.width,
                             child:
-                            ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              itemCount: benefitBannerController.dataList.length,
-                              reverse: false,
-                              itemBuilder: (context, index) {
-                                var data = benefitBannerController.dataList[index];
-                                var boolValue = benefitBannerController.bannerInfoReadMore[index];
-                                return Container(
-                                      width: Get.width > 650 ? 600: Get.width,
-                                  alignment: Alignment.center,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          CircleAvatar(
-                                              radius: 10,
-                                              backgroundColor: AppColors.blueColor.withOpacity(0.1),
-                                              child: const Center(
-                                                  child: Icon(
-                                                    Icons.radio_button_checked_rounded,
-                                                    size: 15,
-                                                    opticalSize: 15,
-                                                    color: AppColors.blueColor,
-                                                  ))),
-                                          const SizedBox(width: 12),
-                                          Expanded(
-                                            child: Text(
-                                                data["title"].toString(),
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: AppTextStyle.regularBold
-                                                    .copyWith(fontSize: 20)
+                            Scrollbar(
+                              controller: scrollController,
+                              child: ListView.builder(
+                                controller: scrollController,
+                                scrollDirection: Axis.vertical,
+                                itemCount: benefitBannerController.dataList.length,
+                                reverse: false,
+                                itemBuilder: (context, index) {
+                                  var data = benefitBannerController.dataList[index];
+                                  var boolValue = benefitBannerController.bannerInfoReadMore[index];
+                                  return Container(
+                                        width: Get.width > 650 ? 600: Get.width,
+                                    // color: AppColors.greyColor.withOpacity(0.2),
+                                    alignment: Alignment.center,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            CircleAvatar(
+                                                radius: 10,
+                                                backgroundColor: AppColors.blueColor.withOpacity(0.1),
+                                                child: const Center(
+                                                    child: Icon(
+                                                      Icons.radio_button_checked_rounded,
+                                                      size: 15,
+                                                      opticalSize: 15,
+                                                      color: AppColors.blueColor,
+                                                    ))),
+                                            const SizedBox(width: 12),
+                                            Expanded(
+                                              child: Text(
+                                                  data["title"].toString(),
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: AppTextStyle.regularBold
+                                                      .copyWith(fontSize: 20)
 
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                          data["description"].toString(),
-                                          style: AppTextStyle.regular300
-                                              .copyWith(fontSize: 14),
-                                        textAlign: TextAlign.start,
-                                        maxLines: boolValue ? 10 : 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            // boolValue = !boolValue;
-                                            benefitBannerController.bannerInfoReadMore[index] = !boolValue;
-                                          });
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal : 5,vertical:2),
-                                          child: Text(boolValue ? "Read less" : "Read more",
-                                            style: AppTextStyle.regular300.copyWith(color: AppColors.blueColor),),
+                                          ],
                                         ),
-                                      ),
-                                      // SizedBox(height: Get.width * 0.02),
-                                      const SizedBox(height: 10),
-                                      Divider(
-                                        thickness: 0.8,
-                                        color: AppColors.blackColor.withOpacity(0.5),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
+                                        const SizedBox(height: 10),
+                                        Text(
+                                            data["description"].toString(),
+                                            style: AppTextStyle.regular300
+                                                .copyWith(fontSize: 14),
+                                          textAlign: TextAlign.start,
+                                          maxLines: boolValue ? 10 : 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              // boolValue = !boolValue;
+                                              benefitBannerController.bannerInfoReadMore[index] = !boolValue;
+                                            });
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal : 5,vertical:2),
+                                            child: Text(boolValue ? "Read less" : "Read more",
+                                              style: AppTextStyle.regular300.copyWith(color: AppColors.blueColor),),
+                                          ),
+                                        ),
+                                        // SizedBox(height: Get.width * 0.02),
+                                        const SizedBox(height: 10),
+                                        Divider(
+                                          thickness: 0.8,
+                                          color: AppColors.blackColor.withOpacity(0.5),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
                             )
                         );
                     } else {

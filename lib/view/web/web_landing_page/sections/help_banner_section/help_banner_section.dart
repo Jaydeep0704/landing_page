@@ -103,10 +103,7 @@ class _HelpBannerSectionState extends State<HelpBannerSection> {
                                 :Color(int.parse(editController.allDataResponse[0]["help_banner_details"][0]["help_banner_title_color"].toString()))),
                       ),
                     ),
-
-                    SizedBox(height: Get.width > 600 ? Get.width * 0.015 : Get
-                        .width * 0.03),
-
+                    SizedBox(height: Get.width > 600 ? Get.width * 0.015 : Get.width * 0.03),
                     Text(
                       editController.allDataResponse[0]["help_banner_details"][0]["help_banner_timeline"]
                           .toString(),
@@ -119,12 +116,8 @@ class _HelpBannerSectionState extends State<HelpBannerSection> {
                               ?AppColors.blackColor
                               :Color(int.parse(editController.allDataResponse[0]["help_banner_details"][0]["help_banner_timeline_color"].toString()))),
                     ),
-
-                    SizedBox(height: Get.width > 600 ? Get.width * 0.015 : Get
-                        .width * 0.03),
-
+                    SizedBox(height: Get.width > 600 ? Get.width * 0.015 : Get.width * 0.03),
                     InkWell(
-                      // key: scrollButtonKey,
                       onTap: Get.width > 950 ? () {
                         if (widget.scrollToPricingSection != null) {
                           widget.scrollToPricingSection!();

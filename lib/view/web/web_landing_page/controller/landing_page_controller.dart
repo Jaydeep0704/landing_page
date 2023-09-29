@@ -18,7 +18,9 @@ class WebLandingPageController extends GetxController{
   CarouselController purchaseMemberCarouselController = CarouselController();
   CarouselController blogCarouselController = CarouselController();
   CarouselController reviewCarouselController = CarouselController();
+
   CarouselController appDetailsController = CarouselController();
+
 
   ///section12
   RxInt selectedType = 0.obs;

@@ -22,12 +22,6 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
   final checkoutInfocontroller = Get.find<CheckOutInfoController>();
   final landingPageController = Get.find<WebLandingPageController>();
   final editController = Get.find<EditController>();
-
-  // late VideoPlayerController _controller;
-  // ScrollController _scrollController = ScrollController();
-  // Timer? _autoScrollTimer;
-  // bool isVideoInitialized = false;
-  // Timer? _timer;
   int _currentIndex = 0;
 
 
@@ -670,8 +664,4 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
       ),
     );
   }
-
-
 }
-
-
