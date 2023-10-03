@@ -62,8 +62,8 @@ commonIconButtonMedium(
   return InkWell(
     onTap: onTap,
     child: Container(
-      height: height ?? 40,
-      width: width ?? 150,
+      height: height ?? 45,
+      width: width ?? 175,
       // width:/*width ??*/Get.width > 1500 ?250: Get.width > 1000 ?250 :Get.width > 800 ?250 :150 ,
       margin:
           margin ?? const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -85,7 +85,7 @@ commonIconButtonMedium(
               style: TextStyle(
                   fontWeight: FontWeight.w500,
                   color: txtColor ?? Colors.black,
-                  fontSize: fontSize ?? 20),
+                  fontSize: fontSize ?? 15),
             ),
           ),
         ],

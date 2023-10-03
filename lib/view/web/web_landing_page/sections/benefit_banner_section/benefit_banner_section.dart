@@ -110,10 +110,8 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                     borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
                                     child: SizedBox(
-
-                                        height: Get.width > 1000 ? 700 : 400,
-                                        // width: Get.width > 1000 ? 415 : 275,
-                                        width: Get.width > 1000 ? 700 : 400,
+                                        height:Get.width >1500 ? 700 :  550,
+                                        width: Get.width >1500 ? 700 :  550,
                                         child: buildMediaWidget()
                                     ),
                                   ),
@@ -124,18 +122,6 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                           ),
                         ),
                         const SizedBox(height: 80,),
-
-                        // Container(
-                        //   // height: 400,
-                        //   height: Get.width * 0.26,
-                        //   width: Get.width * 0.26,
-                        //   // width: 400,
-                        //   decoration: BoxDecoration(
-                        //       color: Colors.yellowAccent.withOpacity(0.1),
-                        //       borderRadius:
-                        //       const BorderRadius.all(Radius.circular(10))),
-                        //   child: const Center(child: Text("media")),
-                        // )
                       ],
                     ),
                   ),
@@ -393,9 +379,8 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                   borderRadius:
                                   const BorderRadius.all(Radius.circular(10)),
                                   child: SizedBox(
-                                      height: Get.width > 1000 ? 700 : 400,
-                                      // width: Get.width > 1000 ? 415 : 275,
-                                      width: Get.width > 1000 ? 700 : 400,
+                                      height: Get.width >450 ? 400 : null,
+                                      width:  Get.width >450 ? 400 : null,
                                       child: buildMediaWidget()
                                   ),
                                 ),
@@ -414,9 +399,7 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        // crossAxisAlignment: WrapCrossAlignment.center,
-                        // alignment: WrapAlignment.center,
-                        // mainAxisAlignment: MainAxisAlignment.center,
+
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10.0),
@@ -510,7 +493,6 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                     ],
                   ),
                   const SizedBox(height: 25),
-                  ///here need to change
                   Obx(() {
                     if (benefitBannerController.dataList.isNotEmpty) {
                       return
@@ -531,7 +513,6 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
                                   var boolValue = benefitBannerController.bannerInfoReadMore[index];
                                   return Container(
                                         width: Get.width > 650 ? 600: Get.width,
-                                    // color: AppColors.greyColor.withOpacity(0.2),
                                     alignment: Alignment.center,
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -630,7 +611,8 @@ class _BenefitBannerSectionState extends State<BenefitBannerSection> {
       return CachedNetworkImage(
         width: Get.width,
         imageUrl: APIString.mediaBaseUrl + editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file"].toString(),
-        fit: BoxFit.cover,
+        // fit: BoxFit.cover,
+        fit: BoxFit.fill,
         placeholder: (context, url) => Container(decoration: BoxDecoration(color: Color(int.parse(editController.appDemoBgColor.value.toString())),)),
         errorWidget: (context, url, error) =>
         const Icon(Icons.error),

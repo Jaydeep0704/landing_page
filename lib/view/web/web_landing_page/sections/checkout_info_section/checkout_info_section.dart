@@ -219,7 +219,8 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
 
               const SizedBox(height: 32),
 
-              Get.width > 650
+              // Get.width > 650
+              Get.width > 1000
                   ? Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -494,7 +495,8 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                         viewportFraction: 1.0,
                         // Set viewportFraction to 1.0
                         // height: 630,
-                        height: 750,
+                        // height: 750,
+                        height: 625,
                       ),
                       itemCount: checkoutInfocontroller.checkInfoDataList
                           .length,
@@ -506,6 +508,7 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                           width: Get.width > 500 ? Get.width * 0.5 : Get.width >
                               350 ? Get.width * 0.7 : Get.width * 0.7,
                           child: Column(
+                            mainAxisSize:MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const SizedBox(height: 10),
@@ -603,7 +606,7 @@ class _CheckoutInfoSectionState extends State<CheckoutInfoSection> {
                   ),
                 );
               }),
-              const SizedBox(height: 80),
+              SizedBox(height:  Get.width > 1000 ?80: 0),
             ],
           ),
         ));

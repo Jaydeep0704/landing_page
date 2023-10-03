@@ -157,7 +157,8 @@ class _IntroSectionState extends State<IntroSection> with TickerProviderStateMix
                         child: Get.width > 1000
                             ? Row(
                           children: [
-                            Expanded(
+                            SizedBox(
+                              width: Get.width /2.2,
                               child:    Text(
                                 editController.allDataResponse[0]["intro_details"][0]["intro_main_title"]
                                     .toString(),
@@ -219,21 +220,28 @@ class _IntroSectionState extends State<IntroSection> with TickerProviderStateMix
                             : Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              editController.allDataResponse[0]["intro_details"][0]["intro_main_title"]
-                                  .toString(),
-                              style: GoogleFonts.getFont(editController.allDataResponse[0]["intro_details"][0]["intro_main_title_font"].toString()).copyWith(
-                                  fontSize: editController.allDataResponse[0]["intro_details"][0]["intro_main_title_size"].toString() !=""
-                                      ? double.parse(editController.allDataResponse[0]["intro_details"][0]["intro_main_title_size"].toString())
-                                      : Get.width > 1000
-                                      ? 50
-                                      : Get.width > 550
-                                      ? 30
-                                      : 20,
-                                  fontWeight: FontWeight.bold,
-                                  color:  editController.allDataResponse[0]["intro_details"][0]["intro_main_title_color"].toString() == ""
-                                      ?Colors.black
-                                      :Color(int.parse(editController.allDataResponse[0]["intro_details"][0]["intro_main_title_color"].toString()))),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: SizedBox(
+                                width: Get.width /2.2,
+                                child: Text(
+                                  editController.allDataResponse[0]["intro_details"][0]["intro_main_title"]
+                                      .toString(),
+                                  textAlign: TextAlign.left,
+                                  style: GoogleFonts.getFont(editController.allDataResponse[0]["intro_details"][0]["intro_main_title_font"].toString()).copyWith(
+                                      fontSize: editController.allDataResponse[0]["intro_details"][0]["intro_main_title_size"].toString() !=""
+                                          ? double.parse(editController.allDataResponse[0]["intro_details"][0]["intro_main_title_size"].toString())
+                                          : Get.width > 1000
+                                          ? 50
+                                          : Get.width > 550
+                                          ? 30
+                                          : 20,
+                                      fontWeight: FontWeight.bold,
+                                      color:  editController.allDataResponse[0]["intro_details"][0]["intro_main_title_color"].toString() == ""
+                                          ?Colors.black
+                                          :Color(int.parse(editController.allDataResponse[0]["intro_details"][0]["intro_main_title_color"].toString()))),
+                                ),
+                              ),
                             ),
                             const SizedBox(height: 20),
                             Row(
@@ -322,8 +330,11 @@ class _IntroSectionState extends State<IntroSection> with TickerProviderStateMix
                         ],
                       ),
                       Get.width > 1049
-                          ? const SizedBox()
-                          : const SizedBox(height: 40),
+                          ? const SizedBox(
+
+                      )
+                          : const SizedBox(height: 15),
+
                       Wrap(
                         crossAxisAlignment:
                         WrapCrossAlignment.center,
@@ -335,8 +346,17 @@ class _IntroSectionState extends State<IntroSection> with TickerProviderStateMix
                             crossAxisAlignment:
                             CrossAxisAlignment.center,
                             children: [
-                              commonIconButton(
+                              Get.width > 400 ?commonIconButton(
                                   onTap: appOpen,
+                                  icon: Icons.phone_android,
+                                  title: "Create Your App",
+                                  btnColor: Colors.redAccent
+                                      .withOpacity(0.7),
+                                  txtColor: Colors.white)
+                              :commonIconButtonMedium(
+                                  onTap: appOpen,
+
+                                  margin: EdgeInsets.zero,
                                   icon: Icons.phone_android,
                                   title: "Create Your App",
                                   btnColor: Colors.redAccent
@@ -389,7 +409,14 @@ class _IntroSectionState extends State<IntroSection> with TickerProviderStateMix
                             crossAxisAlignment:
                             CrossAxisAlignment.center,
                             children: [
-                              commonIconButton(
+                              Get.width > 400 ?commonIconButton(
+                                  onTap: websiteOpen,
+                                  icon: Icons.language,
+                                  title: "Create Your Website",
+                                  btnColor: Colors.green
+                                      .withOpacity(0.7),
+                                  txtColor: Colors.white)
+                              :commonIconButtonMedium(
                                   onTap: websiteOpen,
                                   icon: Icons.language,
                                   title: "Create Your Website",

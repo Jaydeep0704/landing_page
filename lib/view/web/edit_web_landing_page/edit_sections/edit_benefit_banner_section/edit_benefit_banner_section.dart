@@ -33,11 +33,7 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
   final benefitBannerController = Get.find<BenefitBannerController>();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_){
-    //   benefitBannerController.getDataApi();
-    // });
   }
   @override
   Widget build(BuildContext context) {
@@ -46,8 +42,6 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
         return Obx(() {
           return editController.homeComponentList.isEmpty /*&&*/ || editController.allDataResponse.isEmpty ?const SizedBox():
           Container(
-
-            // height: Get.width > 1500 ?600 :Get.width > 900 ?600 : 500,
             width: Get.width,
             decoration:  editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_bg_color_switch"].toString() == "1" &&
                 editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_bg_image_switch"].toString() == "0"
@@ -69,7 +63,6 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                           .toString(),
                   errorListener: () =>  const Icon(Icons.error),),fit: BoxFit.cover)
             ),
-            // padding: EdgeInsets.symmetric(vertical: 80, horizontal: Get.width >1500? Get.width * 0.2: 50),
             child: Get.width > 1000
                 ? Column(
                   children: [
@@ -209,11 +202,6 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                               .toString()))),
                                     ),
                                   ),
-                                  // const Text(
-                                  //   "Streamline your\nBack Office",
-                                  //   style: TextStyle(
-                                  //       fontSize: 25, fontWeight: FontWeight.bold),
-                                  // ),
                                   const SizedBox(height: 30),
                                   Stack(
                                     alignment: Alignment.topRight,
@@ -222,9 +210,8 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                                         borderRadius:
                                         const BorderRadius.all(Radius.circular(10)),
                                         child: SizedBox(
-                                            height: Get.width > 1000 ? 700 : 400,
-                                            // width: Get.width > 1000 ? 415 : 275,
-                                            width: Get.width > 1000 ? 700 : 400,
+                                            height:Get.width >1500 ? 700 :  550,
+                                            width: Get.width >1500 ? 700 :  550,
                                             child: buildMediaWidget()
                                         ),
                                       ),
@@ -349,7 +336,6 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                               ],
                             ),
                             const SizedBox(height: 25),
-                            ///here need to change
                             Align(
                               alignment: Alignment.topRight,
                               child: InkWell(
@@ -620,9 +606,8 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
                               borderRadius:
                               const BorderRadius.all(Radius.circular(10)),
                               child: SizedBox(
-
-                                  height: Get.width > 1000 ? 700 : 400,
-                                  width: Get.width > 1000 ? 700 : 400,
+                                  height: Get.width >450 ? 400 : null,
+                                  width:  Get.width >450 ? 400 : null,
                                   child: buildMediaWidget()
                               ),
                             ),
@@ -877,7 +862,8 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
     );
   }
   Widget buildMediaWidget() {
-    if (editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file_mediatype"].toString().toLowerCase() == "image") {
+    if (editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file_mediatype"].toString().toLowerCase() == "image" ||
+        editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file_mediatype"].toString().toLowerCase() == "gif") {
       return CachedNetworkImage(
         width: Get.width,
         imageUrl: APIString.mediaBaseUrl + editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file"].toString(),
@@ -897,46 +883,6 @@ class _EditBenefitBannerSectionState extends State<EditBenefitBannerSection> {
           )
           // : const CircularProgressIndicator();
               : const Center(child: CircularProgressIndicator());});
-    }
-    // else if (editController.allDataResponse[0]["benefit_banner_details"][0]["mix_banner_file_mediatype"].toString().toLowerCase() == "video") {
-    //   return mixBannerController.isVideoInitialized.value
-    //       ? AspectRatio(
-    //     aspectRatio: mixBannerController.videoController!.value.aspectRatio,
-    //     // child: VideoPlayer(mixBannerController.videoController!),
-    //     child:  Chewie(controller: mixBannerController.videoControllerChewie!),
-    //   )
-    //   // : const CircularProgressIndicator();
-    //       : const Center(child: CircularProgressIndicator());
-    // }
-    else if (editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file_mediatype"].toString().toLowerCase() == "gif") {
-      if(editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file"].toString().toLowerCase().toString().endsWith(".mp4")){
-        return benefitBannerController.isVideoInitialized.value
-            ? AspectRatio(
-          aspectRatio: benefitBannerController.videoController.value.aspectRatio,
-          child: VideoPlayer(benefitBannerController.videoController),
-          // child:  Chewie(controller: mixBannerController.videoControllerChewie!),
-        )
-        // : const CircularProgressIndicator();
-            : const Center(child: CircularProgressIndicator());
-      }
-      else{
-        return CachedNetworkImage(
-          // width: Get.width,
-          imageUrl: APIString.mediaBaseUrl + editController.allDataResponse[0]["benefit_banner_details"][0]["benefit_banner_file"].toString(),
-          fit: BoxFit.cover,
-          placeholder: (context, url) => Container(decoration: BoxDecoration(color: Color(int.parse(editController.appDemoBgColor.value.toString())),)),
-          errorWidget: (context, url, error) =>
-          const Icon(Icons.error),
-        );
-      }
-      // return CachedNetworkImage(
-      //   width: Get.width,
-      //   imageUrl: APIString.mediaBaseUrl + editController.allDataResponse[0]["benefit_banner_details"][0]["mix_banner_file"].toString(),
-      //   placeholder: (context, url) => Container(decoration: BoxDecoration(color: Color(int.parse(editController.appDemoBgColor.value.toString())),)),
-      //   errorWidget: (context, url, error) =>
-      //   const Icon(Icons.error),
-      // );
-      // return Image.network(APIString.mediaBaseUrl + editController.allDataResponse[0]["benefit_banner_details"][0]["mix_banner_file"].toString());
     }
     else {
       return const Center(child: Text("bot"));

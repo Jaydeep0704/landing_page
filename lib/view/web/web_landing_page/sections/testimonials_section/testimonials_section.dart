@@ -1384,9 +1384,15 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        commonIconButton(
+                        Get.width > 400 ?  commonIconButton(
                             onTap: appOpen,
-
+                            icon: Icons.phone_android,
+                            title: "Create Your App",
+                            btnColor:
+                            Colors.redAccent.withOpacity(0.7),
+                            txtColor: Colors.white)
+                        :commonIconButtonMedium(
+                            onTap: appOpen,
                             icon: Icons.phone_android,
                             title: "Create Your App",
                             btnColor:
@@ -1461,7 +1467,13 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         FittedBox(fit: BoxFit.scaleDown,
-                          child: commonIconButton(
+                          child: Get.width > 400 ? commonIconButton(
+                              onTap: websiteOpen,
+                              icon: Icons.language,
+                              title: "Create Your Website",
+                              btnColor: Colors.green.withOpacity(0.7),
+                              txtColor: Colors.white)
+                        :commonIconButtonMedium(
                               onTap: websiteOpen,
                               icon: Icons.language,
                               title: "Create Your Website",
@@ -1535,12 +1547,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                         ),
                       ],
                     ),
-                    // commonIconButton(
-                    //   // icon: Icons.start_rounded,
-                    //     icon: Icons.touch_app_rounded,
-                    //     title: "Get Started",
-                    //     btnColor: Colors.redAccent.withOpacity(0.7),
-                    //     txtColor: Colors.white),
+
                     ///Commented
                     // commonIconButton(
                     //     icon: Icons.perm_phone_msg_sharp,
@@ -1548,26 +1555,14 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                     //     btnColor: Colors.blue.withOpacity(0.7),
                     //     txtColor: Colors.white),
 
-                    commonIconButton(
-                        onTap: Get.width > 950 ? () {
-                          if (widget.scrollToPricingSection != null) {
-                            widget.scrollToPricingSection!();
-                          }
-                        }
-                        :() {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return const Material(
-                                child: PricingSection(),
-                              );
-                            },
-                          )).whenComplete(() => {
-                            Future.delayed(Duration.zero, () {
-                              webLandingPageController
-                                  .getUserCount();
-                            })
-                          });
-                        },
+                    Get.width > 400 ? commonIconButton(
+                        onTap: seePricingOnTap(context),
+                        icon: Icons.currency_rupee_rounded,
+                        title: "See Pricing Plans",
+                        btnColor: Colors.green.withOpacity(0.7),
+                        txtColor: Colors.white)
+                    :commonIconButtonMedium(
+                        onTap: seePricingOnTap(context),
                         icon: Icons.currency_rupee_rounded,
                         title: "See Pricing Plans",
                         btnColor: Colors.green.withOpacity(0.7),
@@ -1917,6 +1912,28 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
         });
       },
     );
+  }
+
+   seePricingOnTap(BuildContext context) {
+    return Get.width > 950 ? () {
+                        if (widget.scrollToPricingSection != null) {
+                          widget.scrollToPricingSection!();
+                        }
+                      }
+                      :() {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const Material(
+                              child: PricingSection(),
+                            );
+                          },
+                        )).whenComplete(() => {
+                          Future.delayed(Duration.zero, () {
+                            webLandingPageController
+                                .getUserCount();
+                          })
+                        });
+                      };
   }
 
   Widget displayUploadedVideo(String videoUrl) {

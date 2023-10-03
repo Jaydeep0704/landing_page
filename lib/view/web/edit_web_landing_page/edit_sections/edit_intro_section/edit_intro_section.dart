@@ -37,9 +37,6 @@ class _EditIntroSectionState extends State<EditIntroSection> {
   @override
   void initState() {
     super.initState();
-
-    log("editController.introDataList.isNotEmpty    ${editController
-        .introDataList.isNotEmpty}");
   }
 
 
@@ -48,7 +45,6 @@ class _EditIntroSectionState extends State<EditIntroSection> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Obx(() {
-          // var data = editController.allDataResponse[0]["intro_details"][0];
           return editController.homeComponentList.isEmpty /*&&*/|| editController.allDataResponse.isEmpty
               ? const SizedBox()
               : Container(
@@ -260,7 +256,8 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                         child: Get.width > 1000
                             ? Row(
                           children: [
-                            Expanded(
+                            SizedBox(
+                        width: Get.width /2.2,
                               child:
                               InkWell(
                                 onTap: titleOnTap,
@@ -458,37 +455,32 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                           crossAxisAlignment:
                           CrossAxisAlignment.center,
                           children: [
-                            /*    Text(
-                                            "Make Your Own Premium Ecommerce App & Website , AI easier way",
-                                            style: TextStyle(
-                                                // fontSize: 50,
-                                                fontSize: Get.width > 1000---
-                                                    ? 50
-                                                    : 30,
-                                                fontWeight:
-                                                    FontWeight.bold,
-                                                color: Colors.black),
-                                          ),*/
-                            InkWell(
-                              onTap: titleOnTap,
-                              child: Text(
-                                editController
-                                    .allDataResponse[0]["intro_details"][0]["intro_main_title"]
-                                    .toString(),
-                                style: GoogleFonts.getFont(editController
-                                    .allDataResponse[0]["intro_details"][0]["intro_main_title_font"]
-                                    .toString()).copyWith(
-                                    fontSize: editController.allDataResponse[0]["intro_details"][0]["intro_main_title_size"].toString() !=""
-                                        ? double.parse(editController.allDataResponse[0]["intro_details"][0]["intro_main_title_size"].toString())
-                                        : Get.width > 1000
-                                        ? 50
-                                        : Get.width > 550
-                                        ? 30
-                                        : 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(int.parse(editController
-                                        .allDataResponse[0]["intro_details"][0]["intro_main_title_color"]
-                                        .toString()))),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: SizedBox(
+                                width: Get.width /2.2,
+                                child: InkWell(
+                                  onTap: titleOnTap,
+                                  child: Text(
+                                    editController
+                                        .allDataResponse[0]["intro_details"][0]["intro_main_title"]
+                                        .toString(),
+                                    style: GoogleFonts.getFont(editController
+                                        .allDataResponse[0]["intro_details"][0]["intro_main_title_font"]
+                                        .toString()).copyWith(
+                                        fontSize: editController.allDataResponse[0]["intro_details"][0]["intro_main_title_size"].toString() !=""
+                                            ? double.parse(editController.allDataResponse[0]["intro_details"][0]["intro_main_title_size"].toString())
+                                            : Get.width > 1000
+                                            ? 50
+                                            : Get.width > 550
+                                            ? 30
+                                            : 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(int.parse(editController
+                                            .allDataResponse[0]["intro_details"][0]["intro_main_title_color"]
+                                            .toString()))),
+                                  ),
+                                ),
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -1325,7 +1317,6 @@ Widget buildBotWidget() {
     return const Text("bot");
   }
 }
-
 
 Widget buildGif1Widget() {
   if (Get.find<EditController>()

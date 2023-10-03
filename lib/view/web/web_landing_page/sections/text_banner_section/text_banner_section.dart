@@ -110,7 +110,14 @@ class _TextBannerSectionState extends State<TextBannerSection> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        commonIconButton(
+                        Get.width > 400 ?   commonIconButton(
+                            onTap: appOpen,
+                            icon: Icons.phone_android,
+                            title: "Create Your App",
+                            btnColor:
+                            Colors.redAccent.withOpacity(0.7),
+                            txtColor: Colors.white)
+                        :commonIconButtonMedium(
                             onTap: appOpen,
                             icon: Icons.phone_android,
                             title: "Create Your App",
@@ -139,7 +146,13 @@ class _TextBannerSectionState extends State<TextBannerSection> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        commonIconButton(
+                        Get.width > 400 ? commonIconButton(
+                            onTap: websiteOpen,
+                            icon: Icons.language,
+                            title: "Create Your Website",
+                            btnColor: Colors.green.withOpacity(0.7),
+                            txtColor: Colors.white)
+                        :commonIconButtonMedium(
                             onTap: websiteOpen,
                             icon: Icons.language,
                             title: "Create Your Website",

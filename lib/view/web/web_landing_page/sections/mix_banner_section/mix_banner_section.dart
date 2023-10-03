@@ -33,11 +33,10 @@ class _MixBannerSectionState extends State<MixBannerSection> {
         return Obx(() {
           return editController.mixBanner.value == false ||  editController.allDataResponse.isEmpty ?const SizedBox():
           Container(
-            // height: Get.width > 1500 ?600 :Get.width > 900 ?600 : 500,
             width: Get.width,
             decoration:  editController.allDataResponse[0]["mix_banner_details"][0] ["mix_banner_bg_color_switch"].toString() == "1" &&
                 editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_bg_image_switch"].toString() == "0"
-                ?   BoxDecoration(
+                ?BoxDecoration(
               color: editController
                   .allDataResponse[0]["mix_banner_details"][0]["mix_banner_bg_color"]
                   .toString()
@@ -56,9 +55,7 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                           .toString(),
                   errorListener: () =>  const Icon(Icons.error),),fit: BoxFit.cover)
             ),
-            padding: editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_file_show"] == "hide"
-                ?const EdgeInsets.symmetric(vertical: 0): const EdgeInsets.symmetric(vertical: 100),
-            // child: Get.width > 980
+            padding: const EdgeInsets.symmetric(vertical: 100),
             child: Get.width > 1020
                 ? Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -106,18 +103,18 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                       const SizedBox(height: 10),
 
                       Text(
-                        editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title"]
-                            .toString(),
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.getFont(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_font"].toString()).copyWith(
-                            fontSize: editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_size"].toString() !=""
-                                ? double.parse(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_size"].toString())
-                                : 30,
-                            fontWeight: FontWeight.bold,
-                            color: editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_color"].toString().isEmpty
-                                ?AppColors.blackColor
-                                :Color(int.parse(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_color"].toString()))),
-                      ),
+                          editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title"]
+                              .toString(),
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.getFont(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_font"].toString()).copyWith(
+                              fontSize: editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_size"].toString() !=""
+                                  ? double.parse(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_size"].toString())
+                                  : 30,
+                              fontWeight: FontWeight.bold,
+                              color: editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_color"].toString().isEmpty
+                                  ?AppColors.blackColor
+                                  :Color(int.parse(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title_color"].toString()))),
+                        ),
                       const SizedBox(height: 10),
                       SizedBox(
                         width: Get.width * 0.3,
@@ -276,7 +273,6 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                 editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_file_show"] == "hide"
                     ? const SizedBox()
                     : Column(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     ClipRRect(
@@ -342,7 +338,13 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                       children: [
                         FittedBox(
                           fit: BoxFit.scaleDown,
-                          child: commonIconButton(
+                          child:Get.width > 400 ?  commonIconButton(
+                              onTap: appOpen,
+                              icon: Icons.phone_android,
+                              title: "Create Your App",
+                              btnColor: Colors.redAccent.withOpacity(0.7),
+                              txtColor: Colors.white)
+                          :commonIconButtonMedium(
                               onTap: appOpen,
                               icon: Icons.phone_android,
                               title: "Create Your App",
@@ -368,19 +370,11 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                                 Row(
                                   children: [
                                     Obx(() => Text("${webLandingPageController.appLiveCount.value} ",style: GoogleFonts.getFont(editController.allDataResponse[0]["live_app_count_font"].toString()).copyWith(
-                                      // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
-                                      //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
-                                      //     : 14,
-                                      // fontWeight: FontWeight.w400,
                                         color: Color(int.parse(editController.allDataResponse[0]["live_app_count_color"].toString()))))),
-                                    // Obx(() => Text(" people creating App")),
+
                                     Text(
                                       editController.allDataResponse[0]["live_app_count_string"].toString(),
                                       style: GoogleFonts.getFont(editController.allDataResponse[0]["live_app_count_font"].toString()).copyWith(
-                                        // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
-                                        //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
-                                        //     : 14,
-                                        // fontWeight: FontWeight.w400,
                                           color: Color(int.parse(editController.allDataResponse[0]["live_app_count_color"].toString()))),
                                     ),
 
@@ -399,7 +393,13 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                       children: [
                         FittedBox(
                           fit: BoxFit.scaleDown,
-                          child: commonIconButton(
+                          child: Get.width > 400 ? commonIconButton(
+                              onTap: websiteOpen,
+                              icon: Icons.language,
+                              title: "Create Your Website",
+                              btnColor: Colors.green.withOpacity(0.7),
+                              txtColor: Colors.white)
+                            : commonIconButtonMedium(
                               onTap: websiteOpen,
                               icon: Icons.language,
                               title: "Create Your Website",
@@ -425,22 +425,12 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                                 Row(
                                   children: [
                                     Obx(() => Text("${webLandingPageController.webLiveCount.value} ",style: GoogleFonts.getFont(editController.allDataResponse[0]["live_web_count_font"].toString()).copyWith(
-                                      // fontSize: editController.allDataResponse[0]["live_web_count_size"].toString() ==""
-                                      //     ? double.parse(editController.allDataResponse[0]["live_web_count_size"].toString())
-                                      //     : 14,
-                                      // fontWeight: FontWeight.w400,
                                         color: Color(int.parse(editController.allDataResponse[0]["live_web_count_color"].toString()))),)),
-                                    // Obx(() => Text(" people creating App")),
                                     Text(
                                       editController.allDataResponse[0]["live_web_count_string"].toString(),
                                       style: GoogleFonts.getFont(editController.allDataResponse[0]["live_web_count_font"].toString()).copyWith(
-                                        // fontSize: editController.allDataResponse[0]["live_web_count_size"].toString() ==""
-                                        //     ? double.parse(editController.allDataResponse[0]["live_web_count_size"].toString())
-                                        //     : 14,
-                                        // fontWeight: FontWeight.w400,
                                           color: Color(int.parse(editController.allDataResponse[0]["live_web_count_color"].toString()))),
                                     ),
-
                                   ],
                                 ),
                               ],

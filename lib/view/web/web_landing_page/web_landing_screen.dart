@@ -194,7 +194,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     }
 
     KeyboardScroll.removeScrollListener();
-    _scrollController.dispose();
+      _scrollController.dispose();
     super.dispose();
   }
 
@@ -284,9 +284,9 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                           Get.width < 950
                                               ? const SizedBox()
                                               : const CaseStudySection(),
-                                          Get.width < 950
+                                          /*Get.width < 950
                                               ? const SizedBox()
-                                              : const CheckoutInfoSection(),
+                                              : */const CheckoutInfoSection(),
                                           Get.width < 950
                                               ? const SizedBox()
                                               : PricingSection(
@@ -296,7 +296,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                       ),
                                 editController.showComp4.value == false
                                     ? const SizedBox()
-                                    : Column(
+                                    :  Column(
                                         children: const [
                                           CheckoutSection(),
                                           AppsDemoSection(),
@@ -382,7 +382,6 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
   }
 
   Future<Position> getUserLocation() async {
-    // pricingScreenController.getPlansData(lat: "21.2378888", long: "72.863352");
     LocationPermission permission;
 
     // Check if location permission is granted
@@ -405,7 +404,6 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
         pricingScreenController.isLocation.value = false;
         pricingScreenController.getPlansData(
             lat: "21.2378888", long: "72.863352");
-        // Handle the scenario when the user denies the location permission
         return Future.error('Location permission denied');
       }
     } else if (permission == LocationPermission.unableToDetermine) {
@@ -417,7 +415,6 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
           lat: "21.2378888", long: "72.863352");
       pricingScreenController.isLocation.value = false;
     }
-    // Get the current position
     Position position = await Geolocator.getCurrentPosition();
     pricingScreenController.latitude.value = position.latitude.toString();
     pricingScreenController.longitude.value = position.longitude.toString();
