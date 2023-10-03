@@ -467,7 +467,7 @@ class _InfoSectionState extends State<InfoSection> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.find<EditHiwController>().botController.pause();
+                  // Get.find<EditHiwController>().botController.pause();
                   Get.to(() => const LoginPage())!
                       .whenComplete(() => Future.delayed(Duration.zero, () {
                             webLandingPageController.getUserCount();
