@@ -194,7 +194,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
     }
 
     KeyboardScroll.removeScrollListener();
-      _scrollController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -258,9 +258,9 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                           Get.width < 950
                                               ? const SizedBox()
                                               : const HowItWorksSection(),
-                                          TestimonialsSection(
-                                              scrollToPricingSection:
-                                                  scrollToPricingSection),
+                                          // TestimonialsSection(
+                                          //     scrollToPricingSection:
+                                          //         scrollToPricingSection),
                                         ],
                                       ),
                                 editController.showComp2.value == false
@@ -270,6 +270,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                           TextBannerSection(),
                                           MixBannerSection(),
                                           BenefitBannerSection(),
+                                          CheckoutInfoSection(),
                                           NumbersBannerSection(),
                                         ],
                                       ),
@@ -286,7 +287,8 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                               : const CaseStudySection(),
                                           /*Get.width < 950
                                               ? const SizedBox()
-                                              : */const CheckoutInfoSection(),
+                                              : */
+                                          // const CheckoutInfoSection(),
                                           Get.width < 950
                                               ? const SizedBox()
                                               : PricingSection(
@@ -296,10 +298,13 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                       ),
                                 editController.showComp4.value == false
                                     ? const SizedBox()
-                                    :  Column(
-                                        children: const [
+                                    : Column(
+                                        children: [
                                           CheckoutSection(),
                                           AppsDemoSection(),
+                                          TestimonialsSection(
+                                              scrollToPricingSection:
+                                                  scrollToPricingSection),
                                           FAQsSection(),
                                           InfoSection(),
                                           AddressSection(),
