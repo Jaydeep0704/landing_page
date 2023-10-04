@@ -816,7 +816,7 @@ class _EditWebLandingScreenState extends State<EditWebLandingScreen> {
                 thumbColor: Colors.blue,
                 controller: _scrollController,
                 trackVisibility: true,
-                thickness: 15,
+                thickness: Get.width > 800 ? 15 : 10,
                 interactive: true,
                 thumbVisibility: true,
                 child: SingleChildScrollView(

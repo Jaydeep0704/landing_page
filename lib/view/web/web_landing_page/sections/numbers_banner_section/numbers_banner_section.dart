@@ -128,47 +128,24 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                         ),
                         const SizedBox(height: 15),
                         ///title
-                        SizedBox(
-                          width: Get.width > 600 ?  Get.width * 0.6: Get.width - 50,
-                          child: Text(
-                            editController
-                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title"]
-                                .toString(),
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.getFont(editController
-                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_font"]
-                                .toString()).copyWith(
-                                fontSize: editController
-                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_size"]
-                                    .toString() != ""
-                                    ? double.parse(editController
-                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_size"]
-                                    .toString())
-                                    : Get.width > 600 ? 40 : 25,
-                                fontWeight: FontWeight.bold,
-                                color: editController
-                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_color"]
-                                    .toString()
-                                    .isEmpty
-                                    ? AppColors.blackColor
-                                    : Color(int.parse(editController
-                                    .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_color"]
-                                    .toString()))),
-                          ),
-                        ),
+                        Get.width > 1300?SizedBox():title(),
                         const SizedBox(height: 15),
                         ///description
                         Get.width > 900?SizedBox(): description(),
                         const SizedBox(height: 15),
                         Get.width > 900 ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: Get.width < 1300 ? MainAxisAlignment.start:MainAxisAlignment.center,
+                          // mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(width: Get.width > 1000 ? Get.width * 0.03 : Get.width * 0.01),
                             media2(),
                             SizedBox(width: Get.width > 1000 ? Get.width * 0.05 : Get.width * 0.02),
                             Expanded(
                               child: Column(
+
                                 children: [
+                                  Get.width < 1300?SizedBox(): title(),
+                                  Get.width < 1300?SizedBox(): SizedBox(height: 20),
                                   Get.width < 900?SizedBox(): description(),
                                  SizedBox(height: Get.width < 900? 0 : 20),
                                   Get.width > 550
@@ -655,6 +632,39 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
       },
     );
   }
+
+  SizedBox title() {
+    return SizedBox(
+                        width: Get.width > 600 ?  Get.width * 0.6: Get.width - 50,
+                        child: Text(
+                          editController
+                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title"]
+                              .toString(),
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.getFont(editController
+                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_font"]
+                              .toString()).copyWith(
+                              fontSize: editController
+                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_size"]
+                                  .toString() != ""
+                                  ? double.parse(editController
+                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_size"]
+                                  .toString())
+                                  : Get.width > 600 ? 40 : 25,
+                              fontWeight: FontWeight.bold,
+                              color: editController
+                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_color"]
+                                  .toString()
+                                  .isEmpty
+                                  ? AppColors.blackColor
+                                  : Color(int.parse(editController
+                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_title_color"]
+                                  .toString()))),
+                        ),
+                      );
+  }
+
+
 
   SizedBox description() {
     return SizedBox(

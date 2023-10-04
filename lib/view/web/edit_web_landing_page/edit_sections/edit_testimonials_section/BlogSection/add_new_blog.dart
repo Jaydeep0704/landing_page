@@ -78,11 +78,8 @@ class _AddBlogState extends State<AddBlog> {
   }
 
   getData() {
-    Future.delayed(
-      const Duration(microseconds: 50),
-      () => blogCategoriesController
-          .geBlogCategory()
-    );
+    Future.delayed(const Duration(microseconds: 50),
+        () => blogCategoriesController.geBlogCategory());
   }
 
   @override
@@ -646,7 +643,7 @@ class _AddBlogState extends State<AddBlog> {
                                     padding: const EdgeInsets.all(4),
                                     alignment: Alignment.center,
                                     child: const Text(
-                                      "Add",
+                                      "Save",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 18,
@@ -816,8 +813,7 @@ class _AddBlogState extends State<AddBlog> {
       paths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))
           ?.files;
@@ -847,8 +843,7 @@ class _AddBlogState extends State<AddBlog> {
       Profilepaths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))
           ?.files;
@@ -878,8 +873,7 @@ class _AddBlogState extends State<AddBlog> {
       gifpaths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['gif'],
       ))
           ?.files;
@@ -917,8 +911,7 @@ class _AddBlogState extends State<AddBlog> {
       videopaths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['mp4', 'mov', 'avi'],
       ))
           ?.files;
@@ -943,7 +936,7 @@ class _AddBlogState extends State<AddBlog> {
   }
 
   bool validation() {
-    if (pimageData == null) {
+    /* if (pimageData == null) {
       Fluttertoast.showToast(
         msg: 'Please Select Profile Image',
         backgroundColor: Colors.grey,
@@ -956,61 +949,38 @@ class _AddBlogState extends State<AddBlog> {
         backgroundColor: Colors.grey,
       );
       return false;
-    } else if (title_controller.text.isEmpty || title_controller.text == "") {
+    }
+    else if (title_controller.text.isEmpty || title_controller.text == "") {
       Fluttertoast.showToast(
         msg: 'Please Enter title',
         backgroundColor: Colors.grey,
       );
       return false;
-    } else if (content_controller.text.isEmpty ||
-        content_controller.text == "") {
+    }
+    else if (content_controller.text.isEmpty || content_controller.text == "") {
       Fluttertoast.showToast(
         msg: 'Please Enter Content',
         backgroundColor: Colors.grey,
       );
       return false;
     }
-    // else if (blogType_controller.text.isEmpty || blogType_controller.text == "") {
-    else if (selectedValue == null) {
+    else*/
+    if (selectedValue == null) {
       Fluttertoast.showToast(
         msg: 'Please Enter Blog Type',
         backgroundColor: Colors.grey,
       );
       return false;
     }
-    /* else if (blogBg_controller.text.isEmpty || blogBg_controller.text == "") {
-      Fluttertoast.showToast(
-        msg: 'Please Enter Color',
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }*/
-    else if (VideoImg.isEmpty || VideoImg == "") {
-      Fluttertoast.showToast(
-        msg: 'Please Select type',
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }
+
+    // else if (VideoImg.isEmpty || VideoImg == "") {
+    //   Fluttertoast.showToast(
+    //     msg: 'Please Select type',
+    //     backgroundColor: Colors.grey,
+    //   );
+    //   return false;
+    // }
+
     return true;
   }
-
-  final List<Map<String, String>> dropdownItems = [
-    {
-      "blog_type": "AI",
-      "value": "Artificial Intelligence",
-    },
-    {
-      "blog_type": "Science",
-      "value": "Science & Technologies",
-    },
-    {
-      "blog_type": "Marketing",
-      "value": "Marketing Fundamentals",
-    },
-    {
-      "blog_type": "Finance",
-      "value": "Finance Services",
-    },
-  ];
 }

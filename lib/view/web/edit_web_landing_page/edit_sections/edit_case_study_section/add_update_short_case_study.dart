@@ -651,7 +651,6 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
                                       ? addCaseStudy()
                                       : editCaseStudy();
                                 }
-                                // Navigator.pop(context);
                               },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
@@ -729,8 +728,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
       paths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))
           ?.files;
@@ -760,8 +758,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
       gifpaths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['gif'],
       ))
           ?.files;
@@ -808,8 +805,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
       videopaths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['mp4', 'mov', 'avi'],
       ))
           ?.files;
@@ -855,6 +851,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
           // hideLoadingDialog();
           showSnackbar(title: "", message: "Not Allowed");
         }
+        request.fields["case_study_image"] = '';
       }
     } catch (exception) {
       request.fields["case_study_image"] = '';
@@ -970,8 +967,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
       if (status == 1) {
         showSnackbar(title: "", message: "Added successfully");
         Get.back();
-      } else {
-      }
+      } else {}
     } else if (response.statusCode == 500) {
       hideLoadingDialog();
       showSnackbar(title: "", message: "Server Error");
@@ -989,26 +985,26 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
   }
 
   bool validation() {
-    if (widget.isEdit == true) {
-      if (profile.toString().isEmpty) {
-        if (_pathsLogo == null) {
-          Fluttertoast.showToast(
-            msg: 'Please Select Profile Image',
-            backgroundColor: Colors.grey,
-          );
-        }
-
-        return false;
-      }
-    } else {
-      if (_pathsLogo == null) {
-        Fluttertoast.showToast(
-          msg: 'Please Select Profile Image',
-          backgroundColor: Colors.grey,
-        );
-        return false;
-      }
-    }
+    // if (widget.isEdit == true) {
+    //   if (profile.toString().isEmpty) {
+    //     if (_pathsLogo == null) {
+    //       Fluttertoast.showToast(
+    //         msg: 'Please Select Profile Image',
+    //         backgroundColor: Colors.grey,
+    //       );
+    //     }
+    //
+    //     return false;
+    //   }
+    // } else {
+    //   if (_pathsLogo == null) {
+    //     Fluttertoast.showToast(
+    //       msg: 'Please Select Profile Image',
+    //       backgroundColor: Colors.grey,
+    //     );
+    //     return false;
+    //   }
+    // }
 
     if (selectedValue == null) {
       Fluttertoast.showToast(
@@ -1018,114 +1014,114 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
       return false;
     }
 
-    if (editCaseStudyController.title.text.isEmpty ||
-        editCaseStudyController.title.text == "") {
-      Fluttertoast.showToast(
-        msg: 'Please Enter Title',
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    } else if (editCaseStudyController.shortDescription.text.isEmpty ||
-        editCaseStudyController.shortDescription.text == "") {
-      Fluttertoast.showToast(
-        msg: 'Please Enter Short Description',
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    } else if (editCaseStudyController.detailDescription.text.isEmpty ||
-        editCaseStudyController.detailDescription.text == "") {
-      Fluttertoast.showToast(
-        msg: 'Please Enter Detail Description',
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }
-    // else if (videoImg.isEmpty || videoImg == "") {
-    else if (mediaTypeKey.isEmpty || mediaTypeKey == "") {
-      Fluttertoast.showToast(
-        msg: 'Please Select Media type',
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }
-
-    if (mediaTypeKey.isNotEmpty &&
-        mediaTypeKey != "" &&
-        mediaTypeKey == "image") {
-      if (widget.isEdit == true) {
-        if (widget.media!.isEmpty) {
-          if (widget.mediaTypeKey != "image") {
-            if (pathsFileName == null) {
-              Fluttertoast.showToast(
-                msg: 'Please Select type',
-                backgroundColor: Colors.grey,
-              );
-              return false;
-            }
-          }
-        }
-      } else {
-        if (pathsFileName == null) {
-          Fluttertoast.showToast(
-            msg: 'Please Select media',
-            backgroundColor: Colors.grey,
-          );
-          return false;
-        }
-      }
-    }
-
-    if (mediaTypeKey.isNotEmpty &&
-        mediaTypeKey != "" &&
-        mediaTypeKey == "video") {
-      if (widget.isEdit == true) {
-        if (widget.media!.isEmpty) {
-          if (widget.mediaTypeKey != "video") {
-            if (videopathsFileName == null) {
-              Fluttertoast.showToast(
-                msg: 'Please Select type',
-                backgroundColor: Colors.grey,
-              );
-              return false;
-            }
-          }
-        }
-      } else {
-        if (videopathsFileName == null) {
-          Fluttertoast.showToast(
-            msg: 'Please Select media',
-            backgroundColor: Colors.grey,
-          );
-          return false;
-        }
-      }
-    }
-
-    if (mediaTypeKey.isNotEmpty &&
-        mediaTypeKey != "" &&
-        mediaTypeKey == "gif") {
-      if (widget.isEdit == true) {
-        if (widget.media!.isEmpty) {
-          if (widget.mediaTypeKey != "gif") {
-            if (gifpathsFileName == null) {
-              Fluttertoast.showToast(
-                msg: 'Please Select type',
-                backgroundColor: Colors.grey,
-              );
-              return false;
-            }
-          }
-        }
-      } else {
-        if (gifpathsFileName == null) {
-          Fluttertoast.showToast(
-            msg: 'Please Select media',
-            backgroundColor: Colors.grey,
-          );
-          return false;
-        }
-      }
-    }
+    // if (editCaseStudyController.title.text.isEmpty ||
+    //     editCaseStudyController.title.text == "") {
+    //   Fluttertoast.showToast(
+    //     msg: 'Please Enter Title',
+    //     backgroundColor: Colors.grey,
+    //   );
+    //   return false;
+    // } else if (editCaseStudyController.shortDescription.text.isEmpty ||
+    //     editCaseStudyController.shortDescription.text == "") {
+    //   Fluttertoast.showToast(
+    //     msg: 'Please Enter Short Description',
+    //     backgroundColor: Colors.grey,
+    //   );
+    //   return false;
+    // } else if (editCaseStudyController.detailDescription.text.isEmpty ||
+    //     editCaseStudyController.detailDescription.text == "") {
+    //   Fluttertoast.showToast(
+    //     msg: 'Please Enter Detail Description',
+    //     backgroundColor: Colors.grey,
+    //   );
+    //   return false;
+    // }
+    // // else if (videoImg.isEmpty || videoImg == "") {
+    // else if (mediaTypeKey.isEmpty || mediaTypeKey == "") {
+    //   Fluttertoast.showToast(
+    //     msg: 'Please Select Media type',
+    //     backgroundColor: Colors.grey,
+    //   );
+    //   return false;
+    // }
+    //
+    // if (mediaTypeKey.isNotEmpty &&
+    //     mediaTypeKey != "" &&
+    //     mediaTypeKey == "image") {
+    //   if (widget.isEdit == true) {
+    //     if (widget.media!.isEmpty) {
+    //       if (widget.mediaTypeKey != "image") {
+    //         if (pathsFileName == null) {
+    //           Fluttertoast.showToast(
+    //             msg: 'Please Select type',
+    //             backgroundColor: Colors.grey,
+    //           );
+    //           return false;
+    //         }
+    //       }
+    //     }
+    //   } else {
+    //     if (pathsFileName == null) {
+    //       Fluttertoast.showToast(
+    //         msg: 'Please Select media',
+    //         backgroundColor: Colors.grey,
+    //       );
+    //       return false;
+    //     }
+    //   }
+    // }
+    //
+    // if (mediaTypeKey.isNotEmpty &&
+    //     mediaTypeKey != "" &&
+    //     mediaTypeKey == "video") {
+    //   if (widget.isEdit == true) {
+    //     if (widget.media!.isEmpty) {
+    //       if (widget.mediaTypeKey != "video") {
+    //         if (videopathsFileName == null) {
+    //           Fluttertoast.showToast(
+    //             msg: 'Please Select type',
+    //             backgroundColor: Colors.grey,
+    //           );
+    //           return false;
+    //         }
+    //       }
+    //     }
+    //   } else {
+    //     if (videopathsFileName == null) {
+    //       Fluttertoast.showToast(
+    //         msg: 'Please Select media',
+    //         backgroundColor: Colors.grey,
+    //       );
+    //       return false;
+    //     }
+    //   }
+    // }
+    //
+    // if (mediaTypeKey.isNotEmpty &&
+    //     mediaTypeKey != "" &&
+    //     mediaTypeKey == "gif") {
+    //   if (widget.isEdit == true) {
+    //     if (widget.media!.isEmpty) {
+    //       if (widget.mediaTypeKey != "gif") {
+    //         if (gifpathsFileName == null) {
+    //           Fluttertoast.showToast(
+    //             msg: 'Please Select type',
+    //             backgroundColor: Colors.grey,
+    //           );
+    //           return false;
+    //         }
+    //       }
+    //     }
+    //   } else {
+    //     if (gifpathsFileName == null) {
+    //       Fluttertoast.showToast(
+    //         msg: 'Please Select media',
+    //         backgroundColor: Colors.grey,
+    //       );
+    //       return false;
+    //     }
+    //   }
+    // }
 
     return true;
   }
@@ -1266,8 +1262,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
       if (status == 1) {
         showSnackbar(title: "", message: "Updated successfully");
         Get.back();
-      } else {
-      }
+      } else {}
     } else if (response.statusCode == 500) {
       showSnackbar(title: "", message: "Server Error");
       if (mounted) {

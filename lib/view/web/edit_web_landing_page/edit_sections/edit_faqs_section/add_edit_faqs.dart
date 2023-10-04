@@ -50,8 +50,7 @@ class _AddEditFaqsState extends State<AddEditFaqs> {
     Future.delayed(
       const Duration(microseconds: 50),
       () {
-        faqController.getFaq().whenComplete(() {
-        });
+        faqController.getFaq().whenComplete(() {});
       },
     );
   }
@@ -66,8 +65,7 @@ class _AddEditFaqsState extends State<AddEditFaqs> {
             leading: const BackButton(
               color: AppColors.blackColor,
             ),
-            title: Text(
-                widget.isEdit == false ? "Add Case Study" : "Edit Case Study",
+            title: Text(widget.isEdit == false ? "Add FAQ" : "Edit FAQ",
                 style: AppTextStyle.regularBold
                     .copyWith(color: AppColors.blackColor, fontSize: 18)),
             // backgroundColor: AppColors.whiteColor,

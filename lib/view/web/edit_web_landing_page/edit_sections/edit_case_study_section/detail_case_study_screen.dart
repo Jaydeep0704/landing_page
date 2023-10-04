@@ -32,26 +32,30 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
 
   initializeMedia() async {
     if (widget.mainData != null) {
-      if (widget.mainData["mediaTypeKey"].toString().toLowerCase() == "video") {
-        mediaController = VideoPlayerController.networkUrl(
-            Uri.parse(APIString.latestmediaBaseUrl + widget.mainData["media"]));
-        await mediaController.initialize().whenComplete(
-          () {
-            log("data ------->    1");
-            mediaController.setLooping(true);
-            log("data ------->    2");
-            mediaController.setVolume(0);
-            log("data ------->    3");
-            mediaVideoLoaded = true;
-            log("data ------->    4");
-            mediaController.play();
-            log("data ------->    5");
-            setState(() {});
-            log("data ------->    6");
-          },
-        );
-      } else {
-        mediaVideoLoaded = false;
+      if (widget.mainData["mediaTypeKey"].toString().isNotEmpty &&
+          widget.mainData["media"].toString().isNotEmpty) {
+        if (widget.mainData["mediaTypeKey"].toString().toLowerCase() ==
+            "video") {
+          mediaController = VideoPlayerController.networkUrl(Uri.parse(
+              APIString.latestmediaBaseUrl + widget.mainData["media"]));
+          await mediaController.initialize().whenComplete(
+            () {
+              log("data ------->    1");
+              mediaController.setLooping(true);
+              log("data ------->    2");
+              mediaController.setVolume(0);
+              log("data ------->    3");
+              mediaVideoLoaded = true;
+              log("data ------->    4");
+              mediaController.play();
+              log("data ------->    5");
+              setState(() {});
+              log("data ------->    6");
+            },
+          );
+        } else {
+          mediaVideoLoaded = false;
+        }
       }
     }
   }
@@ -167,52 +171,62 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
                     ),
                   ),
                 )),
-            SizedBox(height: Get.width > 950 ? 0 : 10),
-            Get.width > 950 ? const SizedBox() : logo(),
+            const SizedBox(height: /* Get.width > 950 ? 0 :*/ 10),
+            /*Get.width > 950 ? const SizedBox() : */ logo(),
             SizedBox(height: Get.width > 950 ? 25 : 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("${widget.mainData["case_study_title"]}",
-                    style: AppTextStyle.regularBold.copyWith(
-                        fontSize: Get.width > 950
-                            ? 30
-                            : Get.width > 650
-                                ? 25
-                                : 20,
-                        color: AppColors.blackColor)),
-                // const SizedBox(width: 15),
-                Get.width > 950 ? logo() : const SizedBox(),
-              ],
-            ),
-            const SizedBox(height: 25),
-            Text(
-              "${widget.mainData["case_study_detail_desciption"]}",
-              style: TextStyle(
-                fontSize: Get.width > 550 ? 24 : 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              "~ Author",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 25),
-            mediaComponent(
-                mediaType: widget.mainData["mediaTypeKey"],
-                media: widget.mainData["media"]),
-            const SizedBox(height: 25),
-            Text("${widget.mainData["case_study_short_desciption"]}",
-                style: AppTextStyle.regular500.copyWith(
-                    fontSize: Get.width > 550 ? 22 : 18,
+            Text("${widget.mainData["case_study_title"]}",
+                style: AppTextStyle.regularBold.copyWith(
+                    fontSize: Get.width > 950
+                        ? 30
+                        : Get.width > 650
+                            ? 25
+                            : 20,
                     color: AppColors.blackColor)),
-            const SizedBox(height: 25)
+            widget.mainData["case_study_detail_desciption"].toString().isEmpty
+                ? const SizedBox()
+                : const SizedBox(height: 25),
+            widget.mainData["case_study_detail_desciption"].toString().isEmpty
+                ? const SizedBox()
+                : Text(
+                    "${widget.mainData["case_study_detail_desciption"]}",
+                    style: TextStyle(
+                      fontSize: Get.width > 550 ? 24 : 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+            widget.mainData["case_study_detail_desciption"].toString().isEmpty
+                ? const SizedBox()
+                : const SizedBox(height: 8),
+            widget.mainData["case_study_detail_desciption"].toString().isEmpty
+                ? const SizedBox()
+                : const Text(
+                    "~ Author",
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
+                  ),
+            SizedBox(
+                height: widget.mainData["mediaTypeKey"].toString().isEmpty &&
+                        widget.mainData["media"].toString().isEmpty
+                    ? 0
+                    : 25),
+            widget.mainData["mediaTypeKey"].toString().isEmpty &&
+                    widget.mainData["media"].toString().isEmpty
+                ? const SizedBox()
+                : mediaComponent(
+                    mediaType: widget.mainData["mediaTypeKey"],
+                    media: widget.mainData["media"]),
+            const SizedBox(height: 25),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 25),
+              child: Text("${widget.mainData["case_study_short_desciption"]}",
+                  style: AppTextStyle.regular500.copyWith(
+                      fontSize: Get.width > 550 ? 22 : 18,
+                      color: AppColors.blackColor)),
+            ),
           ],
         ),
         const SizedBox(height: 25),
@@ -447,6 +461,8 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
                                         "${data["case_study_title"]}",
                                         style: AppTextStyle.regularBold
                                             .copyWith(fontSize: 16),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
                                       ),
                                       const SizedBox(height: 10),
                                       Text(
@@ -599,8 +615,6 @@ class _DetailCaseStudyScreenState extends State<DetailCaseStudyScreen> {
 
   mediaComponent({String? mediaType, String? media}) {
     return Container(
-      // height: Get.width > 825 ? Get.width * 0.25 : Get.width * 0.6,
-      // width: Get.width > 825 ? Get.width * 0.35 : Get.width * 0.6,
       height: 300,
       width: Get.width,
       margin: const EdgeInsets.only(left: 5),

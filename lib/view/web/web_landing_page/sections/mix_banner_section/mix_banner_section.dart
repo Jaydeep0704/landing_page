@@ -58,11 +58,11 @@ class _MixBannerSectionState extends State<MixBannerSection> {
             padding: const EdgeInsets.symmetric(vertical: 100),
             child: Get.width > 1020
                 ? Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_file_show"] == "hide"
-                    ?const SizedBox():
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                 editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_file_show"] == "hide"
+                 ?const SizedBox():
                 Padding(
                   padding: const EdgeInsets.only(left: 50),
                   child: Column(
@@ -87,7 +87,6 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Text(
                         editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_subtitle"]
                             .toString(),
@@ -101,7 +100,6 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                                 :Color(int.parse(editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_subtitle_color"].toString()))),
                       ),
                       const SizedBox(height: 10),
-
                       Text(
                           editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_title"]
                               .toString(),
@@ -135,7 +133,6 @@ class _MixBannerSectionState extends State<MixBannerSection> {
                         ),
                       ),
                       const SizedBox(height: 20),
-
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -456,7 +453,9 @@ class _MixBannerSectionState extends State<MixBannerSection> {
         width: Get.width,
         imageUrl: APIString.mediaBaseUrl + editController.allDataResponse[0]["mix_banner_details"][0]["mix_banner_file"].toString(),
         fit: BoxFit.cover,
-        placeholder: (context, url) => Container(decoration: BoxDecoration(color: Color(int.parse(editController.appDemoBgColor.value.toString())),)),
+        placeholder: (context, url) => Container(
+            // decoration: BoxDecoration(color: Color(int.parse(editController.appDemoBgColor.value.toString())),)
+        ),
         errorWidget: (context, url, error) =>
         const Icon(Icons.error),
       );
@@ -476,6 +475,8 @@ class _MixBannerSectionState extends State<MixBannerSection> {
       return const Center(child: Text("bot"));
     }
   }
+
+
 
 
 }

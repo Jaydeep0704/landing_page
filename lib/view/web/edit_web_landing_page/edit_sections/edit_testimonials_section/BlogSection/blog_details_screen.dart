@@ -228,32 +228,34 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                 ),
               ),
             ),
-            const SizedBox(
-              width: 15,
+            SizedBox(
+              width: widget.name.isEmpty ? 0 : 15,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  widget.name,
-                  style: TextStyle(
-                    fontSize: Get.width > 550 ? 24 : 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+            widget.name.isEmpty
+                ? SizedBox()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.name,
+                        style: TextStyle(
+                          fontSize: Get.width > 550 ? 24 : 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      const Text(
+                        "~ Author",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  "~ Author",
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
         const SizedBox(height: 20),

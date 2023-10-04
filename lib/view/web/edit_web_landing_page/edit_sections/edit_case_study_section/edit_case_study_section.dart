@@ -409,6 +409,8 @@ class _EditCaseStudySectionState extends State<EditCaseStudySection> {
                                                   color: AppColors.blueColor),)),
                                         const SizedBox(height: 10),
                                         Text("${data["case_study_title"]}",
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
                                           style: AppTextStyle.regularBold
                                               .copyWith(
                                               fontSize: 16),),

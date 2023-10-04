@@ -902,9 +902,9 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                     // height: 600,
                     height: 600,
                     width: Get.width > 1500
-                        ? 800
+                        ? 900
                         : Get.width > 1000
-                        ? 950
+                        ? 1000
                         : Get.width > 800
                         ? 750
                         : Get.width > 600
@@ -970,7 +970,7 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                                             fontSize: 17),
                                       ),
                                       Text(
-                                        " -${testimonialController
+                                        " - ${testimonialController
                                             .getTestimonial[webLandingPageController
                                             .aboveCardIndex
                                             .value]['Position']}",
@@ -2095,7 +2095,6 @@ class _EditTestimonialsSectionState extends State<EditTestimonialsSection>
                           ? const SizedBox()
                           : IconButton(
                         onPressed: () {
-                          // Use the controller to change the current page
                           landingPageController.blogCarouselController
                               .nextPage();
                         },

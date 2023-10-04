@@ -807,8 +807,7 @@ class _EditBlogState extends State<EditBlog> {
       videopaths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['mp4', 'mov', 'avi'],
       ))
           ?.files;
@@ -883,8 +882,7 @@ class _EditBlogState extends State<EditBlog> {
       paths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))
           ?.files;
@@ -914,8 +912,7 @@ class _EditBlogState extends State<EditBlog> {
       gifpaths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['gif'],
       ))
           ?.files;
@@ -945,8 +942,7 @@ class _EditBlogState extends State<EditBlog> {
       Profilepaths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))
           ?.files;
@@ -972,7 +968,7 @@ class _EditBlogState extends State<EditBlog> {
   }
 
   bool validation() {
-    if (widget.profilimg.toString().isEmpty) {
+    /*  if (widget.profilimg.toString().isEmpty) {
       if (pimageData == null) {
         Fluttertoast.showToast(
           msg: 'Please Select Profile Image',
@@ -988,13 +984,15 @@ class _EditBlogState extends State<EditBlog> {
         backgroundColor: Colors.grey,
       );
       return false;
-    } else if (title_controller.text.isEmpty || title_controller.text == "") {
+    }
+    else if (title_controller.text.isEmpty || title_controller.text == "") {
       Fluttertoast.showToast(
         msg: 'Please Enter Title',
         backgroundColor: Colors.grey,
       );
       return false;
-    } else if (content_controller.text.isEmpty ||
+    }
+    else if (content_controller.text.isEmpty ||
         content_controller.text == "") {
       Fluttertoast.showToast(
         msg: 'Please Enter Content',
@@ -1002,28 +1000,23 @@ class _EditBlogState extends State<EditBlog> {
       );
       return false;
     }
-    // else if (BlogType_controller.text.isEmpty || BlogType_controller.text == "") {
-    else if (selectedValue == null) {
+
+    else*/
+    if (selectedValue == null) {
       Fluttertoast.showToast(
         msg: 'Please Select Blog Type',
         backgroundColor: Colors.grey,
       );
       return false;
     }
-    /*  else if (color_controller.text.isEmpty || color_controller.text == "") {
-      Fluttertoast.showToast(
-        msg: 'Please Enter Color',
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }*/
-    else if (VideoImg.isEmpty || VideoImg == "") {
-      Fluttertoast.showToast(
-        msg: 'Please Select type',
-        backgroundColor: Colors.grey,
-      );
-      return false;
-    }
+
+    // else if (VideoImg.isEmpty || VideoImg == "") {
+    //   Fluttertoast.showToast(
+    //     msg: 'Please Select type',
+    //     backgroundColor: Colors.grey,
+    //   );
+    //   return false;
+    // }
     return true;
   }
 

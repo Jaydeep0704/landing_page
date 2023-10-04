@@ -651,9 +651,9 @@ class _AddNewTestimonalScreenState extends State<AddNewTestimonalScreen> {
                                 )
                               : InkWell(
                                   onTap: () async {
-                                    if (validation() == true) {
+                                    // if (validation() == true) {
                                       addTestimonalApi();
-                                    }
+                                    // }
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(

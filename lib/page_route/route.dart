@@ -6,8 +6,10 @@ import 'package:grobiz_web_landing/view/web/web_landing_page/web_landing_screen.
 
 class PageRoutes {
   static String initialRoute = "/";
-  static String webLandingPage = "/webLandingPage";
-  static String editWebLandingPage = "/editWebLandingPage";
+  // static String webLandingPage = "/webLandingPage";
+  static String webLandingPage = "/home";
+  // static String editWebLandingPage = "/editWebLandingPage";
+  static String editWebLandingPage = "/adminPage";
 
   static const String login = "/login";
 }

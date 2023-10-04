@@ -346,20 +346,9 @@ class _EditIntroSectionState extends State<EditIntroSection> {
                                   alignment: Alignment.topRight,
                                   children: [
                                     SizedBox(
-                                      // height: 50,
-                                      // width: 50,
                                       height: 120,
                                       width: 120,
-                                      // decoration: editController
-                                      //     .allDataResponse[0]["intro_details"][0]["intro_bot_file"]
-                                      //     .toString()
-                                      //     .isEmpty
-                                      //     ? const BoxDecoration()
-                                      //     : const BoxDecoration(
-                                      //   // color: Colors.yellow
-                                      // ),
                                       child: Center(
-                                        // child: Text("bot"),
                                         child: buildBotWidget(),
                                       ),
                                     ),

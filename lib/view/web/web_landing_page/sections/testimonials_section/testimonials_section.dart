@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/pricing_section/pricing_section.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -463,17 +462,7 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                                         ),
                                       ),
                                     ),
-                                    // Container(
-                                    //   height: 30,
-                                    //   width: 30,
-                                    //   decoration: const BoxDecoration(
-                                    //       color: Colors.blue,
-                                    //       borderRadius: BorderRadius.all(
-                                    //
-                                    //           Radius.circular(5))),
-                                    //   child: Image.asset(
-                                    //       "${featuredImage["clientImage"]}"),
-                                    // ),
+
                                     const SizedBox(width: 8),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 20),
@@ -607,9 +596,9 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                   // height: 600,
                   height: 600,
                   width: Get.width > 1500
-                      ? 800
+                      ? 900
                       : Get.width > 1000
-                      ? 950
+                      ? 1000
                       : Get.width > 800
                       ? 750
                       : Get.width > 600
@@ -916,65 +905,8 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                                                               .aboveCardIndex
                                                               .value]['banner']
                                                               .toString())
-                                                    // ClipRRect(
-                                                    //   borderRadius:
-                                                    //   const BorderRadius.all(Radius.circular(20)),
-                                                    //
-                                                    //   child:  testimonalcontroller.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "image" ||
-                                                    //       testimonalcontroller.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner_mediatype'] == "gif"
-                                                    //       ? CachedNetworkImage(
-                                                    //     fit: BoxFit
-                                                    //         .cover,
-                                                    //     width: Get.width * 0.9,
-                                                    //     imageUrl:
-                                                    //     APIString.latestmediaBaseUrl +  testimonalcontroller.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner'].toString(),
-                                                    //     placeholder: (context, url) => Container(
-                                                    //       decoration: BoxDecoration(
-                                                    //         color: Color(int.parse(editController
-                                                    //             .appDemoBgColor.value
-                                                    //             .toString())),
-                                                    //       ),
-                                                    //     ),
-                                                    //     errorWidget: (context, url, error) =>
-                                                    //     const Icon(Icons.error),
-                                                    //
-                                                    //   )
-                                                    //       : displayUploadedVideo( testimonalcontroller.getTestimonial[webLandingPageController.aboveCardIndex.value]['banner'].toString()),
-                                                    // )
-                                                    // Image.asset("${featuredImage["image"]}"
-                                                    // )
+
                                                   ),
-                                                  // Container(
-                                                  //   height: Get.width > 1500
-                                                  //       ? 450
-                                                  //       : Get.width > 1000
-                                                  //       ? 400
-                                                  //       : 400,
-                                                  //   // width: Get.width > 1500 ? 200
-                                                  //   //     : Get.width > 1000 ? 200
-                                                  //   //     : Get.width > 600 ? 200 : 200,
-                                                  //   width: Get.width > 1500 ? 285
-                                                  //       : Get.width > 1000 ? 250
-                                                  //       : Get.width > 600
-                                                  //       ? 250
-                                                  //       : 200,
-                                                  //
-                                                  //
-                                                  //   decoration: BoxDecoration(
-                                                  //       color: Colors.black,
-                                                  //       image: DecorationImage(
-                                                  //           image: AssetImage(clientsTestimonial[webLandingPageController
-                                                  //               .aboveCardIndex
-                                                  //               .value]
-                                                  //           [
-                                                  //           "clientImage"]),
-                                                  //           fit: BoxFit
-                                                  //               .cover),
-                                                  //       borderRadius:
-                                                  //       BorderRadius
-                                                  //           .circular(
-                                                  //           10)),
-                                                  // ),
                                                 );
                                               },
                                             ),
@@ -982,102 +914,6 @@ class _TestimonialsSectionState extends State<TestimonialsSection>
                                         ),
                                       ],
                                     )
-                                    // Center(
-                                    //   child: Stack(
-                                    //     children: [
-                                    //       Padding(
-                                    //         padding: EdgeInsets.all(Get.width > 1000 ? 42 : 37),
-                                    //         child: AnimatedBuilder(
-                                    //           animation: _rotationAnimation,
-                                    //           builder: (context, child) {
-                                    //             return Transform.rotate(
-                                    //               angle: _rotationAnimation.value * 0.33,
-                                    //               transformHitTests: true,
-                                    //               child: Transform.rotate(
-                                    //                 angle: -math.pi / 15,
-                                    //                 child: Container(
-                                    //                   height: Get.width > 1500
-                                    //                       ? 450
-                                    //                       : Get.width > 1000
-                                    //                       ? 400
-                                    //                       : 400,
-                                    //                   // width: Get.width > 1500 ? 285
-                                    //                   //     : Get.width > 1000 ? 250
-                                    //                   //         : Get.width > 600 ? 200 : 200,
-                                    //                   width: Get.width > 1500 ? 285
-                                    //                       : Get.width > 1000 ? 250
-                                    //                       : Get.width > 600 ? 250 : 200,
-                                    //                   decoration:
-                                    //                   BoxDecoration(
-                                    //                     color:
-                                    //                     Colors.blue,
-                                    //                     image: DecorationImage(
-                                    //                         image: AssetImage(clientsTestimonial[webLandingPageController.belowCardIndex.value]["clientImage"]),
-                                    //                         fit: BoxFit
-                                    //                             .cover),
-                                    //                     borderRadius:
-                                    //                     BorderRadius
-                                    //                         .circular(
-                                    //                         10),
-                                    //                   ),
-                                    //                 ),
-                                    //               ),
-                                    //             );
-                                    //           },
-                                    //         ),
-                                    //       ),
-                                    //       Positioned(
-                                    //         top: 5,
-                                    //         left: 10,
-                                    //         child: Padding(
-                                    //           padding: EdgeInsets.all(
-                                    //               Get.width > 1000
-                                    //                   ? 42
-                                    //                   : 35),
-                                    //           child: AnimatedBuilder(
-                                    //             animation: _rotationAnimation1,
-                                    //             builder: (context, child) {
-                                    //               return Transform.rotate(
-                                    //                 origin: const Offset(
-                                    //                     0, 100),
-                                    //                 angle: -_rotationAnimation.value * 0.2,
-                                    //                 child: Container(
-                                    //                   height: Get.width > 1500
-                                    //                       ? 450
-                                    //                       : Get.width > 1000
-                                    //                       ? 400
-                                    //                       : 400,
-                                    //                   // width: Get.width > 1500 ? 200
-                                    //                   //     : Get.width > 1000 ? 200
-                                    //                   //     : Get.width > 600 ? 200 : 200,
-                                    //                   width: Get.width > 1500 ? 285
-                                    //                       : Get.width > 1000 ? 250
-                                    //                       : Get.width > 600
-                                    //                       ? 250
-                                    //                       : 200,
-                                    //                   decoration: BoxDecoration(
-                                    //                       color: Colors.black,
-                                    //                       image: DecorationImage(
-                                    //                           image: AssetImage(clientsTestimonial[webLandingPageController
-                                    //                               .aboveCardIndex
-                                    //                               .value]
-                                    //                           [
-                                    //                           "clientImage"]),
-                                    //                           fit: BoxFit
-                                    //                               .cover),
-                                    //                       borderRadius:
-                                    //                       BorderRadius
-                                    //                           .circular(
-                                    //                           10)),
-                                    //                 ),
-                                    //               );
-                                    //             },
-                                    //           ),
-                                    //         ),
-                                    //       ),
-                                    //     ],
-                                    //   ),
-                                    // )inspired testimonial
                                   ],
                                 ),
                               ),

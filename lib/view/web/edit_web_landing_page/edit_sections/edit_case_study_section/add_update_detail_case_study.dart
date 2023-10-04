@@ -30,7 +30,15 @@ class AddUpdateCaseStudyDetails extends StatefulWidget {
   String? caseStudyDetailsAutoId;
   String? media;
   String? mediaTypeKey;
-  AddUpdateCaseStudyDetails({super.key,this.mediaTypeKey,this.caseStudyAutoId,this.caseStudyDetailsAutoId,this.description,this.isEdit,this.media,this.title});
+  AddUpdateCaseStudyDetails(
+      {super.key,
+      this.mediaTypeKey,
+      this.caseStudyAutoId,
+      this.caseStudyDetailsAutoId,
+      this.description,
+      this.isEdit,
+      this.media,
+      this.title});
 
   @override
   State<AddUpdateCaseStudyDetails> createState() =>
@@ -38,7 +46,6 @@ class AddUpdateCaseStudyDetails extends StatefulWidget {
 }
 
 class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
-
   final detailCaseStudyController = Get.find<DetailCaseStudyController>();
   // final editPartnerController = Get.find<EditPartnerController>();
   ///
@@ -72,31 +79,27 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(widget.isEdit == true){
+    if (widget.isEdit == true) {
       mediaTypeKey = widget.mediaTypeKey!;
       videoImg = widget.mediaTypeKey!;
       detailCaseStudyController.titleController.text = widget.title!;
-      detailCaseStudyController.descController.text =widget.description!;
+      detailCaseStudyController.descController.text = widget.description!;
       // VideoImg = mediaTypeKey.toString();
-      if(mediaTypeKey == "image"){
+      if (mediaTypeKey == "image") {
         isImage = true;
         isvideo = false;
         isGif = false;
-
-      }
-      else if(mediaTypeKey == "video"){
+      } else if (mediaTypeKey == "video") {
         isImage = false;
         isvideo = true;
         isGif = false;
         preVideo(link: widget.media!);
-      }
-      else if(mediaTypeKey == "gif"){
+      } else if (mediaTypeKey == "gif") {
         isImage = false;
         isvideo = false;
         isGif = true;
       }
-    }
-    else{
+    } else {
       detailCaseStudyController.titleController.clear();
       detailCaseStudyController.descController.clear();
       mediaTypeKey = "";
@@ -110,16 +113,18 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
     return LayoutBuilder(
       builder: (p0, p1) {
         return Scaffold(
-          appBar: AppBar(title: Text(widget.isEdit == false ?"Add Data":"Edit Data"),
-          // backgroundColor: AppColors.whiteColor,
-          centerTitle: true,),
+          appBar: AppBar(
+            title: Text(widget.isEdit == false ? "Add Data" : "Edit Data"),
+            // backgroundColor: AppColors.whiteColor,
+            centerTitle: true,
+          ),
           body: SingleChildScrollView(
             child: Row(
               children: [
                 const Expanded(child: SizedBox()),
                 Container(
-                  decoration: BoxDecoration(
-                      color: AppColors.whiteColor, boxShadow: [
+                  decoration:
+                      BoxDecoration(color: AppColors.whiteColor, boxShadow: [
                     BoxShadow(
                         color: AppColors.blackColor.withOpacity(0.3),
                         blurRadius: 4,
@@ -131,7 +136,10 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 15),
-                      Text("Title",style: AppTextStyle.regular400.copyWith(fontSize: 16),),
+                      Text(
+                        "Title",
+                        style: AppTextStyle.regular400.copyWith(fontSize: 16),
+                      ),
                       const SizedBox(height: 10),
                       Container(
                         // width: Get.width/2,
@@ -140,7 +148,7 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
-                              offset: const Offset(0,0),
+                              offset: const Offset(0, 0),
                               blurRadius: 1,
                               spreadRadius: 1,
                               color: Colors.black.withOpacity(0.08),
@@ -153,21 +161,24 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
                           decoration: InputDecoration(
                               hintText: "Title",
                               border: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: AppColors.borderColor),
+                                  borderSide: const BorderSide(
+                                      color: AppColors.borderColor),
                                   borderRadius: BorderRadius.circular(10))),
                           textAlign: TextAlign.start,
                           style: AppTextStyle.regular500.copyWith(fontSize: 15),
-
                         ),
                       ),
                       const SizedBox(height: 15),
-                       Text("Description",style: AppTextStyle.regular400.copyWith(fontSize: 16),),
+                      Text(
+                        "Description",
+                        style: AppTextStyle.regular400.copyWith(fontSize: 16),
+                      ),
                       const SizedBox(height: 10),
                       Container(
                         // width: Get.width/2,
                         decoration: BoxDecoration(
                           color: AppColors.whiteColor,
-                          borderRadius: BorderRadius.circular( 10),
+                          borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
                               offset: const Offset(0, 0),
@@ -183,21 +194,24 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
                           decoration: InputDecoration(
                               hintText: "Description",
                               border: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: AppColors.borderColor),
+                                  borderSide: const BorderSide(
+                                      color: AppColors.borderColor),
                                   borderRadius: BorderRadius.circular(10))),
                           textAlign: TextAlign.start,
                           style: AppTextStyle.regular500.copyWith(fontSize: 15),
-
                         ),
                       ),
                       const SizedBox(height: 15),
-                       Text("Media",style: AppTextStyle.regular400.copyWith(fontSize: 16),),
+                      Text(
+                        "Media",
+                        style: AppTextStyle.regular400.copyWith(fontSize: 16),
+                      ),
                       const SizedBox(height: 10),
                       Container(
                         // width: Get.width/2,
                         decoration: BoxDecoration(
                           color: AppColors.whiteColor,
-                          borderRadius: BorderRadius.circular( 10),
+                          borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
                               offset: const Offset(0, 0),
@@ -209,9 +223,18 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
                         ),
                         child: Column(
                           children: [
-                            const SizedBox(height: 10,),
-                            const Center(child: Text("Select Media type",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
-                            const SizedBox(height: 20,),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Center(
+                                child: Text(
+                              "Select Media type",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600),
+                            )),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             Row(
                               children: <Widget>[
                                 Expanded(
@@ -314,11 +337,12 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10,),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             Visibility(
-                                visible:isImage == true ? true : false,
-                                child:
-                                Column(
+                                visible: isImage == true ? true : false,
+                                child: Column(
                                   children: [
                                     Container(
                                       height: 200,
@@ -332,27 +356,33 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
                                       ),
                                       child: imageData != null
                                           ? Image.memory(
-                                        imageData!,
-                                        fit: BoxFit.fill,
-                                      )
-                                          :  widget.mediaTypeKey == "image" ?
-                                      CachedNetworkImage(imageUrl: APIString.latestmediaBaseUrl + widget.media!)
-                                          :const Center(child:  Icon(
-                                        Icons.photo_library,
-                                        size: 50,
-                                        color: Colors.grey,
-                                      )),
+                                              imageData!,
+                                              fit: BoxFit.fill,
+                                            )
+                                          : widget.mediaTypeKey == "image"
+                                              ? CachedNetworkImage(
+                                                  imageUrl: APIString
+                                                          .latestmediaBaseUrl +
+                                                      widget.media!)
+                                              : const Center(
+                                                  child: Icon(
+                                                  Icons.photo_library,
+                                                  size: 50,
+                                                  color: Colors.grey,
+                                                )),
                                     ),
-
                                     SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.02,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.02,
                                     ),
                                     SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.05,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
                                       child: ElevatedButton.icon(
                                         onPressed: () {
                                           pickImageFiles();
-
                                         },
                                         icon: const Icon(
                                           Icons.camera,
@@ -363,48 +393,55 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
                                         ),
                                       ),
                                     ),
-
                                   ],
-                                )
-                            ),
+                                )),
                             Visibility(
-                                visible:isvideo == true ? true : false,
-                                child:
-                                Center(
+                                visible: isvideo == true ? true : false,
+                                child: Center(
                                   child: Column(
                                     children: [
                                       Container(
                                         height: 200,
-                                        width: MediaQuery.of(context).size.width,
+                                        width:
+                                            MediaQuery.of(context).size.width,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                           border: Border.all(
                                             color: Colors.grey,
                                             width: 1.0,
                                           ),
                                         ),
-                                        child: controller != null && controller.value.isInitialized ?
-                                        AspectRatio(
-                                          // aspectRatio: controller.value.aspectRatio,
-                                          aspectRatio: 1 / 0.3,
-                                          child: VideoPlayer(controller),
-                                        ): widget.mediaTypeKey == "video" ?
-                                        AspectRatio(
-                                          // aspectRatio: controller.value.aspectRatio,
-                                          aspectRatio: 1 / 0.3,
-                                          child: VideoPlayer(controller!),
-                                        )
-                                            :const Center(child:  Icon(
-                                          Icons.photo_library,
-                                          size: 50,
-                                          color: Colors.grey,
-                                        )),
+                                        child: controller != null &&
+                                                controller.value.isInitialized
+                                            ? AspectRatio(
+                                                // aspectRatio: controller.value.aspectRatio,
+                                                aspectRatio: 1 / 0.3,
+                                                child: VideoPlayer(controller),
+                                              )
+                                            : widget.mediaTypeKey == "video"
+                                                ? AspectRatio(
+                                                    // aspectRatio: controller.value.aspectRatio,
+                                                    aspectRatio: 1 / 0.3,
+                                                    child: VideoPlayer(
+                                                        controller!),
+                                                  )
+                                                : const Center(
+                                                    child: Icon(
+                                                    Icons.photo_library,
+                                                    size: 50,
+                                                    color: Colors.grey,
+                                                  )),
                                       ),
                                       SizedBox(
-                                        height: MediaQuery.of(context).size.height * 0.02,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02,
                                       ),
                                       SizedBox(
-                                        height: MediaQuery.of(context).size.height * 0.05,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.05,
                                         child: ElevatedButton.icon(
                                           onPressed: () {
                                             pickVideoFiles();
@@ -418,12 +455,10 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
                                       ),
                                     ],
                                   ),
-                                )
-                            ),
+                                )),
                             Visibility(
                                 visible: isGif == true ? true : false,
-                                child:
-                                Column(
+                                child: Column(
                                   children: [
                                     Container(
                                       height: 200,
@@ -437,26 +472,32 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
                                       ),
                                       child: gifData != null
                                           ? Image.memory(
-                                        gifData!,
-                                        fit: BoxFit.fill,
-                                      )
-                                          :  widget.mediaTypeKey == "gif" ?
-                                      CachedNetworkImage(imageUrl: APIString.latestmediaBaseUrl + widget.media!)
-                                          :const Center(child:  Icon(
-                                        Icons.photo_library,
-                                        size: 50,
-                                        color: Colors.grey,
-                                      )),
+                                              gifData!,
+                                              fit: BoxFit.fill,
+                                            )
+                                          : widget.mediaTypeKey == "gif"
+                                              ? CachedNetworkImage(
+                                                  imageUrl: APIString
+                                                          .latestmediaBaseUrl +
+                                                      widget.media!)
+                                              : const Center(
+                                                  child: Icon(
+                                                  Icons.photo_library,
+                                                  size: 50,
+                                                  color: Colors.grey,
+                                                )),
                                     ),
-
                                     SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.02,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.02,
                                     ),
                                     SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.05,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.05,
                                       child: ElevatedButton.icon(
                                         onPressed: () {
-
                                           pickGifFiles();
                                         },
                                         icon: const Icon(
@@ -468,11 +509,11 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
                                         ),
                                       ),
                                     ),
-
                                   ],
-                                )
+                                )),
+                            const SizedBox(
+                              height: 20,
                             ),
-                            const SizedBox(height: 20,),
                           ],
                         ),
                       ),
@@ -480,32 +521,32 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             child: GestureDetector(
-                            onTap: () async {
-                              widget.isEdit == false
-                                  ?addCaseStudyDetailsApis()
-                                  :editCaseStudyDetailsApis();
-                              // Navigator.pop(context);
-                            },
-                                child: Container(
-
-                                padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 10),
+                              onTap: () async {
+                                widget.isEdit == false
+                                    ? addCaseStudyDetailsApis()
+                                    : editCaseStudyDetailsApis();
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 25, vertical: 10),
                                 margin: const EdgeInsets.only(right: 10),
                                 decoration: BoxDecoration(
                                     color: AppColors.greyColor.withOpacity(0.5),
-                                    borderRadius:
-                                    const BorderRadius.all(Radius.circular(5))),
-                                child: Text(widget.isEdit == false ?"Save":"Update"),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5))),
+                                child: Text(
+                                    widget.isEdit == false ? "Save" : "Update"),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 30,),
-
+                      const SizedBox(
+                        height: 30,
+                      ),
                     ],
                   ),
                 ),
@@ -591,7 +632,8 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
 
   Future<void> preVideo({String? link}) async {
     // _controller = VideoPlayerController.network(APIString.latestmediaBaseUrl+link!);
-    _controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+link!));
+    _controller = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.latestmediaBaseUrl + link!));
     await _controller?.initialize();
     setState(() {});
   }
@@ -712,7 +754,8 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
 
       request.fields["case_study_auto_id"] = widget.caseStudyAutoId!;
       request.fields["title"] = detailCaseStudyController.titleController.text;
-      request.fields["description"] = detailCaseStudyController.descController.text;
+      request.fields["description"] =
+          detailCaseStudyController.descController.text;
       request.fields["mediaTypeKey"] = mediaTypeKey.toString();
 
       http.Response response =
@@ -728,7 +771,8 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
           showSnackbar(title: "", message: "Successfully Added");
           Get.back();
         } else {
-          showSnackbar(title: "", message: "Something went wrong. Please try later");
+          showSnackbar(
+              title: "", message: "Something went wrong. Please try later");
         }
       } else if (response.statusCode == 500) {
         showSnackbar(title: "", message: "Server Error");
@@ -821,14 +865,16 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
         }
       }
 
-
       request.fields["case_study_auto_id"] = widget.caseStudyAutoId!;
-      request.fields["case_study_details_auto_id"] = widget.caseStudyDetailsAutoId!;
+      request.fields["case_study_details_auto_id"] =
+          widget.caseStudyDetailsAutoId!;
       request.fields["title"] = detailCaseStudyController.titleController.text;
-      request.fields["description"] = detailCaseStudyController.descController.text;
+      request.fields["description"] =
+          detailCaseStudyController.descController.text;
       request.fields["mediaTypeKey"] = mediaTypeKey.toString();
 
-      http.Response response = await http.Response.fromStream(await request.send());
+      http.Response response =
+          await http.Response.fromStream(await request.send());
       hideLoadingDialog();
 
       if (response.statusCode == 200) {
@@ -840,18 +886,14 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
           showSnackbar(title: "", message: "Successfully Updated");
           Get.back();
         } else {
-          showSnackbar(title: "", message: "Something went wrong. Please try later");
+          showSnackbar(
+              title: "", message: "Something went wrong. Please try later");
         }
-      }
-      else if (response.statusCode == 500) {
+      } else if (response.statusCode == 500) {
         showSnackbar(title: "", message: "Server Error");
       }
     } catch (exception) {
       log("error ---- $exception");
     }
   }
-
-
-
-
 }

@@ -760,9 +760,9 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
                               )
                                   : InkWell(
                                 onTap: () async {
-                                  if(validation()==true){
+                                  // if(validation()==true){
                                     updateTestimonalApi();
-                                  }
+                                  // }
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
