@@ -549,7 +549,7 @@ class _EditShowcaseAppsSectionState extends State<EditShowcaseAppsSection> {
                                                  ),
                                                ).then(
                                                      (result) {
-                                                   showSnackbar(title: "Success", message: "Copied!");
+                                                   showSnackbar(  message: "Copied!");
                                                  },
                                                );
                                              },

@@ -87,13 +87,13 @@ class ShowCaseAppsController extends GetxController {
               prefKey: LocalStorage.couponId,
               stringData: data["_id"]);
 
-          showSnackbar(title: "Success", message: "Coupon Generated");
+          showSnackbar(message: "Coupon Generated");
           hideLoadingDialog();
         }
       } else if (response['error'] != null) {
         log("inside getCouponData ---------4");
 
-        showSnackbar(title: "Warning", message: "Error");
+        showSnackbar(message: "Error");
         hideLoadingDialog();
       }
     } catch (e, s) {
@@ -126,13 +126,13 @@ class ShowCaseAppsController extends GetxController {
           // getCouponList.value =  response['body']["data"];
           getCouponList.add(response['body']["data"]);
 
-          showSnackbar(title: "Success", message: "Coupon Generated");
+          showSnackbar(message: "Coupon Generated");
           hideLoadingDialog();
         }
       } else if (response['error'] != null) {
         log("inside getCouponData ---------4");
 
-        showSnackbar(title: "Warning", message: "Error");
+        showSnackbar(message: "Error");
         hideLoadingDialog();
       }
     } catch (e, s) {

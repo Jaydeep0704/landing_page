@@ -191,7 +191,7 @@ class _UpdateMediaFunctionState extends State<UpdateMediaFunction> {
           );
         } else {
           hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(message: "Not Allowed");
         }
       }
       request.fields[widget.keyNameMedia!.toString()] = '';

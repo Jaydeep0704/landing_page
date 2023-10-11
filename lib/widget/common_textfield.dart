@@ -175,7 +175,7 @@ class CommonTextField extends StatelessWidget {
                   borderSide: BorderSide(
                       color: isTransparentColorBorder
                           ? AppColors.transparentColor
-                          : (borderColor ?? AppColors.borderColor)),
+                          : (borderColor ?? AppColors.redColor)),
                   borderRadius: BorderRadius.circular(borderRadius ?? 10)),
             ),
             validator: needValidation

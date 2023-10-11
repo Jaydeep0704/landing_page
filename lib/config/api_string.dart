@@ -154,4 +154,7 @@ class APIString {
   static const String update_faq = "update_faq";
   static const String delete_faq = "delete_faq";
   static const String get_faq = "get_faq";
+
+  //customer call
+  static const String customer_call_form = "customer_call_form";
 }

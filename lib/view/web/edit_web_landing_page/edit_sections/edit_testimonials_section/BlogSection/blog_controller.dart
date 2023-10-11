@@ -174,7 +174,7 @@ class EditBlogController extends GetxController {
         log("step --------  +++  4");
 
         if (response['body']['status'].toString() == "1") {
-          showSnackbar(title: "Success", message: "${response['body']['msg']}");
+          showSnackbar(message: "${response['body']['msg']}");
           Get.off(BlogDetailsList(
             id: id!,
           ));
@@ -216,7 +216,7 @@ class EditBlogController extends GetxController {
         log("step --------  +++  4");
 
         if (response['body']['status'].toString() == "1") {
-          showSnackbar(title: "Success", message: "${response['body']['msg']}");
+          showSnackbar(message: "${response['body']['msg']}");
           Get.to(BlogDetailsList(
             id: blogId!,
           ));

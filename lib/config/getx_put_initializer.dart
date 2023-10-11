@@ -21,6 +21,7 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_showcase_apps_section/showcase_app_controller.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/customer_call_form/customer_call_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/checkout_info_section/CheckOutInfoControllers.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/career/careers_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/info_section/Footer/helpController.dart';
@@ -40,7 +41,6 @@ getXPutInitializer() {
   Get.put(AddProjectController());
   Get.put(PricingScreenController());
   Get.put(EditInfoController());
-  Get.put(CareersController());
   Get.put(HelpController());
   Get.put(EditCaseStudyController());
   Get.put(DetailCaseStudyController());
@@ -53,4 +53,6 @@ getXPutInitializer() {
   Get.put(BlogCategoriesController());
   Get.put(AddressController());
   Get.put(FaqController());
+  Get.put(CareersController());
+  Get.put(CustomerCallController());
 }

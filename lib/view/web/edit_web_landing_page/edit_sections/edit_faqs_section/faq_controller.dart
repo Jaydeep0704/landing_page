@@ -35,14 +35,13 @@ class FaqController extends GetxController {
         if (response['body']['status'].toString() == "success") {
           log("response[data]  ---- ${response['body']["data"]}");
 
-
-          showSnackbar(title: "Success", message: "Faq type added");
+          showSnackbar(message: "Faq type added");
           hideLoadingDialog();
         }
       } else if (response['error'] != null) {
         log("inside addFaqType ---------4");
 
-        showSnackbar(title: "Warning", message: "Error");
+        showSnackbar(message: "Error");
         hideLoadingDialog();
       }
     } catch (e, s) {
@@ -69,14 +68,13 @@ class FaqController extends GetxController {
         log("inside updateFaqType ---------3");
 
         if (response['body']['status'].toString() == "success") {
-
-          showSnackbar(title: "Success", message: "Faq Updated");
+          showSnackbar(message: "Faq Updated");
           hideLoadingDialog();
         }
       } else if (response['error'] != null) {
         log("inside updateFaqType ---------4");
 
-        showSnackbar(title: "Warning", message: "Error");
+        showSnackbar(message: "Error");
         hideLoadingDialog();
       }
     } catch (e, s) {
@@ -104,14 +102,13 @@ class FaqController extends GetxController {
         if (response['body']['status'].toString() == "success") {
           log("response[data]  ---- ${response['body']["data"]}");
 
-
-          showSnackbar(title: "Success", message: "Faq Deleted");
+          showSnackbar(message: "Faq Deleted");
           hideLoadingDialog();
         }
       } else if (response['error'] != null) {
         log("inside deleteFaqType ---------4");
 
-        showSnackbar(title: "Warning", message: "Error");
+        showSnackbar(message: "Error");
         hideLoadingDialog();
       }
     } catch (e, s) {
@@ -144,7 +141,7 @@ class FaqController extends GetxController {
       } else if (response['error'] != null) {
         log("inside getFaqType ---------4");
 
-        showSnackbar(title: "Warning", message: "Error");
+        showSnackbar(message: "Error");
         // hideLoadingDialog();
       }
     } catch (e, s) {
@@ -197,14 +194,13 @@ class FaqController extends GetxController {
         if (response['body']['status'].toString() == "success") {
           log("response[data]  ---- ${response['body']["data"]}");
 
-
-          showSnackbar(title: "Success", message: "Faq added");
+          showSnackbar(message: "Faq added");
           hideLoadingDialog();
         }
       } else if (response['error'] != null) {
         log("inside addFaq ---------4");
 
-        showSnackbar(title: "Warning", message: "Error");
+        showSnackbar(message: "Error");
         hideLoadingDialog();
       }
     } catch (e, s) {
@@ -240,14 +236,13 @@ class FaqController extends GetxController {
         if (response['body']['status'].toString() == "success") {
           log("response[data]  ---- ${response['body']["data"]}");
 
-
-          showSnackbar(title: "Success", message: "Faq Updated");
+          showSnackbar(message: "Faq Updated");
           hideLoadingDialog();
         }
       } else if (response['error'] != null) {
         log("inside updateFaqType ---------4");
 
-        showSnackbar(title: "Warning", message: "Error");
+        showSnackbar(message: "Error");
         hideLoadingDialog();
       }
     } catch (e, s) {
@@ -277,14 +272,13 @@ class FaqController extends GetxController {
         if (response['body']['status'].toString() == "success") {
           log("response[data]  ---- ${response['body']["data"]}");
 
-
-          showSnackbar(title: "Success", message: "Faq deleted");
+          showSnackbar(message: "Faq deleted");
           hideLoadingDialog();
         }
       } else if (response['error'] != null) {
         log("inside deleteFaq ---------4");
 
-        showSnackbar(title: "Warning", message: "Error");
+        showSnackbar(message: "Error");
         hideLoadingDialog();
       }
     } catch (e, s) {
@@ -317,7 +311,7 @@ class FaqController extends GetxController {
       } else if (response['error'] != null) {
         log("inside getFaq ---------4");
 
-        showSnackbar(title: "Warning", message: "Error");
+        showSnackbar(message: "Error");
         hideLoadingDialog();
       }
     } catch (e, s) {

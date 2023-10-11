@@ -563,7 +563,7 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
           );
         } else {
           // hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(  message: "Not Allowed");
         }
       }
     } catch (exception) {
@@ -602,7 +602,7 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
       if (status == 1) {
         log("step --------  13");
         editPartnerController.getCaseStudy();
-        showSnackbar(title: "", message: "Added successfully");
+        showSnackbar(  message: "Added successfully");
         // Get.back();
       } else {
         log("step --------  14");
@@ -614,14 +614,14 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
     } else if (response.statusCode == 500) {
       hideLoadingDialog();
       // numberBannerController.getPartnerLogo();
-      showSnackbar(title: "", message: "Server Error");
+      showSnackbar(  message: "Server Error");
       if (mounted) {
         setState(() {});
       }
     } else {
       // numberBannerController.getPartnerLogo();
       hideLoadingDialog();
-      showSnackbar(title: "", message: "Error");
+      showSnackbar(  message: "Error");
 
       if (mounted) {
         setState(() {});
@@ -655,7 +655,7 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
           );
         } else {
           // hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(  message: "Not Allowed");
         }
       }
       request.fields["case_study_image"] = "";
@@ -689,7 +689,7 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
 
       int status = resp['status'];
       if (status == 1) {
-        showSnackbar(title: "", message: "Updated successfully");
+        showSnackbar(  message: "Updated successfully");
         editPartnerController.getCaseStudy();
       } else {
         // numberBannerController.getPartnerLogo();
@@ -699,14 +699,14 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
     } else if (response.statusCode == 500) {
       // numberBannerController.getPartnerLogo();
       hideLoadingDialog();
-      showSnackbar(title: "", message: "Server Error");
+      showSnackbar(  message: "Server Error");
       if (mounted) {
         setState(() {});
       }
     } else {
       // numberBannerController.getPartnerLogo();
       hideLoadingDialog();
-      showSnackbar(title: "", message: "Error");
+      showSnackbar(  message: "Error");
 
       if (mounted) {
         setState(() {});
@@ -731,16 +731,16 @@ class _AllNewCaseStudiesState extends State<AllNewCaseStudies> {
       int status = resp['status'];
       hideLoadingDialog();
       if (status == 1) {
-        showSnackbar(title: "", message: "Success");
+        showSnackbar(  message: "Success");
         editPartnerController.getCaseStudy();
       } else {
-        showSnackbar(title: "", message: "Error");
+        showSnackbar(  message: "Error");
         // hideLoadingDialog();
       }
     } else if (response.statusCode == 500) {
       hideLoadingDialog();
       // numberBannerController.getPartnerLogo();
-      showSnackbar(title: "", message: "Server Error");
+      showSnackbar(  message: "Server Error");
     }
   }
 }

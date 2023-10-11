@@ -606,7 +606,7 @@ class _EditShowCaseAppsState extends State<EditShowCaseApps> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['files'] = '';
@@ -630,7 +630,7 @@ class _EditShowCaseAppsState extends State<EditShowCaseApps> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['files'] = '';
@@ -655,7 +655,7 @@ class _EditShowCaseAppsState extends State<EditShowCaseApps> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['files'] = '';

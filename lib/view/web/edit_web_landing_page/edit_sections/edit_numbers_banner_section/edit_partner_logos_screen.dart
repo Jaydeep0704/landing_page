@@ -36,10 +36,9 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       numberBannerController.getPartnerLogo();
-      });
-
+    });
   }
 
   @override
@@ -48,19 +47,25 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.whiteColor,
-          leading: const BackButton(color: AppColors.blackColor,),
-          title: Text("Edit Partner Logo",style: AppTextStyle.regularBold.copyWith(color: AppColors.blackColor,fontSize: 18)),
+          leading: const BackButton(
+            color: AppColors.blackColor,
+          ),
+          title: Text("Edit Partner Logo",
+              style: AppTextStyle.regularBold
+                  .copyWith(color: AppColors.blackColor, fontSize: 18)),
           centerTitle: true,
         ),
         body: Row(
           children: [
             const Expanded(child: SizedBox()),
-
             Container(
-              decoration: BoxDecoration(
-                color: AppColors.whiteColor,
-                boxShadow: [BoxShadow(color: AppColors.blackColor.withOpacity(0.3),blurRadius: 4,spreadRadius: 3)]
-              ),
+              decoration:
+                  BoxDecoration(color: AppColors.whiteColor, boxShadow: [
+                BoxShadow(
+                    color: AppColors.blackColor.withOpacity(0.3),
+                    blurRadius: 4,
+                    spreadRadius: 3)
+              ]),
               width: Get.width > 800 ? 700 : 400,
               child: Column(
                 children: [
@@ -94,7 +99,10 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: const [
-                      Center(child: Text("Media Size : height*width - 50*50",)),
+                      Center(
+                          child: Text(
+                        "Media Size : height*width - 50*50",
+                      )),
                     ],
                   ),
                   Expanded(
@@ -103,37 +111,44 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
                           ? const Center(child: Text("No Data"))
                           : GridView.builder(
                               padding: const EdgeInsets.all(25),
-                              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 250,
-                                  mainAxisExtent: 250,
-                                  mainAxisSpacing: 5,
-                                  crossAxisSpacing: 5),
+                              gridDelegate:
+                                  const SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent: 250,
+                                      mainAxisExtent: 250,
+                                      mainAxisSpacing: 5,
+                                      crossAxisSpacing: 5),
                               shrinkWrap: true,
-                              itemCount: numberBannerController.partnerBannerLogos.length,
+                              itemCount: numberBannerController
+                                  .partnerBannerLogos.length,
                               itemBuilder: (context, index) {
-                                var data = numberBannerController.partnerBannerLogos[index];
+                                var data = numberBannerController
+                                    .partnerBannerLogos[index];
                                 return Container(
                                   height: 250,
                                   width: 250,
                                   // padding: const EdgeInsets.all(15),
                                   decoration: BoxDecoration(
-                                      color: AppColors.greyColor.withOpacity(0.5),
-                                      borderRadius: const BorderRadius.all(Radius.circular(10))),
+                                      color:
+                                          AppColors.greyColor.withOpacity(0.5),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10))),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       CachedNetworkImage(
                                         height: 150,
                                         width: 150,
                                         fit: BoxFit.cover,
-                                        imageUrl: APIString.bannerMediaUrl + data["images"].toString(),
+                                        imageUrl: APIString.bannerMediaUrl +
+                                            data["images"].toString(),
                                         placeholder: (context, url) =>
                                             Container(
                                                 height: 150,
                                                 width: 150,
                                                 decoration: const BoxDecoration(
-                                                color: AppColors.greyColor,
+                                                  color: AppColors.greyColor,
                                                 )),
                                         // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
                                         errorWidget: (context, url, error) =>
@@ -141,21 +156,27 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
                                       ),
                                       const SizedBox(height: 7),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          IconButton(onPressed: () {
-                                            // pickFiles(addImage: false, numberBannerAutoId: "");
-                                            pickFiles(
-                                                addImage: false,
-                                                numberBannerAutoId:
-                                                data["_id"]);
-                                          }, icon: const Icon(Icons.edit)),
-                                          IconButton(onPressed: () {
-                                            // deletePartnerLogo(numberBannerAutoId: "");
-                                            deletePartnerLogo(
-                                                numberBannerAutoId:
-                                                data["_id"]);
-                                          }, icon: const Icon(Icons.delete_forever)),
+                                          IconButton(
+                                              onPressed: () {
+                                                // pickFiles(addImage: false, numberBannerAutoId: "");
+                                                pickFiles(
+                                                    addImage: false,
+                                                    numberBannerAutoId:
+                                                        data["_id"]);
+                                              },
+                                              icon: const Icon(Icons.edit)),
+                                          IconButton(
+                                              onPressed: () {
+                                                // deletePartnerLogo(numberBannerAutoId: "");
+                                                deletePartnerLogo(
+                                                    numberBannerAutoId:
+                                                        data["_id"]);
+                                              },
+                                              icon: const Icon(
+                                                  Icons.delete_forever)),
                                         ],
                                       )
                                     ],
@@ -172,20 +193,18 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
           ],
         ),
       );
-    }
-    );
+    });
   }
 
   void pickFiles({bool addImage = false, String? numberBannerAutoId}) async {
     // Navigator.of(context).pop(false);
-    showLoadingDialog(loader: false,loadingText: true,delay: true);
+    showLoadingDialog(loader: false, loadingText: true, delay: true);
 
     try {
       _paths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))
           ?.files;
@@ -245,12 +264,11 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
           );
         } else {
           // hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(message: "Not Allowed");
         }
       }
       log("step --------  6");
-    }
-    catch (exception) {
+    } catch (exception) {
       log("step --------  7");
       request.fields["images"] = '';
       log('pic not selected');
@@ -260,7 +278,8 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
     debugPrint(request.fields.toString());
     log("step --------  9");
 
-    http.Response response = await http.Response.fromStream(await request.send());
+    http.Response response =
+        await http.Response.fromStream(await request.send());
 
     debugPrint("update response$response");
     hideLoadingDialog();
@@ -278,7 +297,7 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
       if (status == 1) {
         log("step --------  13");
         numberBannerController.getPartnerLogo();
-        showSnackbar(title: "", message: "Added successfully");
+        showSnackbar(message: "Added successfully");
         // Get.back();
       } else {
         log("step --------  14");
@@ -290,20 +309,19 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
     } else if (response.statusCode == 500) {
       hideLoadingDialog();
       // numberBannerController.getPartnerLogo();
-      showSnackbar(title: "", message: "Server Error");
+      showSnackbar(message: "Server Error");
       if (mounted) {
         setState(() {});
       }
     } else {
       // numberBannerController.getPartnerLogo();
       hideLoadingDialog();
-      showSnackbar(title: "", message: "Error");
+      showSnackbar(message: "Error");
 
       if (mounted) {
         setState(() {});
       }
     }
-
   }
 
   Future editPartnerLogo({String? numberBannerAutoId}) async {
@@ -328,7 +346,7 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
           );
         } else {
           // hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(message: "Not Allowed");
         }
       }
       request.fields["number_banner_auto_id"] = numberBannerAutoId.toString();
@@ -352,7 +370,7 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
 
       int status = resp['status'];
       if (status == 1) {
-        showSnackbar(title: "", message: "Updated successfully");
+        showSnackbar(message: "Updated successfully");
         numberBannerController.getPartnerLogo();
       } else {
         // numberBannerController.getPartnerLogo();
@@ -362,14 +380,14 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
     } else if (response.statusCode == 500) {
       // numberBannerController.getPartnerLogo();
       hideLoadingDialog();
-      showSnackbar(title: "", message: "Server Error");
+      showSnackbar(message: "Server Error");
       if (mounted) {
         setState(() {});
       }
     } else {
       // numberBannerController.getPartnerLogo();
       hideLoadingDialog();
-      showSnackbar(title: "", message: "Error");
+      showSnackbar(message: "Error");
 
       if (mounted) {
         setState(() {});
@@ -396,19 +414,17 @@ class _EditPartnerLogoScreenState extends State<EditPartnerLogoScreen> {
       hideLoadingDialog();
       if (status == 1) {
         log("if status success");
-        showSnackbar(title: "", message: "Success");
+        showSnackbar(message: "Success");
         numberBannerController.getPartnerLogo();
       } else {
         // String msg = resp['msg'];
         // numberBannerController.getPartnerLogo();
-        showSnackbar(title: "", message: "Error");
+        showSnackbar(message: "Error");
         hideLoadingDialog();
       }
     } else if (response.statusCode == 500) {
       // numberBannerController.getPartnerLogo();
-      showSnackbar(title: "", message: "Server Error");
+      showSnackbar(message: "Server Error");
     }
   }
-
-
 }

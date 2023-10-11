@@ -26,7 +26,6 @@ class EditTestimonalScreen extends StatefulWidget {
 }
 
 class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
-
   final testimonalcontroller = Get.find<EditTestimonialController>();
 
   List<PlatformFile>? _paths;
@@ -37,10 +36,9 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       testimonalcontroller.GetAppLogoes();
     });
-
   }
 
   @override
@@ -49,19 +47,25 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.whiteColor,
-          leading: const BackButton(color: AppColors.blackColor,),
-          title: Text("Edit App Logoes ",style: AppTextStyle.regularBold.copyWith(color: AppColors.blackColor,fontSize: 18)),
+          leading: const BackButton(
+            color: AppColors.blackColor,
+          ),
+          title: Text("Edit App Logoes ",
+              style: AppTextStyle.regularBold
+                  .copyWith(color: AppColors.blackColor, fontSize: 18)),
           centerTitle: true,
         ),
         body: Row(
           children: [
             const Expanded(child: SizedBox()),
-
             Container(
-              decoration: BoxDecoration(
-                  color: AppColors.whiteColor,
-                  boxShadow: [BoxShadow(color: AppColors.blackColor.withOpacity(0.3),blurRadius: 0,spreadRadius: 0)]
-              ),
+              decoration:
+                  BoxDecoration(color: AppColors.whiteColor, boxShadow: [
+                BoxShadow(
+                    color: AppColors.blackColor.withOpacity(0.3),
+                    blurRadius: 0,
+                    spreadRadius: 0)
+              ]),
               width: Get.width > 800 ? 700 : 400,
               child: Column(
                 children: [
@@ -80,7 +84,7 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
                           decoration: BoxDecoration(
                               color: AppColors.greyColor.withOpacity(0.5),
                               borderRadius:
-                              const BorderRadius.all(Radius.circular(5))),
+                                  const BorderRadius.all(Radius.circular(5))),
                           child: Row(
                             children: const [
                               Icon(Icons.add),
@@ -92,74 +96,83 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
                       ),
                     ),
                   ),
-
                   Expanded(
                     child: Obx(() {
                       return testimonalcontroller.appLogoList.isEmpty
                           ? const Center(child: Text("No Data"))
                           : GridView.builder(
-                        padding: const EdgeInsets.all(25),
-                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 250,
-                            mainAxisExtent: 250,
-                            mainAxisSpacing: 5,
-                            crossAxisSpacing: 5),
-                        shrinkWrap: true,
-                        itemCount: testimonalcontroller.appLogoList.length,
-                        itemBuilder: (context, index) {
-                          var data = testimonalcontroller.appLogoList[index];
-                          return Container(
-                            height: 250,
-                            width: 250,
-                            // padding: const EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                                color: AppColors.greyColor.withOpacity(0.5),
-                                borderRadius: const BorderRadius.all(Radius.circular(10))),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                CachedNetworkImage(
-                                  height: 150,
-                                  width: 150,
-                                  fit: BoxFit.cover,
-                                  imageUrl: APIString.bannerMediaUrl + data["images"].toString(),
-                                  placeholder: (context, url) =>
-                                      Container(
-                                          height: 150,
-                                          width: 150,
-                                          decoration: const BoxDecoration(
-                                            color: AppColors.greyColor,
-                                          )),
-                                  // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
-                                  errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                                ),
-                                const SizedBox(height: 7),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    IconButton(onPressed: () {
-                                      // pickFiles(addImage: false, numberBannerAutoId: "");
-                                      pickFiles(
-                                          addImage: false,
-                                          imageAutoId:
-                                          data["_id"]);
-                                    },
-                                        icon: const Icon(Icons.edit)),
-                                    IconButton(onPressed: () {
-                                      // deletePartnerLogo(numberBannerAutoId: "");
-                                      deletePartnerLogo(
-                                          imageAutoId:
-                                          data["_id"]);
-                                    }, icon: const Icon(Icons.delete_forever)),
-                                  ],
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                      );
+                              padding: const EdgeInsets.all(25),
+                              gridDelegate:
+                                  const SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent: 250,
+                                      mainAxisExtent: 250,
+                                      mainAxisSpacing: 5,
+                                      crossAxisSpacing: 5),
+                              shrinkWrap: true,
+                              itemCount:
+                                  testimonalcontroller.appLogoList.length,
+                              itemBuilder: (context, index) {
+                                var data =
+                                    testimonalcontroller.appLogoList[index];
+                                return Container(
+                                  height: 250,
+                                  width: 250,
+                                  // padding: const EdgeInsets.all(15),
+                                  decoration: BoxDecoration(
+                                      color:
+                                          AppColors.greyColor.withOpacity(0.5),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10))),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      CachedNetworkImage(
+                                        height: 150,
+                                        width: 150,
+                                        fit: BoxFit.cover,
+                                        imageUrl: APIString.bannerMediaUrl +
+                                            data["images"].toString(),
+                                        placeholder: (context, url) =>
+                                            Container(
+                                                height: 150,
+                                                width: 150,
+                                                decoration: const BoxDecoration(
+                                                  color: AppColors.greyColor,
+                                                )),
+                                        // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
+                                      ),
+                                      const SizedBox(height: 7),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          IconButton(
+                                              onPressed: () {
+                                                // pickFiles(addImage: false, numberBannerAutoId: "");
+                                                pickFiles(
+                                                    addImage: false,
+                                                    imageAutoId: data["_id"]);
+                                              },
+                                              icon: const Icon(Icons.edit)),
+                                          IconButton(
+                                              onPressed: () {
+                                                // deletePartnerLogo(numberBannerAutoId: "");
+                                                deletePartnerLogo(
+                                                    imageAutoId: data["_id"]);
+                                              },
+                                              icon: const Icon(
+                                                  Icons.delete_forever)),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
                     }),
                   ),
                 ],
@@ -179,8 +192,7 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
       _paths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
       ))
           ?.files;
@@ -239,12 +251,11 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
           );
         } else {
           // hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(message: "Not Allowed");
         }
       }
       log("step --------  6");
-    }
-    catch (exception) {
+    } catch (exception) {
       log("step --------  7");
       request.fields["images"] = '';
       log('pic not selected');
@@ -254,7 +265,8 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
     debugPrint(request.fields.toString());
     log("step --------  9");
 
-    http.Response response = await http.Response.fromStream(await request.send());
+    http.Response response =
+        await http.Response.fromStream(await request.send());
 
     debugPrint("update response$response");
     hideLoadingDialog();
@@ -272,7 +284,7 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
       if (status == 1) {
         log("step --------  13");
         testimonalcontroller.GetAppLogoes();
-        showSnackbar(title: "", message: "Added successfully");
+        showSnackbar(message: "Added successfully");
         // Get.back();
       } else {
         log("step --------  14");
@@ -284,20 +296,19 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
     } else if (response.statusCode == 500) {
       hideLoadingDialog();
       // editInfoController.getPartnerLogo();
-      showSnackbar(title: "", message: "Server Error");
+      showSnackbar(message: "Server Error");
       if (mounted) {
         setState(() {});
       }
     } else {
       // editInfoController.getPartnerLogo();
       hideLoadingDialog();
-      showSnackbar(title: "", message: "Error");
+      showSnackbar(message: "Error");
 
       if (mounted) {
         setState(() {});
       }
     }
-
   }
 
   Future editPartnerLogo({String? imageAutoId}) async {
@@ -322,7 +333,7 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
           );
         } else {
           // hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(message: "Not Allowed");
         }
       }
       //app_logo_auto_id,images
@@ -335,7 +346,7 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
     debugPrint(request.fields.toString());
 
     http.Response response =
-    await http.Response.fromStream(await request.send());
+        await http.Response.fromStream(await request.send());
 
     debugPrint("update response$response");
 
@@ -347,7 +358,7 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
 
       int status = resp['status'];
       if (status == 1) {
-        showSnackbar(title: "", message: "Updated successfully");
+        showSnackbar(message: "Updated successfully");
         testimonalcontroller.GetAppLogoes();
       } else {
         // editInfoController.getPartnerLogo();
@@ -357,14 +368,14 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
     } else if (response.statusCode == 500) {
       // editInfoController.getPartnerLogo();
       hideLoadingDialog();
-      showSnackbar(title: "", message: "Server Error");
+      showSnackbar(message: "Server Error");
       if (mounted) {
         setState(() {});
       }
     } else {
       // editInfoController.getPartnerLogo();
       hideLoadingDialog();
-      showSnackbar(title: "", message: "Error");
+      showSnackbar(message: "Error");
 
       if (mounted) {
         setState(() {});
@@ -391,19 +402,17 @@ class _EditTestimonalScreenState extends State<EditTestimonalScreen> {
       hideLoadingDialog();
       if (status == 1) {
         log("if status success");
-        showSnackbar(title: "", message: "Success");
+        showSnackbar(message: "Success");
         testimonalcontroller.GetAppLogoes();
       } else {
         // String msg = resp['msg'];
         // editInfoController.getPartnerLogo();
-        showSnackbar(title: "", message: "Error");
+        showSnackbar(message: "Error");
         hideLoadingDialog();
       }
     } else if (response.statusCode == 500) {
       // editInfoController.getPartnerLogo();
-      showSnackbar(title: "", message: "Server Error");
+      showSnackbar(message: "Server Error");
     }
   }
-
-
 }

@@ -146,7 +146,7 @@ class _ImgPickDialogState extends State<ImgPickDialog> {
           );
         } else {
           hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(message: "Not Allowed");
         }
       }
       request.fields[widget.keyNameImg!.toString()] = '';

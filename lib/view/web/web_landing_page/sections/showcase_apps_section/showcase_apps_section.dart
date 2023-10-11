@@ -380,7 +380,7 @@ class _ShowcaseAppsSectionState extends State<ShowcaseAppsSection> {
                                             ),
                                           ).then(
                                                 (result) {
-                                              showSnackbar(title: "Success", message: "Copied!");
+                                              showSnackbar( message: "Copied!");
                                               // Fluttertoast.showToast(msg: "Copied!");
                                             },
                                           );

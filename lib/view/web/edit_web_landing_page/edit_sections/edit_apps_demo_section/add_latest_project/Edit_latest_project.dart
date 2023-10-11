@@ -688,7 +688,7 @@ class _EditProjectsState extends State<EditProjects> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['app_media_file'] = '';
@@ -709,7 +709,7 @@ class _EditProjectsState extends State<EditProjects> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['video_thumbnail'] = '';
@@ -733,7 +733,7 @@ class _EditProjectsState extends State<EditProjects> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['app_media_file'] = '';
@@ -758,7 +758,7 @@ class _EditProjectsState extends State<EditProjects> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['app_media_file'] = '';

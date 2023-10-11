@@ -849,7 +849,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
           );
         } else {
           // hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(message: "Not Allowed");
         }
         request.fields["case_study_image"] = '';
       }
@@ -872,7 +872,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -896,7 +896,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -920,7 +920,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -965,18 +965,18 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
 
       int status = resp['status'];
       if (status == 1) {
-        showSnackbar(title: "", message: "Added successfully");
+        showSnackbar(message: "Added successfully");
         Get.back();
       } else {}
     } else if (response.statusCode == 500) {
       hideLoadingDialog();
-      showSnackbar(title: "", message: "Server Error");
+      showSnackbar(message: "Server Error");
       if (mounted) {
         setState(() {});
       }
     } else {
       hideLoadingDialog();
-      showSnackbar(title: "", message: "Error");
+      showSnackbar(message: "Error");
 
       if (mounted) {
         setState(() {});
@@ -1146,7 +1146,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
           );
         } else {
           // hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(message: "Not Allowed");
         }
       }
       request.fields["case_study_image"] = "";
@@ -1169,7 +1169,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -1193,7 +1193,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -1217,7 +1217,7 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -1260,16 +1260,16 @@ class _AddUpdateShortCaseStudyState extends State<AddUpdateShortCaseStudy> {
       debugPrint(resp.toString());
       int status = resp['status'];
       if (status == 1) {
-        showSnackbar(title: "", message: "Updated successfully");
+        showSnackbar(message: "Updated successfully");
         Get.back();
       } else {}
     } else if (response.statusCode == 500) {
-      showSnackbar(title: "", message: "Server Error");
+      showSnackbar(message: "Server Error");
       if (mounted) {
         setState(() {});
       }
     } else {
-      showSnackbar(title: "", message: "Error");
+      showSnackbar(message: "Error");
       if (mounted) {
         setState(() {});
       }

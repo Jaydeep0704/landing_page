@@ -126,7 +126,6 @@ class _CareersScreenState extends State<CareersScreen> {
                                         color: AppColors.borderColor),
                                     borderRadius: BorderRadius.circular(10)),
                               ),
-
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(10)),
                               isExpanded: true,
@@ -136,15 +135,9 @@ class _CareersScreenState extends State<CareersScreen> {
                               elevation: 16,
                               style: const TextStyle(
                                   color: Colors.black, fontSize: 18),
-                              // underline: Container(
-                              //   height: 2,
-                              //   color: Colors.blue,
-                              // ),
                               onChanged: (String? newValue) {
-                                // setState(() {
                                 careersController.selectedOption.value =
                                     newValue!;
-                                // });
                               },
                               items: careersController.dropdownOptions
                                   .map<DropdownMenuItem<String>>(
@@ -268,20 +261,20 @@ class _CareersScreenState extends State<CareersScreen> {
                                 if (careersController
                                     .emailController.text.isEmpty) {
                                   showSnackbar(
-                                      title: "", message: "Enter Email");
+                                        message: "Enter Email");
                                 } else if (careersController
                                     .descController.text.isEmpty) {
                                   showSnackbar(
-                                      title: "", message: "Enter Description");
+                                       message: "Enter Description");
                                 } else if (careersController
                                         .selectedOption.value
                                         .toString() ==
                                     "Select Designations") {
                                   showSnackbar(
-                                      title: "", message: "Select Designation");
+                                        message: "Select Designation");
                                 } else if (_paths == null) {
                                   showSnackbar(
-                                      title: "", message: "Select Resume");
+                                       message: "Select Resume");
                                 } else {
                                   log("selectedOption${careersController.selectedOption.value}");
                                   careersController

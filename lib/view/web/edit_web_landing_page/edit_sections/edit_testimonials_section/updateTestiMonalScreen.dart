@@ -1,4 +1,3 @@
-
 // ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables, use_build_context_synchronously, implementation_imports, depend_on_referenced_packages, avoid_web_libraries_in_flutter, file_names
 
 import 'dart:convert';
@@ -35,21 +34,31 @@ class UpdateTestimonial extends StatefulWidget {
   final String bannerfile;
   final String profilimg;
   final String bannerfiletype;
-  const UpdateTestimonial({Key? key,required this.id,required this.name,required this.description,required this.position,
-  required this.companyName,required this.medialink,required this.mediatype,required this.profilimg
-    ,required this.bannerfiletype,required this.bannerfile}) : super(key: key);
+  const UpdateTestimonial(
+      {Key? key,
+      required this.id,
+      required this.name,
+      required this.description,
+      required this.position,
+      required this.companyName,
+      required this.medialink,
+      required this.mediatype,
+      required this.profilimg,
+      required this.bannerfiletype,
+      required this.bannerfile})
+      : super(key: key);
   // EditCheckOutInfo({Key? key,required this.data}) : super(key: key);
   @override
   State<UpdateTestimonial> createState() => _UpdateTestimonialState();
 }
 
 class _UpdateTestimonialState extends State<UpdateTestimonial> {
-
   ///for Profile image file
   List<PlatformFile>? Profilepaths;
   var ProfilepathsFile;
   var profilepathsFileName;
   Uint8List? pimageData;
+
   ///for gif file
   List<PlatformFile>? gifpaths;
   var gifpathsFile;
@@ -69,9 +78,9 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
   var pathsFile;
   var pathsFileName;
   Uint8List? imageData;
-  String mediatype="";
-  bool banertype=false;
-  bool youthubetype=false;
+  String mediatype = "";
+  bool banertype = false;
+  bool youthubetype = false;
 
   TextEditingController username_controller = TextEditingController();
   TextEditingController medialink_controller = TextEditingController();
@@ -81,63 +90,61 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
   final testimonalcontroller = Get.find<EditTestimonialController>();
   final editController = Get.find<EditController>();
   bool isApiProcessing = false;
-  String VideoImg="";
-  bool isvideo=false;
-  bool isImage=false;
-  bool isGif=false;
-  String videoUrl="";
-
-
+  String VideoImg = "";
+  bool isvideo = false;
+  bool isImage = false;
+  bool isGif = false;
+  String videoUrl = "";
 
   @override
   void initState() {
     super.initState();
-    username_controller.text=widget.name;
-    mediatype=widget.mediatype;
-    medialink_controller.text=widget.medialink;
-    companyname_controller.text=widget.companyName;
-    Description_controller.text=widget.description;
-    position_controller.text=widget.position;
-    videoUrl=widget.bannerfile;
+    username_controller.text = widget.name;
+    mediatype = widget.mediatype;
+    medialink_controller.text = widget.medialink;
+    companyname_controller.text = widget.companyName;
+    Description_controller.text = widget.description;
+    position_controller.text = widget.position;
+    videoUrl = widget.bannerfile;
 
     checkisVideo();
     checkMediatype();
   }
 
-
   @override
   void dispose() {
     videoController?.dispose();
     super.dispose();
-
   }
-  checkMediatype(){
-    if(widget.mediatype=="youthtube"){
-      youthubetype=true;
-      banertype=false;
-      mediatype="youthtube";
-    }else if(widget.mediatype=="normal"){
-      youthubetype=false;
-      banertype=true;
-      mediatype="normal";
+
+  checkMediatype() {
+    if (widget.mediatype == "youthtube") {
+      youthubetype = true;
+      banertype = false;
+      mediatype = "youthtube";
+    } else if (widget.mediatype == "normal") {
+      youthubetype = false;
+      banertype = true;
+      mediatype = "normal";
     }
   }
-  checkisVideo(){
-    if(widget.bannerfiletype=="image"){
-      isImage=true;
-      isvideo=false;
-      isGif= false;
-      VideoImg="image";
-    }else if(widget.bannerfiletype=="video"){
-      isImage=false;
-      isvideo=true;
-      isGif= false;
-      VideoImg="video";
-    }else if(widget.bannerfiletype=="gif"){
-      isImage=false;
-      isvideo=false;
-      isGif= true;
-      VideoImg="gif";
+
+  checkisVideo() {
+    if (widget.bannerfiletype == "image") {
+      isImage = true;
+      isvideo = false;
+      isGif = false;
+      VideoImg = "image";
+    } else if (widget.bannerfiletype == "video") {
+      isImage = false;
+      isvideo = true;
+      isGif = false;
+      VideoImg = "video";
+    } else if (widget.bannerfiletype == "gif") {
+      isImage = false;
+      isvideo = false;
+      isGif = true;
+      VideoImg = "gif";
     }
   }
 
@@ -162,27 +169,454 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
           body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(
-              child: Row(
-                  children:[
-                    const Expanded(
-                        child:
-                        SizedBox()
-                    ),
-                    SizedBox(
-                      width: Get.width > 800 ? 500 :300,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Center(child: Text("Select Profile Image",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
-                            const SizedBox(height: 20,),
-                            Center(
-                              child: InkWell(
-                                onTap: (){
-                                  pickProfile();
-                                },
-                                child: Container(
-                                  height: 100,
-                                  width: 100,
+              child: Row(children: [
+                const Expanded(child: SizedBox()),
+                SizedBox(
+                  width: Get.width > 800 ? 500 : 300,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Center(
+                            child: Text(
+                          "Select Profile Image",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        )),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Center(
+                          child: InkWell(
+                            onTap: () {
+                              pickProfile();
+                            },
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  width: 1.0,
+                                ),
+                              ),
+                              child: pimageData != null
+                                  ? Image.memory(
+                                      pimageData!,
+                                      fit: BoxFit.fill,
+                                    )
+                                  : CachedNetworkImage(
+                                      height: 100,
+                                      width: MediaQuery.of(context).size.width,
+                                      imageUrl: APIString.latestmediaBaseUrl +
+                                          widget.profilimg,
+                                      placeholder: (context, url) => Container(
+                                        decoration: BoxDecoration(
+                                          color: Color(int.parse(editController
+                                              .appDemoBgColor.value
+                                              .toString())),
+                                        ),
+                                      ),
+                                      // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                      fit: BoxFit.contain,
+                                    ),
+                              // pimageData != null
+                              //     ? Image.memory(
+                              //   pimageData!,
+                              //   fit: BoxFit.fill,
+                              // )
+                              //     : Center(child:  Icon(
+                              //   Icons.photo_library,
+                              //   size: 50,
+                              //   color: Colors.grey,
+                              // )),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        const Text(
+                          "Enter User Name",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: username_controller,
+                          decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: const EdgeInsets.all(10),
+                              hintText: "Enter User Name",
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.red, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Divider(
+                          color: Colors.grey,
+                          thickness: 0.3,
+                        ),
+                        const Text(
+                          "Enter Media Type",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                title: const Text(
+                                  'YouthTube',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                leading: Radio(
+                                  activeColor: Colors.blue,
+                                  value: 'youthtube',
+                                  groupValue: mediatype,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      mediatype = value as String;
+                                      log(value);
+                                      log(mediatype);
+                                      if (mediatype == 'youthtube') {
+                                        youthubetype = true;
+                                        banertype = false;
+                                      } else {
+                                        youthubetype = false;
+                                        banertype = true;
+                                      }
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                title: const Text(
+                                  'Normal',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                leading: Radio(
+                                  activeColor: Colors.blue,
+                                  value: 'normal',
+                                  groupValue: mediatype,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      mediatype = value as String;
+                                      log("Img_video==");
+                                      log(value);
+                                      log(mediatype);
+                                      if (mediatype == 'normal') {
+                                        banertype = true;
+                                        youthubetype = false;
+                                      } else {
+                                        banertype = false;
+                                        youthubetype = true;
+                                      }
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Visibility(
+                            visible: youthubetype == true ? true : false,
+                            child: const Text(
+                              "Enter Media Link",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600),
+                            )),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Visibility(
+                          visible: youthubetype == true ? true : false,
+                          child: TextFormField(
+                            controller: medialink_controller,
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                contentPadding: const EdgeInsets.all(10),
+                                hintText: "Enter Media Link",
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Colors.red, width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Colors.black, width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                )),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Divider(
+                          color: Colors.grey,
+                          thickness: 0.3,
+                        ),
+                        const Text(
+                          "Enter Company Name",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: companyname_controller,
+                          decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: const EdgeInsets.all(10),
+                              hintText: "Enter Company Name",
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.red, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Divider(
+                          color: Colors.grey,
+                          thickness: 0.3,
+                        ),
+                        const Text(
+                          "Enter Description",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: Description_controller,
+                          maxLines: 10,
+                          decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: const EdgeInsets.all(10),
+                              hintText: "Enter Description",
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.red, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Divider(
+                          color: Colors.grey,
+                          thickness: 0.3,
+                        ),
+                        const Text(
+                          "Enter Job Position",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: position_controller,
+                          decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: const EdgeInsets.all(10),
+                              hintText: "Enter Job Position",
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.red, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.black, width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              )),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Divider(
+                          color: Colors.grey,
+                          thickness: 0.3,
+                        ),
+                        Visibility(
+                            visible: banertype == true ? true : false,
+                            child: const Center(
+                                child: Text(
+                              "Select Banner Media type",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600),
+                            ))),
+                        Visibility(
+                          visible: banertype == true ? true : false,
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: const Text(
+                                    'Image',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  leading: Radio(
+                                    activeColor: Colors.blue,
+                                    value: 'image',
+                                    groupValue: VideoImg,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        VideoImg = value as String;
+                                        log(value);
+                                        log(VideoImg);
+                                        if (VideoImg == 'image') {
+                                          isImage = true;
+                                          isvideo = false;
+                                          isGif = false;
+                                        } else {
+                                          isImage = false;
+                                        }
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: const Text(
+                                    'Video',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  leading: Radio(
+                                    activeColor: Colors.blue,
+                                    value: 'video',
+                                    groupValue: VideoImg,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        VideoImg = value as String;
+                                        log("Img_video==");
+                                        log(value);
+                                        log(VideoImg);
+                                        if (VideoImg == 'video') {
+                                          isvideo = true;
+                                          isImage = false;
+                                          isGif = false;
+                                        } else {
+                                          isvideo = false;
+                                        }
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: const Text(
+                                    'GIF',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  leading: Radio(
+                                    activeColor: Colors.blue,
+                                    value: 'gif',
+                                    groupValue: VideoImg,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        VideoImg = value as String;
+                                        log("Img_gif==");
+                                        log(value);
+                                        log(VideoImg);
+                                        if (VideoImg == 'gif') {
+                                          isGif = true;
+                                          isImage = false;
+                                          isvideo = false;
+                                        } else {
+                                          isGif = false;
+                                        }
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Visibility(
+                            visible: isImage == true ? true : false,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 200,
+                                  width: MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(15),
                                     border: Border.all(
@@ -190,615 +624,201 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
                                       width: 1.0,
                                     ),
                                   ),
-                                   child: pimageData != null
-                                ? Image.memory(
-                                     pimageData!,
-                                  fit: BoxFit.fill,
-                                )
-                                    :   CachedNetworkImage(
-                                height: 100,
-                                width: MediaQuery.of(context).size.width,
-                                imageUrl: APIString.latestmediaBaseUrl + widget.profilimg,
-                                placeholder: (context, url) => Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                  ),
+                                  child: imageData != null
+                                      ? Image.memory(
+                                          imageData!,
+                                          fit: BoxFit.fill,
+                                        )
+                                      : CachedNetworkImage(
+                                          height: 200,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          imageUrl:
+                                              APIString.latestmediaBaseUrl +
+                                                  widget.bannerfile,
+                                          placeholder: (context, url) =>
+                                              Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(int.parse(
+                                                  editController
+                                                      .appDemoBgColor.value
+                                                      .toString())),
+                                            ),
+                                          ),
+                                          // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                          fit: BoxFit.contain,
+                                        ),
                                 ),
-                                // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
-                                errorWidget: (context, url, error) => const Icon(Icons.error),
-                                fit: BoxFit.contain,
-                              ),
-                                  // pimageData != null
-                                  //     ? Image.memory(
-                                  //   pimageData!,
-                                  //   fit: BoxFit.fill,
-                                  // )
-                                  //     : Center(child:  Icon(
-                                  //   Icons.photo_library,
-                                  //   size: 50,
-                                  //   color: Colors.grey,
-                                  // )),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.02,
-                            ),
-                            const Text("Enter User Name",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            const SizedBox(height: 10,),
-
-                            TextFormField(
-                              controller: username_controller,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                  const EdgeInsets.all(
-                                      10),
-                                  hintText: "Enter User Name",
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.red, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.black, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  )
-                              ),
-                            ),
-                            const SizedBox(height: 10,),
-                            const Divider(
-                              color: Colors.grey,
-                              thickness: 0.3,
-                            ),
-                            const Text("Enter Media Type",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            const SizedBox(height: 10,),
-
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: ListTile(
-                                    contentPadding: EdgeInsets.zero,
-                                    title: const Text(
-                                      'YouthTube',
-                                      style: TextStyle(fontSize: 16),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      pickImageFiles();
+                                    },
+                                    icon: const Icon(
+                                      Icons.camera,
                                     ),
-                                    leading: Radio(
-                                      activeColor: Colors.blue,
-                                      value: 'youthtube',
-                                      groupValue: mediatype,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          mediatype = value as String;
-                                          log(value);
-                                          log(mediatype);
-                                          if (mediatype == 'youthtube') {
-                                            youthubetype=true;
-                                            banertype=false;
-                                          } else {
-                                            youthubetype=false;
-                                            banertype=true;
-                                          }
-                                        });
-                                      },
+                                    label: const Text(
+                                      'Pick Image',
+                                      style: TextStyle(),
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: ListTile(
-                                    contentPadding: EdgeInsets.zero,
-                                    title: const Text(
-                                      'Normal',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    leading: Radio(
-                                      activeColor: Colors.blue,
-                                      value: 'normal',
-                                      groupValue: mediatype,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          mediatype = value as String;
-                                          log("Img_video==");
-                                          log(value);
-                                          log(mediatype);
-                                          if (mediatype == 'normal') {
-                                            banertype=true;
-                                            youthubetype=false;
-                                          } else {
-
-                                            banertype=false;
-                                            youthubetype=true;
-                                          }
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-
                               ],
-                            ),
-                            const SizedBox(height: 10,),
-
-                            Visibility(
-                                visible:youthubetype == true ? true : false,
-                                child: const Text("Enter Media Link",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),)),
-                            const SizedBox(height: 10,),
-
-                            Visibility(
-                              visible:youthubetype == true ? true : false,
-                              child: TextFormField(
-                                controller: medialink_controller,
-                                decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    contentPadding:
-                                    const EdgeInsets.all(
-                                        10),
-                                    hintText: "Enter Media Link",
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Colors.grey, width: 1),
-                                      borderRadius:
-                                      BorderRadius.circular(10),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Colors.red, width: 1),
-                                      borderRadius:
-                                      BorderRadius.circular(10),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Colors.black, width: 1),
-                                      borderRadius:
-                                      BorderRadius.circular(10),
-                                    )
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 10,),
-                            const Divider(
-                              color: Colors.grey,
-                              thickness: 0.3,
-                            ),
-                            const Text("Enter Company Name",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            const SizedBox(height: 10,),
-
-                            TextFormField(
-                              controller: companyname_controller,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                  const EdgeInsets.all(
-                                      10),
-                                  hintText: "Enter Company Name",
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.red, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.black, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  )
-                              ),
-                            ),
-                            const SizedBox(height: 10,),
-                            const Divider(
-                              color: Colors.grey,
-                              thickness: 0.3,
-                            ),
-                            const Text("Enter Description",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            const SizedBox(height: 10,),
-
-                            TextFormField(
-                              controller: Description_controller,
-                              maxLines: 10,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                  const EdgeInsets.all(
-                                      10),
-                                  hintText: "Enter Description",
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.red, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.black, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  )
-                              ),
-                            ),
-                            const SizedBox(height: 10,),
-                            const Divider(
-                              color: Colors.grey,
-                              thickness: 0.3,
-                            ),
-                            const Text("Enter Job Position",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                            const SizedBox(height: 10,),
-
-                            TextFormField(
-                              controller: position_controller,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding:
-                                  const EdgeInsets.all(
-                                      10),
-                                  hintText: "Enter Job Position",
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.grey, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.red, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.black, width: 1),
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                  )
-                              ),
-                            ),
-                            const SizedBox(height: 10,),
-                            const Divider(
-                              color: Colors.grey,
-                              thickness: 0.3,
-                            ),
-                            Visibility(
-                                visible:banertype == true ? true : false,
-                                child: const Center(child: Text("Select Banner Media type",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),))),
-
-                            Visibility(
-                              visible:banertype == true ? true : false,
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: ListTile(
-                                      contentPadding: EdgeInsets.zero,
-                                      title: const Text(
-                                        'Image',
-                                        style: TextStyle(fontSize: 16),
-                                      ),
-                                      leading: Radio(
-                                        activeColor: Colors.blue,
-                                        value: 'image',
-                                        groupValue: VideoImg,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            VideoImg = value as String;
-                                            log(value);
-                                            log(VideoImg);
-                                            if (VideoImg == 'image') {
-                                              isImage = true;
-                                              isvideo = false;
-                                              isGif = false;
-                                            } else {
-                                              isImage = false;
-                                            }
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: ListTile(
-                                      contentPadding: EdgeInsets.zero,
-                                      title: const Text(
-                                        'Video',
-                                        style: TextStyle(fontSize: 16),
-                                      ),
-                                      leading: Radio(
-                                        activeColor: Colors.blue,
-                                        value: 'video',
-                                        groupValue: VideoImg,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            VideoImg = value as String;
-                                            log("Img_video==");
-                                            log(value);
-                                            log(VideoImg);
-                                            if (VideoImg == 'video') {
-                                              isvideo = true;
-                                              isImage = false;
-                                              isGif = false;
-                                            } else {
-                                              isvideo = false;
-                                            }
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: ListTile(
-                                      contentPadding: EdgeInsets.zero,
-                                      title: const Text(
-                                        'GIF',
-                                        style: TextStyle(fontSize: 16),
-                                      ),
-                                      leading: Radio(
-                                        activeColor: Colors.blue,
-                                        value: 'gif',
-                                        groupValue: VideoImg,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            VideoImg = value as String;
-                                            log("Img_gif==");
-                                            log(value);
-                                            log(VideoImg);
-                                            if (VideoImg == 'gif') {
-                                              isGif = true;
-                                              isImage = false;
-                                              isvideo = false;
-                                            } else {
-                                              isGif = false;
-                                            }
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 10,),
-                            Visibility(
-                                visible:isImage == true ? true : false,
-                                child:
-                                Column(
-                                  children: [
-                                    Container(
-                                      height: 200,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        border: Border.all(
-                                          color: Colors.grey,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: imageData != null
-                                          ? Image.memory(
-                                        imageData!,
-                                        fit: BoxFit.fill,
-                                      )
-                                          :   CachedNetworkImage(
-                                        height: 200,
-                                        width: MediaQuery.of(context).size.width,
-                                        imageUrl: APIString.latestmediaBaseUrl + widget.bannerfile,
-                                        placeholder: (context, url) => Container(
-                                          decoration: BoxDecoration(
-                                            color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                          ),
-                                        ),
-                                        // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
-                                        errorWidget: (context, url, error) => const Icon(Icons.error),
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-
-
-
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.02,
-                                    ),
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.05,
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {
-                                          pickImageFiles();
-
-                                        },
-                                        icon: const Icon(
-                                          Icons.camera,
-                                        ),
-                                        label: const Text(
-                                          'Pick Image',
-                                          style: TextStyle(),
-                                        ),
-                                      ),
-                                    ),
-
-                                  ],
-                                )
-                            ),
-
-                            Visibility(
-                                visible:isvideo == true ? true : false,
-                                child:
-                                Column(
-                                  children: [
-
-                                    videoData != null
-                                        ? (controller != null && controller.value.isInitialized)
+                            )),
+                        Visibility(
+                            visible: isvideo == true ? true : false,
+                            child: Column(
+                              children: [
+                                videoData != null
+                                    ? (controller != null &&
+                                            controller.value.isInitialized)
                                         ? AspectRatio(
-                                      aspectRatio: 1 / 0.3,
-                                      child: VideoPlayer(controller),
-                                    )
+                                            aspectRatio: 1 / 0.3,
+                                            child: VideoPlayer(controller),
+                                          )
                                         : AspectRatio(
-                                      aspectRatio: 1 / 0.3,
-                                      child: VideoPlayer(controller!),
-                                    )
-                                        : displayUploadedVideo(),
-
-
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.02,
+                                            aspectRatio: 1 / 0.3,
+                                            child: VideoPlayer(controller!),
+                                          )
+                                    : displayUploadedVideo(),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      pickVideoFiles();
+                                    },
+                                    icon: const Icon(Icons.camera),
+                                    label: const Text(
+                                      'Pick Video',
+                                      style: TextStyle(),
                                     ),
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.05,
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {
-                                          pickVideoFiles();
-                                        },
-                                        icon: const Icon(Icons.camera),
-                                        label: const Text(
-                                          'Pick Video',
-                                          style: TextStyle(),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )
-
-                            ),
-                            Visibility(
-                                visible: isGif == true ? true : false,
-                                child:
-                                Column(
-                                  children: [
-                                    Container(
-                                      height: 200,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        border: Border.all(
-                                          color: Colors.grey,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: gifData != null
-                                          ? Image.memory(
-                                        gifData!,
-                                        fit: BoxFit.contain,
-                                      )
-                                          :   CachedNetworkImage(
-                                        height: 200,
-                                        width: MediaQuery.of(context).size.width,
-                                        imageUrl: APIString.latestmediaBaseUrl + widget.bannerfile,
-                                        placeholder: (context, url) => Container(
-                                          decoration: BoxDecoration(
-                                            color: Color(int.parse(editController.appDemoBgColor.value.toString())),
-                                          ),
-                                        ),
-                                        // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
-                                        errorWidget: (context, url, error) => const Icon(Icons.error),
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.02,
-                                    ),
-                                    SizedBox(
-                                      height: MediaQuery.of(context).size.height * 0.05,
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {
-
-                                          pickGifFiles();
-                                        },
-                                        icon: const Icon(
-                                          Icons.camera,
-                                        ),
-                                        label: const Text(
-                                          'Pick Gif',
-                                          style: TextStyle(),
-                                        ),
-                                      ),
-                                    ),
-
-                                  ],
-                                )
-                            ),
-
-
-                            const SizedBox(height: 20,),
-
-
-
-
-
-
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              color: Colors.white,
-                              child: isApiProcessing == true
-                                  ? Container(
-                                height: 60,
-                                alignment: Alignment.center,
-                                width: 80,
-                                child: const GFLoader(type: GFLoaderType.circle),
-                              )
-                                  : InkWell(
-                                onTap: () async {
-                                  // if(validation()==true){
-                                    updateTestimonalApi();
-                                  // }
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.blueAccent,
-                                  ),
-                                  height: 40,
-                                  padding: const EdgeInsets.all(4),
-                                  alignment: Alignment.center,
-                                  child: const Text(
-                                    "Update",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                              ),
-                            )
-                          ]
-                      ),
-                    ),
-                    const Expanded(
-                        child:
-                        SizedBox()
-                    ),
-                  ]
-
-              ),
+                              ],
+                            )),
+                        Visibility(
+                            visible: isGif == true ? true : false,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 200,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  child: gifData != null
+                                      ? Image.memory(
+                                          gifData!,
+                                          fit: BoxFit.contain,
+                                        )
+                                      : CachedNetworkImage(
+                                          height: 200,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          imageUrl:
+                                              APIString.latestmediaBaseUrl +
+                                                  widget.bannerfile,
+                                          placeholder: (context, url) =>
+                                              Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(int.parse(
+                                                  editController
+                                                      .appDemoBgColor.value
+                                                      .toString())),
+                                            ),
+                                          ),
+                                          // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                          fit: BoxFit.contain,
+                                        ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.05,
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      pickGifFiles();
+                                    },
+                                    icon: const Icon(
+                                      Icons.camera,
+                                    ),
+                                    label: const Text(
+                                      'Pick Gif',
+                                      style: TextStyle(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          color: Colors.white,
+                          child: isApiProcessing == true
+                              ? Container(
+                                  height: 60,
+                                  alignment: Alignment.center,
+                                  width: 80,
+                                  child:
+                                      const GFLoader(type: GFLoaderType.circle),
+                                )
+                              : InkWell(
+                                  onTap: () async {
+                                    // if(validation()==true){
+                                    updateTestimonalApi();
+                                    // }
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.blueAccent,
+                                    ),
+                                    height: 40,
+                                    padding: const EdgeInsets.all(4),
+                                    alignment: Alignment.center,
+                                    child: const Text(
+                                      "Update",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                        )
+                      ]),
+                ),
+                const Expanded(child: SizedBox()),
+              ]),
             ),
           ),
         );
       },
-
     );
-
   }
 
   // Widget displayUploadedVideo() {
@@ -820,26 +840,21 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
     setState(() {});
   }
 
-
-
-
   void pickVideoFiles() async {
-
     try {
       videopaths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['mp4', 'mov', 'avi'],
-      ))?.files;
+      ))
+          ?.files;
       videopathsFile = videopaths!.first.bytes!;
       videopathsFileName = videopaths!.first.name;
       setState(() {
-        videoData=videopathsFile;
+        videoData = videopathsFile;
         _createVideo(videoData!);
       });
-
     } on PlatformException catch (e) {
       log('Unsupported operation   $e');
     } catch (e) {
@@ -855,7 +870,8 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
   }
 
   Widget displayUploadedVideo() {
-    VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(APIString.latestmediaBaseUrl+widget.bannerfile));
+    VideoPlayerController controller = VideoPlayerController.networkUrl(
+        Uri.parse(APIString.latestmediaBaseUrl + widget.bannerfile));
     bool isVideoPlaying = false;
 
     return GestureDetector(
@@ -900,8 +916,7 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
   }
 
   Future updateTestimonalApi() async {
-
-    var url=APIString.grobizBaseUrl+ APIString.edit_testimonials;
+    var url = APIString.grobizBaseUrl + APIString.edit_testimonials;
 
     var uri = Uri.parse(url);
 
@@ -909,7 +924,6 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
     // user_image,user_name,media_link,media_type,Description,company_name,Position,banner(file),banner_mediatype
 
     try {
-
       if (ProfilepathsFile != null) {
         if (kIsWeb) {
           request.files.add(
@@ -922,7 +936,7 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
           );
         } else {
           hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(message: "Not Allowed");
         }
       }
       request.fields['user_image'] = '';
@@ -932,10 +946,8 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
     }
 
     ///for video file
-    if(VideoImg=='video'){
-
+    if (VideoImg == 'video') {
       try {
-
         if (videopathsFile != null) {
           if (kIsWeb) {
             request.files.add(
@@ -948,7 +960,7 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['banner'] = '';
@@ -956,12 +968,11 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
         request.fields['banner'] = '';
         log('pic not selected');
       }
-
     }
-    ///for Images file
-    if(VideoImg=='image'){
-      try {
 
+    ///for Images file
+    if (VideoImg == 'image') {
+      try {
         if (pathsFile != null) {
           if (kIsWeb) {
             request.files.add(
@@ -974,7 +985,7 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['banner'] = '';
@@ -982,14 +993,12 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
         request.fields['banner'] = '';
         log('pic not selected');
       }
-
     }
 
     ///for Gif file
 
-    if(VideoImg=='gif'){
+    if (VideoImg == 'gif') {
       try {
-
         if (gifpathsFile != null) {
           if (kIsWeb) {
             request.files.add(
@@ -1002,7 +1011,7 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['banner'] = '';
@@ -1013,49 +1022,55 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
     }
     // testimonial_auto_id,user_image,user_name,media_link,media_type,
     // Description,company_name,Position,banner(file),banner_mediatype
-    request.fields["testimonial_auto_id"] =widget.id;
-    request.fields["user_name"] =username_controller.text;
-    request.fields["media_link"] =medialink_controller.text;
-    request.fields["media_type"] =mediatype;
-    request.fields["Description"] =Description_controller.text;
-    request.fields["company_name"] =companyname_controller.text;
-    request.fields["Position"] =position_controller.text;
-    request.fields["banner_mediatype"] =VideoImg;
+    request.fields["testimonial_auto_id"] = widget.id;
+    request.fields["user_name"] = username_controller.text;
+    request.fields["media_link"] = medialink_controller.text;
+    request.fields["media_type"] = mediatype;
+    request.fields["Description"] = Description_controller.text;
+    request.fields["company_name"] = companyname_controller.text;
+    request.fields["Position"] = position_controller.text;
+    request.fields["banner_mediatype"] = VideoImg;
 
-    http.Response response = await http.Response.fromStream(await request.send());
+    http.Response response =
+        await http.Response.fromStream(await request.send());
 
     if (response.statusCode == 200) {
-
-      final resp=jsonDecode(response.body);
+      final resp = jsonDecode(response.body);
       log(resp.toString());
       //String message=resp['msg'];
-      int status=resp['status'];
-      if(status==1){
-        Fluttertoast.showToast(msg: " successfully updated", backgroundColor: Colors.grey,);
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const EditTestimonalScreenList()));
-
+      int status = resp['status'];
+      if (status == 1) {
+        Fluttertoast.showToast(
+          msg: " successfully updated",
+          backgroundColor: Colors.grey,
+        );
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const EditTestimonalScreenList()));
+      } else {
+        Fluttertoast.showToast(
+          msg: "Something went wrong.Please try later",
+          backgroundColor: Colors.grey,
+        );
       }
-      else{
-        Fluttertoast.showToast(msg: "Something went wrong.Please try later", backgroundColor: Colors.grey,);
-      }
-    }
-    else if(response.statusCode==500){
-
-      Fluttertoast.showToast(msg: "Server Error", backgroundColor: Colors.grey,);
+    } else if (response.statusCode == 500) {
+      Fluttertoast.showToast(
+        msg: "Server Error",
+        backgroundColor: Colors.grey,
+      );
     }
   }
 
   void pickImageFiles() async {
-
     try {
       paths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
-      ))?.files;
+      ))
+          ?.files;
 
       pathsFile = paths!.first.bytes!;
       pathsFileName = paths!.first.name;
@@ -1063,7 +1078,6 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
       setState(() {
         imageData = pathsFile;
       });
-
     } on PlatformException catch (e) {
       log('Unsupported operation   $e');
     } catch (e) {
@@ -1079,15 +1093,14 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
   }
 
   void pickGifFiles() async {
-
     try {
       gifpaths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['gif'],
-      ))?.files;
+      ))
+          ?.files;
 
       gifpathsFile = gifpaths!.first.bytes!;
       gifpathsFileName = gifpaths!.first.name;
@@ -1095,7 +1108,6 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
       setState(() {
         gifData = gifpathsFile;
       });
-
     } on PlatformException catch (e) {
       log('Unsupported operation   $e');
     } catch (e) {
@@ -1145,28 +1157,31 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
 //   }
 // }
 
-  bool validation(){
-    if(username_controller.text.isEmpty ||username_controller.text=="" ){
+  bool validation() {
+    if (username_controller.text.isEmpty || username_controller.text == "") {
       Fluttertoast.showToast(
-        msg:  'Please Enter Name' ,
+        msg: 'Please Enter Name',
         backgroundColor: Colors.grey,
       );
       return false;
-    }else if(companyname_controller.text.isEmpty ||companyname_controller.text=="" ){
+    } else if (companyname_controller.text.isEmpty ||
+        companyname_controller.text == "") {
       Fluttertoast.showToast(
-        msg:  'Please Enter Company Name' ,
+        msg: 'Please Enter Company Name',
         backgroundColor: Colors.grey,
       );
       return false;
-    }else if(Description_controller.text.isEmpty ||Description_controller.text=="" ){
+    } else if (Description_controller.text.isEmpty ||
+        Description_controller.text == "") {
       Fluttertoast.showToast(
-        msg:  'Please Enter Description' ,
+        msg: 'Please Enter Description',
         backgroundColor: Colors.grey,
       );
       return false;
-    }else if(position_controller.text.isEmpty ||position_controller.text=="" ){
+    } else if (position_controller.text.isEmpty ||
+        position_controller.text == "") {
       Fluttertoast.showToast(
-        msg:  'Please Enter Job Position' ,
+        msg: 'Please Enter Job Position',
         backgroundColor: Colors.grey,
       );
       return false;
@@ -1174,25 +1189,23 @@ class _UpdateTestimonialState extends State<UpdateTestimonial> {
 
     return true;
   }
-  void pickProfile() async {
 
+  void pickProfile() async {
     try {
       Profilepaths = (await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowMultiple: false,
-        onFileLoading: (FilePickerStatus status) =>
-            log("status .... $status"),
+        onFileLoading: (FilePickerStatus status) => log("status .... $status"),
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
-      ))?.files;
+      ))
+          ?.files;
 
       ProfilepathsFile = Profilepaths!.first.bytes!;
       profilepathsFileName = Profilepaths!.first.name;
 
-
       setState(() {
         pimageData = ProfilepathsFile;
       });
-
     } on PlatformException catch (e) {
       log('Unsupported operation   $e');
     } catch (e) {

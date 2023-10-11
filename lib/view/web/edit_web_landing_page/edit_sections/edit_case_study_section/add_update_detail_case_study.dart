@@ -692,7 +692,7 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(  message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -717,7 +717,7 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(  message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -742,7 +742,7 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(  message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -768,14 +768,14 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
         //String message=resp['msg'];
         int status = resp['status'];
         if (status == 1) {
-          showSnackbar(title: "", message: "Successfully Added");
+          showSnackbar(  message: "Successfully Added");
           Get.back();
         } else {
           showSnackbar(
-              title: "", message: "Something went wrong. Please try later");
+                message: "Something went wrong. Please try later");
         }
       } else if (response.statusCode == 500) {
-        showSnackbar(title: "", message: "Server Error");
+        showSnackbar(  message: "Server Error");
       }
     } catch (exception) {
       log("error ---- $exception");
@@ -805,7 +805,7 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(  message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -830,7 +830,7 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(  message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -855,7 +855,7 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(  message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -883,14 +883,14 @@ class _AddUpdateCaseStudyDetailsState extends State<AddUpdateCaseStudyDetails> {
         //String message=resp['msg'];
         int status = resp['status'];
         if (status == 1) {
-          showSnackbar(title: "", message: "Successfully Updated");
+          showSnackbar(  message: "Successfully Updated");
           Get.back();
         } else {
           showSnackbar(
-              title: "", message: "Something went wrong. Please try later");
+                message: "Something went wrong. Please try later");
         }
       } else if (response.statusCode == 500) {
-        showSnackbar(title: "", message: "Server Error");
+        showSnackbar(  message: "Server Error");
       }
     } catch (exception) {
       log("error ---- $exception");

@@ -13,6 +13,7 @@ import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_
 import 'package:grobiz_web_landing/widget/common_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 ///shopify purchase view
 class NumbersBannerSection extends StatefulWidget {
@@ -23,8 +24,7 @@ class NumbersBannerSection extends StatefulWidget {
 }
 
 class _NumbersBannerSectionState extends State<NumbersBannerSection> {
-  WebLandingPageController webLandingPageController = Get.find<
-      WebLandingPageController>();
+  WebLandingPageController webLandingPageController = Get.find<WebLandingPageController>();
   EditController editController = Get.find<EditController>();
   final ScrollController controller = ScrollController();
   final numberBannerController = Get.find<NumberBannerController>();
@@ -85,69 +85,142 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
           return editController.numbersBanner.value == false ||
               editController.allDataResponse.isEmpty
               ? const SizedBox()
-              : SizedBox(
-            width: Get.width,
-            child: Column(
-              children: [
-                Container(
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [
-                          AppColors.blueColor.withOpacity(0.4),
-                          AppColors.blueColor.withOpacity(0.2),
-                          AppColors.whiteColor.withOpacity(0.6),
-                          AppColors.whiteColor
-                        ],
-                        begin: Alignment.topCenter,
-                        stops: const [0.4, 0.8, 0.9, 1],
-                        end: Alignment.bottomCenter
-                      // radius: 0.75,
-                    ),
-                  ),
-                  child: SizedBox(
+          : VisibilityDetector(
+            key: const Key('box-visibility-key'),
+            onVisibilityChanged: (visibilityInfo) {
+              numberBannerController.isVisible.value = visibilityInfo.visibleFraction > 0.0;
+              if (numberBannerController.isVisible.value) {
+                print("show ___________________-");
+                // setState(() {});
+              }
+              else {
+                print("hide");
+              }
+            },
+            child: SizedBox(
+              width: Get.width,
+              child: Column(
+                children: [
+                  Container(
                     width: Get.width,
-                    child: Column(
-                      children: [
-                        SizedBox(height: Get.width * 0.02),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: Get.width * 0.65,
-                            ),
-                            editController
-                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file1_show"] ==
-                                "hide"
-                                ? const SizedBox() : SizedBox(
-                              // height: Get.width * 0.08,
-                              height: Get.width * 0.1,
-                              width: Get.width * 0.2,
-                              child: buildMedia1Widget(),
-                            )
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [
+                            AppColors.blueColor.withOpacity(0.4),
+                            AppColors.blueColor.withOpacity(0.2),
+                            AppColors.whiteColor.withOpacity(0.6),
+                            AppColors.whiteColor
                           ],
-                        ),
-                        const SizedBox(height: 15),
-                        ///title
-                        Get.width > 1300?SizedBox():title(),
-                        const SizedBox(height: 15),
-                        ///description
-                        Get.width > 900?SizedBox(): description(),
-                        const SizedBox(height: 15),
-                        Get.width > 900 ? Row(
-                          mainAxisAlignment: Get.width < 1300 ? MainAxisAlignment.start:MainAxisAlignment.center,
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(width: Get.width > 1000 ? Get.width * 0.03 : Get.width * 0.01),
-                            media2(),
-                            SizedBox(width: Get.width > 1000 ? Get.width * 0.05 : Get.width * 0.02),
-                            Expanded(
-                              child: Column(
+                          begin: Alignment.topCenter,
+                          stops: const [0.4, 0.8, 0.9, 1],
+                          end: Alignment.bottomCenter
+                        // radius: 0.75,
+                      ),
+                    ),
+                    child: SizedBox(
+                      width: Get.width,
+                      child: Column(
+                        children: [
+                          SizedBox(height: Get.width * 0.02),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: Get.width * 0.65,
+                              ),
+                              editController
+                                  .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_file1_show"] ==
+                                  "hide"
+                                  ? const SizedBox() : SizedBox(
+                                // height: Get.width * 0.08,
+                                height: Get.width * 0.1,
+                                width: Get.width * 0.2,
+                                child: buildMedia1Widget(),
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 15),
+                          ///title
+                          Get.width > 1300?SizedBox():title(),
+                          const SizedBox(height: 15),
+                          ///description
+                          Get.width > 900?SizedBox(): description(),
+                          const SizedBox(height: 15),
+                          Get.width > 900 ? Row(
+                            mainAxisAlignment: Get.width < 1300 ? MainAxisAlignment.start:MainAxisAlignment.center,
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(width: Get.width > 1000 ? Get.width * 0.03 : Get.width * 0.01),
+                              media2(),
+                              SizedBox(width: Get.width > 1000 ? Get.width * 0.05 : Get.width * 0.02),
+                              Expanded(
+                                child: Column(
 
+                                  children: [
+                                    Get.width < 1300?SizedBox(): title(),
+                                    Get.width < 1300?SizedBox(): SizedBox(height: 20),
+                                    Get.width < 900?SizedBox(): description(),
+                                    SizedBox(height: Get.width < 900? 0 : 20),
+                                    Get.width > 550
+                                        ? Row(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        numbers1(),
+                                        SizedBox(width: Get.width * 0.01),
+                                        vertDivider(),
+                                        SizedBox(width: Get.width * 0.01),
+                                        numbers2(),
+                                        SizedBox(width: Get.width * 0.01),
+                                        vertDivider(),
+                                        SizedBox(width: Get.width * 0.01),
+                                        numbers3(),
+                                      ],
+                                    )
+                                        : Column(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .center,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        numbers1(),
+                                        const SizedBox(height: 5),
+                                        Divider(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          thickness: 0.5,
+                                          indent: 10,
+                                          endIndent: 10,
+                                        ),
+                                        const SizedBox(height: 5),
+                                        numbers2(),
+                                        const SizedBox(height: 5),
+                                        Divider(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          // width: 10,
+                                          thickness: 0.5,
+                                          indent: 10,
+                                          endIndent: 10,
+                                        ),
+                                        const SizedBox(height: 5),
+                                        numbers3(),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: Get.width > 1000 ? Get.width * 0.05 : Get.width * 0.02),
+                              media3(),
+                              SizedBox(width: Get.width > 1000 ? Get.width * 0.03 : Get.width * 0.01),
+                            ],
+                          )
+                              :Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(height:10),
+                              media2(),
+                              const SizedBox(height:10),
+                              Column(
                                 children: [
-                                  Get.width < 1300?SizedBox(): title(),
-                                  Get.width < 1300?SizedBox(): SizedBox(height: 20),
-                                  Get.width < 900?SizedBox(): description(),
-                                 SizedBox(height: Get.width < 900? 0 : 20),
+
                                   Get.width > 550
                                       ? Row(
                                     crossAxisAlignment: CrossAxisAlignment
@@ -194,440 +267,381 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                   ),
                                 ],
                               ),
-                            ),
-                            SizedBox(width: Get.width > 1000 ? Get.width * 0.05 : Get.width * 0.02),
-                            media3(),
-                            SizedBox(width: Get.width > 1000 ? Get.width * 0.03 : Get.width * 0.01),
-                          ],
-                        )
-                        :Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                              const SizedBox(height:10),
+                              media3(),
+                              const SizedBox(height:10),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    // width: Get.width * 0.5,
+                    child: Wrap(
+                      crossAxisAlignment:
+                      WrapCrossAlignment.start,
+                      alignment: WrapAlignment.center,
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment:
+                          MainAxisAlignment.start,
+                          crossAxisAlignment:
+                          CrossAxisAlignment.center,
                           children: [
-                            const SizedBox(height:10),
-                            media2(),
-                            const SizedBox(height:10),
-                            Column(
-                              children: [
+                            const SizedBox(height: 20),
+                            // commonButton(
+                            Get.width > 800 ? commonIconButton(
+                                onTap: appOpen,
+                                margin: EdgeInsets.zero,
+                                icon: Icons.phone_android,
+                                title: "Create Your App",
+                                btnColor: Colors.redAccent
+                                    .withOpacity(0.7),
+                                txtColor: Colors.white)
+                                : FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child:  commonIconButtonSmall(
+                                  onTap: appOpen,
+                                  icon: Icons.phone_android,
+                                  margin: EdgeInsets.zero,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 0, vertical: 5),
+                                  fontSize: 12,
+                                  title: "Create Your App",
+                                  btnColor: Colors.redAccent.withOpacity(0.7),
+                                  txtColor: Colors.white),
+                            ),
 
-                                Get.width > 550
-                                    ? Row(
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                            SizedBox(
+                              width: Get.width > 800
+                                  ? Get.width * 0.15
+                                  : Get.width * 0.7,
+                              // : Get.width * 0.30,
+                              child: Container(
+                                margin: const EdgeInsets.only(
+                                    right: 5, top: 5),
+                                padding: const EdgeInsets
+                                    .symmetric(
+                                    horizontal: 5, vertical: 2),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius
+                                      .all(Radius.circular(2)),
+                                  color: editController
+                                      .allDataResponse[0]["live_app_count_bg"] ==
+                                      "hide"
+                                      ? AppColors
+                                      .transparentColor
+                                      : Color(
+                                    int.parse(editController
+                                        .allDataResponse[0]["live_app_count_bg_color"]
+                                        .toString()),
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
                                   children: [
-                                    numbers1(),
-                                    SizedBox(width: Get.width * 0.01),
-                                    vertDivider(),
-                                    SizedBox(width: Get.width * 0.01),
-                                    numbers2(),
-                                    SizedBox(width: Get.width * 0.01),
-                                    vertDivider(),
-                                    SizedBox(width: Get.width * 0.01),
-                                    numbers3(),
-                                  ],
-                                )
-                                    : Column(
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .center,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    numbers1(),
-                                    const SizedBox(height: 5),
-                                    Divider(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      thickness: 0.5,
-                                      indent: 10,
-                                      endIndent: 10,
+                                    const Icon(Icons
+                                        .remove_red_eye_rounded),
+                                    const SizedBox(width: 8),
+                                    Flexible(
+                                      child:
+                                      Text(
+                                        "${webLandingPageController
+                                            .appLiveCount
+                                            .value} ${editController
+                                            .allDataResponse[0]["live_app_count_string"]
+                                            .toString()}",
+                                        //
+                                        // editController.allDataResponse[0]["live_app_count_string"].toString(),
+                                        style: GoogleFonts
+                                            .getFont(
+                                            editController
+                                                .allDataResponse[0]["live_app_count_font"]
+                                                .toString())
+                                            .copyWith(
+                                          // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
+                                          //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
+                                          //     : 14,
+                                          // fontWeight: FontWeight.w400,
+                                            color: Color(
+                                                int.parse(
+                                                    editController
+                                                        .allDataResponse[0]["live_app_count_color"]
+                                                        .toString()))),
+                                      ),
                                     ),
-                                    const SizedBox(height: 5),
-                                    numbers2(),
-                                    const SizedBox(height: 5),
-                                    Divider(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      // width: 10,
-                                      thickness: 0.5,
-                                      indent: 10,
-                                      endIndent: 10,
-                                    ),
-                                    const SizedBox(height: 5),
-                                    numbers3(),
                                   ],
                                 ),
-                              ],
+                              ),
                             ),
-                            const SizedBox(height:10),
-                            media3(),
-                            const SizedBox(height:10),
+                          ],
+                        ),
+                        SizedBox(
+                            width: Get.width > 800 ? 10 : 0 , height: Get.width > 800 ?0:8),
+                        Column(
+                          mainAxisAlignment:
+                          MainAxisAlignment.start,
+                          crossAxisAlignment:
+                          CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 20),
+                            // commonButton(
+                            Get.width > 800 ? commonIconButton(
+                                onTap: websiteOpen,
+                                icon: Icons.language,
+                                margin: EdgeInsets.zero,
+                                title: "Create Your Website",
+                                btnColor: Colors.green
+                                    .withOpacity(0.7),
+                                txtColor: Colors.white)
+                                : FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child:    commonIconButtonSmall(
+                                  onTap: websiteOpen,
+                                  margin: EdgeInsets.zero,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 0, vertical: 5),
+                                  fontSize: 12,
+                                  icon: Icons.language,
+                                  title: "Create Your Website",
+                                  btnColor: Colors.green.withOpacity(0.7),
+                                  txtColor: Colors.white),
+                            ),
+                            SizedBox(
+                              width: Get.width > 800
+                                  ? Get.width * 0.15
+                                  : Get.width * 0.7,
+                              child: Container(
+                                margin: const EdgeInsets.only(
+                                    right: 5, top: 5),
+                                padding: const EdgeInsets
+                                    .symmetric(
+                                    horizontal: 5, vertical: 2),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius
+                                      .all(Radius.circular(2)),
+                                  color: editController
+                                      .allDataResponse[0]["live_web_count_bg"] ==
+                                      "hide"
+                                      ? AppColors
+                                      .transparentColor
+                                      : Color(
+                                    int.parse(editController
+                                        .allDataResponse[0]["live_web_count_bg_color"]
+                                        .toString()),
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons
+                                        .remove_red_eye_rounded),
+                                    const SizedBox(width: 8),
+                                    Flexible(
+                                      child: Text(
+                                        "${webLandingPageController
+                                            .webLiveCount
+                                            .value} ${editController
+                                            .allDataResponse[0]["live_web_count_string"]
+                                            .toString()}",
+                                        style: GoogleFonts
+                                            .getFont(
+                                            editController
+                                                .allDataResponse[0]["live_web_count_font"]
+                                                .toString())
+                                            .copyWith(
+                                            color: Color(
+                                                int.parse(
+                                                    editController
+                                                        .allDataResponse[0]["live_web_count_color"]
+                                                        .toString()))),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  // width: Get.width * 0.5,
-                  child: Wrap(
-                    crossAxisAlignment:
-                    WrapCrossAlignment.start,
-                    alignment: WrapAlignment.center,
-                    // mainAxisAlignment: MainAxisAlignment.center,
+                  const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Column(
-                        mainAxisAlignment:
-                        MainAxisAlignment.start,
-                        crossAxisAlignment:
-                        CrossAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 20),
-                          // commonButton(
-                          Get.width > 800 ? commonIconButton(
-                              onTap: appOpen,
-                              margin: EdgeInsets.zero,
-                              icon: Icons.phone_android,
-                              title: "Create Your App",
-                              btnColor: Colors.redAccent
-                                  .withOpacity(0.7),
-                              txtColor: Colors.white)
-                              : FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child:  commonIconButtonSmall(
-                                onTap: appOpen,
-                                icon: Icons.phone_android,
-                                margin: EdgeInsets.zero,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 0, vertical: 5),
-                                fontSize: 12,
-                                title: "Create Your App",
-                                btnColor: Colors.redAccent.withOpacity(0.7),
-                                txtColor: Colors.white),
-                          ),
+                      Text(
+                        editController
+                            .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline"]
+                            .toString(),
+                        style: GoogleFonts.getFont(editController
+                            .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_font"]
+                            .toString()).copyWith(
 
-                          SizedBox(
-                            width: Get.width > 800
-                                ? Get.width * 0.15
-                                : Get.width * 0.7,
-                            // : Get.width * 0.30,
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                  right: 5, top: 5),
-                              padding: const EdgeInsets
-                                  .symmetric(
-                                  horizontal: 5, vertical: 2),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius
-                                    .all(Radius.circular(2)),
-                                color: editController
-                                    .allDataResponse[0]["live_app_count_bg"] ==
-                                    "hide"
-                                    ? AppColors
-                                    .transparentColor
-                                    : Color(
-                                  int.parse(editController
-                                      .allDataResponse[0]["live_app_count_bg_color"]
-                                      .toString()),
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                children: [
-                                  const Icon(Icons
-                                      .remove_red_eye_rounded),
-                                  const SizedBox(width: 8),
-                                  Flexible(
-                                    child:
-                                    Text(
-                                      "${webLandingPageController
-                                          .appLiveCount
-                                          .value} ${editController
-                                          .allDataResponse[0]["live_app_count_string"]
-                                          .toString()}",
-                                      //
-                                      // editController.allDataResponse[0]["live_app_count_string"].toString(),
-                                      style: GoogleFonts
-                                          .getFont(
-                                          editController
-                                              .allDataResponse[0]["live_app_count_font"]
-                                              .toString())
-                                          .copyWith(
-                                        // fontSize: editController.allDataResponse[0]["live_app_count_size"].toString() ==""
-                                        //     ? double.parse(editController.allDataResponse[0]["live_app_count_size"].toString())
-                                        //     : 14,
-                                        // fontWeight: FontWeight.w400,
-                                          color: Color(
-                                              int.parse(
-                                                  editController
-                                                      .allDataResponse[0]["live_app_count_color"]
-                                                      .toString()))),
-                                    ),
-                                  ),
-                                ],
+                            fontWeight: FontWeight.w200,
+                            color: editController
+                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_color"]
+                                .toString()
+                                .isEmpty
+                                ? AppColors.blackColor
+                                : Color(int.parse(editController
+                                .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_color"]
+                                .toString()))),
+                      ),
+                      const SizedBox(height: 20),
+                      Container(
+                        width: Get.width,
+                        decoration: const BoxDecoration(color: AppColors
+                            .whiteColor),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Center(
+                              child: Container(
+                                height: 70,
+                                margin: const EdgeInsets.symmetric(vertical: 10),
+                                child: Obx(() {
+                                  return numberBannerController.partnerBannerLogos
+                                      .isEmpty
+                                      ? ListView.builder(
+                                    // padding: EdgeInsets.only(right: 15),
+                                    physics: const AlwaysScrollableScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    // itemCount: companiesData.length,
+                                    itemCount: 5,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(right: 15),
+                                        child: ClipOval(
+                                          clipBehavior: Clip.antiAlias,
+                                          // borderRadius: BorderRadius.all(Radius.circular(25)),
+                                          child: Container(
+                                            height: 70,
+                                            width: 70,
+                                            color: AppColors.greyColor,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  )
+                                      : ListView.builder(
+                                    controller: _scrollController1,
+                                    // padding: EdgeInsets.only(right: 15),
+                                    physics: const AlwaysScrollableScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    // itemCount: companiesData.length,
+                                    itemCount: numberBannerController
+                                        .partnerBannerLogos.length,
+                                    itemBuilder: (context, index) {
+                                      var data = numberBannerController
+                                          .partnerBannerLogos[index];
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 15.0),
+                                        child: ClipOval(
+                                          clipBehavior: Clip.antiAlias,
+                                          // borderRadius: BorderRadius.all(Radius.circular(25)),
+                                          child: CachedNetworkImage(
+                                            height: 70,
+                                            width: 70,
+                                            fit: BoxFit.cover,
+                                            imageUrl: APIString.bannerMediaUrl +
+                                                data["images"].toString(),
+                                            placeholder: (context, url) =>
+                                                Container(
+                                                    height: 150,
+                                                    width: 150,
+                                                    decoration: const BoxDecoration(
+                                                      color: AppColors.greyColor,
+                                                    )),
+                                            // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
+                                            errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
+                                          ),
+                                        ),
+                                      );
+
+                                      // return Image.asset(
+                                      //   "${companiesData[index]["logo"]}",
+                                      //   height: 150,
+                                      //   width: 150,
+                                      // );
+                                    },
+                                  );
+                                }),
                               ),
                             ),
-                          ),
-                        ],
+
+                          ],
+                        ),
                       ),
-                      SizedBox(
-                          width: Get.width > 800 ? 10 : 0 , height: Get.width > 800 ?0:8),
-                      Column(
-                        mainAxisAlignment:
-                        MainAxisAlignment.start,
-                        crossAxisAlignment:
-                        CrossAxisAlignment.center,
+                      Row(
+                        mainAxisAlignment:MainAxisAlignment.spaceEvenly,
                         children: [
-                          const SizedBox(height: 20),
-                          // commonButton(
-                          Get.width > 800 ? commonIconButton(
-                              onTap: websiteOpen,
-                              icon: Icons.language,
-                              margin: EdgeInsets.zero,
-                              title: "Create Your Website",
-                              btnColor: Colors.green
-                                  .withOpacity(0.7),
-                              txtColor: Colors.white)
-                              : FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child:    commonIconButtonSmall(
-                                onTap: websiteOpen,
-                                margin: EdgeInsets.zero,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 0, vertical: 5),
-                                fontSize: 12,
-                                icon: Icons.language,
-                                title: "Create Your Website",
-                                btnColor: Colors.green.withOpacity(0.7),
-                                txtColor: Colors.white),
-                          ),
-                          SizedBox(
-                            width: Get.width > 800
-                                ? Get.width * 0.15
-                                : Get.width * 0.7,
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                  right: 5, top: 5),
-                              padding: const EdgeInsets
-                                  .symmetric(
-                                  horizontal: 5, vertical: 2),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius
-                                    .all(Radius.circular(2)),
-                                color: editController
-                                    .allDataResponse[0]["live_web_count_bg"] ==
-                                    "hide"
-                                    ? AppColors
-                                    .transparentColor
-                                    : Color(
-                                  int.parse(editController
-                                      .allDataResponse[0]["live_web_count_bg_color"]
-                                      .toString()),
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                children: [
-                                  const Icon(Icons
-                                      .remove_red_eye_rounded),
-                                  const SizedBox(width: 8),
-                                  Flexible(
-                                    child: Text(
-                                      "${webLandingPageController
-                                          .webLiveCount
-                                          .value} ${editController
-                                          .allDataResponse[0]["live_web_count_string"]
-                                          .toString()}",
-                                      style: GoogleFonts
-                                          .getFont(
-                                          editController
-                                              .allDataResponse[0]["live_web_count_font"]
-                                              .toString())
-                                          .copyWith(
-                                          color: Color(
-                                              int.parse(
-                                                  editController
-                                                      .allDataResponse[0]["live_web_count_color"]
-                                                      .toString()))),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          Obx(() {
+                            return numberBannerController
+                                .partnerBannerLogos.isEmpty ? const SizedBox() : IconButton(
+                                onPressed: () {
+                                  // performMultipleScrolls(3);
+                                  int currentIndex = _scrollController1.hasClients
+                                      ? (_scrollController1.position.maxScrollExtent -
+                                      _scrollController1.position.pixels) ~/
+                                      56
+                                      : 0;
+                                  int targetIndex = currentIndex + 2;
+                                  if (targetIndex < numberBannerController
+                                      .partnerBannerLogos.length) {
+                                    _scrollController1.animateTo(
+                                      _scrollController1.position.maxScrollExtent -
+                                          targetIndex * 56.0,
+                                      duration: const Duration(milliseconds: 500),
+                                      curve: Curves.easeInOut,
+                                    );
+                                  }
+                                },
+                                icon: const Icon(Icons.arrow_back_ios));
+                          }),
+
+                          Obx(() {
+                            return numberBannerController
+                                .partnerBannerLogos.isEmpty?const SizedBox():IconButton(
+                                onPressed: () {
+                                  int currentIndex = _scrollController1.hasClients
+                                      ? (_scrollController1.position.minScrollExtent +
+                                      _scrollController1.position.pixels) ~/
+                                      56
+                                      : 0;
+                                  int targetIndex = currentIndex + 2;
+                                  if (targetIndex < numberBannerController
+                                      .partnerBannerLogos.length) {
+                                    _scrollController1.animateTo(
+                                      _scrollController1.position.minScrollExtent +
+                                          targetIndex * 56.0,
+                                      duration: const Duration(milliseconds: 500),
+                                      curve: Curves.easeInOut,
+                                    );
+                                  }
+                                  // performMultipleScrolls1(3);
+                                },
+                                icon: const Icon(Icons.arrow_forward_ios_outlined));
+                          }),
                         ],
-                      ),
+                      )
+
                     ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      editController
-                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline"]
-                          .toString(),
-                      style: GoogleFonts.getFont(editController
-                          .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_font"]
-                          .toString()).copyWith(
-
-                          fontWeight: FontWeight.w200,
-                          color: editController
-                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_color"]
-                              .toString()
-                              .isEmpty
-                              ? AppColors.blackColor
-                              : Color(int.parse(editController
-                              .allDataResponse[0]["numbers_banner_details"][0]["numbers_banner_tagline_color"]
-                              .toString()))),
-                    ),
-                    const SizedBox(height: 20),
-                    Container(
-                      width: Get.width,
-                      decoration: const BoxDecoration(color: AppColors
-                          .whiteColor),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Center(
-                            child: Container(
-                              height: 70,
-                              margin: const EdgeInsets.symmetric(vertical: 10),
-                              child: Obx(() {
-                                return numberBannerController.partnerBannerLogos
-                                    .isEmpty
-                                    ? ListView.builder(
-                                  // padding: EdgeInsets.only(right: 15),
-                                  physics: const AlwaysScrollableScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  // itemCount: companiesData.length,
-                                  itemCount: 5,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(right: 15),
-                                      child: ClipOval(
-                                        clipBehavior: Clip.antiAlias,
-                                        // borderRadius: BorderRadius.all(Radius.circular(25)),
-                                        child: Container(
-                                          height: 70,
-                                          width: 70,
-                                          color: AppColors.greyColor,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                )
-                                    : ListView.builder(
-                                  controller: _scrollController1,
-                                  // padding: EdgeInsets.only(right: 15),
-                                  physics: const AlwaysScrollableScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  // itemCount: companiesData.length,
-                                  itemCount: numberBannerController
-                                      .partnerBannerLogos.length,
-                                  itemBuilder: (context, index) {
-                                    var data = numberBannerController
-                                        .partnerBannerLogos[index];
-                                    return Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 15.0),
-                                      child: ClipOval(
-                                        clipBehavior: Clip.antiAlias,
-                                        // borderRadius: BorderRadius.all(Radius.circular(25)),
-                                        child: CachedNetworkImage(
-                                          height: 70,
-                                          width: 70,
-                                          fit: BoxFit.cover,
-                                          imageUrl: APIString.bannerMediaUrl +
-                                              data["images"].toString(),
-                                          placeholder: (context, url) =>
-                                              Container(
-                                                  height: 150,
-                                                  width: 150,
-                                                  decoration: const BoxDecoration(
-                                                    color: AppColors.greyColor,
-                                                  )),
-                                          // progressIndicatorBuilder: (context, url, downloadProgress) => CircularProgressIndicator(value: downloadProgress.progress),
-                                          errorWidget: (context, url, error) =>
-                                          const Icon(Icons.error),
-                                        ),
-                                      ),
-                                    );
-
-                                    // return Image.asset(
-                                    //   "${companiesData[index]["logo"]}",
-                                    //   height: 150,
-                                    //   width: 150,
-                                    // );
-                                  },
-                                );
-                              }),
-                            ),
-                          ),
-
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment:MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Obx(() {
-                          return numberBannerController
-                              .partnerBannerLogos.isEmpty ? const SizedBox() : IconButton(
-                              onPressed: () {
-                                // performMultipleScrolls(3);
-                                int currentIndex = _scrollController1.hasClients
-                                    ? (_scrollController1.position.maxScrollExtent -
-                                    _scrollController1.position.pixels) ~/
-                                    56
-                                    : 0;
-                                int targetIndex = currentIndex + 2;
-                                if (targetIndex < numberBannerController
-                                    .partnerBannerLogos.length) {
-                                  _scrollController1.animateTo(
-                                    _scrollController1.position.maxScrollExtent -
-                                        targetIndex * 56.0,
-                                    duration: const Duration(milliseconds: 500),
-                                    curve: Curves.easeInOut,
-                                  );
-                                }
-                              },
-                              icon: const Icon(Icons.arrow_back_ios));
-                        }),
-
-                        Obx(() {
-                          return numberBannerController
-                              .partnerBannerLogos.isEmpty?const SizedBox():IconButton(
-                              onPressed: () {
-                                int currentIndex = _scrollController1.hasClients
-                                    ? (_scrollController1.position.minScrollExtent +
-                                    _scrollController1.position.pixels) ~/
-                                    56
-                                    : 0;
-                                int targetIndex = currentIndex + 2;
-                                if (targetIndex < numberBannerController
-                                    .partnerBannerLogos.length) {
-                                  _scrollController1.animateTo(
-                                    _scrollController1.position.minScrollExtent +
-                                        targetIndex * 56.0,
-                                    duration: const Duration(milliseconds: 500),
-                                    curve: Curves.easeInOut,
-                                  );
-                                }
-                                // performMultipleScrolls1(3);
-                              },
-                              icon: const Icon(Icons.arrow_forward_ios_outlined));
-                        }),
-                      ],
-                    )
-
-                  ],
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           );
+
         });
       },
     );

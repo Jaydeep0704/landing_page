@@ -652,7 +652,7 @@ class _AddNewTestimonalScreenState extends State<AddNewTestimonalScreen> {
                               : InkWell(
                                   onTap: () async {
                                     // if (validation() == true) {
-                                      addTestimonalApi();
+                                    addTestimonalApi();
                                     // }
                                   },
                                   child: Container(
@@ -705,7 +705,7 @@ class _AddNewTestimonalScreenState extends State<AddNewTestimonalScreen> {
           );
         } else {
           hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(message: "Not Allowed");
         }
       }
       request.fields['user_image'] = '';
@@ -728,7 +728,7 @@ class _AddNewTestimonalScreenState extends State<AddNewTestimonalScreen> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['banner'] = '';
@@ -752,7 +752,7 @@ class _AddNewTestimonalScreenState extends State<AddNewTestimonalScreen> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['banner'] = '';
@@ -777,7 +777,7 @@ class _AddNewTestimonalScreenState extends State<AddNewTestimonalScreen> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['banner'] = '';

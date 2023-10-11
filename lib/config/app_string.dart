@@ -24,9 +24,9 @@ class UrlLauncherUtil {
     if (await canLaunchUrl(Uri.parse(url))) {
       // await launch(url);
       await launchUrl(url);
-      showSnackbar(title: "", message: "Opened Link");
+      showSnackbar( message: "Opened Link");
     } else {
-      showSnackbar(title: "", message: "Error");
+      showSnackbar( message: "Error");
       throw 'Could not launch $url';
     }
   }

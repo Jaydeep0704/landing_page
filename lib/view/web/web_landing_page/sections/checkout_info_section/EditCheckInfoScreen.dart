@@ -642,7 +642,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['files'] = '';
@@ -667,7 +667,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['files'] = '';
@@ -693,7 +693,7 @@ class _EditCheckOutInfoState extends State<EditCheckOutInfo> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['files'] = '';

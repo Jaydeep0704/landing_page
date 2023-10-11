@@ -1042,7 +1042,7 @@ class _EditBlogState extends State<EditBlog> {
           );
         } else {
           hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(message: "Not Allowed");
         }
       }
       request.fields['userImage'] = '';
@@ -1066,7 +1066,7 @@ class _EditBlogState extends State<EditBlog> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['media'] = '';
@@ -1091,7 +1091,7 @@ class _EditBlogState extends State<EditBlog> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['media'] = '';
@@ -1117,7 +1117,7 @@ class _EditBlogState extends State<EditBlog> {
             );
           } else {
             hideLoadingDialog();
-            showSnackbar(title: "", message: "Not Allowed");
+            showSnackbar(message: "Not Allowed");
           }
         }
         request.fields['media'] = '';

@@ -5,6 +5,11 @@ import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:video_player/video_player.dart';
 
 class NumberBannerController extends GetxController {
+
+  /// customer box visible
+  RxBool isVisible = false.obs;
+
+
   late VideoPlayerController media1Controller;
   late VideoPlayerController media2Controller;
   late VideoPlayerController media3Controller;

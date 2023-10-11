@@ -422,6 +422,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "intl_phone_field",
+      "rootUri": "file:///Users/dreamworld/.pub-cache/hosted/pub.dev/intl_phone_field-3.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///Users/dreamworld/.pub-cache/hosted/pub.dev/js-0.6.5",
       "packageUri": "lib/",
@@ -908,7 +914,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-10-04T14:37:06.308319Z",
+  "generated": "2023-10-11T06:46:49.082272Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }

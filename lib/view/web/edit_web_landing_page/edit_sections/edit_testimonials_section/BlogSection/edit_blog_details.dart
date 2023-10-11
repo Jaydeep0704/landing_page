@@ -645,7 +645,7 @@ class _EditBlogDetailsState extends State<EditBlogDetails> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar( message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -669,7 +669,7 @@ class _EditBlogDetailsState extends State<EditBlogDetails> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(  message: "Not Allowed");
             }
           }
           request.fields['media'] = '';
@@ -693,7 +693,7 @@ class _EditBlogDetailsState extends State<EditBlogDetails> {
               );
             } else {
               hideLoadingDialog();
-              showSnackbar(title: "", message: "Not Allowed");
+              showSnackbar(  message: "Not Allowed");
             }
           }
           request.fields['media'] = '';

@@ -11,8 +11,8 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/widget/loading_dialog.dart';
-class CareersController extends GetxController{
 
+class CareersController extends GetxController {
   List<String> dropdownOptions = [
     'Select Designations',
     // 'Option 1',
@@ -34,11 +34,15 @@ class CareersController extends GetxController{
 
   RxString selectedOption = 'Select Designations'.obs;
 
-
   TextEditingController emailController = TextEditingController();
   TextEditingController descController = TextEditingController();
 
-  Future submitForm({var pathsFile, var pathsFileName,String? email, String? designation, String? description}) async {
+  Future submitForm(
+      {var pathsFile,
+      var pathsFileName,
+      String? email,
+      String? designation,
+      String? description}) async {
     showLoadingDialog();
     log("step --------  1");
 
@@ -68,12 +72,11 @@ class CareersController extends GetxController{
           );
         } else {
           // hideLoadingDialog();
-          showSnackbar(title: "", message: "Not Allowed");
+          showSnackbar(message: "Not Allowed");
         }
       }
       log("step --------  6");
-    }
-    catch (exception) {
+    } catch (exception) {
       log("step --------  7");
       request.fields["images"] = '';
       log('pic not selected');
@@ -87,7 +90,8 @@ class CareersController extends GetxController{
     debugPrint(request.fields.toString());
     log("step --------  9");
 
-    http.Response response = await http.Response.fromStream(await request.send());
+    http.Response response =
+        await http.Response.fromStream(await request.send());
 
     debugPrint("career_form response  ----  $response");
     debugPrint("career_form response.statusCode  ----  ${response.statusCode}");
@@ -105,11 +109,10 @@ class CareersController extends GetxController{
       int status = resp['status'];
       if (status == 1) {
         log("step --------  13");
-        showSnackbar(title: "", message: "Sent successfully");
+        showSnackbar(message: "Sent successfully");
         emailController.clear();
         descController.clear();
         selectedOption.value = 'Select Designations';
-
       } else {
         log("step --------  14");
         String message = resp['msg'];
@@ -119,15 +122,11 @@ class CareersController extends GetxController{
     } else if (response.statusCode == 500) {
       hideLoadingDialog();
       // numberBannerController.getPartnerLogo();
-      showSnackbar(title: "", message: "Server Error");
-
+      showSnackbar(message: "Server Error");
     } else {
       // numberBannerController.getPartnerLogo();
       hideLoadingDialog();
-      showSnackbar(title: "", message: "Error");
-
+      showSnackbar(message: "Error");
     }
-
   }
-
 }

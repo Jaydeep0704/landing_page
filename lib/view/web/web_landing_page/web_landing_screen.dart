@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
+import 'package:grobiz_web_landing/config/app_colors.dart';
+import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/pricing_section_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_apps_demo_section/add_latest_project/add_Project_controller.dart';
@@ -20,6 +22,7 @@ import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/BlogSection/blog_controller.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_sections/edit_testimonials_section/testiMonalController.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/controller/landing_page_controller.dart';
+import 'package:grobiz_web_landing/view/web/web_landing_page/customer_call_form/Customer_call_form_screen.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/address_section/address_section.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/checkout_info_section/CheckOutInfoControllers.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/faqs_section/faqs_section.dart';
@@ -232,96 +235,236 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                       //             key: ValueKey(editController.homeComponentList[index]),
                       //             child: getComponentUi(editController.homeComponentList[index]["component_name"],keyScroll: PricingSection.pricingSectionKey),
                       //           ));
-                      : RawScrollbar(
-                          // : Scrollbar(
-                          radius: const Radius.circular(20),
-                          thumbColor: Colors.blue,
-                          controller: _scrollController,
-                          trackVisibility: true,
-                          thickness: Get.width > 800 ? 15 : 10,
-                          interactive: true,
-                          thumbVisibility: true,
-                          child: SingleChildScrollView(
-                            controller: _scrollController,
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                editController.showComp1.value == false
-                                    ? const SizedBox()
-                                    : Column(
-                                        children: [
-                                          const IntroSection(),
-                                          Get.width < 950
-                                              ? const SizedBox()
-                                              : const ShowcaseAppsSection(),
-                                          Get.width < 950
-                                              ? const SizedBox()
-                                              : const HowItWorksSection(),
-                                          // TestimonialsSection(
-                                          //     scrollToPricingSection:
-                                          //         scrollToPricingSection),
-                                        ],
-                                      ),
-                                editController.showComp2.value == false
-                                    ? const SizedBox()
-                                    : Column(
-                                        children: const [
-                                          TextBannerSection(),
-                                          MixBannerSection(),
-                                          BenefitBannerSection(),
-                                          CheckoutInfoSection(),
-                                          NumbersBannerSection(),
-                                        ],
-                                      ),
-                                editController.showComp3.value == false
-                                    ? const SizedBox()
-                                    : Column(
-                                        children: [
-                                          HelpBannerSection(
-                                            scrollToPricingSection:
-                                                scrollToPricingSection,
+                      : Stack(
+                          children: [
+                            RawScrollbar(
+                              // : Scrollbar(
+                              radius: const Radius.circular(20),
+                              thumbColor: Colors.blue,
+                              controller: _scrollController,
+                              trackVisibility: true,
+                              thickness: Get.width > 800 ? 15 : 10,
+                              interactive: true,
+                              thumbVisibility: true,
+                              child: SingleChildScrollView(
+                                controller: _scrollController,
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    editController.showComp1.value == false
+                                        ? const SizedBox()
+                                        : Column(
+                                            children: [
+                                              const IntroSection(),
+                                              Get.width < 950
+                                                  ? const SizedBox()
+                                                  : const ShowcaseAppsSection(),
+                                              Get.width < 950
+                                                  ? const SizedBox()
+                                                  : const HowItWorksSection(),
+                                              // TestimonialsSection(
+                                              //     scrollToPricingSection:
+                                              //         scrollToPricingSection),
+                                            ],
                                           ),
-                                          Get.width < 950
-                                              ? const SizedBox()
-                                              : const CaseStudySection(),
-                                          /*Get.width < 950
-                                              ? const SizedBox()
-                                              : */
-                                          // const CheckoutInfoSection(),
-                                          Get.width < 950
-                                              ? const SizedBox()
-                                              : PricingSection(
-                                                  key: PricingSection
-                                                      .pricingSectionKey),
-                                        ],
-                                      ),
-                                editController.showComp4.value == false
-                                    ? const SizedBox()
-                                    : Column(
-                                        children: [
-                                          CheckoutSection(),
-                                          AppsDemoSection(),
-                                          TestimonialsSection(
-                                              scrollToPricingSection:
-                                                  scrollToPricingSection),
-                                          FAQsSection(),
-                                          InfoSection(),
-                                          AddressSection(),
-                                        ],
-                                      ),
-                                // editController.showComp1.value == false ||
-                                editController.showComp2.value == false ||
-                                        editController.showComp3.value ==
-                                            false ||
-                                        editController.showComp4.value == false
-                                    ? const Center(
-                                        child: CircularProgressIndicator(),
-                                      )
-                                    : const SizedBox()
-                              ],
+                                    editController.showComp2.value == false
+                                        ? const SizedBox()
+                                        : Column(
+                                            children: const [
+                                              TextBannerSection(),
+                                              MixBannerSection(),
+                                              BenefitBannerSection(),
+                                              CheckoutInfoSection(),
+                                              NumbersBannerSection(),
+                                            ],
+                                          ),
+                                    editController.showComp3.value == false
+                                        ? const SizedBox()
+                                        : Column(
+                                            children: [
+                                              HelpBannerSection(
+                                                scrollToPricingSection:
+                                                    scrollToPricingSection,
+                                              ),
+                                              Get.width < 950
+                                                  ? const SizedBox()
+                                                  : const CaseStudySection(),
+                                              /*Get.width < 950
+                                                  ? const SizedBox()
+                                                  : */
+                                              // const CheckoutInfoSection(),
+                                              Get.width < 950
+                                                  ? const SizedBox()
+                                                  : PricingSection(
+                                                      key: PricingSection
+                                                          .pricingSectionKey),
+                                            ],
+                                          ),
+                                    editController.showComp4.value == false
+                                        ? const SizedBox()
+                                        : Column(
+                                            children: [
+                                              const CheckoutSection(),
+                                              const AppsDemoSection(),
+                                              TestimonialsSection(
+                                                  scrollToPricingSection:
+                                                      scrollToPricingSection),
+                                              const FAQsSection(),
+                                              const InfoSection(),
+                                              const AddressSection(),
+                                            ],
+                                          ),
+                                    // editController.showComp1.value == false ||
+                                    editController.showComp2.value == false ||
+                                            editController.showComp3.value ==
+                                                false ||
+                                            editController.showComp4.value ==
+                                                false
+                                        ? const Center(
+                                            child: CircularProgressIndicator(),
+                                          )
+                                        : const SizedBox()
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
+                            Align(
+                                alignment: Alignment.bottomCenter,
+                                child: numberBannerController.isVisible.value
+                                    ? FittedBox(
+                                        fit: BoxFit.fitHeight,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 15),
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          color: Colors.blue,
+                                          child: MediaQuery.of(context)
+                                                      .size
+                                                      .width >
+                                                  700
+                                              ? Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      "Launch Your Own Branded App, Fast AI Easier Way",
+                                                      style: AppTextStyle
+                                                          .regular400
+                                                          .copyWith(
+                                                              fontSize: 18),
+                                                    ),
+                                                    const SizedBox(width: 15),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        Get.to(() =>
+                                                                const CustomerCallScreen())!
+                                                            .whenComplete(() {
+                                                          Future.delayed(
+                                                              Duration.zero,
+                                                              () {
+                                                            webLandingPageController
+                                                                .getUserCount();
+                                                          });
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        color: AppColors
+                                                            .whiteColor,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 18,
+                                                                vertical: 10),
+                                                        child: const Text(
+                                                            "Get Started",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold)),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 15),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          numberBannerController
+                                                              .isVisible
+                                                              .value = false;
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons.close_sharp))
+                                                  ],
+                                                )
+                                              : Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      "Launch Your Own Branded App, Fast AI Easier Way",
+                                                      style: AppTextStyle
+                                                          .regular400
+                                                          .copyWith(
+                                                              fontSize: 18),
+                                                    ),
+                                                    const SizedBox(height: 10),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Get.to(() =>
+                                                                    const CustomerCallScreen())!
+                                                                .whenComplete(
+                                                                    () {
+                                                              Future.delayed(
+                                                                  Duration.zero,
+                                                                  () {
+                                                                webLandingPageController
+                                                                    .getUserCount();
+                                                              });
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            color: AppColors
+                                                                .whiteColor,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        18,
+                                                                    vertical:
+                                                                        10),
+                                                            child: const Text(
+                                                              "Get Started",
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                            width: 10),
+                                                        IconButton(
+                                                            onPressed: () {
+                                                              numberBannerController
+                                                                      .isVisible
+                                                                      .value =
+                                                                  false;
+                                                            },
+                                                            icon: const Icon(Icons
+                                                                .close_sharp))
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                        ),
+                                      )
+                                    : const SizedBox())
+                          ],
                         );
                 }),
               ),

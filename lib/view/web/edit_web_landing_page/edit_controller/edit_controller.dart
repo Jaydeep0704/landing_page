@@ -182,7 +182,7 @@ class EditController extends GetxController {
           hideLoadingDialog();
         }
       } else if (response['error'] != null) {
-        showSnackbar(title: "Warning", message: "Error");
+        showSnackbar(message: "Error");
         hideLoadingDialog();
       }
     } catch (e, s) {
@@ -231,12 +231,11 @@ class EditController extends GetxController {
         hideLoadingDialog();
         if (response['error'] == null) {
           if (response['body']['status'].toString() == "1") {
-            showSnackbar(
-                title: "Success", message: "${response['body']['msg']}");
+            showSnackbar(message: "${response['body']['msg']}");
             getData();
           }
         } else if (response['error'] != null) {
-          showSnackbar(title: "Warning", message: "Error");
+          showSnackbar(message: "Error");
         }
       }
     } catch (e, s) {
@@ -282,13 +281,12 @@ class EditController extends GetxController {
         if (response['error'] == null) {
           if (response['body']['status'].toString() == "1") {
             log("successfully updated ------------ :: ");
-            showSnackbar(
-                title: "Success", message: "${response['body']['msg']}");
+            showSnackbar(message: "${response['body']['msg']}");
             getData();
           }
         } else if (response['error'] != null) {
           log("error ------------ :: ");
-          showSnackbar(title: "Warning", message: "Error");
+          showSnackbar(message: "Error");
         }
       } else {
         var response = await HttpHandler.postHttpMethod(
@@ -303,13 +301,12 @@ class EditController extends GetxController {
         if (response['error'] == null) {
           if (response['body']['status'].toString() == "1") {
             log("successfully updated ------------ :: ");
-            showSnackbar(
-                title: "Success", message: "${response['body']['msg']}");
+            showSnackbar(message: "${response['body']['msg']}");
             getData();
           }
         } else if (response['error'] != null) {
           log("error ------------ :: ");
-          showSnackbar(title: "Warning", message: "Error");
+          showSnackbar(message: "Error");
         }
       }
     } catch (e, s) {
