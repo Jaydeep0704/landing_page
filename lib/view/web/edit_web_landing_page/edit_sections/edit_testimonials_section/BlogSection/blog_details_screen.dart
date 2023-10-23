@@ -128,22 +128,6 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                   relatedBlogs(),
                 ],
               ),
-
-              // child: SingleChildScrollView(
-              //   scrollDirection: Axis.vertical,
-              //   child: Column(
-              //     children: [
-              //       blogData(),
-              //       const SizedBox(width: 13),
-              //       const Divider(
-              //         color: AppColors.greyBorderColor,
-              //         thickness: 0.5,
-              //       ),
-              //       const SizedBox(width: 13),
-              //       relatedBlogs(),
-              //     ],
-              //   ),
-              // ),
             ),
             const Expanded(child: SizedBox()),
           ],

@@ -39,4 +39,9 @@ class AppColors {
   static const Color bgNaturalGrey = Color(0xff948484);
 
   static const Color borderColor = Color(0xffd3d3d3);
+
+  //
+  // static const Color customerConnectBox = Color(0xff301934);
+  static Color customerConnectBox = Colors.purple.shade200;
+  // static Color customerConnectBox = Colors.deepPurple;
 }

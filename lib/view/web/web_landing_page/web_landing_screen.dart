@@ -339,7 +339,8 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                               vertical: 15),
                                           width:
                                               MediaQuery.of(context).size.width,
-                                          color: Colors.blue,
+                                          // color: Colors.blue,
+                                          color: AppColors.customerConnectBox,
                                           child: MediaQuery.of(context)
                                                       .size
                                                       .width >
@@ -411,7 +412,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                                     Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
-                                                              .spaceEvenly,
+                                                              .spaceAround,
                                                       children: [
                                                         InkWell(
                                                           onTap: () {
@@ -447,7 +448,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                                           ),
                                                         ),
                                                         const SizedBox(
-                                                            width: 10),
+                                                            width: 20),
                                                         IconButton(
                                                             onPressed: () {
                                                               numberBannerController

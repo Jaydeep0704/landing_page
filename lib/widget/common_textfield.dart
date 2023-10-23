@@ -138,16 +138,13 @@ class CommonTextField extends StatelessWidget {
             style: AppTextStyle.regular500.copyWith(fontSize: textSize ?? 15),
             decoration: InputDecoration(
               fillColor: bgColor ?? AppColors.whiteColor,
-              // contentPadding: contentPadding ??
-              //     const EdgeInsets.only(top: 8, bottom: 16, right: 4, left: 20),
               isDense: true,
               filled: true,
               counterText: "",
               hintText: hintText ?? "",
 
               suffixIcon: suffixIcon,
-              // suffixText: suffixText,
-              // suffixStyle: suffixStyle,
+
               prefixIcon: prefixIcon,
               hintStyle: hintStyle ??
                   AppTextStyle.regular400.copyWith(

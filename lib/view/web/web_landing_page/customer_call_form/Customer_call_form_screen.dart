@@ -220,9 +220,7 @@ class _CustomerCallScreenState extends State<CustomerCallScreen> {
                                           ),
                                         ),
                                         const SizedBox(height: 5),
-                                        if (submitPressed &&
-                                            customerCallController
-                                                .phoneController.value.isEmpty)
+                                        if (submitPressed && customerCallController.phoneController.value.isEmpty)
                                           const Text(
                                             "    Please Enter Phone Number",
                                             style: TextStyle(
@@ -349,10 +347,7 @@ class _CustomerCallScreenState extends State<CustomerCallScreen> {
                                     }).toList(),
                                   ),
                                   const SizedBox(height: 5),
-                                  if (submitPressed &&
-                                      customerCallController
-                                              .selectedOption.value ==
-                                          'Select company size')
+                                  if (submitPressed && customerCallController.selectedOption.value == 'Select company size')
                                     const Text(
                                       '  Please select a company size.',
                                       style: TextStyle(

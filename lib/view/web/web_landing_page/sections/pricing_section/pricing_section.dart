@@ -38,8 +38,7 @@ class _PricingSectionState extends State<PricingSection> {
 
   planFunc() {
     if(Get.width < 950) {
-      pricingScreenController.getPlansData(
-          lat: "21.2378888", long: "72.863352");
+      pricingScreenController.getPlansData(lat: "21.2378888", long: "72.863352");
       getUserLocation();
     }
   }
@@ -60,20 +59,17 @@ class _PricingSectionState extends State<PricingSection> {
       );
     } else if (permission == LocationPermission.denied) {
       pricingScreenController.isLocation.value = false;
-      pricingScreenController.getPlansData(
-          lat: "21.2378888", long: "72.863352");
+      pricingScreenController.getPlansData(lat: "21.2378888", long: "72.863352");
       permission = await Geolocator.requestPermission();
 
       if (permission == LocationPermission.denied) {
         pricingScreenController.isLocation.value = false;
-        pricingScreenController.getPlansData(
-            lat: "21.2378888", long: "72.863352");
+        pricingScreenController.getPlansData(lat: "21.2378888", long: "72.863352");
         // Handle the scenario when the user denies the location permission
         return Future.error('Location permission denied');
       }
     } else if (permission == LocationPermission.unableToDetermine) {
-      pricingScreenController.getPlansData(
-          lat: "21.2378888", long: "72.863352");
+      pricingScreenController.getPlansData(lat: "21.2378888", long: "72.863352");
       pricingScreenController.isLocation.value = false;
     } else if (permission == LocationPermission.deniedForever) {
       pricingScreenController.getPlansData(
@@ -188,9 +184,6 @@ class _PricingSectionState extends State<PricingSection> {
                   ),
                 ),
               ),
-
-
-
               Obx(() {
                 return pricingScreenController.isLocation.value == true
                     ? const SizedBox()
@@ -240,7 +233,6 @@ class _PricingSectionState extends State<PricingSection> {
                     );
                   }),
               const SizedBox(height: 10),
-
               Center(
                 child:
                 SizedBox(
