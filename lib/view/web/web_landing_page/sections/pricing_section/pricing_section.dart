@@ -674,54 +674,11 @@ class _PricingSectionState extends State<PricingSection> {
                   )
                       : Container(),
                   const SizedBox(height: 40),
-
-                  // data["plan_name"] == "Enterprise"
-                  //     ? GestureDetector(
-                  //   onTap: () {
-                  //     print("here here...");
-                  //     //openwhatsapp();
-                  //     Get.dialog(purchaseDialog(isPurchaseButton: false));
-                  //   },
-                  //   child: Container(
-                  //     width: double.infinity,
-                  //     alignment: Alignment.center,
-                  //     color: AppColors.lightBlueColor,
-                  //     margin: const EdgeInsets.only(
-                  //         left: 8, right: 8, top: 16),
-                  //     padding: const EdgeInsets.only(top: 8, bottom: 8),
-                  //     child: Text("CONNECT US",
-                  //       style: AppTextStyle.regular500.copyWith(
-                  //           fontSize: 14,
-                  //           color: AppColors.whiteColor),),
-                  //   ),
-                  // )
-                  //     : GestureDetector(
-                  //   onTap: () {
-                  //     // goToPuchasePlan(planModel);
-                  //     Get.dialog(purchaseDialog(isPurchaseButton: true));
-                  //   },
-                  //   child: Container(
-                  //     width: double.infinity,
-                  //     alignment: Alignment.center,
-                  //     color: AppColors.lightBlueColor,
-                  //     margin: const EdgeInsets.only(
-                  //         left: 8, right: 8, top: 16),
-                  //     padding: const EdgeInsets.only(top: 8, bottom: 8),
-                  //     child: Text("PURCHASE PLAN",
-                  //       style: AppTextStyle.regular500.copyWith(
-                  //           fontSize: 14,
-                  //           color: AppColors.whiteColor),),
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 20),
                 ],
               ),
             ),
           )),
-          // Positioned(
-          //   left: 0,right: 0,
-          //   bottom: 0,
-            /*child: */data["plan_name"] == "Enterprise"
+          data["plan_name"] == "Enterprise"
               ? GestureDetector(
             onTap: () {
               //openwhatsapp();
@@ -745,7 +702,8 @@ class _PricingSectionState extends State<PricingSection> {
               : GestureDetector(
             onTap: () {
               // goToPuchasePlan(planModel);
-              Get.dialog(purchaseDialog(isPurchaseButton: true));
+              // Get.dialog(purchaseDialog(isPurchaseButton: true));
+              redirectFreeTrial(redirectTo: data["redirect_to"]);
             },
             child: Container(
               height: 40,
@@ -755,13 +713,14 @@ class _PricingSectionState extends State<PricingSection> {
               margin: const EdgeInsets.only(
                   left: 8, right: 8, top: 16),
               padding: const EdgeInsets.only(top: 8, bottom: 8),
-              child: Text("PURCHASE PLAN",
+              child: Text(
+                // "PURCHASE PLAN",
+                "Try 7 days free Trial",
                 style: AppTextStyle.regular500.copyWith(
                     fontSize: 14,
                     color: AppColors.whiteColor),),
             ),
            ),
-          // )
         ],
       ),
     );
@@ -777,7 +736,7 @@ class _PricingSectionState extends State<PricingSection> {
 
 }
 
-AlertDialog purchaseDialog({bool? isPurchaseButton}) {
+AlertDialog purchaseDialog({bool? isPurchaseButton,String? redirectTo}) {
   return AlertDialog(
     content: Container(
       decoration: const BoxDecoration(
@@ -824,4 +783,19 @@ AlertDialog purchaseDialog({bool? isPurchaseButton}) {
     ),
     // actions: [],
   );
+}
+redirectFreeTrial({String? redirectTo}) async {
+  String instagramAppUrl = redirectTo == "App"
+      ?AppString.playStoreAppLink
+      :redirectTo == "Web" ||redirectTo == ""
+      ?AppString.websiteLink
+      :AppString.websiteLink;
+
+
+  if (await canLaunchUrl(Uri.parse(instagramAppUrl))) {
+    await launchUrl(Uri.parse(instagramAppUrl));
+  } else {
+    print("else");
+    await launchUrl(Uri.parse(instagramAppUrl));
+  }
 }

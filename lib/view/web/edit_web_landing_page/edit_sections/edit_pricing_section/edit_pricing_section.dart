@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grobiz_web_landing/config/api_string.dart';
 import 'package:grobiz_web_landing/config/app_colors.dart';
+import 'package:grobiz_web_landing/config/app_string.dart';
 import 'package:grobiz_web_landing/config/text_style.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/pricing_section_controller.dart';
 import 'package:grobiz_web_landing/view/web/web_landing_page/sections/pricing_section/pricing_section.dart';
@@ -11,6 +12,7 @@ import 'package:grobiz_web_landing/widget/common_bg_color_pick.dart';
 import 'package:grobiz_web_landing/view/web/edit_web_landing_page/edit_controller/edit_controller.dart';
 import 'package:grobiz_web_landing/widget/common_bg_img_pick.dart';
 import 'package:grobiz_web_landing/widget/edit_text_dialog.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class EditPricingSection extends StatefulWidget {
@@ -725,7 +727,8 @@ class _EditPricingSectionState extends State<EditPricingSection> {
                 : GestureDetector(
               onTap: () {
                 // goToPuchasePlan(planModel);
-                Get.dialog(purchaseDialog(isPurchaseButton: true));
+                // Get.dialog(purchaseDialog(isPurchaseButton: true));
+                redirectFreeTrial(redirectTo: data["redirect_to"]);
               },
               child: Container(
                 height: 40,
@@ -735,7 +738,9 @@ class _EditPricingSectionState extends State<EditPricingSection> {
                 margin: const EdgeInsets.only(
                     left: 8, right: 8, top: 16),
                 padding: const EdgeInsets.only(top: 8, bottom: 8),
-                child: Text("PURCHASE PLAN",
+                child: Text(
+                  // "PURCHASE PLAN",
+                  "Try 7 days free Trial",
                   style: AppTextStyle.regular500.copyWith(
                       fontSize: 14,
                       color: AppColors.whiteColor),),
@@ -754,3 +759,4 @@ class _EditPricingSectionState extends State<EditPricingSection> {
     });
   }
 }
+

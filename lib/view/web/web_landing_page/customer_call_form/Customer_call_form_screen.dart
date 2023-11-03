@@ -119,8 +119,7 @@ class _CustomerCallScreenState extends State<CustomerCallScreen> {
                             const Text("Phone Number"),
                             const SizedBox(height: 10),
                             Obx(() {
-                              return customerCallController
-                                      .countryCodeController.value.isEmpty
+                              return customerCallController.countryCodeController.value.isEmpty
                                   ? const SizedBox()
                                   : Column(
                                       crossAxisAlignment:
@@ -130,16 +129,13 @@ class _CustomerCallScreenState extends State<CustomerCallScreen> {
                                           focusNode: focusNode,
                                           keyboardType: TextInputType.phone,
                                           inputFormatters: [
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp('[0-9]')),
+                                            FilteringTextInputFormatter.allow(RegExp('[0-9]')),
                                           ],
                                           validator: (v) {
                                             if (v!.toString().isEmpty) {
                                               print("Enter Phone Number");
                                               print("value of v :-: $v");
-                                              showSnackbar(
-                                                  message:
-                                                      "Enter Phone Number");
+                                              showSnackbar(message: "Enter Phone Number");
                                             }
                                             return null;
                                           },

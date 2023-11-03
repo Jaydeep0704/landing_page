@@ -335,16 +335,12 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                     ? FittedBox(
                                         fit: BoxFit.fitHeight,
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 15),
+                                          padding: EdgeInsets.symmetric(vertical:  MediaQuery.of(context).size.width > 700?15:5),
                                           width:
                                               MediaQuery.of(context).size.width,
                                           // color: Colors.blue,
                                           color: AppColors.customerConnectBox,
-                                          child: MediaQuery.of(context)
-                                                      .size
-                                                      .width >
-                                                  700
+                                          child: MediaQuery.of(context).size.width > 700
                                               ? Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
@@ -406,9 +402,9 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                                       style: AppTextStyle
                                                           .regular400
                                                           .copyWith(
-                                                              fontSize: 18),
+                                                              fontSize: 14),
                                                     ),
-                                                    const SizedBox(height: 10),
+                                                    const SizedBox(height: 5),
                                                     Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -437,7 +433,7 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                                                     horizontal:
                                                                         18,
                                                                     vertical:
-                                                                        10),
+                                                                        5),
                                                             child: const Text(
                                                               "Get Started",
                                                               style: TextStyle(
@@ -447,17 +443,23 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                                             ),
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                            width: 20),
-                                                        IconButton(
-                                                            onPressed: () {
+                                                        const SizedBox(width: 20),
+                                                        // IconButton(
+                                                        //     onPressed: () {
+                                                        //       numberBannerController
+                                                        //               .isVisible
+                                                        //               .value =
+                                                        //           false;
+                                                        //     },
+                                                        //     icon: const Icon(Icons.close_sharp)),
+                                                        InkWell(
+                                                            onTap: () {
                                                               numberBannerController
-                                                                      .isVisible
-                                                                      .value =
-                                                                  false;
+                                                                  .isVisible
+                                                                  .value =
+                                                              false;
                                                             },
-                                                            icon: const Icon(Icons
-                                                                .close_sharp))
+                                                          child: const Icon(Icons.close_sharp)),
                                                       ],
                                                     )
                                                   ],
