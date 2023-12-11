@@ -109,9 +109,7 @@ class _DetailFAQsState extends State<DetailFAQs> {
                                 itemBuilder: (context, index) {
                                   var data = faqController.faqType[index];
 
-                                  bool isExpanded =
-                                      faqController.faqTypeShowHide[index] ??
-                                          false;
+                                  bool isExpanded = faqController.faqTypeShowHide[index] ?? false;
                                   return Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -135,8 +133,7 @@ class _DetailFAQsState extends State<DetailFAQs> {
                                               },
                                               icon: Icon(isExpanded
                                                   ? Icons.arrow_drop_up_sharp
-                                                  : Icons
-                                                      .arrow_drop_down_sharp))
+                                                  : Icons.arrow_drop_down_sharp))
                                         ],
                                       ),
                                       const SizedBox(height: 20),

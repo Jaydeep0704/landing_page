@@ -212,8 +212,7 @@ class _AppsDemoSectionState extends State<AppsDemoSection> {
                                                 .allDataResponse[0]["apps_demo_details"][0]["selected_app_name_color"]
                                                 .toString()))),
 
-                                        speed: const Duration(
-                                            milliseconds: 3),
+                                        speed: const Duration(milliseconds: 3),
                                       ),
                                     ],
                                     totalRepeatCount: 1,

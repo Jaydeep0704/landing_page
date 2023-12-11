@@ -135,8 +135,7 @@ class FaqController extends GetxController {
           log("response[faq_types]  ---- ${response['body']["faq_types"]}");
           faqType.value =
               faqTypeConvertToMapList(response['body']["faq_types"]);
-          faqTypeShowHide.value =
-              List.generate(faqType.length, (index) => true);
+          faqTypeShowHide.value = List.generate(faqType.length, (index) => true);
         }
       } else if (response['error'] != null) {
         log("inside getFaqType ---------4");

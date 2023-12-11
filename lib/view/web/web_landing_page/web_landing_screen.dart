@@ -329,144 +329,144 @@ class _WebLandingScreenState extends State<WebLandingScreen> {
                                 ),
                               ),
                             ),
-                            Align(
-                                alignment: Alignment.bottomCenter,
-                                child: numberBannerController.isVisible.value
-                                    ? FittedBox(
-                                        fit: BoxFit.fitHeight,
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(vertical:  MediaQuery.of(context).size.width > 700?15:5),
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          // color: Colors.blue,
-                                          color: AppColors.customerConnectBox,
-                                          child: MediaQuery.of(context).size.width > 700
-                                              ? Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "Launch Your Own Branded App, Fast AI Easier Way",
-                                                      style: AppTextStyle
-                                                          .regular400
-                                                          .copyWith(
-                                                              fontSize: 18),
-                                                    ),
-                                                    const SizedBox(width: 15),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        Get.to(() =>
-                                                                const CustomerCallScreen())!
-                                                            .whenComplete(() {
-                                                          Future.delayed(
-                                                              Duration.zero,
-                                                              () {
-                                                            webLandingPageController
-                                                                .getUserCount();
-                                                          });
-                                                        });
-                                                      },
-                                                      child: Container(
-                                                        color: AppColors
-                                                            .whiteColor,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal: 18,
-                                                                vertical: 10),
-                                                        child: const Text(
-                                                            "Get Started",
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(width: 15),
-                                                    IconButton(
-                                                        onPressed: () {
-                                                          numberBannerController
-                                                              .isVisible
-                                                              .value = false;
-                                                        },
-                                                        icon: const Icon(
-                                                            Icons.close_sharp))
-                                                  ],
-                                                )
-                                              : Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "Launch Your Own Branded App, Fast AI Easier Way",
-                                                      style: AppTextStyle
-                                                          .regular400
-                                                          .copyWith(
-                                                              fontSize: 14),
-                                                    ),
-                                                    const SizedBox(height: 5),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: [
-                                                        InkWell(
-                                                          onTap: () {
-                                                            Get.to(() =>
-                                                                    const CustomerCallScreen())!
-                                                                .whenComplete(
-                                                                    () {
-                                                              Future.delayed(
-                                                                  Duration.zero,
-                                                                  () {
-                                                                webLandingPageController
-                                                                    .getUserCount();
-                                                              });
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            color: AppColors
-                                                                .whiteColor,
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        18,
-                                                                    vertical:
-                                                                        5),
-                                                            child: const Text(
-                                                              "Get Started",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        const SizedBox(width: 20),
-                                                        // IconButton(
-                                                        //     onPressed: () {
-                                                        //       numberBannerController
-                                                        //               .isVisible
-                                                        //               .value =
-                                                        //           false;
-                                                        //     },
-                                                        //     icon: const Icon(Icons.close_sharp)),
-                                                        InkWell(
-                                                            onTap: () {
-                                                              numberBannerController
-                                                                  .isVisible
-                                                                  .value =
-                                                              false;
-                                                            },
-                                                          child: const Icon(Icons.close_sharp)),
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                        ),
-                                      )
-                                    : const SizedBox())
+                            // Align(
+                            //     alignment: Alignment.bottomCenter,
+                            //     child: numberBannerController.isVisible.value
+                            //         ? FittedBox(
+                            //             fit: BoxFit.fitHeight,
+                            //             child: Container(
+                            //               padding: EdgeInsets.symmetric(vertical:  MediaQuery.of(context).size.width > 700?15:5),
+                            //               width:
+                            //                   MediaQuery.of(context).size.width,
+                            //               // color: Colors.blue,
+                            //               color: AppColors.customerConnectBox,
+                            //               child: MediaQuery.of(context).size.width > 700
+                            //                   ? Row(
+                            //                       mainAxisAlignment:
+                            //                           MainAxisAlignment.center,
+                            //                       children: [
+                            //                         Text(
+                            //                           "Launch Your Own Branded App, Fast AI Easier Way",
+                            //                           style: AppTextStyle
+                            //                               .regular400
+                            //                               .copyWith(
+                            //                                   fontSize: 18),
+                            //                         ),
+                            //                         const SizedBox(width: 15),
+                            //                         InkWell(
+                            //                           onTap: () {
+                            //                             Get.to(() =>
+                            //                                     const CustomerCallScreen())!
+                            //                                 .whenComplete(() {
+                            //                               Future.delayed(
+                            //                                   Duration.zero,
+                            //                                   () {
+                            //                                 webLandingPageController
+                            //                                     .getUserCount();
+                            //                               });
+                            //                             });
+                            //                           },
+                            //                           child: Container(
+                            //                             color: AppColors
+                            //                                 .whiteColor,
+                            //                             padding:
+                            //                                 const EdgeInsets
+                            //                                         .symmetric(
+                            //                                     horizontal: 18,
+                            //                                     vertical: 10),
+                            //                             child: const Text(
+                            //                                 "Get Started",
+                            //                                 style: TextStyle(
+                            //                                     fontWeight:
+                            //                                         FontWeight
+                            //                                             .bold)),
+                            //                           ),
+                            //                         ),
+                            //                         const SizedBox(width: 15),
+                            //                         IconButton(
+                            //                             onPressed: () {
+                            //                               numberBannerController
+                            //                                   .isVisible
+                            //                                   .value = false;
+                            //                             },
+                            //                             icon: const Icon(
+                            //                                 Icons.close_sharp))
+                            //                       ],
+                            //                     )
+                            //                   : Column(
+                            //                       mainAxisAlignment:
+                            //                           MainAxisAlignment.center,
+                            //                       children: [
+                            //                         Text(
+                            //                           "Launch Your Own Branded App, Fast AI Easier Way",
+                            //                           style: AppTextStyle
+                            //                               .regular400
+                            //                               .copyWith(
+                            //                                   fontSize: 14),
+                            //                         ),
+                            //                         const SizedBox(height: 5),
+                            //                         Row(
+                            //                           mainAxisAlignment:
+                            //                               MainAxisAlignment
+                            //                                   .spaceAround,
+                            //                           children: [
+                            //                             InkWell(
+                            //                               onTap: () {
+                            //                                 Get.to(() =>
+                            //                                         const CustomerCallScreen())!
+                            //                                     .whenComplete(
+                            //                                         () {
+                            //                                   Future.delayed(
+                            //                                       Duration.zero,
+                            //                                       () {
+                            //                                     webLandingPageController
+                            //                                         .getUserCount();
+                            //                                   });
+                            //                                 });
+                            //                               },
+                            //                               child: Container(
+                            //                                 color: AppColors
+                            //                                     .whiteColor,
+                            //                                 padding:
+                            //                                     const EdgeInsets
+                            //                                             .symmetric(
+                            //                                         horizontal:
+                            //                                             18,
+                            //                                         vertical:
+                            //                                             5),
+                            //                                 child: const Text(
+                            //                                   "Get Started",
+                            //                                   style: TextStyle(
+                            //                                       fontWeight:
+                            //                                           FontWeight
+                            //                                               .bold),
+                            //                                 ),
+                            //                               ),
+                            //                             ),
+                            //                             const SizedBox(width: 20),
+                            //                             // IconButton(
+                            //                             //     onPressed: () {
+                            //                             //       numberBannerController
+                            //                             //               .isVisible
+                            //                             //               .value =
+                            //                             //           false;
+                            //                             //     },
+                            //                             //     icon: const Icon(Icons.close_sharp)),
+                            //                             InkWell(
+                            //                                 onTap: () {
+                            //                                   numberBannerController
+                            //                                       .isVisible
+                            //                                       .value =
+                            //                                   false;
+                            //                                 },
+                            //                               child: const Icon(Icons.close_sharp)),
+                            //                           ],
+                            //                         )
+                            //                       ],
+                            //                     ),
+                            //             ),
+                            //           )
+                            //         : const SizedBox())
                           ],
                         );
                 }),
