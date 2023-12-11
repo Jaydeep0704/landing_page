@@ -115,15 +115,18 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                               height: Get.width > 600 ? 350 :Get.width < 599 && Get.width >450  ? 250 :Get.width >350  ? 300 : 380,
                               width: Get.width > 600 ? 575 : Get.width * 0.92,
                               decoration: const BoxDecoration(
-                                color: AppColors.green,
+                                // color: AppColors.green,
+                                color: Color(0xff9192FF),
+                                // color: Color(0xffCFCFFF),
+
                                 borderRadius: BorderRadius.all(
                                     Radius.circular(25)),
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 25, top: 20, bottom: 20),
+                                padding: const EdgeInsets.only(left: 25, top: 20, /*bottom: 20*/),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Expanded(
                                       child: Column(
@@ -136,78 +139,78 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                               width: 50),
                                           const SizedBox(height: 25),
                                           Text(
-                                            "Launch Your Own Branded App, Fast AI Easier Way",
+                                            // "Launch Your Own Branded App, Fast AI Easier Way",
+                                            "Can't find what you're looking for?",
                                             textAlign: TextAlign.start,
                                             style: AppTextStyle.regular800
                                                 .copyWith(fontSize: Get.width > 450 ?22: 18),
                                           ),
                                           const SizedBox(height: 25),
-                                          Wrap(
-                                              children: [
-                                                InkWell(
-                                                  onTap: () {
-                                                    Get
-                                                        .to(() => const CustomerCallScreen())!
-                                                        .whenComplete(
+                                          InkWell(
+                                            onTap: () {
+                                              Get
+                                                  .to(() => const CustomerCallScreen())!
+                                                  .whenComplete(
+                                                      () {
+                                                    Future.delayed(
+                                                        Duration.zero,
                                                             () {
-                                                          Future.delayed(
-                                                              Duration.zero,
-                                                                  () {
-                                                                webLandingPageController
-                                                                    .getUserCount();
-                                                              });
+                                                          webLandingPageController
+                                                              .getUserCount();
                                                         });
-                                                  },
-                                                  child: FittedBox(
-                                                    fit: BoxFit.scaleDown,
-                                                    child: Container(
-                                                      color: AppColors
-                                                          .whiteColor,
-                                                      padding:
-                                                      const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal:
-                                                          18,
-                                                          vertical:
-                                                          5),
-                                                      child: const Text(
-                                                        "Get Started",
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  });
+                                            },
+                                            child: FittedBox(
+                                              fit: BoxFit.scaleDown,
+                                              child: Container(
+
+                                                decoration: const BoxDecoration(
+                                                    color: AppColors.whiteColor,
+                                                  borderRadius: BorderRadius.all(Radius.circular(10))
                                                 ),
-                                                InkWell(
-                                                  onTap: () {
-                                                    Get.back();
-                                                  },
-                                                  child: const Padding(
-                                                    padding: EdgeInsets.symmetric(
-                                                        horizontal: 18,
-                                                        vertical: 5),
-                                                    child: Text(
-                                                      "Close",
-                                                      style: TextStyle(
-                                                          decoration: TextDecoration
-                                                              .underline,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
-                                                    ),
-                                                  ),
+                                                padding:
+                                                const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                                                child: const Text(
+                                                  // "Get Started",
+                                                  "Request a callback",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                      FontWeight.bold),
                                                 ),
-                                              ]
+                                              ),
+                                            ),
                                           )
                                         ],
                                       ),
                                     ),
-                                    Image.asset(
-                                        ImagePath.getConnect,
-                                        height: Get.width > 600 ? 350 : 200,
-                                        width: Get.width > 600 ? 350 : 200),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        InkWell(
+                                        onTap: () {
+                                          Get.back();
+                                        },
+                                        child: const Padding(
+                                            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+                                            child : Icon(Icons.close,color: AppColors.blackColor,)
+                                        ),
+                                      ),
+                                        Image.asset(
+                                            ImagePath.getConnect,
+                                            height: Get.width > 600 ? 295 : 195,
+                                            width: Get.width > 600 ? 295 : 195),
+
+                                      ],
+                                    ),
+                                    // InkWell(
+                                    //   onTap: () {
+                                    //     Get.back();
+                                    //   },
+                                    //   child: const Padding(
+                                    //     padding: EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+                                    //     child : Icon(Icons.close,color: AppColors.blackColor,)
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),
