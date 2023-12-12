@@ -8,6 +8,8 @@ class NumberBannerController extends GetxController {
 
   /// customer box visible
   RxBool isVisible = false.obs;
+  RxBool isAlreadyOpen = false.obs;
+  RxInt visibleCount = 0.obs;
 
 
   late VideoPlayerController media1Controller;

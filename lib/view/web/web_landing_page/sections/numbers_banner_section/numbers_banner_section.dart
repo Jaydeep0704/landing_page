@@ -99,9 +99,11 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
               : VisibilityDetector(
             key: const Key('box-visibility-key'),
             onVisibilityChanged: (visibilityInfo) {
-              numberBannerController.isVisible.value =
-                  visibilityInfo.visibleFraction > 0.0;
+              numberBannerController.isVisible.value = visibilityInfo.visibleFraction > 0.0 /*&&visibilityInfo.visibleFraction < 0.1*/;
               if (numberBannerController.isVisible.value == true) {
+              if (numberBannerController.isAlreadyOpen.value == false && numberBannerController.visibleCount.value == 0) {
+                numberBannerController.visibleCount.value = 1;
+                numberBannerController.isAlreadyOpen.value = true;
                 showDialog(context: context, builder: (context) {
                   return LayoutBuilder(builder: (p0, p1) {
                     return Material(
@@ -110,36 +112,26 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Container(
-                              // height: 150,
-                              margin: const EdgeInsets.only(top: 50),
-                              height: Get.width > 600 ? 350 :Get.width < 599 && Get.width >450  ? 250 :Get.width >350  ? 300 : 380,
+                              height: Get.width > 600 ? 350 :315,
                               width: Get.width > 600 ? 575 : Get.width * 0.92,
                               decoration: const BoxDecoration(
-                                // color: AppColors.green,
                                 color: Color(0xff9192FF),
-                                // color: Color(0xffCFCFFF),
-
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(25)),
+                                borderRadius: BorderRadius.all(Radius.circular(25))
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 25, top: 20, /*bottom: 20*/),
+                                padding: const EdgeInsets.only(left: 25, top: 20,),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Expanded(
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Image.asset(
-                                              ImagePath.appLogo, height: 50,
-                                              width: 50),
-                                          const SizedBox(height: 25),
+                                          Image.asset(ImagePath.appLogo, height: 50, width: 50),
+                                          const SizedBox(height: 40),
                                           Text(
-                                            // "Launch Your Own Branded App, Fast AI Easier Way",
                                             "Can't find what you're looking for?",
                                             textAlign: TextAlign.start,
                                             style: AppTextStyle.regular800
@@ -155,28 +147,26 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                                     Future.delayed(
                                                         Duration.zero,
                                                             () {
-                                                          webLandingPageController
-                                                              .getUserCount();
+                                                          webLandingPageController.getUserCount();
                                                         });
                                                   });
                                             },
-                                            child: FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              child: Container(
+                                            child: Container(
 
-                                                decoration: const BoxDecoration(
-                                                    color: AppColors.whiteColor,
-                                                  borderRadius: BorderRadius.all(Radius.circular(10))
-                                                ),
-                                                padding:
-                                                const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-                                                child: const Text(
-                                                  // "Get Started",
-                                                  "Request a callback",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                      FontWeight.bold),
-                                                ),
+                                              decoration: const BoxDecoration(
+                                                  color: AppColors.whiteColor,
+                                                borderRadius: BorderRadius.all(Radius.circular(10))
+                                              ),
+                                              padding:
+                                              const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                                              child: Text(
+                                                // "Get Started",
+                                                "Request a callback",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: Get.width>350?12:10,
+                                                    fontWeight:
+                                                    FontWeight.bold),
                                               ),
                                             ),
                                           )
@@ -185,9 +175,11 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                     ),
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         InkWell(
                                         onTap: () {
+                                          numberBannerController.isAlreadyOpen.value = false;
                                           Get.back();
                                         },
                                         child: const Padding(
@@ -196,21 +188,14 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                                         ),
                                       ),
                                         Image.asset(
-                                            ImagePath.getConnect,
-                                            height: Get.width > 600 ? 295 : 195,
-                                            width: Get.width > 600 ? 295 : 195),
+                                            ImagePath.salesmanBottom,
+                                            height: Get.width > 600 ? 295 : 260,
+                                            width: Get.width > 600 ? 295 : 195,
+                                        ),
 
                                       ],
                                     ),
-                                    // InkWell(
-                                    //   onTap: () {
-                                    //     Get.back();
-                                    //   },
-                                    //   child: const Padding(
-                                    //     padding: EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-                                    //     child : Icon(Icons.close,color: AppColors.blackColor,)
-                                    //   ),
-                                    // ),
+
                                   ],
                                 ),
                               ),
@@ -221,7 +206,9 @@ class _NumbersBannerSectionState extends State<NumbersBannerSection> {
                   },);
                 },);
               }
+              }
               else {
+                numberBannerController.visibleCount.value = 0;
                 print("hide");
               }
             },
